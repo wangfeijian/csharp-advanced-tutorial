@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>K4os.Hash.xxHash.1.0.6.0.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter">
+            <summary>Shim type of K4os.Hash.xxHash.HashAlgorithmAdapter</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.#ctor(K4os.Hash.xxHash.HashAlgorithmAdapter)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.AllInstances.HashCoreByteArrayInt32Int32">
+            <summary>Sets the shim of HashAlgorithmAdapter.HashCore(Byte[] array, Int32 ibStart, Int32 cbSize)</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.AllInstances.HashFinal">
+            <summary>Sets the shim of HashAlgorithmAdapter.HashFinal()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.AllInstances.HashGet">
+            <summary>Sets the shim of HashAlgorithmAdapter.get_Hash()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.AllInstances.HashSizeGet">
+            <summary>Sets the shim of HashAlgorithmAdapter.get_HashSize()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.AllInstances.Initialize">
+            <summary>Sets the shim of HashAlgorithmAdapter.Initialize()</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.Bind(System.IDisposable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.Bind(System.Security.Cryptography.ICryptoTransform)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.ConstructorInt32ActionActionOfByteArrayInt32Int32FuncOfByteArray">
+            <summary>Sets the shim of HashAlgorithmAdapter.HashAlgorithmAdapter(Int32 hashSize, Action reset, Action`3&lt;Byte[],Int32,Int32&gt; update, Func`1&lt;Byte[]&gt; digest)</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.HashCoreByteArrayInt32Int32">
+            <summary>Sets the shim of HashAlgorithmAdapter.HashCore(Byte[] array, Int32 ibStart, Int32 cbSize)</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.HashFinal">
+            <summary>Sets the shim of HashAlgorithmAdapter.HashFinal()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.HashGet">
+            <summary>Sets the shim of HashAlgorithmAdapter.get_Hash()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.HashSizeGet">
+            <summary>Sets the shim of HashAlgorithmAdapter.get_HashSize()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimHashAlgorithmAdapter.Initialize">
+            <summary>Sets the shim of HashAlgorithmAdapter.Initialize()</summary>
+        </member>
+        <member name="T:K4os.Hash.xxHash.Fakes.ShimXXH">
+            <summary>Shim type of K4os.Hash.xxHash.XXH</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimXXH.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimXXH.#ctor(K4os.Hash.xxHash.XXH)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:K4os.Hash.xxHash.Fakes.ShimXXH.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimXXH.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.ShimXXH.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimXXH.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimXXH.Constructor">
+            <summary>Sets the shim of XXH.XXH()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.ShimXXH.ValidateByteArrayInt32Int32">
+            <summary>Sets the shim of XXH.Validate(Byte[] bytes, Int32 offset, Int32 length)</summary>
+        </member>
+        <member name="T:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter">
+            <summary>Stub type of K4os.Hash.xxHash.HashAlgorithmAdapter</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.#ctor(System.Int32,System.Action,System.Action{System.Byte[],System.Int32,System.Int32},System.Func{System.Byte[]})">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.CanReuseTransform">
+            <summary>Sets the stub of HashAlgorithm.get_CanReuseTransform()</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.CanReuseTransformGet">
+            <summary>Sets the stub of HashAlgorithm.get_CanReuseTransform()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.CanTransformMultipleBlocks">
+            <summary>Sets the stub of HashAlgorithm.get_CanTransformMultipleBlocks()</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.CanTransformMultipleBlocksGet">
+            <summary>Sets the stub of HashAlgorithm.get_CanTransformMultipleBlocks()</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.Dispose(System.Boolean)">
+            <summary>Sets the stub of HashAlgorithm.Dispose(Boolean disposing)</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.DisposeBoolean">
+            <summary>Sets the stub of HashAlgorithm.Dispose(Boolean disposing)</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.Hash">
+            <summary>Sets the stub of HashAlgorithmAdapter.get_Hash()</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.HashCore(System.Byte[],System.Int32,System.Int32)">
+            <summary>Sets the stub of HashAlgorithmAdapter.HashCore(Byte[] array, Int32 ibStart, Int32 cbSize)</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.HashCoreByteArrayInt32Int32">
+            <summary>Sets the stub of HashAlgorithmAdapter.HashCore(Byte[] array, Int32 ibStart, Int32 cbSize)</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.HashFinal">
+            <summary>Sets the stub of HashAlgorithmAdapter.HashFinal()</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.HashFinal01">
+            <summary>Sets the stub of HashAlgorithmAdapter.HashFinal()</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.HashGet">
+            <summary>Sets the stub of HashAlgorithmAdapter.get_Hash()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.HashSize">
+            <summary>Sets the stub of HashAlgorithmAdapter.get_HashSize()</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.HashSizeGet">
+            <summary>Sets the stub of HashAlgorithmAdapter.get_HashSize()</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.Initialize">
+            <summary>Sets the stub of HashAlgorithmAdapter.Initialize()</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.Initialize01">
+            <summary>Sets the stub of HashAlgorithmAdapter.Initialize()</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.InitializeStub">
+            <summary>Initializes a new instance of type StubHashAlgorithmAdapter</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.InputBlockSize">
+            <summary>Sets the stub of HashAlgorithm.get_InputBlockSize()</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.InputBlockSizeGet">
+            <summary>Sets the stub of HashAlgorithm.get_InputBlockSize()</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.OutputBlockSize">
+            <summary>Sets the stub of HashAlgorithm.get_OutputBlockSize()</summary>
+        </member>
+        <member name="F:K4os.Hash.xxHash.Fakes.StubHashAlgorithmAdapter.OutputBlockSizeGet">
+            <summary>Sets the stub of HashAlgorithm.get_OutputBlockSize()</summary>
+        </member>
+        <member name="T:K4os.Hash.xxHash.Fakes.StubXXH">
+            <summary>Stub type of K4os.Hash.xxHash.XXH</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.StubXXH.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubXXH.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:K4os.Hash.xxHash.Fakes.StubXXH.InitializeStub">
+            <summary>Initializes a new instance of type StubXXH</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubXXH.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:K4os.Hash.xxHash.Fakes.StubXXH.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+    </members>
+</doc>

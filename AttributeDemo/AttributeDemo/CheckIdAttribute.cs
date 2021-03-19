@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AttributeDemo
 {
+    [AttributeUsage(AttributeTargets.Property)]
     sealed class CheckIdAttribute : CheckAttribute
     {
 
@@ -31,6 +32,7 @@ namespace AttributeDemo
         }
     }
 
+    [AttributeUsage(AttributeTargets.Property)]
     sealed class CheckStringAttribute : CheckAttribute
     {
         public CheckStringAttribute()
