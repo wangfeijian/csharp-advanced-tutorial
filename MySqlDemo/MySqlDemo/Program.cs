@@ -17,7 +17,7 @@ namespace MySqlDemo
                 var customerModel = MySqlHelper.FindSingleData<CustomersModel>(10006);
                 Show(customerModel);
 
-                var newCustomerModel = MySqlHelper.FindSingleData<VendorsModel>(1001);
+                var newCustomerModel = MySqlHelper.FindSingleData<ProductsModel>("ANV01");
                 Show(newCustomerModel);
 
                 var obj = MySqlHelper.FindAllData<OrderItemsModel>(20005);
@@ -29,6 +29,8 @@ namespace MySqlDemo
                 var products = MySqlHelper.FindAllData<ProductsModel>();
                 ShowAll(products);
 
+                Console.WriteLine(MySqlHelper.UpdateData<CustomersModel>("cust_name = 'Wangfeijian',cust_email = 'wangfeijianhao@163.com'",10005)
+                        ? "update success": "update fail");
             }
             catch (Exception e)
             {
