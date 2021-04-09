@@ -1,0 +1,17 @@
+﻿{
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "ConnectionStrings": {
+    "TestConnection": "Server=.;Database=OWNDB;User ID=sa;Password=123456;Trusted_Connection=False;"
+  },
+  "Appsettings": {
+    "SystemName": "PDF .NET CORE",
+    "Date": "2017-07-23",
+    "Author": "PDF"
+  },
+  "ServiceUrl": "http://www.cnblogs.com/chuankang/"
+}

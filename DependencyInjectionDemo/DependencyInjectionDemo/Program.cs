@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.Configuration;
 
 namespace DependencyInjectionDemo
 {
@@ -11,6 +14,12 @@ namespace DependencyInjectionDemo
     {
         static void Main(string[] args)
         {
+            ConfigurationBuilder configuration = new ConfigurationBuilder();
+            configuration.AddJsonFile("jsonconfig.json");
+            var config = configuration.Build();
+            Console.WriteLine(config["ServiceUrl"]);
+            Console.WriteLine(config["Logging:LogLevel:Default"]);
+
             // 准备一个服务容器
             IServiceCollection collection = new ServiceCollection();
 
