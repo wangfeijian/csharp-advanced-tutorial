@@ -1,0 +1,10 @@
+﻿<Application
+    x:Class="AdvanceMVVMDemo.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:AdvanceMVVMDemo"
+    StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <vm:ViewModelLocator xmlns:vm="clr-namespace:AdvanceMVVMDemo.ViewModels" x:Key="Locator" />
+    </Application.Resources>
+</Application>

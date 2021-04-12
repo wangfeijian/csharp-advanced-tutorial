@@ -1,0 +1,141 @@
+﻿<Window
+    x:Class="AdvanceMVVMDemo.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:AdvanceMVVMDemo.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{Binding Restaurant.Name, StringFormat=\{0\}-在线订餐}"
+    Width="1000"
+    Height="600"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}" />
+    </Window.DataContext>
+    <Border
+        Background="Yellow"
+        BorderBrush="Orange"
+        BorderThickness="3"
+        CornerRadius="6">
+        <Grid x:Name="Root" Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Padding="4"
+                BorderBrush="Orange"
+                BorderThickness="1"
+                CornerRadius="6">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Effect>
+                            <DropShadowEffect Color="LightGray" />
+                        </StackPanel.Effect>
+                        <TextBlock
+                            FontFamily="隶书"
+                            FontSize="60"
+                            Text="欢迎光临" />
+                        <TextBlock
+                            FontFamily="隶书"
+                            FontSize="60"
+                            Text="{Binding Restaurant.Name}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            FontFamily="隶书"
+                            FontSize="24"
+                            Text="小店地址：" />
+                        <TextBlock
+                            FontFamily="隶书"
+                            FontSize="24"
+                            Text="{Binding Restaurant.Address}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            FontFamily="隶书"
+                            FontSize="24"
+                            Text="订餐电话：" />
+                        <TextBlock
+                            FontFamily="隶书"
+                            FontSize="24"
+                            Text="{Binding Restaurant.PhoneNumber}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <DataGrid
+                Grid.Row="1"
+                Margin="0,4"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                FontSize="16"
+                GridLinesVisibility="None"
+                ItemsSource="{Binding DishMenu}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding Dish.Name}"
+                        Header="菜品" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding Dish.Category}"
+                        Header="种类" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding Dish.Comment}"
+                        Header="点评" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding Dish.Score}"
+                        Header="推荐分数" />
+                    <DataGridTemplateColumn
+                        Width="120"
+                        Header="选中"
+                        SortMemberPath="IsSelected">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    IsChecked="{Binding Path=IsSelected, UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Checked">
+                                            <!--  两种命令绑定方式 wpf自带的绑定方式  -->
+                                            <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectMenuItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" />
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="Unchecked">
+                                            <!--  两种命令绑定方式 MvvmLight自带的绑定方式  -->
+                                            <command:EventToCommand Command="{Binding Path=DataContext.SelectMenuItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Text="共计" />
+                <TextBox
+                    Width="120"
+                    Margin="4,0"
+                    IsReadOnly="True"
+                    Text="{Binding Count}"
+                    TextAlignment="Center" />
+                <Button
+                    Content="Order"
+                    Width="120"
+                    Height="24"
+                    Command="{Binding PlaceOrderCommand}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
