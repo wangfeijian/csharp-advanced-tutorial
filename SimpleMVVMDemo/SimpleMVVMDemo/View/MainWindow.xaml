@@ -1,0 +1,54 @@
+﻿<Window
+    x:Class="SimpleMVVMDemo.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:local="clr-namespace:SimpleMVVMDemo.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="525"
+    Height="350"
+    Background="Aqua"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Button
+                Content="Save"
+                Height="20"
+                Margin="5"
+                Command="{Binding SaveCommand}" />
+            <ComboBox
+                Name="cbx"
+                Margin="5"
+                ItemsSource="{Binding ListData}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectCommand}" CommandParameter="{Binding ElementName=cbx, Path=SelectedItem}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <TextBox
+                Height="20"
+                Margin="5"
+                Text="{Binding SelectValue}" />
+            <TextBox
+                Height="20"
+                Margin="5"
+                Text="{Binding Input1}" />
+            <TextBox
+                Height="20"
+                Margin="5"
+                Text="{Binding Input2}" />
+            <TextBox
+                Height="20"
+                Margin="5"
+                Text="{Binding Result}" />
+            <Button
+                Content="Add"
+                Height="20"
+                Margin="5"
+                Command="{Binding AddCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>
