@@ -50,10 +50,12 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Border
+            Name="BorderClick"
             Background="DodgerBlue"
             BorderBrush="white"
             BorderThickness="1"
-            CornerRadius="10,10,0,0" />
+            CornerRadius="10,10,0,0"
+            MouseDown="BorderMouseDown" />
         <Border
             Grid.Row="1"
             Background="White"

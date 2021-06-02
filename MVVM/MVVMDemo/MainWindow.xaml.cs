@@ -29,5 +29,10 @@ namespace MVVMDemo
         {
             Environment.Exit(0);
         }
+
+        private void BorderMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }
