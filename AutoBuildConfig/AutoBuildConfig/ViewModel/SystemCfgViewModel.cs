@@ -7,8 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using AutoBuildConfig.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 
@@ -19,7 +21,8 @@ namespace AutoBuildConfig.ViewModel
         public ICommand SaveConfigCommand { get; set; }
         public ICommand LoadConfigCommand { get; set; }
         public ICommand SaveAsConfigCommand { get; set; }
-        
+        private IBuildConfig BulidConfig;
+
         private SystemCfg systemCfg;
 
         public SystemCfg SystemCfg
@@ -28,35 +31,13 @@ namespace AutoBuildConfig.ViewModel
             set { Set(ref systemCfg, value); }
         }
 
-        public SystemCfgViewModel()
+        public SystemCfgViewModel(IBuildConfig buildConfig)
         {
-            LoadConfig();
+            BulidConfig = buildConfig;
+            SystemCfg=BulidConfig.LoadConfig<SystemCfg>("system");
             InitCommand();
         }
 
-        private void LoadConfig()
-        {
-            string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfg.json";
-
-            if (!File.Exists(file))
-            {
-                SystemCfg = new SystemCfg
-                {
-                    IoInput = new List<IoInputPoint>(),
-                    IoOutput = new List<IoOutputPoint>(),
-                    IoCardsList = new List<IoCardInfo>(),
-                    SysInput = new List<SysInputPoint>(),
-                    SysOutput = new List<SysOutputPoint>(),
-                    MotionCardsList = new List<MotionCard>(),
-                    EthInfos = new List<EthInfo>(),
-                    StationInfos = new List<StationInfo>()
-                };
-            }
-            else
-            {
-                SystemCfg = JsonConvert.DeserializeObject<SystemCfg>(File.ReadAllText(file));
-            }
-        }
         private void InitCommand()
         {
             SaveConfigCommand = new RelayCommand(SaveConfig);
@@ -66,64 +47,24 @@ namespace AutoBuildConfig.ViewModel
 
         private void LoadConfigFromFile()
         {
-            OpenFileDialog ofd = new OpenFileDialog
+            try
             {
-                DefaultExt = ".json",
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
-            };
-            var result = ofd.ShowDialog();
-
-            if (result == true)
-            {
-                var file = ofd.FileName;
-                try
-                {
-                    SystemCfg = JsonConvert.DeserializeObject<SystemCfg>(File.ReadAllText(file));
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("文件错误" + e, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                    throw;
-                }
-                MessageBox.Show("加载成功");
+                SystemCfg = BulidConfig.LoadConfigFromFile<SystemCfg>();
             }
-            else
+            catch (Exception e)
             {
-                MessageBox.Show("请选择json文件");
+                MessageBox.Show("未选择文件！" + e);
             }
-
         }
 
         private void SaveAsConfig()
         {
-            SaveFileDialog sfd = new SaveFileDialog
-            {
-                DefaultExt = ".json",
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
-            };
-
-            var result = sfd.ShowDialog();
-            if (result == true)
-            {
-                var file = sfd.FileName;
-                string value = JsonConvert.SerializeObject(SystemCfg);
-
-                File.WriteAllText(file, value);
-                MessageBox.Show("保存成功");
-            }
-            else
-            {
-                MessageBox.Show("未指定json文件");
-            }
+            BulidConfig.SaveAsConfig(SystemCfg);
         }
 
         private void SaveConfig()
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfg.json";
-            string value = JsonConvert.SerializeObject(SystemCfg);
-            File.WriteAllText(file, value);
-
-            MessageBox.Show("保存成功！", "提示");
+            BulidConfig.SaveConfig(SystemCfg,"systemCfg.json");
         }
     }
 

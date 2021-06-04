@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using AutoBuildConfig.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
@@ -19,43 +20,25 @@ namespace AutoBuildConfig.ViewModel
         public ICommand SaveConfigCommand { get; set; }
         public ICommand LoadConfigCommand { get; set; }
         public ICommand SaveAsConfigCommand { get; set; }
-        public SystemCfg SystemCfg { get; set; }
+
+        public delegate void PropChange();
+
+        public event PropChange PropChangeEvent;
 
         private List<StationPoint> stationPoints;
+
+        private IBuildConfig BulidConfig;
 
         public List<StationPoint> StationPoints
         {
             get { return stationPoints; }
             set { Set(ref stationPoints, value); }
         }
-        public PointViewModel()
+        public PointViewModel(IBuildConfig buildConfig)
         {
-
-            LoadConfig();
+            BulidConfig = buildConfig;
+            StationPoints = BulidConfig.LoadConfig<List<StationPoint>>("point");
             InitCommand();
-        }
-
-        private void LoadConfig()
-        {
-            string file = AppDomain.CurrentDomain.BaseDirectory + "point.json";
-
-            if (!File.Exists(file))
-            {
-                string sysFile = AppDomain.CurrentDomain.BaseDirectory + "systemCfg.json";
-
-                SystemCfg = JsonConvert.DeserializeObject<SystemCfg>(File.ReadAllText(sysFile));
-
-                StationPoints = new List<StationPoint>();
-
-                foreach (var station in SystemCfg.StationInfos)
-                {
-                    StationPoints.Add(new StationPoint { Name = station.StationName, PointInfos = new List<PointInfo>() });
-                }
-            }
-            else
-            {
-                StationPoints = JsonConvert.DeserializeObject<List<StationPoint>>(File.ReadAllText(file));
-            }
         }
 
         private void InitCommand()
@@ -67,66 +50,29 @@ namespace AutoBuildConfig.ViewModel
 
         private void LoadConfigFromFile()
         {
-            OpenFileDialog ofd = new OpenFileDialog
+            try
             {
-                DefaultExt = ".json",
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
-            };
-            var result = ofd.ShowDialog();
-
-            if (result == true)
-            {
-                var file = ofd.FileName;
-                try
-                {
-                    StationPoints = JsonConvert.DeserializeObject<List<StationPoint>>(File.ReadAllText(file));
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("文件错误" + e, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                    throw;
-                }
-                MessageBox.Show("加载成功");
+                StationPoints = BulidConfig.LoadConfigFromFile<List<StationPoint>>();
             }
-            else
+            catch (Exception e)
             {
-                MessageBox.Show("请选择json文件");
+                MessageBox.Show("未选择文件！" + e);
+                return;
             }
+            PropChangeEvent?.Invoke();
 
         }
 
         private void SaveAsConfig()
         {
-            SaveFileDialog sfd = new SaveFileDialog
-            {
-                DefaultExt = ".json",
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
-            };
-
-            var result = sfd.ShowDialog();
-            if (result == true)
-            {
-                var file = sfd.FileName;
-                string value = JsonConvert.SerializeObject(StationPoints);
-
-                File.WriteAllText(file, value);
-                MessageBox.Show("保存成功");
-            }
-            else
-            {
-                MessageBox.Show("未指定json文件");
-            }
+            BulidConfig.SaveAsConfig(StationPoints);
         }
 
         private void SaveConfig()
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory + "point.json";
-            string value = JsonConvert.SerializeObject(StationPoints);
-            File.WriteAllText(file, value);
-
-            MessageBox.Show("保存成功！", "提示");
+            BulidConfig.SaveConfig(StationPoints, "point.json");
         }
-      
+
 
     }
 

@@ -12,9 +12,13 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using System;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using System.Configuration;
+using System.Reflection;
+using AutoBuildConfig.Model;
 
 namespace AutoBuildConfig.ViewModel
 {
@@ -24,11 +28,18 @@ namespace AutoBuildConfig.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
         {
+            System.Collections.Specialized.NameValueCollection ConfigStr = ConfigurationManager.AppSettings;
+            string ConfigKey = ConfigStr["DllKey"];
+            string ConfigDllName = ConfigKey.Split(',')[0];
+            string ConfigClassName = ConfigKey.Split(',')[1];
+            Type t = Type.GetType(ConfigClassName);
+
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             ////if (ViewModelBase.IsInDesignModeStatic)
@@ -41,10 +52,12 @@ namespace AutoBuildConfig.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
-
+            
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<SystemCfgViewModel>();
             SimpleIoc.Default.Register<PointViewModel>();
+            SimpleIoc.Default.Register(() => { return (IBuildConfig)t.Assembly.CreateInstance(ConfigClassName); });
+
         }
 
         public MainViewModel Main

@@ -33,7 +33,9 @@ namespace AutoBuildConfig.View
 
         private void LoadConfig()
         {
+            PointGrid.RowDefinitions.Clear();
             var data = SimpleIoc.Default.GetInstance<PointViewModel>();
+            data.PropChangeEvent += Data_PropChangeEvent;
             for (int i = 0; i < data.StationPoints.Count; i++)
             {
                 RowDefinition row = new RowDefinition();
@@ -72,6 +74,11 @@ namespace AutoBuildConfig.View
                 stack.Children.Add(dataGrid);
                 j++;
             }
+        }
+
+        private void Data_PropChangeEvent()
+        {
+            this.LoadConfig();
         }
 
         private DataGridTextColumn GetDataGridTextColumn(string name,string binding)

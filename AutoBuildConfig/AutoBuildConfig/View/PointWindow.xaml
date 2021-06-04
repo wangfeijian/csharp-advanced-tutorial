@@ -26,7 +26,7 @@
             Color="#FF211613" />
     </Window.Effect>
     <Window.DataContext>
-        <Binding Path="PointCfg" Source="{StaticResource Locator}"/>
+        <Binding Path="PointCfg" Source="{StaticResource Locator}" />
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -87,7 +87,7 @@
                 Foreground="White"
                 Text="点位配置页" />
         </Grid>
-        <Grid Name="PointGrid" Grid.Row="1"></Grid>
+        <Grid Name="PointGrid" Grid.Row="1" />
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
