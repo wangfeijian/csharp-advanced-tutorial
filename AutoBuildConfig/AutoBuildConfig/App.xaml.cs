@@ -15,10 +15,5 @@ namespace AutoBuildConfig
     /// </summary>
     public partial class App : Application
     {
-        static System.Collections.Specialized.NameValueCollection ConfigStr = ConfigurationManager.AppSettings;
-        static string ConfigKey = ConfigStr["DllKey"];
-        static string ConfigDllName = ConfigKey.Split(',')[0];
-        static string ConfigClassName = ConfigKey.Split(',')[1];
-        static Type t = Type.GetType(ConfigClassName);
     }
 }

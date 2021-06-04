@@ -11,6 +11,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
     <Style x:Key="TextBlockDataGridHeader" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontWeight" Value="Bold" />
     </Style>

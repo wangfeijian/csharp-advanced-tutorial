@@ -86,6 +86,7 @@
     <Compile Include="Model\IBuildConfig.cs" />
     <Compile Include="Model\JsonBuildConfig.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ParameterViewModel.cs" />
     <Compile Include="ViewModel\PointViewModel.cs" />
     <Compile Include="ViewModel\SystemCfgViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -102,6 +103,18 @@
       <DependentUpon>SystemCfgWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Theme\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\ComboxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\ScroolViwerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\TabControlStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,7 +173,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

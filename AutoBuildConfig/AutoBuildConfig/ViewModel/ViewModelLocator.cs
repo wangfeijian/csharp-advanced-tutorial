@@ -56,6 +56,7 @@ namespace AutoBuildConfig.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<SystemCfgViewModel>();
             SimpleIoc.Default.Register<PointViewModel>();
+            SimpleIoc.Default.Register<ParameterViewModel>();
             SimpleIoc.Default.Register(() => { return (IBuildConfig)t.Assembly.CreateInstance(ConfigClassName); });
 
         }
@@ -71,6 +72,7 @@ namespace AutoBuildConfig.ViewModel
 
         public SystemCfgViewModel SystemCfg => ServiceLocator.Current.GetInstance<SystemCfgViewModel>();
         public PointViewModel PointCfg => ServiceLocator.Current.GetInstance<PointViewModel>();
+        public ParameterViewModel ParameterCfg => ServiceLocator.Current.GetInstance<ParameterViewModel>();
 
         public static void Cleanup()
         {

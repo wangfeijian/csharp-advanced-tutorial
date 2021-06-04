@@ -83,14 +83,18 @@ namespace AutoBuildConfig.Model
         {
             Object tCfg = new object();
 
-            if (config.Contains("system"))
+            if (config.Equals("system"))
             {
                 return (T)(object)LoadSystemConfig<SystemCfg>();
                 // 将具体类转为T类型时，需要先将具体类转成object，再转换成T类型
             }
-            else if (config.Contains("point"))
+            else if (config.Equals("point"))
             {
                 return (T)(object)LoadPointConfig<List<StationPoint>>();
+            }
+            else if (config.Equals("systemParam"))
+            {
+                return (T)(object)LoadParamConfig<Parameters>();
             }
 
             return (T) tCfg;
@@ -146,6 +150,26 @@ namespace AutoBuildConfig.Model
             {
                 stationPoints = JsonConvert.DeserializeObject<List<StationPoint>>(File.ReadAllText(filePoint));
                 return stationPoints as T;
+            }
+        }
+
+        private T LoadParamConfig<T>() where T : Parameters
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "systemParam.json";
+            Parameters paramCfg;
+
+            if (!File.Exists(file))
+            {
+                paramCfg = new Parameters
+                {
+                    ParameterInfos = new List<ParameterInfo>()
+                };
+                return paramCfg as T;
+            }
+            else
+            {
+                paramCfg = JsonConvert.DeserializeObject<Parameters>(File.ReadAllText(file));
+                return paramCfg as T;
             }
         }
     }

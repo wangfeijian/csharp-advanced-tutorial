@@ -2,7 +2,9 @@
     x:Class="AutoBuildConfig.View.ParameterWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:AutoBuildConfig.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1000"
@@ -23,10 +25,14 @@
             ShadowDepth="1"
             Color="#FF211613" />
     </Window.Effect>
+    <Window.DataContext>
+        <Binding Path="ParameterCfg" Source="{StaticResource Locator}" />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Border
             Name="BorderClick"
@@ -38,6 +44,12 @@
         <Border
             Grid.Row="1"
             Background="White"
+            BorderBrush="white"
+            BorderThickness="1"
+            CornerRadius="0,0,0,0" />
+        <Border
+            Grid.Row="2"
+            Background="DodgerBlue"
             BorderBrush="white"
             BorderThickness="1"
             CornerRadius="0,0,10,10" />
@@ -74,6 +86,118 @@
                 FontWeight="Bold"
                 Foreground="White"
                 Text="系统参数配置页" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <DataGrid
+                        Name="IoInputDatGrid"
+                        ItemsSource="{Binding AllParameters.ParameterInfos}"
+                        Style="{StaticResource DataGridStyle}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding KeyValue}"
+                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                Header="键值"
+                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding CurrentValue}"
+                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                Header="当前值"
+                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding Unit}"
+                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                Header="单位"
+                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                            <DataGridTextColumn
+                                Width="250"
+                                Binding="{Binding ParamDesc}"
+                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                Header="参数描述"
+                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                             <DataGridTextColumn
+                                Width="250"
+                                Binding="{Binding EnglishDesc}"
+                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                Header="翻译"
+                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                             <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding MinValue}"
+                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                Header="最小值"
+                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                             <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding MaxValue}"
+                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                Header="最大值"
+                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                             <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding Authority}"
+                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                Header="权限"
+                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button
+                Content="加载系统参数文件"
+                Grid.Column="0"
+                Margin="15,5,15,5"
+                FontSize="25"
+                Template="{StaticResource ButtonTemplate}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <command:EventToCommand Command="{Binding LoadConfigCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button
+                Content="保存系统参数文件"
+                Grid.Column="1"
+                Margin="15,5,15,5"
+                FontSize="25"
+                Template="{StaticResource ButtonTemplate}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <command:EventToCommand Command="{Binding SaveConfigCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button
+                Content="另存为"
+                Grid.Column="2"
+                Margin="15,5,15,5"
+                FontSize="25"
+                Template="{StaticResource ButtonTemplate}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <command:EventToCommand Command="{Binding SaveAsConfigCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button
+                Content="退出"
+                Grid.Column="3"
+                Margin="15,5,15,5"
+                Click="Config_Close_button_Click"
+                FontSize="25"
+                Template="{StaticResource ButtonTemplate}" />
         </Grid>
     </Grid>
 </Window>

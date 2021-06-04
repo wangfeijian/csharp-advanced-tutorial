@@ -33,5 +33,16 @@ namespace AutoBuildConfig.View
         {
             this.DragMove();
         }
+
+        private void DataComboBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key==Key.Enter)
+            {
+                TextBlock text = new TextBlock();
+                string s = DataComboBox.Text;
+                text.Text = s;
+                DataComboBox.Items.Add(text);
+            }
+        }
     }
 }
