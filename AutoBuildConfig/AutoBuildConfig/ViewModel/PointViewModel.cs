@@ -71,6 +71,7 @@ namespace AutoBuildConfig.ViewModel
         private void SaveConfig()
         {
             BulidConfig.SaveConfig(StationPoints, "point.json");
+            MessageBox.Show("保存成功！");
         }
 
 

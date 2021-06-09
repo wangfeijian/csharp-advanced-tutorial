@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace AutoBuildConfig

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -12,15 +13,13 @@ using Newtonsoft.Json;
 
 namespace AutoBuildConfig.Model
 {
-    public class JsonBuildConfig :IBuildConfig
+    public class JsonBuildConfig : IBuildConfig
     {
         public void SaveConfig<T>(T tCfg, string fileName)
         {
             string file = AppDomain.CurrentDomain.BaseDirectory + fileName;
             string value = JsonConvert.SerializeObject(tCfg);
             File.WriteAllText(file, value);
-
-            MessageBox.Show("保存成功！", "提示");
         }
 
         public void SaveAsConfig<T>(T tCfg)
@@ -62,7 +61,7 @@ namespace AutoBuildConfig.Model
                 try
                 {
                     tCfg = JsonConvert.DeserializeObject<T>(File.ReadAllText(file));
-                    
+
                 }
                 catch (Exception e)
                 {
@@ -75,7 +74,7 @@ namespace AutoBuildConfig.Model
             else
             {
                 MessageBox.Show("请选择json文件");
-                return (T) tCfg;
+                return (T)tCfg;
             }
         }
 
@@ -96,11 +95,27 @@ namespace AutoBuildConfig.Model
             {
                 return (T)(object)LoadParamConfig<Parameters>();
             }
+            else if (config.Equals("otherConfig"))
+            {
+                return (T)(object)LoadOtherConfig<OtherConfig>();
+            }
+            else if(config.Equals("dataClass"))
+            {
+                return (T)(object)LoadDataClass<AllDataClass>();
+            }
+            else if (config.Equals("dataClassTitle"))
+            {
+                return (T)(object)LoadDataClassTitle<DataClassTitle>();
+            }
+            else if (config.Equals("dataInfo"))
+            {
+                return (T)(object)LoadDataClassInfo<ObservableCollection<DataInfo>>();
+            }
 
-            return (T) tCfg;
+            return (T)tCfg;
         }
 
-        private T LoadSystemConfig<T>() where T:SystemCfg
+        private T LoadSystemConfig<T>() where T : SystemCfg
         {
             string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfg.json";
             SystemCfg systemCfg;
@@ -127,7 +142,7 @@ namespace AutoBuildConfig.Model
             }
         }
 
-        private T LoadPointConfig<T>() where T:List<StationPoint>
+        private T LoadPointConfig<T>() where T : List<StationPoint>
         {
             string filePoint = AppDomain.CurrentDomain.BaseDirectory + "point.json";
             List<StationPoint> stationPoints;
@@ -170,6 +185,86 @@ namespace AutoBuildConfig.Model
             {
                 paramCfg = JsonConvert.DeserializeObject<Parameters>(File.ReadAllText(file));
                 return paramCfg as T;
+            }
+        }
+
+        private T LoadOtherConfig<T>() where T : OtherConfig
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfgEx.json";
+            OtherConfig otherConfig;
+
+            if (!File.Exists(file))
+            {
+                otherConfig = new OtherConfig
+                {
+                    CylinderInfos = new List<CylinderInfo>(),
+                    LightInfos = new List<LightInfo>(),
+                    GrrInfos = new List<ReflectInfo>(),
+                    CalibInfos = new List<ReflectInfo>(),
+                    ServersInfos = new List<ServersInfo>()
+                };
+                return otherConfig as T;
+            }
+            else
+            {
+                otherConfig = JsonConvert.DeserializeObject<OtherConfig>(File.ReadAllText(file));
+                return otherConfig as T;
+            }
+        }
+
+        private T LoadDataClass<T>() where T : AllDataClass
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "dataType.json";
+            AllDataClass allDataClass;
+
+            if (!File.Exists(file))
+            {
+                allDataClass = new AllDataClass
+                {
+                    ComboxStrList = new ObservableCollection<string>(),
+                    DataTitleDictionary = new Dictionary<string, DataClassTitle>(),
+                    DataInfoDictionary = new Dictionary<string, ObservableCollection<DataInfo>>(),
+                };
+                return allDataClass as T;
+            }
+            else
+            {
+                allDataClass = JsonConvert.DeserializeObject<AllDataClass>(File.ReadAllText(file));
+                return allDataClass as T;
+            }
+        }
+
+        private T LoadDataClassTitle<T>() where T : DataClassTitle
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "dataTitle.json";
+            DataClassTitle dataClassTitle;
+
+            if (!File.Exists(file))
+            {
+                dataClassTitle = new DataClassTitle();
+                return dataClassTitle as T;
+            }
+            else
+            {
+                dataClassTitle = JsonConvert.DeserializeObject<DataClassTitle>(File.ReadAllText(file));
+                return dataClassTitle as T;
+            }
+        }
+
+        private T LoadDataClassInfo<T>() where T : ObservableCollection<DataInfo>
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "dataInfo.json";
+            ObservableCollection<DataInfo> dataInfos;
+
+            if (!File.Exists(file))
+            {
+                dataInfos = new ObservableCollection<DataInfo>();
+                return dataInfos as T;
+            }
+            else
+            {
+                dataInfos = JsonConvert.DeserializeObject<ObservableCollection<DataInfo>>(File.ReadAllText(file));
+                return dataInfos as T;
             }
         }
     }

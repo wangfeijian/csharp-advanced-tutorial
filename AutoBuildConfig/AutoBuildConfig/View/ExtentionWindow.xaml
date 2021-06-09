@@ -2,6 +2,7 @@
     x:Class="AutoBuildConfig.View.ExtentionWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="http://schemas.microsoft.com/expression/2010/interactions"
     xmlns:command="http://www.galasoft.ch/mvvmlight"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -25,6 +26,9 @@
             ShadowDepth="1"
             Color="#FF211613" />
     </Window.Effect>
+    <Window.DataContext>
+        <Binding Path="ExtenstionCfg" Source="{StaticResource Locator}" />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -86,10 +90,18 @@
         </Grid>
         <Grid Grid.Row="1" Background="DeepSkyBlue">
             <TabControl
+                Name="ConfigTabControl"
                 FontFamily="华文仿宋"
                 FontSize="25"
                 FontWeight="Bold"
+                SelectedIndex="-1"
                 Style="{StaticResource TabControlStyle}">
+                <!--  下面的绑定会造成DataGrid显示异常，需要在DataGrid中也添加SelectionChanged事件  -->
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName=ConfigTabControl}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <TabItem
                     Height="38"
                     Header="其它配置"
@@ -97,14 +109,19 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />
-                            <RowDefinition Height="250" />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
-                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <GroupBox Grid.ColumnSpan="3" Margin="2">
+                        <GroupBox
+                            Grid.RowSpan="3"
+                            Grid.ColumnSpan="2"
+                            Margin="2">
                             <GroupBox.Header>
                                 <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="气缸配置" />
                             </GroupBox.Header>
@@ -112,66 +129,67 @@
                                 <StackPanel>
                                     <DataGrid
                                         Name="CylinderDatGrid"
-                                        ItemsSource="{Binding SystemCfg.IoInput}"
+                                        ItemsSource="{Binding OtherConfigs.CylinderInfos}"
+                                        SelectionChanged="CylinderDatGrid_SelectionChanged"
                                         Style="{StaticResource DataGridStyle}">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding Name}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="名称"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding PointIndex}"
+                                                Binding="{Binding EngName}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="翻译"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="40"
-                                                Binding="{Binding PointName}"
+                                                Binding="{Binding Type}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="类型"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding PointEngName}"
+                                                Binding="{Binding ExtendOutput}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="伸出输出"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding PointEngName}"
+                                                Binding="{Binding RetractOutput}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="缩回输出"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding PointEngName}"
+                                                Binding="{Binding ExtendInput}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="伸出输入"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding PointEngName}"
+                                                Binding="{Binding RetractInput}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="缩回输入"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="60"
-                                                Binding="{Binding PointEngName}"
+                                                Binding="{Binding ExtendEnable}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="伸出启用"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="60"
-                                                Binding="{Binding PointEngName}"
+                                                Binding="{Binding RetractEnable}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="缩回启用"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="60"
-                                                Binding="{Binding PointEngName}"
+                                                Binding="{Binding TimeOut}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="超时时间"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
@@ -181,7 +199,7 @@
                             </ScrollViewer>
                         </GroupBox>
                         <GroupBox
-                            Grid.Row="1"
+                            Grid.Row="3"
                             Grid.Column="0"
                             Margin="2">
                             <GroupBox.Header>
@@ -191,30 +209,31 @@
                                 <StackPanel>
                                     <DataGrid
                                         Name="LightDatGrid"
-                                        ItemsSource="{Binding SystemCfg.IoInput}"
+                                        ItemsSource="{Binding OtherConfigs.LightInfos}"
+                                        SelectionChanged="CylinderDatGrid_SelectionChanged"
                                         Style="{StaticResource DataGridStyle}">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding Name}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="名称"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding Type}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="类型"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding Aisle}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="通道"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding AisleIndex}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="通道索引"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
@@ -224,7 +243,7 @@
                             </ScrollViewer>
                         </GroupBox>
                         <GroupBox
-                            Grid.Row="1"
+                            Grid.Row="3"
                             Grid.Column="1"
                             Margin="2">
                             <GroupBox.Header>
@@ -234,24 +253,25 @@
                                 <StackPanel>
                                     <DataGrid
                                         Name="CalibDatGrid"
-                                        ItemsSource="{Binding SystemCfg.IoInput}"
+                                        ItemsSource="{Binding OtherConfigs.CalibInfos}"
+                                        SelectionChanged="CylinderDatGrid_SelectionChanged"
                                         Style="{StaticResource DataGridStyle}">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding Name}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="名称"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding StationName}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="站位"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding MethodName}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="方法"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
@@ -261,8 +281,8 @@
                             </ScrollViewer>
                         </GroupBox>
                         <GroupBox
-                            Grid.Row="1"
-                            Grid.Column="2"
+                            Grid.Row="4"
+                            Grid.Column="0"
                             Margin="2">
                             <GroupBox.Header>
                                 <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="Grr测试配置" />
@@ -271,26 +291,71 @@
                                 <StackPanel>
                                     <DataGrid
                                         Name="GrrDatGrid"
-                                        ItemsSource="{Binding SystemCfg.IoInput}"
+                                        ItemsSource="{Binding OtherConfigs.GrrInfos}"
+                                        SelectionChanged="CylinderDatGrid_SelectionChanged"
                                         Style="{StaticResource DataGridStyle}">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding Name}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="名称"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding StationName}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="站位"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                             <DataGridTextColumn
                                                 Width="*"
-                                                Binding="{Binding CardIndex}"
+                                                Binding="{Binding MethodName}"
                                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                                 Header="方法"
+                                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </GroupBox>
+                        <GroupBox
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Margin="2">
+                            <GroupBox.Header>
+                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="服务器配置" />
+                            </GroupBox.Header>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel>
+                                    <DataGrid
+                                        Name="ServerDatGrid"
+                                        ItemsSource="{Binding OtherConfigs.ServersInfos}"
+                                        SelectionChanged="CylinderDatGrid_SelectionChanged"
+                                        Style="{StaticResource DataGridStyle}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn
+                                                Width="*"
+                                                Binding="{Binding Index}"
+                                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                                Header="序号"
+                                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                            <DataGridTextColumn
+                                                Width="200"
+                                                Binding="{Binding IpAddress}"
+                                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                                Header="本地IP地址"
+                                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                            <DataGridTextColumn
+                                                Width="*"
+                                                Binding="{Binding ListenPort}"
+                                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                                Header="监听端口"
+                                                HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                            <DataGridTextColumn
+                                                Width="*"
+                                                Binding="{Binding Enable}"
+                                                ElementStyle="{StaticResource DataGridContentStyle}"
+                                                Header="启用"
                                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                         </DataGrid.Columns>
                                     </DataGrid>
@@ -306,6 +371,7 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -317,6 +383,58 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock
+                            Grid.Row="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Name="IsAddData" VerticalAlignment="Center">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding AddDataEnableCommand}" CommandParameter="{Binding ElementName=IsAddData}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
+                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="增加/修改数据" />
+                            </StackPanel>
+                        </TextBlock>
+                        <TextBox
+                            Name="AddDataTextBox"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="5"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center" />
+                        <Button
+                            Name="AddButton"
+                            Content="添加数据组"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2"
+                            Margin="15,5,15,5"
+                            FontSize="25"
+                            IsEnabled="{Binding Path=IsChecked, ElementName=IsAddData}"
+                            Template="{StaticResource ButtonTemplate}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding AddDataGroupCommand}" CommandParameter="{Binding ElementName=AddDataTextBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Button
+                            Name="UpdateButton"
+                            Content="更新数据组"
+                            Grid.Column="4"
+                            Grid.ColumnSpan="2"
+                            Margin="15,5,15,5"
+                            FontSize="25"
+                            Template="{StaticResource ButtonTemplate}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding UpdateDataGroupCommand}" CommandParameter="{Binding ElementName=DataComboBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <TextBlock
+                            Grid.Row="1"
                             Margin="5"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -324,12 +442,22 @@
                             Text="数据组名称：" />
                         <ComboBox
                             Name="DataComboBox"
+                            Grid.Row="1"
                             Grid.Column="1"
                             Margin="5"
-                            IsEditable="True"
-                            PreviewKeyDown="DataComboBox_PreviewKeyDown"
-                            Style="{StaticResource ComboBoxStyle}" />
+                            IsEditable="False"
+                            ItemsSource="{Binding AllDataClass.ComboxStrList}"
+                            IsReadOnly="True"
+                            Style="{StaticResource ComboBoxStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <command:EventToCommand Command="{Binding ComboBoxSelectedCommand}" PassEventArgsToCommand="True" />
+                                    <!--<i:InvokeCommandAction Command="{Binding ComboBoxSelectedCommand}" CommandParameter="{Binding ElementName=DataComboBox}" />-->
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
                         <TextBlock
+                            Grid.Row="1"
                             Grid.Column="2"
                             Margin="5"
                             HorizontalAlignment="Center"
@@ -337,60 +465,87 @@
                             Style="{StaticResource TextBlockDataGridHeader}"
                             Text="版本：" />
                         <TextBox
+                            Grid.Row="1"
                             Grid.Column="3"
                             Margin="5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{Binding DataClassTitle.Version}" />
                         <TextBlock
+                            Grid.Row="1"
                             Grid.Column="4"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox VerticalAlignment="Center" />
+                                <CheckBox
+                                    Name="IsPdca"
+                                    VerticalAlignment="Center"
+                                    IsChecked="{Binding DataClassTitle.PdcaEnable}" />
                                 <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="是否PDCA" />
                             </StackPanel>
                         </TextBlock>
                         <ComboBox
                             Name="AuComboBox"
+                            Grid.Row="1"
                             Grid.Column="5"
                             Margin="5"
-                            IsEditable="True"
+                            IsEditable="False"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Auth}"
+                            SelectedIndex="{Binding DataClassTitle.Authority}"
                             Style="{StaticResource ComboBoxStyle}" />
-                        <DataGrid Grid.Row="1" Grid.ColumnSpan="6">
+                        <DataGrid
+                            Grid.Row="2"
+                            Grid.ColumnSpan="6"
+                            ItemsSource="{Binding DataInfos}"
+                            SelectionChanged="CylinderDatGrid_SelectionChanged"
+                            Style="{StaticResource DataGridStyle}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding Name}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="名称"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding DataType}"
+                                    ElementStyle="{StaticResource DataGridContentStyle}"
+                                    Header="数据类型"
+                                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                <DataGridTextColumn
+                                    Width="*"
+                                    Binding="{Binding DataIndex}"
+                                    ElementStyle="{StaticResource DataGridContentStyle}"
+                                    Header="数据索引"
+                                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                <DataGridTextColumn
+                                    Width="*"
+                                    Binding="{Binding StandardValue}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="标准值"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding UpperValue}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="上限"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding LowerValue}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="下限"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding OffsetValue}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="补偿值"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding Unit}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="单位"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
@@ -413,7 +568,11 @@
                                 <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="是否PDCA" />
                             </StackPanel>
                         </TextBlock>
-                        <DataGrid Grid.Row="1" Grid.ColumnSpan="6">
+                        <DataGrid
+                            Grid.Row="1"
+                            Grid.ColumnSpan="6"
+                            SelectionChanged="CylinderDatGrid_SelectionChanged"
+                            Style="{StaticResource DataGridStyle}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                     Width="*"
@@ -464,7 +623,6 @@
                             Grid.Column="1"
                             Margin="5"
                             IsEditable="True"
-                            PreviewKeyDown="DataComboBox_PreviewKeyDown"
                             Style="{StaticResource ComboBoxStyle}" />
                         <TextBlock
                             Grid.Column="2"
@@ -568,7 +726,11 @@
                             Margin="15,5,15,5"
                             FontSize="25"
                             Template="{StaticResource ButtonTemplate}" />
-                        <DataGrid Grid.Row="3" Grid.ColumnSpan="8">
+                        <DataGrid
+                            Grid.Row="3"
+                            Grid.ColumnSpan="8"
+                            SelectionChanged="CylinderDatGrid_SelectionChanged"
+                            Style="{StaticResource DataGridStyle}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                     Width="*"
@@ -596,26 +758,26 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button
-                Content="加载系统配置"
+                Content="加载扩展配置"
                 Grid.Column="0"
                 Margin="15,5,15,5"
                 FontSize="25"
                 Template="{StaticResource ButtonTemplate}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <command:EventToCommand Command="{Binding LoadConfigCommand}" />
+                        <i:InvokeCommandAction Command="{Binding LoadConfigCommand}" CommandParameter="{Binding ElementName=ConfigTabControl}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
             <Button
-                Content="保存系统配置"
+                Content="保存扩展配置"
                 Grid.Column="1"
                 Margin="15,5,15,5"
                 FontSize="25"
                 Template="{StaticResource ButtonTemplate}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <command:EventToCommand Command="{Binding SaveConfigCommand}" />
+                        <i:InvokeCommandAction Command="{Binding SaveConfigCommand}" CommandParameter="{Binding ElementName=ConfigTabControl}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
@@ -627,7 +789,7 @@
                 Template="{StaticResource ButtonTemplate}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <command:EventToCommand Command="{Binding SaveAsConfigCommand}" />
+                        <i:InvokeCommandAction Command="{Binding SaveAsConfigCommand}" CommandParameter="{Binding ElementName=ConfigTabControl}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>

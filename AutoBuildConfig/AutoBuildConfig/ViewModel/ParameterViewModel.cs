@@ -64,6 +64,7 @@ namespace AutoBuildConfig.ViewModel
         private void SaveConfig()
         {
             BulidConfig.SaveConfig(AllParameters,"systemParam.json");
+            MessageBox.Show("保存成功！");
         }
 
     }
