@@ -27,6 +27,7 @@ namespace AutoBuildConfig.ViewModel
         public ICommand AddDataEnableCommand { get; set; }
         public ICommand UpdateDataGroupCommand { get; set; }
         public ICommand ComboBoxSelectedCommand { get; set; }
+        public ICommand SaveTypeSelectedCommand { get; set; }
         //public ICommand ComBoxEnterCommand { get; set; }
 
         private IBuildConfig BulidConfig;
@@ -52,7 +53,7 @@ namespace AutoBuildConfig.ViewModel
         public DataClassTitle DataClassTitle
         {
             get { return dataClassTitle; }
-            set { Set(ref dataClassTitle , value); }
+            set { Set(ref dataClassTitle, value); }
         }
 
         private ObservableCollection<DataInfo> dataInfos;
@@ -60,7 +61,15 @@ namespace AutoBuildConfig.ViewModel
         public ObservableCollection<DataInfo> DataInfos
         {
             get { return dataInfos; }
-            set { Set(ref dataInfos , value); }
+            set { Set(ref dataInfos, value); }
+        }
+
+        private DataShowClass dataShowClass;
+
+        public DataShowClass DataShowClass
+        {
+            get { return dataShowClass; }
+            set { Set(ref dataShowClass, value); }
         }
 
         public ExtentionViewModel(IBuildConfig buildConfig)
@@ -70,7 +79,34 @@ namespace AutoBuildConfig.ViewModel
             InitCommand();
         }
 
-        public List<string> Auth => new List<string> {"Operator", "Adjust", "Engineer", "Adminstrator"};
+        public List<string> Auth => new List<string> { "Operator", "FAE", "Adjust", "Engineer", "Adminstrator" };
+        public List<string> SaveType => new List<string> { "DB", "CSV", "INI", "JSON" };
+
+        private Visibility isDb;
+
+        public Visibility IsDb
+        {
+            get { return isDb; }
+            set { Set(ref isDb, value); }
+        }
+
+        private Visibility isNotDb;
+
+        public Visibility IsNotDb
+        {
+            get { return isNotDb; }
+            set { Set(ref isNotDb, value); }
+        }
+
+        private DataSaveClass dataSave;
+
+        public DataSaveClass DataSave
+        {
+            get { return dataSave; }
+            set { Set(ref dataSave, value); }
+        }
+
+
 
         private void InitCommand()
         {
@@ -82,13 +118,22 @@ namespace AutoBuildConfig.ViewModel
             AddDataEnableCommand = new RelayCommand<object>(AddDataEnalbe);
             UpdateDataGroupCommand = new RelayCommand<object>(UpdateDataGroup);
             ComboBoxSelectedCommand = new RelayCommand<SelectionChangedEventArgs>(ComboBoxSelectChanged);
+            SaveTypeSelectedCommand = new RelayCommand<SelectionChangedEventArgs>(SaveTypeSelect);
             //ComBoxEnterCommand = new RelayCommand<object>(obj => { ((ComboBox)obj).PreviewKeyDown += ComBoxKeyDown; });
+        }
+
+        private void SaveTypeSelect(SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = e.Source as ComboBox;
+            IsDb = comboBox.SelectedIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
+            IsNotDb = comboBox.SelectedIndex == 0 ? Visibility.Collapsed : Visibility.Visible;
+            e.Handled = true;
         }
 
         private void AddDataEnalbe(object obj)
         {
             var checkBox = obj as CheckBox;
-            
+
             if ((bool)checkBox.IsChecked)
             {
                 DataClassTitle = new DataClassTitle();
@@ -99,7 +144,7 @@ namespace AutoBuildConfig.ViewModel
         {
             ComboBox comboBox = obj as ComboBox;
 
-            if (comboBox.SelectedIndex==-1)
+            if (comboBox.SelectedIndex == -1)
             {
                 MessageBox.Show("没有选择数据！");
                 return;
@@ -198,8 +243,12 @@ namespace AutoBuildConfig.ViewModel
                         }
                         break;
                     case "数据显示":
+                        DataShowClass = BulidConfig.LoadConfig<DataShowClass>("dataShow");
                         break;
                     case "数据保存":
+                        DataSave = BulidConfig.LoadConfig<DataSaveClass>("dataSave");
+                        IsDb = DataSave.SelectSaveType != 0 ? Visibility.Collapsed : Visibility.Visible;
+                        IsNotDb = DataSave.SelectSaveType == 0 ? Visibility.Collapsed : Visibility.Visible;
                         break;
                 }
         }
@@ -222,8 +271,12 @@ namespace AutoBuildConfig.ViewModel
                         MessageBox.Show("保存成功！");
                         break;
                     case "数据显示":
+                        BulidConfig.SaveConfig(DataShowClass, "dataShow.json");
+                        MessageBox.Show("保存成功！");
                         break;
                     case "数据保存":
+                        BulidConfig.SaveConfig(DataSave, "dataSave.json");
+                        MessageBox.Show("保存成功！");
                         break;
                 }
         }
@@ -246,8 +299,10 @@ namespace AutoBuildConfig.ViewModel
                                 AllDataClass = BulidConfig.LoadConfigFromFile<AllDataClass>();
                                 break;
                             case "数据显示":
+                                DataShowClass = BulidConfig.LoadConfigFromFile<DataShowClass>();
                                 break;
                             case "数据保存":
+                                DataSave = BulidConfig.LoadConfigFromFile<DataSaveClass>();
                                 break;
                         }
                 }
@@ -273,8 +328,10 @@ namespace AutoBuildConfig.ViewModel
                         BulidConfig.SaveAsConfig(AllDataClass);
                         break;
                     case "数据显示":
+                        BulidConfig.SaveAsConfig(DataShowClass);
                         break;
                     case "数据保存":
+                        BulidConfig.SaveAsConfig(DataSave);
                         break;
                 }
         }
@@ -381,29 +438,115 @@ namespace AutoBuildConfig.ViewModel
 
     }
 
-    public class DataClass
+    public class DataShowClass
     {
-        public DataClass()
-        {
-            DataClassTitle = new DataClassTitle();
-            DataInfos = new List<DataInfo>();
-        }
-        private DataClassTitle dataClassTitle;
+        private bool isUpload;
 
-        public DataClassTitle DataClassTitle
+        public bool IsUpload
         {
-            get { return dataClassTitle; }
-            set { dataClassTitle = value; }
+            get { return isUpload; }
+            set { isUpload = value; }
         }
 
-        private List<DataInfo> dataInfos;
 
-        public List<DataInfo> DataInfos
+        private ObservableCollection<DataIndex> dataIndexes;
+
+        public ObservableCollection<DataIndex> DataIndexes
         {
-            get { return dataInfos; }
-            set { dataInfos = value; }
+            get { return dataIndexes; }
+            set { dataIndexes = value; }
         }
 
+    }
+
+    public class DataSaveClass
+    {
+        private int selectSaveType;
+
+        public int SelectSaveType
+        {
+            get { return selectSaveType; }
+            set { selectSaveType = value; }
+        }
+
+        private bool isUpload;
+
+        public bool IsUpload
+        {
+            get { return isUpload; }
+            set { isUpload = value; }
+        }
+
+        private string savePath;
+
+        public string SavePath
+        {
+            get { return savePath; }
+            set { savePath = value; }
+        }
+
+        private string serviceAddress;
+
+        public string ServiceAddress
+        {
+            get { return serviceAddress; }
+            set { serviceAddress = value; }
+        }
+
+        private string port;
+
+        public string Port
+        {
+            get { return port; }
+            set { port = value; }
+        }
+
+        private string user;
+
+        public string User
+        {
+            get { return user; }
+            set { user = value; }
+        }
+
+        private string password;
+
+        public string Password
+        {
+            get { return password; }
+            set { password = value; }
+        }
+
+        private string dataBase;
+
+        public string DataBase
+        {
+            get { return dataBase; }
+            set { dataBase = value; }
+        }
+
+        private string dataTable;
+
+        public string DataTable
+        {
+            get { return dataTable; }
+            set { dataTable = value; }
+        }
+
+        private ObservableCollection<DataIndex> dataIndexes;
+
+        public ObservableCollection<DataIndex> DataIndexes
+        {
+            get { return dataIndexes; }
+            set { dataIndexes = value; }
+        }
+
+    }
+
+    public class DataIndex
+    {
+        public string Name { get; set; }
+        public string Index { get; set; }
     }
 
     public class AllDataClass
@@ -432,23 +575,6 @@ namespace AutoBuildConfig.ViewModel
             get { return dataInfoDictionary; }
             set { dataInfoDictionary = value; }
         }
-
-        //private DataClassTitle dataClassTitle;
-
-        //public DataClassTitle DataClassTitle
-        //{
-        //    get { return dataClassTitle; }
-        //    set { dataClassTitle = value; }
-        //}
-
-        //private ObservableCollection<DataInfo> dataInfos;
-
-        //public ObservableCollection<DataInfo> DataInfos
-        //{
-        //    get { return dataInfos; }
-        //    set { dataInfos = value; }
-        //}
-
     }
 
 }

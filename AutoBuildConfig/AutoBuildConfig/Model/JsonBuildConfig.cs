@@ -111,6 +111,14 @@ namespace AutoBuildConfig.Model
             {
                 return (T)(object)LoadDataClassInfo<ObservableCollection<DataInfo>>();
             }
+            else if (config.Equals("dataShow"))
+            {
+                return (T)(object)LoadDataShow<DataShowClass>();
+            }
+            else if (config.Equals("dataSave"))
+            {
+                return (T)(object)LoadDataSave<DataSaveClass>();
+            }
 
             return (T)tCfg;
         }
@@ -265,6 +273,45 @@ namespace AutoBuildConfig.Model
             {
                 dataInfos = JsonConvert.DeserializeObject<ObservableCollection<DataInfo>>(File.ReadAllText(file));
                 return dataInfos as T;
+            }
+        }
+        private T LoadDataShow<T>() where T : DataShowClass
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "dataShow.json";
+            DataShowClass dataShow;
+
+            if (!File.Exists(file))
+            {
+                dataShow = new DataShowClass
+                {
+                    DataIndexes = new ObservableCollection<DataIndex>()
+                };
+                return dataShow as T;
+            }
+            else
+            {
+                dataShow = JsonConvert.DeserializeObject<DataShowClass>(File.ReadAllText(file));
+                return dataShow as T;
+            }
+        }
+
+        private T LoadDataSave<T>() where T : DataSaveClass
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "dataSave.json";
+            DataSaveClass dataSave;
+
+            if (!File.Exists(file))
+            {
+                dataSave = new DataSaveClass
+                {
+                    DataIndexes = new ObservableCollection<DataIndex>()
+                };
+                return dataSave as T;
+            }
+            else
+            {
+                dataSave = JsonConvert.DeserializeObject<DataSaveClass>(File.ReadAllText(file));
+                return dataSave as T;
             }
         }
     }

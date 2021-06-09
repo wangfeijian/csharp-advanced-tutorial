@@ -446,8 +446,8 @@
                             Grid.Column="1"
                             Margin="5"
                             IsEditable="False"
-                            ItemsSource="{Binding AllDataClass.ComboxStrList}"
                             IsReadOnly="True"
+                            ItemsSource="{Binding AllDataClass.ComboxStrList}"
                             Style="{StaticResource ComboBoxStyle}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
@@ -564,25 +564,26 @@
                         </Grid.RowDefinitions>
                         <TextBlock VerticalAlignment="Center">
                             <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
-                                <CheckBox VerticalAlignment="Center" />
+                                <CheckBox VerticalAlignment="Center" IsChecked="{Binding DataShowClass.IsUpload}" />
                                 <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="是否PDCA" />
                             </StackPanel>
                         </TextBlock>
                         <DataGrid
                             Grid.Row="1"
                             Grid.ColumnSpan="6"
+                            ItemsSource="{Binding DataShowClass.DataIndexes}"
                             SelectionChanged="CylinderDatGrid_SelectionChanged"
                             Style="{StaticResource DataGridStyle}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding Name}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="名称"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding Index}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="数据索引"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
@@ -597,9 +598,9 @@
                     Style="{StaticResource TabItemStyle}">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="40" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -623,29 +624,64 @@
                             Grid.Column="1"
                             Margin="5"
                             IsEditable="True"
-                            Style="{StaticResource ComboBoxStyle}" />
+                            ItemsSource="{Binding SaveType}"
+                            SelectedIndex="{Binding DataSave.SelectSaveType}"
+                            Style="{StaticResource ComboBoxStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <command:EventToCommand Command="{Binding SaveTypeSelectedCommand}" PassEventArgsToCommand="True" />
+                                    <!--<i:InvokeCommandAction Command="{Binding ComboBoxSelectedCommand}" CommandParameter="{Binding ElementName=DataComboBox}" />-->
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
                         <TextBlock
                             Grid.Column="2"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox VerticalAlignment="Center" />
+                                <CheckBox VerticalAlignment="Center" IsChecked="{Binding DataSave.IsUpload}" />
                                 <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="是否保存" />
                             </StackPanel>
                         </TextBlock>
+                        <TextBlock
+                            Grid.Column="3"
+                            Margin="5"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource TextBlockDataGridHeader}"
+                            Text="保存路径："
+                            Visibility="{Binding IsNotDb}" />
+                        <TextBox
+                            Grid.Column="4"
+                            Grid.ColumnSpan="3"
+                            Margin="5,5,10,5"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Text="{Binding DataSave.SavePath}"
+                            Visibility="{Binding IsNotDb}" />
+                        <Button
+                            Content="浏览"
+                            Grid.Column="7"
+                            Margin="15,5,15,5"
+                            FontSize="25"
+                            Template="{StaticResource ButtonTemplate}"
+                            Visibility="{Binding IsNotDb}" />
                         <TextBlock
                             Grid.Row="1"
                             Margin="5"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="服务地址：" />
+                            Text="服务地址："
+                            Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="5,5,10,5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{Binding DataSave.ServiceAddress}"
+                            Visibility="{Binding IsDb}" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="2"
@@ -653,13 +689,16 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="端口号：" />
+                            Text="端口号："
+                            Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="3"
                             Margin="5,5,10,5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{Binding DataSave.Port}"
+                            Visibility="{Binding IsDb}" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="4"
@@ -667,14 +706,16 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="用户名：" />
+                            Text="用户名："
+                            Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="5"
                             Margin="5,5,10,5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center" />
-
+                            VerticalAlignment="Center"
+                            Text="{Binding DataSave.User}"
+                            Visibility="{Binding IsDb}" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="6"
@@ -682,13 +723,15 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="密码：" />
-                        <TextBox
+                            Text="密码："
+                            Visibility="{Binding IsDb}" />
+                        <PasswordBox
                             Grid.Row="1"
                             Grid.Column="7"
                             Margin="5,5,10,5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Visibility="{Binding IsDb}" />
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
@@ -696,14 +739,16 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="数据库：" />
+                            Text="数据库："
+                            Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="2"
                             Grid.Column="1"
                             Margin="5,5,10,5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center" />
-
+                            VerticalAlignment="Center"
+                            Text="{Binding DataSave.DataBase}"
+                            Visibility="{Binding IsDb}" />
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="2"
@@ -711,13 +756,16 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="数据表：" />
+                            Text="数据表："
+                            Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="2"
                             Grid.Column="3"
                             Margin="5,5,10,5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{Binding DataSave.DataTable}"
+                            Visibility="{Binding IsDb}" />
                         <Button
                             Content="查看"
                             Grid.Row="2"
@@ -725,22 +773,24 @@
                             Grid.ColumnSpan="2"
                             Margin="15,5,15,5"
                             FontSize="25"
-                            Template="{StaticResource ButtonTemplate}" />
+                            Template="{StaticResource ButtonTemplate}"
+                            Visibility="{Binding IsDb}" />
                         <DataGrid
                             Grid.Row="3"
                             Grid.ColumnSpan="8"
+                            ItemsSource="{Binding DataSave.DataIndexes}"
                             SelectionChanged="CylinderDatGrid_SelectionChanged"
                             Style="{StaticResource DataGridStyle}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding Name}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="名称"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding CardIndex}"
+                                    Binding="{Binding Index}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
                                     Header="数据索引"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
