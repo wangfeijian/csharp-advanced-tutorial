@@ -33,6 +33,7 @@ namespace AutoBuildConfig.View
 
         private void LoadConfig()
         {
+            PointGrid.Children.Clear();
             PointGrid.RowDefinitions.Clear();
             var data = SimpleIoc.Default.GetInstance<PointViewModel>();
             data.PropChangeEvent += Data_PropChangeEvent;

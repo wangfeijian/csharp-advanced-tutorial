@@ -17,7 +17,7 @@ namespace AutoBuildConfig.Model
     {
         public void SaveConfig<T>(T tCfg, string fileName)
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory + fileName;
+            string file = AppDomain.CurrentDomain.BaseDirectory + fileName+".json";
             string value = JsonConvert.SerializeObject(tCfg);
             File.WriteAllText(file, value);
         }
@@ -45,7 +45,7 @@ namespace AutoBuildConfig.Model
             }
         }
 
-        public T LoadConfigFromFile<T>()
+        public T LoadConfigFromFile<T>(string config)
         {
             Object tCfg = new object();
             OpenFileDialog ofd = new OpenFileDialog
@@ -80,8 +80,32 @@ namespace AutoBuildConfig.Model
 
         public T LoadConfig<T>(string config)
         {
-            Object tCfg = new object();
+            object tCfg = new object();
 
+            switch (config)
+            {
+                case "system":
+                    return (T)(object)LoadSystemConfig<SystemCfg>();
+                case "point":
+                    return (T)(object)LoadPointConfig<List<StationPoint>>();
+                case "systemParam":
+                    return (T)(object)LoadParamConfig<Parameters>();
+                case "otherConfig":
+                    return (T)(object)LoadOtherConfig<OtherConfig>();
+                case "dataClass":
+                    return (T)(object)LoadDataClass<AllDataClass>();
+                case "dataClassTitle":
+                    return (T)(object)LoadDataClassTitle<DataClassTitle>();
+                case "dataInfo":
+                    return (T)(object)LoadDataClassInfo<ObservableCollection<DataInfo>>();
+                case "dataShow":
+                    return (T)(object)LoadDataShow<DataShowClass>();
+                case "dataSave":
+                    return (T)(object)LoadDataSave<DataSaveClass>();
+            }
+            #region IfElse表示
+
+            /*
             if (config.Equals("system"))
             {
                 return (T)(object)LoadSystemConfig<SystemCfg>();
@@ -119,7 +143,9 @@ namespace AutoBuildConfig.Model
             {
                 return (T)(object)LoadDataSave<DataSaveClass>();
             }
+            */
 
+            #endregion
             return (T)tCfg;
         }
 

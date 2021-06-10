@@ -85,6 +85,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\IBuildConfig.cs" />
     <Compile Include="Model\JsonBuildConfig.cs" />
+    <Compile Include="Model\XMLBuildConfig.cs" />
     <Compile Include="ViewModel\ExtentionViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ParameterViewModel.cs" />

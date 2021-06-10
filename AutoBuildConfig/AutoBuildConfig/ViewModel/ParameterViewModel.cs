@@ -46,7 +46,7 @@ namespace AutoBuildConfig.ViewModel
         {
             try
             {
-                AllParameters = BulidConfig.LoadConfigFromFile<Parameters>();
+                AllParameters = BulidConfig.LoadConfigFromFile<Parameters>("systemParam");
             }
             catch (Exception e)
             {
@@ -63,7 +63,7 @@ namespace AutoBuildConfig.ViewModel
 
         private void SaveConfig()
         {
-            BulidConfig.SaveConfig(AllParameters,"systemParam.json");
+            BulidConfig.SaveConfig(AllParameters,"systemParam");
             MessageBox.Show("保存成功！");
         }
 

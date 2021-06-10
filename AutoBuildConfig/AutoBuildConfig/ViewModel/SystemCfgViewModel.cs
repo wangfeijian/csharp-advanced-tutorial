@@ -33,9 +33,9 @@ namespace AutoBuildConfig.ViewModel
 
         public SystemCfgViewModel(IBuildConfig buildConfig)
         {
+            InitCommand();
             BulidConfig = buildConfig;
             SystemCfg=BulidConfig.LoadConfig<SystemCfg>("system");
-            InitCommand();
         }
 
         private void InitCommand()
@@ -49,7 +49,7 @@ namespace AutoBuildConfig.ViewModel
         {
             try
             {
-                SystemCfg = BulidConfig.LoadConfigFromFile<SystemCfg>();
+                SystemCfg = BulidConfig.LoadConfigFromFile<SystemCfg>("system");
             }
             catch (Exception e)
             {
@@ -64,7 +64,7 @@ namespace AutoBuildConfig.ViewModel
 
         private void SaveConfig()
         {
-            BulidConfig.SaveConfig(SystemCfg,"systemCfg.json");
+            BulidConfig.SaveConfig(SystemCfg,"systemCfg");
             MessageBox.Show("保存成功！");
         }
     }

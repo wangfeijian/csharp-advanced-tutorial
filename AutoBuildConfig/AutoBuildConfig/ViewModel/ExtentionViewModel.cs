@@ -156,9 +156,9 @@ namespace AutoBuildConfig.ViewModel
             AllDataClass.DataTitleDictionary[value] = dataTilte;
             AllDataClass.DataInfoDictionary[value] = dataInfo;
 
-            BulidConfig.SaveConfig(AllDataClass, "dataType.json");
-            BulidConfig.SaveConfig(DataClassTitle, "dataTitle.json");
-            BulidConfig.SaveConfig(DataInfos, "dataInfo.json");
+            BulidConfig.SaveConfig(AllDataClass, "dataType");
+            BulidConfig.SaveConfig(DataClassTitle, "dataTitle");
+            BulidConfig.SaveConfig(DataInfos, "dataInfo");
             MessageBox.Show($"{value} 更新成功");
 
         }
@@ -261,21 +261,21 @@ namespace AutoBuildConfig.ViewModel
                 switch (tabItem.Header.ToString())
                 {
                     case "其它配置":
-                        BulidConfig.SaveConfig(OtherConfigs, "systemCfgEx.json");
+                        BulidConfig.SaveConfig(OtherConfigs, "systemCfgEx");
                         MessageBox.Show("保存成功！");
                         break;
                     case "数据分类":
-                        BulidConfig.SaveConfig(AllDataClass, "dataType.json");
-                        BulidConfig.SaveConfig(DataClassTitle, "dataTitle.json");
-                        BulidConfig.SaveConfig(DataInfos, "dataInfo.json");
+                        BulidConfig.SaveConfig(AllDataClass, "dataType");
+                        BulidConfig.SaveConfig(DataClassTitle, "dataTitle");
+                        BulidConfig.SaveConfig(DataInfos, "dataInfo");
                         MessageBox.Show("保存成功！");
                         break;
                     case "数据显示":
-                        BulidConfig.SaveConfig(DataShowClass, "dataShow.json");
+                        BulidConfig.SaveConfig(DataShowClass, "dataShow");
                         MessageBox.Show("保存成功！");
                         break;
                     case "数据保存":
-                        BulidConfig.SaveConfig(DataSave, "dataSave.json");
+                        BulidConfig.SaveConfig(DataSave, "dataSave");
                         MessageBox.Show("保存成功！");
                         break;
                 }
@@ -293,16 +293,16 @@ namespace AutoBuildConfig.ViewModel
                         switch (tabItem.Header.ToString())
                         {
                             case "其它配置":
-                                OtherConfigs = BulidConfig.LoadConfigFromFile<OtherConfig>();
+                                OtherConfigs = BulidConfig.LoadConfigFromFile<OtherConfig>("otherConfig");
                                 break;
                             case "数据分类":
-                                AllDataClass = BulidConfig.LoadConfigFromFile<AllDataClass>();
+                                AllDataClass = BulidConfig.LoadConfigFromFile<AllDataClass>("dataClass");
                                 break;
                             case "数据显示":
-                                DataShowClass = BulidConfig.LoadConfigFromFile<DataShowClass>();
+                                DataShowClass = BulidConfig.LoadConfigFromFile<DataShowClass>("dataShow");
                                 break;
                             case "数据保存":
-                                DataSave = BulidConfig.LoadConfigFromFile<DataSaveClass>();
+                                DataSave = BulidConfig.LoadConfigFromFile<DataSaveClass>("dataSave");
                                 break;
                         }
                 }

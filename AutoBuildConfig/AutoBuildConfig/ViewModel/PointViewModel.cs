@@ -52,7 +52,7 @@ namespace AutoBuildConfig.ViewModel
         {
             try
             {
-                StationPoints = BulidConfig.LoadConfigFromFile<List<StationPoint>>();
+                StationPoints = BulidConfig.LoadConfigFromFile<List<StationPoint>>("point");
             }
             catch (Exception e)
             {
@@ -60,7 +60,6 @@ namespace AutoBuildConfig.ViewModel
                 return;
             }
             PropChangeEvent?.Invoke();
-
         }
 
         private void SaveAsConfig()
@@ -70,7 +69,7 @@ namespace AutoBuildConfig.ViewModel
 
         private void SaveConfig()
         {
-            BulidConfig.SaveConfig(StationPoints, "point.json");
+            BulidConfig.SaveConfig(StationPoints, "point");
             MessageBox.Show("保存成功！");
         }
 

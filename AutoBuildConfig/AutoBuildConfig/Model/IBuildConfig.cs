@@ -12,6 +12,6 @@ namespace AutoBuildConfig.Model
         T LoadConfig<T>(string config);
         void SaveConfig<T>(T tCfg, string fileName);
         void SaveAsConfig<T>(T tCfg);
-        T LoadConfigFromFile<T>();
+        T LoadConfigFromFile<T>(string config);
     }
 }
