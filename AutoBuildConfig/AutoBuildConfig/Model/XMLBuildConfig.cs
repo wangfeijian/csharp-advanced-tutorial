@@ -36,14 +36,133 @@ namespace AutoBuildConfig.Model
                     return (T)(object)new DataClassTitle();
                 case "dataInfo":
                     return (T)(object)new ObservableCollection<DataInfo>();
-                    //case "dataShow":
-                    //    return (T)(object)LoadDataShow<DataShowClass>();
-                    //case "dataSave":
-                    //    return (T)(object)LoadDataSave<DataSaveClass>();
+                case "dataShow":
+                    return (T)(object)LoadDataShow<DataShowClass>();
+                case "dataSave":
+                    return (T)(object)LoadDataSave<DataSaveClass>();
             }
             return (T)tCfg;
         }
 
+        private T LoadDataShow<T>() where T : DataShowClass
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfgEx.xml";
+            DataShowClass allData;
+
+            if (!File.Exists(file))
+            {
+                allData = new DataShowClass
+                {
+                    DataIndexes = new ObservableCollection<DataIndex>()
+                };
+                return allData as T;
+            }
+            else
+            {
+                allData = LoadDataShowFromFile<T>(file);
+
+                return allData as T;
+            }
+        }
+
+        private T LoadDataSave<T>() where T : DataSaveClass
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfgEx.xml";
+            DataSaveClass allData;
+
+            if (!File.Exists(file))
+            {
+                allData = new DataSaveClass
+                {
+                    DataIndexes = new ObservableCollection<DataIndex>()
+                };
+                return allData as T;
+            }
+            else
+            {
+                allData = LoadDataSaveFromFile<T>(file);
+
+                return allData as T;
+            }
+        }
+
+        private DataSaveClass LoadDataSaveFromFile<T>(string file)
+        {
+            List<string> saveType = new List<string> { "DB", "CSV", "INI" };
+
+            DataSaveClass allDataClass = new DataSaveClass
+            {
+                DataIndexes = new ObservableCollection<DataIndex>()
+            };
+            XDocument doc = XDocument.Load(file);
+
+            foreach (var el in doc.Descendants("Data").Elements())
+            {
+                if (el.Name.ToString() == "DataSave")
+                {
+
+                    allDataClass.IsUpload = el.Attribute("是否保存")?.Value == "True";
+                    allDataClass.SelectSaveType = saveType.IndexOf(el.Attribute("保存类型")?.Value);
+                    allDataClass.ServiceAddress = el.Attribute("Server")?.Value;
+                    allDataClass.Port = el.Attribute("Port")?.Value;
+                    allDataClass.User = el.Attribute("UserID")?.Value;
+                    allDataClass.Password = el.Attribute("Password")?.Value;
+                    allDataClass.DataBase = el.Attribute("Database")?.Value;
+                    allDataClass.DataTable = el.Attribute("TableName")?.Value;
+                    allDataClass.SavePath = el.Attribute("保存路径")?.Value;
+                    var dataInfo = from data in el.Descendants("Item")
+                                   where data.HasAttributes
+                                   select
+                                       new DataIndex
+                                       {
+                                           Name = data.Attribute("名称")?.Value,
+                                           Index = data.Attribute("数据索引")?.Value
+                                       };
+
+                    var listDataInfo = dataInfo.ToList();
+                    var obList = new ObservableCollection<DataIndex>();
+                    listDataInfo.ForEach(item => obList.Add(item));
+
+                    allDataClass.DataIndexes = obList;
+                }
+            }
+
+            return allDataClass;
+        }
+
+        private DataShowClass LoadDataShowFromFile<T>(string file)
+        {
+            DataShowClass allDataClass = new DataShowClass
+            {
+                DataIndexes = new ObservableCollection<DataIndex>()
+            };
+            XDocument doc = XDocument.Load(file);
+
+            foreach (var el in doc.Descendants("Data").Elements())
+            {
+                if (el.Name.ToString() == "DataShow")
+                {
+
+                    allDataClass.IsUpload = el.Attribute("是否保存")?.Value == "True";
+                    var dataInfo = from data in el.Descendants("Item")
+                                   where data.HasAttributes
+                                   select
+                                       new DataIndex
+                                       {
+                                           Name = data.Attribute("名称")?.Value,
+                                           Index = data.Attribute("数据索引")?.Value
+                                       };
+
+                    var listDataInfo = dataInfo.ToList();
+                    var obList = new ObservableCollection<DataIndex>();
+                    listDataInfo.ForEach(item => obList.Add(item));
+
+                    allDataClass.DataIndexes = obList;
+                }
+            }
+
+            return allDataClass;
+        }
         private T LoadDataClass<T>() where T : AllDataClass
         {
             string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfgEx.xml";
@@ -61,32 +180,9 @@ namespace AutoBuildConfig.Model
             }
             else
             {
-                allData = LoadAllData<T>();
+                allData = LoadAllDataFromFile<T>(file);
 
                 return allData as T;
-            }
-        }
-
-        private T LoadAllData<T>() where T : AllDataClass
-        {
-            string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfgEx.xml";
-            AllDataClass allDataClass;
-
-            if (!File.Exists(file))
-            {
-                allDataClass = new AllDataClass
-                {
-                    ComboxStrList = new ObservableCollection<string>(),
-                    DataTitleDictionary = new Dictionary<string, DataClassTitle>(),
-                    DataInfoDictionary = new Dictionary<string, ObservableCollection<DataInfo>>(),
-                };
-                return allDataClass as T;
-            }
-            else
-            {
-                allDataClass = LoadAllDataFromFile<T>(file);
-
-                return allDataClass as T;
             }
         }
 
@@ -428,6 +524,8 @@ namespace AutoBuildConfig.Model
                 case "dataType":
                 case "dataTitle":
                 case "dataInfo":
+                case "dataShow":
+                case "dataSave":
                     SaveSystemCfgEx(tCfg, fileName);
                     break;
                 case "point":
@@ -467,11 +565,17 @@ namespace AutoBuildConfig.Model
                 }
                 else if (tCfg is DataShowClass)
                 {
+                    var allData = (DataShowClass)(object)tCfg;
+                    doc.Descendants("Data").Elements().Where(item => item.Name == "DataShow").Remove();
 
+                    SaveDataShowConfig(doc, allData, fileFullName);
                 }
                 else if (tCfg is DataSaveClass)
                 {
+                    var allData = (DataSaveClass)(object)tCfg;
+                    doc.Descendants("Data").Elements().Where(item => item.Name == "DataSave").Remove();
 
+                    SaveDataSaveConfig(doc, allData, fileFullName);
                 }
             }
             else
@@ -492,14 +596,69 @@ namespace AutoBuildConfig.Model
                 }
                 else if (tCfg is DataShowClass)
                 {
-
+                    XDocument doc = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XElement("SystemCfg"),
+                        new XElement("Data"));
+                    SaveDataShowConfig(doc, (DataShowClass)(object)tCfg, fileFullName);
                 }
                 else if (tCfg is DataSaveClass)
                 {
-
+                    XDocument doc = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XElement("SystemCfg"),
+                        new XElement("Data"));
+                    SaveDataSaveConfig(doc, (DataSaveClass)(object)tCfg, fileFullName);
                 }
             }
 
+        }
+
+        private void SaveDataSaveConfig(XDocument doc, DataSaveClass allData, string fileFullName)
+        {
+            List<string> saveType = new List<string> { "DB", "CSV", "INI" };
+
+            XElement root = doc.Descendants("Data").First();
+
+            XElement dataIn = new XElement("DataSave",
+                new XAttribute("保存类型", saveType[allData.SelectSaveType] ?? ""),
+                new XAttribute("Server", allData.ServiceAddress ?? ""),
+                new XAttribute("Port", allData.Port ?? ""),
+                new XAttribute("UserID", allData.User ?? ""),
+                new XAttribute("Password", allData.Password ?? ""),
+                new XAttribute("Database", allData.DataBase ?? ""),
+                new XAttribute("TableName", allData.DataTable ?? ""),
+                new XAttribute("保存路径", allData.SavePath ?? ""),
+                new XAttribute("是否保存", allData.IsUpload.ToString()));
+            foreach (var dataInfo in allData.DataIndexes)
+            {
+                XElement itemInfo = new XElement("Item",
+                    new XAttribute("名称", dataInfo.Name ?? ""),
+                    new XAttribute("数据索引", dataInfo.Index ?? ""));
+                dataIn.Add(itemInfo);
+            }
+
+
+            root.Add(dataIn);
+            doc.Save(fileFullName);
+        }
+
+        private void SaveDataShowConfig(XDocument doc, DataShowClass allData, string fileFullName)
+        {
+            XElement root = doc.Descendants("Data").First();
+
+            XElement dataIn = new XElement("DataShow",
+                new XAttribute("是否保存", allData.IsUpload.ToString()));
+            foreach (var dataInfo in allData.DataIndexes)
+            {
+                XElement itemInfo = new XElement("Item",
+                    new XAttribute("名称", dataInfo.Name ?? ""),
+                    new XAttribute("数据索引", dataInfo.Index ?? ""));
+                dataIn.Add(itemInfo);
+            }
+
+            root.Add(dataIn);
+            doc.Save(fileFullName);
         }
 
         private void SaveAllDataConfig(XDocument doc, AllDataClass allData, string fileFullName)
@@ -802,11 +961,19 @@ namespace AutoBuildConfig.Model
                 }
                 else if (tCfg is DataShowClass)
                 {
-
+                    XDocument doc = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XElement("SystemCfg",
+                        new XElement("Data")));
+                    SaveDataShowConfig(doc, (DataShowClass)(object)tCfg, file + ".xml");
                 }
                 else if (tCfg is DataSaveClass)
                 {
-
+                    XDocument doc = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XElement("SystemCfg",
+                        new XElement("Data")));
+                    SaveDataSaveConfig(doc, (DataSaveClass)(object)tCfg, file + ".xml");
                 }
                 MessageBox.Show("保存成功");
             }
@@ -912,10 +1079,10 @@ namespace AutoBuildConfig.Model
                             return (T)(object)new DataClassTitle();
                         case "dataInfo":
                             return (T)(object)new ObservableCollection<DataInfo>();
-                            //case "dataShow":
-                            //    return (T)(object)LoadDataShow<DataShowClass>();
-                            //case "dataSave":
-                            //    return (T)(object)LoadDataSave<DataSaveClass>();
+                        case "dataShow":
+                            return (T)(object)LoadDataShowFromFile<DataShowClass>(file);
+                        case "dataSave":
+                            return (T)(object)LoadDataSaveFromFile<DataSaveClass>(file);
                     }
 
                 }
