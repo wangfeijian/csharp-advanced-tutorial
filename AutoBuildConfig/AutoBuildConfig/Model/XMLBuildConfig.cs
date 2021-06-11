@@ -26,16 +26,16 @@ namespace AutoBuildConfig.Model
                     return (T)(object)LoadSystemConfig<SystemCfg>();
                 case "point":
                     return (T)(object)LoadPointConfig<List<StationPoint>>();
-                    //case "systemParam":
-                    //    return (T)(object)LoadParamConfig<Parameters>();
-                    //case "otherConfig":
-                    //    return (T)(object)LoadOtherConfig<OtherConfig>();
-                    //case "dataClass":
-                    //    return (T)(object)LoadDataClass<AllDataClass>();
-                    //case "dataClassTitle":
-                    //    return (T)(object)LoadDataClassTitle<DataClassTitle>();
-                    //case "dataInfo":
-                    //    return (T)(object)LoadDataClassInfo<ObservableCollection<DataInfo>>();
+                case "systemParam":
+                    return (T)(object)LoadParamConfig<Parameters>();
+                case "otherConfig":
+                    return (T)(object)LoadOtherConfig<OtherConfig>();
+                case "dataClass":
+                    return (T)(object)LoadDataClass<AllDataClass>();
+                case "dataClassTitle":
+                    return (T)(object)new DataClassTitle();
+                case "dataInfo":
+                    return (T)(object)new ObservableCollection<DataInfo>();
                     //case "dataShow":
                     //    return (T)(object)LoadDataShow<DataShowClass>();
                     //case "dataSave":
@@ -43,6 +43,246 @@ namespace AutoBuildConfig.Model
             }
             return (T)tCfg;
         }
+
+        private T LoadDataClass<T>() where T : AllDataClass
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfgEx.xml";
+            AllDataClass allData;
+
+            if (!File.Exists(file))
+            {
+                allData = new AllDataClass
+                {
+                    ComboxStrList = new ObservableCollection<string>(),
+                    DataTitleDictionary = new Dictionary<string, DataClassTitle>(),
+                    DataInfoDictionary = new Dictionary<string, ObservableCollection<DataInfo>>()
+                };
+                return allData as T;
+            }
+            else
+            {
+                allData = LoadAllData<T>();
+
+                return allData as T;
+            }
+        }
+
+        private T LoadAllData<T>() where T : AllDataClass
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfgEx.xml";
+            AllDataClass allDataClass;
+
+            if (!File.Exists(file))
+            {
+                allDataClass = new AllDataClass
+                {
+                    ComboxStrList = new ObservableCollection<string>(),
+                    DataTitleDictionary = new Dictionary<string, DataClassTitle>(),
+                    DataInfoDictionary = new Dictionary<string, ObservableCollection<DataInfo>>(),
+                };
+                return allDataClass as T;
+            }
+            else
+            {
+                allDataClass = LoadAllDataFromFile<T>(file);
+
+                return allDataClass as T;
+            }
+        }
+
+        private AllDataClass LoadAllDataFromFile<T>(string file)
+        {
+            AllDataClass allDataClass = new AllDataClass
+            {
+                ComboxStrList = new ObservableCollection<string>(),
+                DataInfoDictionary = new Dictionary<string, ObservableCollection<DataInfo>>(),
+                DataTitleDictionary = new Dictionary<string, DataClassTitle>()
+            };
+            XDocument doc = XDocument.Load(file);
+
+            foreach (var el in doc.Descendants("Data").Elements())
+            {
+                if (el.Name.ToString() == "Data")
+                {
+
+                    var dataTitle = new DataClassTitle
+                    {
+                        Name = el.Attribute("名称")?.Value,
+                        Version = el.Attribute("版本")?.Value,
+                        PdcaEnable = el.Attribute("PDCA")?.Value == "True",
+                        Authority = Convert.ToInt32(el.Attribute("权限")?.Value)
+                    };
+                    var dataInfo = from data in el.Descendants("Item")
+                                   where data.HasAttributes
+                                   select
+                                       new DataInfo
+                                       {
+                                           Name = data.Attribute("名称")?.Value,
+                                           DataType = data.Attribute("数据类型")?.Value,
+                                           DataIndex = data.Attribute("数据索引")?.Value,
+                                           StandardValue = data.Attribute("标准值")?.Value,
+                                           UpperValue = data.Attribute("上限")?.Value,
+                                           LowerValue = data.Attribute("下限")?.Value,
+                                           OffsetValue = data.Attribute("补偿值")?.Value,
+                                           Unit = data.Attribute("单位")?.Value,
+                                       };
+
+                    var listDataInfo = dataInfo.ToList();
+                    var obList = new ObservableCollection<DataInfo>();
+                    listDataInfo.ForEach(item => obList.Add(item));
+
+                    string name = dataTitle.Name;
+
+                    if (name != null)
+                    {
+                        allDataClass.ComboxStrList.Add(name);
+                        allDataClass.DataTitleDictionary[name] = dataTitle;
+                        allDataClass.DataInfoDictionary[name] = obList;
+                    }
+                }
+            }
+
+            return allDataClass;
+        }
+
+        private T LoadOtherConfig<T>() where T : OtherConfig
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfgEx.xml";
+            OtherConfig otherConfig;
+
+            if (!File.Exists(file))
+            {
+                otherConfig = new OtherConfig
+                {
+                    CylinderInfos = new List<CylinderInfo>(),
+                    LightInfos = new List<LightInfo>(),
+                    GrrInfos = new List<ReflectInfo>(),
+                    CalibInfos = new List<ReflectInfo>(),
+                    ServersInfos = new List<ServersInfo>()
+                };
+                return otherConfig as T;
+            }
+            else
+            {
+                otherConfig = LoadOtherConfigFromFile<T>(file);
+
+                return otherConfig as T;
+            }
+        }
+
+        private OtherConfig LoadOtherConfigFromFile<T>(string file) where T : OtherConfig
+        {
+            XDocument doc = XDocument.Load(file);
+            var cylinder = from item in doc.Descendants("Cylinder")
+                           where item.HasAttributes
+                           select
+                               new CylinderInfo
+                               {
+                                   Name = item.Attribute("名称")?.Value,
+                                   EngName = item.Attribute("翻译")?.Value,
+                                   Type = item.Attribute("类型")?.Value,
+                                   ExtendOutput = item.Attribute("伸出输出")?.Value,
+                                   RetractOutput = item.Attribute("缩回输出")?.Value,
+                                   ExtendInput = item.Attribute("伸出输入")?.Value,
+                                   RetractInput = item.Attribute("缩回输入")?.Value,
+                                   ExtendEnable = item.Attribute("伸出启用")?.Value,
+                                   RetractEnable = item.Attribute("缩回启用")?.Value,
+                                   TimeOut = item.Attribute("超时时间")?.Value,
+                               };
+            var light = from item in doc.Descendants("light")
+                        where item.HasAttributes
+                        select
+                            new LightInfo
+                            {
+                                Name = item.Attribute("名称")?.Value,
+                                Type = item.Attribute("类型")?.Value,
+                                Aisle = item.Attribute("通道")?.Value,
+                                AisleIndex = item.Attribute("通信索引")?.Value,
+                            };
+            var calib = from item in doc.Descendants("Calib").Elements()
+                        where item.HasAttributes
+                        select
+                            new ReflectInfo
+                            {
+                                Name = item.Attribute("名称")?.Value,
+                                StationName = item.Attribute("站位")?.Value,
+                                MethodName = item.Attribute("方法")?.Value,
+                            };
+            var grr = from item in doc.Descendants("GRR").Elements()
+                      where item.HasAttributes
+                      select
+                          new ReflectInfo
+                          {
+                              Name = item.Attribute("名称")?.Value,
+                              StationName = item.Attribute("站位")?.Value,
+                              MethodName = item.Attribute("方法")?.Value,
+                          };
+            var server = from item in doc.Descendants("Server")
+                         where item.HasAttributes
+                         select
+                             new ServersInfo
+                             {
+                                 Index = item.Attribute("序号")?.Value,
+                                 IpAddress = item.Attribute("本地IP地址")?.Value,
+                                 ListenPort = item.Attribute("监听端口")?.Value,
+                                 Enable = item.Attribute("启用")?.Value,
+                             };
+            var otherConfig = new OtherConfig
+            {
+                CylinderInfos = cylinder.ToList(),
+                LightInfos = light.ToList(),
+                CalibInfos = calib.ToList(),
+                GrrInfos = grr.ToList(),
+                ServersInfos = server.ToList(),
+            };
+            return otherConfig;
+        }
+
+        private T LoadParamConfig<T>() where T : Parameters
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "systemParam.xml";
+            Parameters parameters;
+
+            if (!File.Exists(file))
+            {
+                parameters = new Parameters
+                {
+                    ParameterInfos = new List<ParameterInfo>()
+                };
+                return parameters as T;
+            }
+            else
+            {
+                parameters = LoadParamFromFile<T>(file);
+
+                return parameters as T;
+            }
+        }
+
+        private Parameters LoadParamFromFile<T>(string file) where T : Parameters
+        {
+            XDocument doc = XDocument.Load(file);
+            var param = from item in doc.Descendants("Param")
+                        where item.HasAttributes
+                        select
+                            new ParameterInfo
+                            {
+                                KeyValue = item.Attribute("键值")?.Value,
+                                CurrentValue = item.Attribute("当前值")?.Value,
+                                Unit = item.Attribute("单位")?.Value,
+                                ParamDesc = item.Attribute("参数描述")?.Value,
+                                EnglishDesc = item.Attribute("翻译")?.Value,
+                                MinValue = item.Attribute("最小值")?.Value,
+                                MaxValue = item.Attribute("最大值")?.Value,
+                            };
+
+            var parameters = new Parameters
+            {
+                ParameterInfos = param.ToList()
+            };
+            return parameters;
+        }
+
 
         private T LoadSystemConfig<T>() where T : SystemCfg
         {
@@ -185,16 +425,212 @@ namespace AutoBuildConfig.Model
                     SaveSystemCfg(tCfg, fileName);
                     break;
                 case "systemCfgEx":
+                case "dataType":
+                case "dataTitle":
+                case "dataInfo":
+                    SaveSystemCfgEx(tCfg, fileName);
                     break;
                 case "point":
                     SavePointCfg(tCfg, fileName);
                     break;
                 case "systemParam":
+                    SaveParamCfg(tCfg, fileName);
                     break;
             }
 
         }
 
+        private void SaveSystemCfgEx<T>(T tCfg, string fileName)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            string fileFullName = path + "systemCfgEx.xml";
+
+            if (File.Exists(fileFullName))
+            {
+                XDocument doc = XDocument.Load(fileFullName);
+                if (tCfg is OtherConfig)
+                {
+                    var otherCfg = (OtherConfig)(object)tCfg;
+                    doc.Descendants("Light").Remove();
+                    doc.Descendants("Cylinder").Remove();
+                    doc.Descendants("RunMode").Remove();
+                    doc.Descendants("Server").Remove();
+
+                    SaveOtherConfig(doc, otherCfg, fileFullName);
+                }
+                else if (tCfg is AllDataClass)
+                {
+                    var allData = (AllDataClass)(object)tCfg;
+                    doc.Descendants("Data").Elements().Where(item => item.Name == "Data").Remove();
+
+                    SaveAllDataConfig(doc, allData, fileFullName);
+                }
+                else if (tCfg is DataShowClass)
+                {
+
+                }
+                else if (tCfg is DataSaveClass)
+                {
+
+                }
+            }
+            else
+            {
+                if (tCfg is OtherConfig)
+                {
+                    XDocument doc = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XElement("SystemCfg"));
+                    SaveOtherConfig(doc, (OtherConfig)(object)tCfg, fileFullName);
+                }
+                else if (tCfg is AllDataClass)
+                {
+                    XDocument doc = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XElement("SystemCfg"));
+                    SaveAllDataConfig(doc, (AllDataClass)(object)tCfg, fileFullName);
+                }
+                else if (tCfg is DataShowClass)
+                {
+
+                }
+                else if (tCfg is DataSaveClass)
+                {
+
+                }
+            }
+
+        }
+
+        private void SaveAllDataConfig(XDocument doc, AllDataClass allData, string fileFullName)
+        {
+            XElement root = doc.Descendants("SystemCfg").First();
+            XElement data = new XElement("Data");
+
+            foreach (var item in allData.ComboxStrList)
+            {
+                XElement dataIn = new XElement("Data",
+                    new XAttribute("名称", allData.DataTitleDictionary[item].Name ?? ""),
+                    new XAttribute("版本", allData.DataTitleDictionary[item].Version ?? ""),
+                    new XAttribute("PDCA", allData.DataTitleDictionary[item].PdcaEnable.ToString()),
+                    new XAttribute("权限", allData.DataTitleDictionary[item].Authority.ToString()));
+                foreach (var dataInfo in allData.DataInfoDictionary[item])
+                {
+                    XElement itemInfo = new XElement("Item",
+                    new XAttribute("名称", dataInfo.Name ?? ""),
+                    new XAttribute("数据类型", dataInfo.DataType ?? ""),
+                    new XAttribute("数据索引", dataInfo.DataIndex ?? ""),
+                    new XAttribute("标准值", dataInfo.StandardValue ?? ""),
+                    new XAttribute("上限", dataInfo.UpperValue ?? ""),
+                    new XAttribute("下限", dataInfo.LowerValue ?? ""),
+                    new XAttribute("补偿值", dataInfo.OffsetValue ?? ""),
+                    new XAttribute("单位", dataInfo.Unit ?? ""));
+                    dataIn.Add(itemInfo);
+                }
+
+                data.Add(dataIn);
+            }
+
+            root.Add(data);
+            doc.Save(fileFullName);
+        }
+
+        private void SaveOtherConfig(XDocument doc, OtherConfig otherCfg, string fileFullName)
+        {
+            XElement root = doc.Descendants("SystemCfg").First();
+            XElement lightElement = new XElement("Light",
+                from item in otherCfg.LightInfos
+                select
+                    new XElement("light",
+                        new XAttribute("名称", item.Name ?? ""),
+                        new XAttribute("类型", item.Type ?? ""),
+                        new XAttribute("通道", item.Aisle ?? ""),
+                        new XAttribute("通信索引", item.AisleIndex ?? "")
+                    ));
+            XElement cylinderElement = new XElement("Cylinder",
+                from item in otherCfg.CylinderInfos
+                select
+                    new XElement("Cylinder",
+                        new XAttribute("名称", item.Name ?? ""),
+                        new XAttribute("翻译", item.EngName ?? ""),
+                        new XAttribute("类型", item.Type ?? ""),
+                        new XAttribute("伸出输出", item.ExtendOutput ?? ""),
+                        new XAttribute("缩回输出", item.RetractOutput ?? ""),
+                        new XAttribute("伸出输入", item.ExtendInput ?? ""),
+                        new XAttribute("缩回输入", item.RetractInput ?? ""),
+                        new XAttribute("伸出启用", item.ExtendEnable ?? ""),
+                        new XAttribute("缩回启用", item.RetractEnable ?? ""),
+                        new XAttribute("超时时间", item.TimeOut ?? "")
+                    ));
+            XElement runModeElement = new XElement("RunMode",
+                new XElement("Calib",
+                    from item in otherCfg.CalibInfos
+                    select
+                        new XElement("Item",
+                            new XAttribute("名称", item.Name ?? ""),
+                            new XAttribute("站位", item.StationName ?? ""),
+                            new XAttribute("方法", item.MethodName ?? ""))),
+                new XElement("GRR",
+                    from it in otherCfg.GrrInfos
+                    select
+                        new XElement("Item",
+                            new XAttribute("名称", it.Name ?? ""),
+                            new XAttribute("站位", it.StationName ?? ""),
+                            new XAttribute("方法", it.MethodName ?? ""))
+                ));
+            XElement serverElement = new XElement("Server",
+                from item in otherCfg.ServersInfos
+                select
+                    new XElement("Server",
+                        new XAttribute("序号", item.Index ?? ""),
+                        new XAttribute("本地IP地址", item.IpAddress ?? ""),
+                        new XAttribute("监听端口", item.ListenPort ?? ""),
+                        new XAttribute("启用", item.Enable ?? "")
+                    ));
+            root.Add(lightElement);
+            root.Add(cylinderElement);
+            root.Add(runModeElement);
+            root.Add(serverElement);
+            doc.Save(fileFullName);
+        }
+
+        private void SaveParamCfg<T>(T tCfg, string fileName)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            string fileFullName = path + fileName + ".xml";
+
+            Parameters parameters = null;
+
+            if (tCfg is Parameters)
+            {
+                parameters = (Parameters)(object)tCfg;
+
+            }
+
+            if (parameters != null)
+            {
+                XDocument doc = new XDocument(
+                    new XDeclaration("1.0", "utf-8", "yes"),
+                    new XElement("SystemParam",
+                        new XElement("ParamDsecribe",
+                            new XElement("ParamDescribe",
+                                new XAttribute("修改者", "Admin"),
+                                new XAttribute("文件描述", "系统配置参数-运行用"))),
+                        new XElement("Param",
+                            from param in parameters.ParameterInfos
+                            select
+                                new XElement("Param",
+                                    new XAttribute("键值", param.KeyValue),
+                                    new XAttribute("当前值", param.CurrentValue ?? ""),
+                                    new XAttribute("单位", param.Unit ?? ""),
+                                    new XAttribute("参数描述", param.ParamDesc ?? ""),
+                                    new XAttribute("翻译", param.EnglishDesc ?? ""),
+                                    new XAttribute("最小值", param.MinValue ?? ""),
+                                    new XAttribute("最大值", param.MaxValue ?? "")
+                                ))));
+                doc.Save(fileFullName);
+            }
+        }
         private void SavePointCfg<T>(T tCfg, string fileName)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
@@ -346,6 +782,32 @@ namespace AutoBuildConfig.Model
                 {
                     SavePointCfg(tCfg, file);
                 }
+                else if (tCfg is Parameters)
+                {
+                    SaveParamCfg(tCfg, file);
+                }
+                else if (tCfg is OtherConfig)
+                {
+                    XDocument doc = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XElement("SystemCfg"));
+                    SaveOtherConfig(doc, (OtherConfig)(object)tCfg, file + ".xml");
+                }
+                else if (tCfg is AllDataClass)
+                {
+                    XDocument doc = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XElement("SystemCfg"));
+                    SaveAllDataConfig(doc, (AllDataClass)(object)tCfg, file + ".xml");
+                }
+                else if (tCfg is DataShowClass)
+                {
+
+                }
+                else if (tCfg is DataSaveClass)
+                {
+
+                }
                 MessageBox.Show("保存成功");
             }
             else
@@ -438,16 +900,18 @@ namespace AutoBuildConfig.Model
                         case "point":
                             tCfg = (T)(object)LoadPointFromFile<List<StationPoint>>(file);
                             break;
-                            //case "systemParam":
-                            //    return (T)(object)LoadParamConfig<Parameters>();
-                            //case "otherConfig":
-                            //    return (T)(object)LoadOtherConfig<OtherConfig>();
-                            //case "dataClass":
-                            //    return (T)(object)LoadDataClass<AllDataClass>();
-                            //case "dataClassTitle":
-                            //    return (T)(object)LoadDataClassTitle<DataClassTitle>();
-                            //case "dataInfo":
-                            //    return (T)(object)LoadDataClassInfo<ObservableCollection<DataInfo>>();
+                        case "systemParam":
+                            tCfg = (T)(object)LoadParamFromFile<Parameters>(file);
+                            break;
+                        case "otherConfig":
+                            tCfg = (T)(object)LoadOtherConfigFromFile<OtherConfig>(file);
+                            break;
+                        case "dataClass":
+                            return (T)(object)LoadAllDataFromFile<AllDataClass>(file);
+                        case "dataClassTitle":
+                            return (T)(object)new DataClassTitle();
+                        case "dataInfo":
+                            return (T)(object)new ObservableCollection<DataInfo>();
                             //case "dataShow":
                             //    return (T)(object)LoadDataShow<DataShowClass>();
                             //case "dataSave":

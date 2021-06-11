@@ -16,7 +16,7 @@
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
     <Style x:Key="DataGridStyle" TargetType="DataGrid">
-        <Setter Property="AlternatingRowBackground" Value="DodgerBlue" />
+        <Setter Property="AlternatingRowBackground" Value="LightSkyBlue" />
         <Setter Property="AlternationCount" Value="2" />
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="CanUserAddRows" Value="True" />

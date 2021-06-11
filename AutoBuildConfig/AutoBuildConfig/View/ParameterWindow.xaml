@@ -102,13 +102,13 @@
                                 Header="键值"
                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                             <DataGridTextColumn
-                                Width="*"
+                                Width="80"
                                 Binding="{Binding CurrentValue}"
                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                 Header="当前值"
                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                             <DataGridTextColumn
-                                Width="*"
+                                Width="50"
                                 Binding="{Binding Unit}"
                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                 Header="单位"
@@ -126,19 +126,19 @@
                                 Header="翻译"
                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                              <DataGridTextColumn
-                                Width="*"
+                                Width="60"
                                 Binding="{Binding MinValue}"
                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                 Header="最小值"
                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                              <DataGridTextColumn
-                                Width="*"
+                                Width="60"
                                 Binding="{Binding MaxValue}"
                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                 Header="最大值"
                                 HeaderStyle="{StaticResource DataGridHeadStyle}" />
                              <DataGridTextColumn
-                                Width="*"
+                                Width="50"
                                 Binding="{Binding Authority}"
                                 ElementStyle="{StaticResource DataGridContentStyle}"
                                 Header="权限"

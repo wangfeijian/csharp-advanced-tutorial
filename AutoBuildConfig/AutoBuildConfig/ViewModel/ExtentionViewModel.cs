@@ -24,6 +24,7 @@ namespace AutoBuildConfig.ViewModel
         public ICommand SaveAsConfigCommand { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand AddDataGroupCommand { get; set; }
+        public ICommand RemoveDataGroupCommand { get; set; }
         public ICommand AddDataEnableCommand { get; set; }
         public ICommand UpdateDataGroupCommand { get; set; }
         public ICommand ComboBoxSelectedCommand { get; set; }
@@ -80,7 +81,7 @@ namespace AutoBuildConfig.ViewModel
         }
 
         public List<string> Auth => new List<string> { "Operator", "FAE", "Adjust", "Engineer", "Adminstrator" };
-        public List<string> SaveType => new List<string> { "DB", "CSV", "INI", "JSON" };
+        public List<string> SaveType => new List<string> { "DB", "CSV", "INI" };
 
         private Visibility isDb;
 
@@ -115,6 +116,7 @@ namespace AutoBuildConfig.ViewModel
             SaveAsConfigCommand = new RelayCommand<object>(SaveAsConfig);
             SelectionChangedCommand = new RelayCommand<object>(SelectChange);
             AddDataGroupCommand = new RelayCommand<object>(AddDataGroup);
+            RemoveDataGroupCommand = new RelayCommand<object>(RemoveDataGroup);
             AddDataEnableCommand = new RelayCommand<object>(AddDataEnalbe);
             UpdateDataGroupCommand = new RelayCommand<object>(UpdateDataGroup);
             ComboBoxSelectedCommand = new RelayCommand<SelectionChangedEventArgs>(ComboBoxSelectChanged);
@@ -166,35 +168,72 @@ namespace AutoBuildConfig.ViewModel
         private void ComboBoxSelectChanged(SelectionChangedEventArgs e)
         {
             ComboBox comboBox = e.Source as ComboBox;
-            string value = comboBox.SelectedItem.ToString();
+            if (comboBox != null)
+            {
+                string value = comboBox.SelectedItem.ToString();
 
-            DataClassTitle = AllDataClass.DataTitleDictionary[value];
-            DataInfos = AllDataClass.DataInfoDictionary[value];
+                DataClassTitle = AllDataClass.DataTitleDictionary[value];
+                DataInfos = AllDataClass.DataInfoDictionary[value];
+            }
+
             e.Handled = true;
+        }
+
+        private void RemoveDataGroup(object obj)
+        {
+            ComboBox comboBox = obj as ComboBox;
+            string value = comboBox?.Text;
+
+            if (comboBox != null)
+            {
+                int select = comboBox.SelectedIndex;
+                int nextSelect = select + 1;
+                if (comboBox.Items.Count==1)
+                {
+                    MessageBox.Show("数据组至少需要有一组数据，无法删除！");
+                    return;
+                }
+
+                if (nextSelect == comboBox.Items.Count)
+                {
+                    nextSelect = 0;
+                }
+                comboBox.SelectedIndex = nextSelect;
+            }
+
+            if (value != null)
+                {
+                    AllDataClass.ComboxStrList.Remove(value);
+                    AllDataClass.DataInfoDictionary.Remove(value);
+                    AllDataClass.DataTitleDictionary.Remove(value);
+                    MessageBox.Show($"{value} 数据组删除成功");
+                }
         }
         private void AddDataGroup(object obj)
         {
             TextBox textBox = obj as TextBox;
 
-            string value = textBox.Text;
-            if (value.Trim() == "")
+            if (textBox != null)
             {
-                return;
+                string value = textBox.Text;
+                if (value.Trim() == "")
+                {
+                    return;
+                }
+                if (!AllDataClass.ComboxStrList.Contains(value))
+                {
+                    AllDataClass.ComboxStrList.Add(value);
+                    var dataTilte = DeepCopyByXml(DataClassTitle);
+                    var dataInfo = DeepCopyByXml(DataInfos);
+                    AllDataClass.DataTitleDictionary[value] = dataTilte;
+                    AllDataClass.DataInfoDictionary[value] = dataInfo;
+                    MessageBox.Show($"{value} 添加成功");
+                }
+                else
+                {
+                    MessageBox.Show($"{value} 已存在！请重新添加！");
+                }
             }
-            if (!AllDataClass.ComboxStrList.Contains(value))
-            {
-                AllDataClass.ComboxStrList.Add(value);
-                var dataTilte = DeepCopyByXml(DataClassTitle);
-                var dataInfo = DeepCopyByXml(DataInfos);
-                AllDataClass.DataTitleDictionary[value] = dataTilte;
-                AllDataClass.DataInfoDictionary[value] = dataInfo;
-                MessageBox.Show($"{value} 添加成功");
-            }
-            else
-            {
-                MessageBox.Show($"{value} 已存在！请重新添加！");
-            }
-
         }
 
         private T DeepCopyByXml<T>(T obj)
@@ -305,6 +344,7 @@ namespace AutoBuildConfig.ViewModel
                                 DataSave = BulidConfig.LoadConfigFromFile<DataSaveClass>("dataSave");
                                 break;
                         }
+                    MessageBox.Show("加载成功！");
                 }
                 catch (Exception e)
                 {
