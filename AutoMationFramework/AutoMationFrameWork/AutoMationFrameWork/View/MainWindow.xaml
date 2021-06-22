@@ -1,0 +1,152 @@
+﻿<Window
+    x:Class="AutoMationFrameWork.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:AutoMationFrameWork.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="MainWin"
+    Title="运动控制软件"
+    Width="800"
+    Height="600"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}" />
+    </Window.DataContext>
+    <Grid Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button
+                Name="MainBtn"
+                Content="&#xe7ed;"
+                Height="50"
+                Margin="2"
+                Click="Button_OnClick"
+                FontSize="45"
+                Foreground="#27d0d8"
+                Tag="Main"
+                Template="{StaticResource ButtonTemplate}" />
+            <Button
+                Content="&#xe65f;"
+                Grid.Row="1"
+                Height="50"
+                Margin="2"
+                FontSize="45"
+                Foreground="#006569"
+                Template="{StaticResource ButtonTemplate}" />
+            <Button
+                Content="&#xe606;"
+                Grid.Row="2"
+                Height="50"
+                Margin="2"
+                FontSize="45"
+                Foreground="#691fff"
+                Template="{StaticResource ButtonTemplate}" />
+            <Button
+                Content="&#xec6d;"
+                Grid.Row="3"
+                Height="50"
+                Margin="2"
+                FontSize="45"
+                Foreground="#ff0000"
+                Template="{StaticResource ButtonTemplate}" />
+            <Button
+                Name="SetBtn"
+                Content="&#xe63a;"
+                Grid.Row="4"
+                Height="50"
+                Margin="2"
+                Click="Button_OnClick"
+                FontSize="45"
+                Foreground="#50bc93"
+                Tag="Set"
+                Template="{StaticResource ButtonTemplate}" />
+            <Button
+                Content="&#xe624;"
+                Grid.Row="5"
+                Height="50"
+                Margin="2"
+                Click="Button_OnClick"
+                FontSize="45"
+                Foreground="#22b573"
+                Tag="Camera"
+                Template="{StaticResource ButtonTemplate}" />
+            <Button
+                Content="&#xe615;"
+                Grid.Row="6"
+                Height="50"
+                Margin="2"
+                Click="Button_OnClick"
+                FontSize="45"
+                Foreground="#626262"
+                Tag="Table"
+                Template="{StaticResource ButtonTemplate}" />
+            <Button
+                Content="&#xe636;"
+                Grid.Row="7"
+                Height="50"
+                Margin="2"
+                Click="Button_OnClick"
+                FontSize="45"
+                Foreground="#f29600"
+                Tag="Alarm"
+                Template="{StaticResource ButtonTemplate}" />
+            <Button
+                Content="&#xe66d;"
+                Grid.Row="8"
+                Height="50"
+                Margin="2"
+                Click="Button_OnClick"
+                FontSize="45"
+                Foreground="#141134"
+                Tag="User"
+                Template="{StaticResource ButtonTemplate}" />
+            <Button
+                Content="&#xe6ad;"
+                Grid.Row="9"
+                Height="50"
+                Margin="2"
+                FontSize="45"
+                Foreground="#16c2c2"
+                Template="{StaticResource ButtonTemplate}" />
+        </Grid>
+        <local:MainControl x:Name="MainUi" Grid.Column="1" />
+        <local:SettingControl
+            x:Name="SetUi"
+            Grid.Column="1"
+            Visibility="Collapsed" />
+        <local:CameraControl
+            x:Name="CameraUi"
+            Grid.Column="1"
+            Visibility="Collapsed" />
+        <local:TableCusControl
+            x:Name="TableUi"
+            Grid.Column="1"
+            Visibility="Collapsed" />
+        <local:AlarmControl
+            x:Name="AlarmUi"
+            Grid.Column="1"
+            Visibility="Collapsed" />
+        <local:UserCusControl
+            x:Name="UserUi"
+            Grid.Column="1"
+            Visibility="Collapsed" />
+    </Grid>
+</Window>

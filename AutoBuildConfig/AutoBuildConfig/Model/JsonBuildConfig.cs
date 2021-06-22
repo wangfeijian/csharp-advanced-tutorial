@@ -41,7 +41,7 @@ namespace AutoBuildConfig.Model
             }
             else
             {
-                MessageBox.Show("未指定json文件");
+                MessageBox.Show("未指定配置文件");
             }
         }
 
@@ -65,7 +65,7 @@ namespace AutoBuildConfig.Model
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("文件错误" + e, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                    MessageBox.Show("文件错误", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                     return (T)tCfg;
                 }
                 MessageBox.Show("加载成功");
@@ -73,7 +73,7 @@ namespace AutoBuildConfig.Model
             }
             else
             {
-                MessageBox.Show("请选择json文件");
+                MessageBox.Show("请选择配置文件");
                 return (T)tCfg;
             }
         }

@@ -348,7 +348,7 @@ namespace AutoBuildConfig.ViewModel
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("未选择文件！" + e);
+                    MessageBox.Show("未选择文件！");
                 }
             }
         }

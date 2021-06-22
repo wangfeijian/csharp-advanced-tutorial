@@ -1,0 +1,79 @@
+{
+  "id": "2622590",
+  "name": "AutoMation",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2768292",
+      "name": "统计",
+      "font_class": "tongji",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "3834490",
+      "name": "相机",
+      "font_class": "xiangji",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "4922091",
+      "name": "启动",
+      "font_class": "start",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "5065478",
+      "name": "暂停",
+      "font_class": "shuangsechangyongtubiao-",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "7501110",
+      "name": "权限",
+      "font_class": "fenghuangxiangmutubiao_quanxian",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "12875244",
+      "name": "语言切换",
+      "font_class": "icon_A",
+      "unicode": "e6ad",
+      "unicode_decimal": 59053
+    },
+    {
+      "icon_id": "17581788",
+      "name": "停止",
+      "font_class": "tingzhi",
+      "unicode": "ec6d",
+      "unicode_decimal": 60525
+    },
+    {
+      "icon_id": "17681530",
+      "name": "报警信息",
+      "font_class": "baojingxinxi",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "18924516",
+      "name": "设置",
+      "font_class": "70BasicIcons-all-33",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "19646438",
+      "name": "主页",
+      "font_class": "zhuye",
+      "unicode": "e7ed",
+      "unicode_decimal": 59373
+    }
+  ]
+}
