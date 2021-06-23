@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "428403",
+      "name": "最大化",
+      "font_class": "zuidahua1",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "941658",
+      "name": "最大化",
+      "font_class": "zuidahua",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "9430532",
+      "name": "关  闭",
+      "font_class": "guanbi",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "11490918",
+      "name": "最小化",
+      "font_class": "zuixiaohua",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "3881881",
+      "name": "公司",
+      "font_class": "gongsi",
+      "unicode": "e769",
+      "unicode_decimal": 59241
+    },
+    {
       "icon_id": "2768292",
       "name": "统计",
       "font_class": "tongji",

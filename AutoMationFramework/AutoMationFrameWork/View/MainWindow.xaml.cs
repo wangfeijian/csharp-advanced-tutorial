@@ -65,5 +65,38 @@ namespace AutoMationFrameWork.View
                 }
             }
         }
+
+        private void BorderTitle_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void WindowsState_OnClick(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+
+            switch (btn.Name)
+            {
+                case "MinBtn":
+                    if (WindowState != WindowState.Minimized)
+                        WindowState = WindowState.Minimized;
+                    break;
+                case "MaxBtn":
+                    if (WindowState != WindowState.Maximized)
+                    {
+                        WindowState = WindowState.Maximized;
+                        btn.Content = "\xe65b";
+                    }
+                    else
+                    {
+                        WindowState = WindowState.Normal;
+                        btn.Content = "\xe62b";
+                    }
+                    break;
+                case "CloseBtn":
+                    Environment.Exit(0);
+                    break;
+            }
+        }
     }
 }
