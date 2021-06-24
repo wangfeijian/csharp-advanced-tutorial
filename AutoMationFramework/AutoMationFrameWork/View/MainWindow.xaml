@@ -12,7 +12,9 @@
     Width="1000"
     Height="700"
     AllowsTransparency="True"
+    Background="{DynamicResource MaterialDesignPaper}"
     ResizeMode="CanResizeWithGrip"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -20,10 +22,8 @@
         <Binding Path="Main" Source="{StaticResource Locator}" />
     </Window.DataContext>
     <Border
-        Background="#F5F5F5"
         BorderBrush="#D6D6D6"
-        BorderThickness="1"
-        MouseDown="BorderTitle_OnMouseDown">
+        BorderThickness="1">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />
@@ -153,8 +153,10 @@
                 </Grid.RowDefinitions>
                 <Border
                     Name="BorderTitle"
+                    Background="#F5F5F5"
                     BorderBrush="#D6D6D6"
-                    BorderThickness="1,0,0,1">
+                    BorderThickness="1,0,0,1"
+                    MouseDown="BorderTitle_OnMouseDown">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
