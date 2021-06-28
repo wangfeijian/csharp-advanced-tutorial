@@ -45,12 +45,13 @@
                         Text="Company Name" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                     <TextBlock
+                        Name="TimeTextBlock"
                         Grid.Row="2"
                         Margin="16,0,16,8"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Style="{StaticResource MaterialDesignBody2TextBlock}"
-                        Text="2021年6月23日 星期四 9:12" />
+                        Text="{Binding Path=Now, Source={x:Static system:DateTime.Now}, StringFormat='yyyy-MM-dd ddd hh:mm:ss'}" />
                 </Grid>
             </materialDesign:Card>
             <materialDesign:Card
@@ -551,6 +552,7 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock HorizontalAlignment="Center" Text="CPU占用" />
                         <ProgressBar
+                            Name="CpuProgressBar"
                             Width="50"
                             Height="50"
                             Margin="5"
@@ -563,6 +565,7 @@
                     <StackPanel Grid.Column="1" Orientation="Vertical">
                         <TextBlock HorizontalAlignment="Center" Text="内存占用" />
                         <ProgressBar
+                            Name="RamProgressBar"
                             Width="50"
                             Height="50"
                             Margin="5"
@@ -572,6 +575,27 @@
                             Style="{StaticResource MaterialDesignCircularProgressBar}"
                             Value="90" />
                     </StackPanel>
+                    <TextBlock
+                        Name="CpuTextBlock"
+                        Grid.Column="0"
+                        Margin="0,37,0,0"
+                        HorizontalAlignment="Center"
+                        Foreground="Black"
+                        Text="{Binding Path=CpuStr, Source=this}" />
+                    <TextBlock
+                        Name="RamTextBlock"
+                        Grid.Column="1"
+                        Margin="0,32,0,0"
+                        HorizontalAlignment="Center"
+                        Foreground="Black"
+                        Text="93.5%" />
+                    <TextBlock
+                        Name="Ram2TextBlock"
+                        Grid.Column="1"
+                        Margin="0,43,0,0"
+                        HorizontalAlignment="Center"
+                        Foreground="Black"
+                        Text="MB" />
                 </Grid>
             </Grid>
         </materialDesign:Card>
