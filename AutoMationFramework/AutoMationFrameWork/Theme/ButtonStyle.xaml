@@ -1,4 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
     <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
     <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
@@ -27,6 +30,52 @@
             <Trigger Property="IsEnabled" Value="false">
                 <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
                 <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <SolidColorBrush x:Key="IoButton.MouseOver.Background" Color="#9F9F9F" />
+    <SolidColorBrush x:Key="IoButton.MouseOver.Border" Color="Transparent" />
+    <SolidColorBrush x:Key="IoButton.Pressed.Background" Color="#03a9f4" />
+    <SolidColorBrush x:Key="IoButton.Pressed.Border" Color="Transparent" />
+    <SolidColorBrush x:Key="IoButton.Disabled.Background" Color="#FFF4F4F4" />
+    <SolidColorBrush x:Key="IoButton.Disabled.Border" Color="#FFADB2B5" />
+    <ControlTemplate x:Key="IoButtonTemplate" TargetType="{x:Type Button}">
+        <Border x:Name="Border" Background="Transparent">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <materialDesign:PackIcon
+                    Width="25"
+                    Height="25"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Foreground="Green"
+                    Kind="Circle" />
+                <TextBlock
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="25"
+                    Text="{TemplateBinding Button.Content}" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsDefaulted" Value="true">
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource IoButton.MouseOver.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource IoButton.MouseOver.Border}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource IoButton.Pressed.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource IoButton.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource IoButton.Disabled.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource IoButton.Disabled.Border}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

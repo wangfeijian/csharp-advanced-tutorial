@@ -394,7 +394,7 @@
                             Width="32"
                             Height="32"
                             VerticalAlignment="Center"
-                            Foreground="Red"
+                            Foreground="Gray"
                             Kind="Circle" />
                         <TextBlock
                             Margin="10,0,0,5"
@@ -410,7 +410,7 @@
                             Width="32"
                             Height="32"
                             VerticalAlignment="Center"
-                            Foreground="Blue"
+                            Foreground="Green"
                             Kind="Circle" />
                         <TextBlock
                             Margin="10,0,0,5"
@@ -426,7 +426,7 @@
                             Width="32"
                             Height="32"
                             VerticalAlignment="Center"
-                            Foreground="Red"
+                            Foreground="Gray"
                             Kind="Circle" />
                         <TextBlock
                             Margin="10,0,0,5"
@@ -442,7 +442,7 @@
                             Width="32"
                             Height="32"
                             VerticalAlignment="Center"
-                            Foreground="Red"
+                            Foreground="Gray"
                             Kind="Circle" />
                         <TextBlock
                             Margin="10,0,0,5"
@@ -456,7 +456,7 @@
         <GroupBox
             Name="LogGroupBox"
             Grid.Row="3"
-            Grid.RowSpan="4"
+            Grid.RowSpan="2"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Margin="5"
@@ -581,7 +581,7 @@
                         Margin="0,37,0,0"
                         HorizontalAlignment="Center"
                         Foreground="Black"
-                        Text="{Binding Path=CpuStr, Source=this}" />
+                        Text="30%" />
                     <TextBlock
                         Name="RamTextBlock"
                         Grid.Column="1"
