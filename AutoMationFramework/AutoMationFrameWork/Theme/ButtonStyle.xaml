@@ -49,8 +49,8 @@
                 <materialDesign:PackIcon
                     Width="25"
                     Height="25"
-                    VerticalAlignment="Center"
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     Foreground="Green"
                     Kind="Circle" />
                 <TextBlock

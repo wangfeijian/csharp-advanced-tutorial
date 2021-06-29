@@ -11,6 +11,7 @@
     Title="运动控制软件"
     Width="1000"
     Height="700"
+    WindowState="Maximized"
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     ResizeMode="CanResizeWithGrip"

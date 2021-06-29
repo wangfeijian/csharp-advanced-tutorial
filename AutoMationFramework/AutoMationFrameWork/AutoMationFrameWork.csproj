@@ -92,11 +92,20 @@
     <Compile Include="View\AlarmControl.xaml.cs">
       <DependentUpon>AlarmControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AxisConfigControl.xaml.cs">
+      <DependentUpon>AxisConfigControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CameraControl.xaml.cs">
       <DependentUpon>CameraControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\IoControl.xaml.cs">
+      <DependentUpon>IoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SettingControl.xaml.cs">
       <DependentUpon>SettingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StationTemplateControl.xaml.cs">
+      <DependentUpon>StationTemplateControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TableCusControl.xaml.cs">
       <DependentUpon>TableCusControl.xaml</DependentUpon>
@@ -120,7 +129,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AxisConfigControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CameraControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\IoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,6 +163,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\SettingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StationTemplateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
