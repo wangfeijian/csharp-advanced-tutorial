@@ -214,6 +214,18 @@
   <ItemGroup>
     <Folder Include="Model\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AxisHome\0.png" />
+    <Resource Include="Resources\AxisHome\1.png" />
+    <Resource Include="Resources\AxisHome\2.png" />
+    <Resource Include="Resources\AxisHome\3.png" />
+    <Resource Include="Resources\AxisHome\4.png" />
+    <Resource Include="Resources\AxisHome\5.png" />
+    <Resource Include="Resources\AxisHome\6.png" />
+    <Resource Include="Resources\AxisHome\7.png" />
+    <Resource Include="Resources\AxisHome\8.png" />
+    <Resource Include="Resources\AxisHome\9.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

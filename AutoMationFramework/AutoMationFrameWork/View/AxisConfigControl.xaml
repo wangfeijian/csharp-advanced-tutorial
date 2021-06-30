@@ -8,330 +8,462 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="610"
     d:DesignWidth="950"
-    Background="#50bc93"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <DataGrid
-            Margin="5"
-            CanUserAddRows="False"
-            CanUserDeleteRows="False"
-            CanUserReorderColumns="False"
-            CanUserResizeColumns="False"
-            CanUserResizeRows="False"
-            CanUserSortColumns="False"
-            ColumnWidth="*">
-            <DataGrid.Columns>
-                <materialDesign:DataGridTextColumn Header="卡类型">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="名称">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="轴号">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="脉冲每毫米(度)">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="回零    方式">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="回零最小速度">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="回零最大速度">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="回零加速时间">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Header="回零减速时间">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="最大运行速度">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="加速    时间">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="减速    时间">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="平滑    系数">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="到位    误差">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="软正限位启用">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn Header="软正    限位">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Header="软负限位启用">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-                <materialDesign:DataGridTextColumn EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Header="软负    限位">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </materialDesign:DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <materialDesign:Card
+            Grid.Column="0"
+            Margin="5,10,5,5"
+            Padding="5"
+            Background="#50bc93"
+            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+            UniformCornerRadius="6">
+            <DataGrid
+                Margin="5"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserReorderColumns="False"
+                CanUserResizeColumns="False"
+                CanUserResizeRows="False"
+                CanUserSortColumns="False"
+                ColumnWidth="*">
+                <DataGrid.Columns>
+                    <materialDesign:DataGridTextColumn Header="卡类型">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="名称">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="轴号">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="脉冲每毫米(度)">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="回零    方式">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="回零最小速度">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="回零最大速度">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="回零加速时间">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Header="回零减速时间">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="最大运行速度">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="加速    时间">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="减速    时间">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="平滑    系数">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="到位    误差">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="软正限位启用">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Header="软正    限位">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Header="软负限位启用">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Header="软负    限位">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </materialDesign:DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </materialDesign:Card>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <materialDesign:Card
+                Grid.Column="0"
+                Margin="5"
+                Padding="5"
+                Background="#50bc93"
+                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                UniformCornerRadius="6">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="16,16,16,4"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="负方向加原点回零" />
+                    <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                    <Image Grid.Row="2" Source="../Resources/AxisHome/0.png" />
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card
+                Grid.Column="1"
+                Margin="5"
+                Padding="5"
+                Background="#50bc93"
+                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                UniformCornerRadius="6">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Margin="16,16,16,4"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="轴配置说明" />
+                    <Separator
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource MaterialDesignLightSeparator}" />
+                    <ScrollViewer
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource MaterialDesignScrollViewer}"
+                        VerticalScrollBarVisibility="Auto">
+                        <TextBlock
+                            xml:space="preserve"
+                            FontSize="15"
+                            TextWrapping="WrapWithOverflow">1、齿轮比：
+脉冲每毫米，或者脉冲每度，根据驱动器一圈多少脉冲以及电机导程计算，计算方式：一圈脉冲数 / 电机导程，例如电机转一圈需要 10000pls，电机的导程为 5mm，则齿轮比配置为 10000 / 5 = 2000。
+2、回零方式： 
+     0 – 以原点信号为原点，正方向回零，不带 EZ 信号
+     1 – 以原点信号为原点，负方向回零，不带 EZ 信号
+     2 – 以正极限信号为原点，正方向回零，不带 EZ 信号
+     3 – 以负限位信号为原点，负方向回零，不带 EZ 信号
+     4 – 以 EZ 信号为原点，正方向回零
+     5 – 以 EZ 信号为原点，负方向回零
+     6 – 以原点信号为原点，正方向回零，带 EZ 信号
+     7 – 以原点信号为原点，负方向回零，带 EZ 信号
+     8 – 以正极限信号为原点，正方向回零，带 EZ 信号
+     9 – 以负限位信号为原点，负方向回零，带 EZ 信号
+     999 – 其他模式，直接从卡中读取回原点模式，无需指定参数
+     1000 – 其他总线型，不能从卡中读取回原点方式，总线型回零方式是由驱动器决定的，需要按照驱动器的回零方式自己手动填写，填写值基于此值累加，例如汇川总线型，选择驱动器回原点方式 1，则实际填入的参数为 1000 + 1 = 1001；
+3、回零最小速度：
+碰到原点信号后的爬行速度，单位 pls
+4、回零最大速度：
+回零的最大运行速度，单位 pls
+5、回零加速时间：
+多长时间加速到最大回零速度，单位 ms
+6、回零减速时间：
+多长时间从最大回零速度减速到 0，单位 ms
+7、最大运行速度：
+轴运动时的最大速度，单位 pls
+8、加速时间：
+运动到最大运行速度所需要的时间，单位 ms
+9、减速时间：
+从最大运行速度减速到 0 所需要的时间，单位 ms
+10、平滑系数：
+用于决定轴运动的曲线， T 型或 S 型，值越大越平滑。
+11、到位误差：
+轴到位之后，发送脉冲和返回脉冲的差值，超过此差值会报错，单位 pls
+                    </TextBlock>
+                    </ScrollViewer>
+                    <Button
+                        Content="应用"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Margin="2.5,5,5,2.5"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Background="#899DC0"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                    <Button
+                        Content="保存"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="2.5,5,5,2.5"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Background="#899DC0"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                    <Separator
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource MaterialDesignLightSeparator}" />
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
     </Grid>
 </UserControl>
