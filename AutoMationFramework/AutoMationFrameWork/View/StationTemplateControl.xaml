@@ -726,7 +726,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="15"
                                 Text="X" />
-                             <TextBlock
+                            <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="7"
                                 HorizontalAlignment="Center"
@@ -754,8 +754,281 @@
                                 VerticalAlignment="Center"
                                 FontSize="15"
                                 Text="U" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="2"
+                                IsReadOnly="True"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="15" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="2"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="1" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="7"
+                                Margin="2"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="5000" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="2"
+                                IsReadOnly="True"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="15" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Margin="2"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="1" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="7"
+                                Margin="2"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="5000" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Margin="2"
+                                IsReadOnly="True"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="15" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Margin="2"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="1" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="7"
+                                Margin="2"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="5000" />
+                            <TextBox
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                Margin="2"
+                                IsReadOnly="True"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="15" />
+                            <TextBox
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                Margin="2"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="1" />
+                            <TextBox
+                                Grid.Row="4"
+                                Grid.Column="7"
+                                Margin="2"
+                                Style="{StaticResource MaterialDesignTextBoxBase}"
+                                Text="5000" />
+                            <Button
+                                Content="使能"
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="原点"
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="清零"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="清错"
+                                Grid.Row="1"
+                                Grid.Column="6"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="使能"
+                                Grid.Row="2"
+                                Grid.Column="3"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="原点"
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="清零"
+                                Grid.Row="2"
+                                Grid.Column="5"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="清错"
+                                Grid.Row="2"
+                                Grid.Column="6"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="使能"
+                                Grid.Row="3"
+                                Grid.Column="3"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="原点"
+                                Grid.Row="3"
+                                Grid.Column="4"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="清零"
+                                Grid.Row="3"
+                                Grid.Column="5"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="清错"
+                                Grid.Row="3"
+                                Grid.Column="6"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="使能"
+                                Grid.Row="4"
+                                Grid.Column="3"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="原点"
+                                Grid.Row="4"
+                                Grid.Column="4"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="清零"
+                                Grid.Row="4"
+                                Grid.Column="5"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="清错"
+                                Grid.Row="4"
+                                Grid.Column="6"
+                                Margin="2.5,2.5,2.5,2.5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
                         </Grid>
+
                     </materialDesign:Card>
+                    <Grid
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,5,0,0"
+                        Background="#50bc93">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TabControl
+                            Grid.ColumnSpan="5"
+                            FontFamily="华文仿宋"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Style="{StaticResource TabControlStyle}">
+                            <TabItem Header="点位" Style="{StaticResource TabItemStyle}">点位</TabItem>
+                            <TabItem Header="IO" Style="{StaticResource TabItemStyle}">IO</TabItem>
+                            <TabItem Header="气缸" Style="{StaticResource TabItemStyle}">气缸</TabItem>
+                        </TabControl>
+                        <Button
+                            Content="单轴移动"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="2.5,2.5,2.5,2.5"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            Background="#899DC0"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
+                        <Button
+                            Content="全轴移动"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="2.5,2.5,2.5,2.5"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            Background="#899DC0"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
+                        <Button
+                            Content="更新此轴"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Margin="2.5,2.5,2.5,2.5"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            Background="#899DC0"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
+                        <Button
+                            Content="更新此点"
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            Margin="2.5,2.5,2.5,2.5"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            Background="#899DC0"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
+                        <Button
+                            Content="保存点位"
+                            Grid.Row="1"
+                            Grid.Column="4"
+                            Margin="2.5,2.5,2.5,2.5"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            Background="#899DC0"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
+                    </Grid>
                 </Grid>
             </Grid>
         </materialDesign:Card>
