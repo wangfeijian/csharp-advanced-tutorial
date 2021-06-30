@@ -107,6 +107,9 @@
     <Compile Include="View\StationTemplateControl.xaml.cs">
       <DependentUpon>StationTemplateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SystemParameterControl.xaml.cs">
+      <DependentUpon>SystemParameterControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TableCusControl.xaml.cs">
       <DependentUpon>TableCusControl.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\StationTemplateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SystemParameterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
