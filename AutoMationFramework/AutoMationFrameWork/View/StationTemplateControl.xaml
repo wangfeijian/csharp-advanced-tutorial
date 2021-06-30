@@ -17,8 +17,7 @@
         <materialDesign:Card
             Margin="5,10,5,5"
             Padding="5"
-            Background="#50bc93"
-            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+            Foreground="{DynamicResource PrimaryHueDarkBrush}"
             UniformCornerRadius="6">
             <Grid>
                 <Grid.RowDefinitions>
@@ -28,17 +27,735 @@
                 </Grid.RowDefinitions>
                 <TextBlock
                     Grid.Row="0"
-                    Margin="16,16,16,4"
+                    Width="424"
+                    Margin="16,16,0,4.4"
+                    HorizontalAlignment="Left"
+                    FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                     Text="站位控制" />
-                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" />
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox
+                        Grid.RowSpan="2"
+                        Width="200"
+                        materialDesign:ColorZoneAssist.Background="#50bc93"
+                        materialDesign:ColorZoneAssist.Foreground="White"
+                        materialDesign:ColorZoneAssist.Mode="Custom"
+                        Header="运动控制"
+                        Style="{DynamicResource MaterialDesignCardGroupBox}">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="32"
+                                        Height="32"
+                                        VerticalAlignment="Center"
+                                        Kind="Axis" />
+                                    <TextBlock
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontFamily="华文仿宋"
+                                        FontSize="25"
+                                        FontWeight="Bold"
+                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                        Text="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <Grid Margin="-10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <RadioButton
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
+                                    绝对
+                                </RadioButton>
+                                <RadioButton
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
+                                    相对
+                                </RadioButton>
+                                <RadioButton
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
+                                    JOG
+                                </RadioButton>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Button
+                                    Content="&#xe6e2;"
+                                    Height="50"
+                                    Margin="2"
+                                    FontSize="45"
+                                    Foreground="#D2D2D3"
+                                    Template="{StaticResource ButtonTemplate}" />
+                                <Button
+                                    Content="&#xe660;"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Height="50"
+                                    Margin="2"
+                                    FontSize="45"
+                                    Foreground="#D2D2D3"
+                                    Template="{StaticResource ButtonTemplate}" />
+                                <Button
+                                    Content="&#xe6f4;"
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Height="50"
+                                    Margin="2"
+                                    FontSize="45"
+                                    Foreground="#D2D2D3"
+                                    Template="{StaticResource ButtonTemplate}" />
+                                <Button
+                                    Content="&#xe6f6;"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Height="50"
+                                    Margin="2"
+                                    FontSize="45"
+                                    Foreground="#D2D2D3"
+                                    Template="{StaticResource ButtonTemplate}" />
+                                <Button
+                                    Content="&#xe65c;"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Height="50"
+                                    Margin="2"
+                                    FontSize="45"
+                                    Foreground="#d81e06"
+                                    Template="{StaticResource ButtonTemplate}" />
+                                <Button
+                                    Content="&#xe6f7;"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Height="50"
+                                    Margin="2"
+                                    FontSize="45"
+                                    Foreground="#D2D2D3"
+                                    Template="{StaticResource ButtonTemplate}" />
+                                <Button
+                                    Content="&#xe6eb;"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Height="50"
+                                    Margin="2"
+                                    FontSize="45"
+                                    Foreground="#D2D2D3"
+                                    Template="{StaticResource ButtonTemplate}" />
+                                <Button
+                                    Content="&#xe666;"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Height="50"
+                                    Margin="2"
+                                    FontSize="45"
+                                    Foreground="#D2D2D3"
+                                    Template="{StaticResource ButtonTemplate}" />
+                                <Button
+                                    Content="&#xe6f5;"
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Height="50"
+                                    Margin="2"
+                                    FontSize="45"
+                                    Foreground="#D2D2D3"
+                                    Template="{StaticResource ButtonTemplate}" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="U+" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="Y+" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="Z+" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="X-" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="停止" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="X+" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="U-" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="Y-" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="Z-" />
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Button
+                                    Content="XYZU"
+                                    Grid.Column="0"
+                                    Margin="2.5,5,5,5"
+                                    materialDesign:ButtonAssist.CornerRadius="5"
+                                    Background="#899DC0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                                <Button
+                                    Content="ABCD"
+                                    Grid.Column="1"
+                                    Margin="2.5,5,5,5"
+                                    materialDesign:ButtonAssist.CornerRadius="5"
+                                    Background="#899DC0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                    <materialDesign:Card
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5,0,0,0"
+                        Padding="5"
+                        Background="#50bc93"
+                        Foreground="White"
+                        UniformCornerRadius="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="报警" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="正限位" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="负限位" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="原点" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="急停" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="6"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="零位" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="到位" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="8"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="使能" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="X" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="Y" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="Z" />
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="U" />
+                            <materialDesign:PackIcon
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="1"
+                                Grid.Column="6"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="1"
+                                Grid.Column="7"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="1"
+                                Grid.Column="8"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="2"
+                                Grid.Column="3"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="2"
+                                Grid.Column="5"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="2"
+                                Grid.Column="6"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="2"
+                                Grid.Column="7"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="2"
+                                Grid.Column="8"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="3"
+                                Grid.Column="3"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="3"
+                                Grid.Column="4"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="3"
+                                Grid.Column="5"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="3"
+                                Grid.Column="6"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="3"
+                                Grid.Column="7"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="3"
+                                Grid.Column="8"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="4"
+                                Grid.Column="3"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="4"
+                                Grid.Column="4"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="4"
+                                Grid.Column="5"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="4"
+                                Grid.Column="6"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="4"
+                                Grid.Column="7"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                            <materialDesign:PackIcon
+                                Grid.Row="4"
+                                Grid.Column="8"
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Gray"
+                                Kind="Circle" />
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5,5,0,0"
+                        Padding="5"
+                        Background="#50bc93"
+                        Foreground="White"
+                        UniformCornerRadius="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="当前位置" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="移动距离" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="X" />
+                             <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="轴速度" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="Y" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="Z" />
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="U" />
+                        </Grid>
+                    </materialDesign:Card>
                 </Grid>
             </Grid>
         </materialDesign:Card>
@@ -46,8 +763,7 @@
             Grid.Column="1"
             Margin="5,10,5,5"
             Padding="5"
-            Background="#50bc93"
-            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+            Foreground="{DynamicResource PrimaryHueDarkBrush}"
             UniformCornerRadius="6">
             <Grid>
                 <Grid.RowDefinitions>
@@ -58,9 +774,10 @@
                 <TextBlock
                     Grid.Row="0"
                     Margin="16,16,16,4"
+                    FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                     Text="站位流程编写" />
-                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" />
                 <Grid Grid.Row="2">
                     <TreeView MinWidth="220" FontSize="12">
                         <TreeViewItem Header="初始化">

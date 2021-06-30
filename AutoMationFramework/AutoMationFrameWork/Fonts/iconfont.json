@@ -6,6 +6,83 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "6536725",
+      "name": "右上-01",
+      "font_class": "youshang-",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "6536734",
+      "name": "左下-01",
+      "font_class": "zuoxia-",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "16322771",
+      "name": "上",
+      "font_class": "shang",
+      "unicode": "e6f4",
+      "unicode_decimal": 59124
+    },
+    {
+      "icon_id": "16322774",
+      "name": "下",
+      "font_class": "xia",
+      "unicode": "e6f5",
+      "unicode_decimal": 59125
+    },
+    {
+      "icon_id": "16322775",
+      "name": "左",
+      "font_class": "zuo",
+      "unicode": "e6f6",
+      "unicode_decimal": 59126
+    },
+    {
+      "icon_id": "16322778",
+      "name": "右",
+      "font_class": "you",
+      "unicode": "e6f7",
+      "unicode_decimal": 59127
+    },
+    {
+      "icon_id": "20009280",
+      "name": "rotate旋转2",
+      "font_class": "rotatexuanzhuan2",
+      "unicode": "e6e2",
+      "unicode_decimal": 59106
+    },
+    {
+      "icon_id": "20009323",
+      "name": "rotate旋转",
+      "font_class": "rotatexuanzhuan",
+      "unicode": "e6eb",
+      "unicode_decimal": 59115
+    },
+    {
+      "icon_id": "21151081",
+      "name": "停止 ",
+      "font_class": "tingzhi1",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "15468550",
+      "name": "连接状态",
+      "font_class": "lianjiezhuangtai",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "15468556",
+      "name": "断开状态",
+      "font_class": "duankaizhuangtai",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
       "icon_id": "428403",
       "name": "最大化",
       "font_class": "zuidahua1",
