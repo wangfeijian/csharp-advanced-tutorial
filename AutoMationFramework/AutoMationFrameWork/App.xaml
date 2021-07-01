@@ -25,6 +25,7 @@
                 <ResourceDictionary Source="Theme/FontStyle.xaml" />
                 <ResourceDictionary Source="Theme/ButtonStyle.xaml" />
                 <ResourceDictionary Source="Theme/TabControlStyle.xaml" />
+                <ResourceDictionary Source="Theme/ComboxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

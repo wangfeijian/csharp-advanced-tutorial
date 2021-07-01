@@ -42,10 +42,14 @@
                 <view:AxisConfigControl />
             </TabItem>
             <TabItem Header="系统参数设置" Style="{StaticResource TabItemStyle}">
-                <view:SystemParameterControl/>
+                <view:SystemParameterControl />
             </TabItem>
-            <TabItem Header="数据管理" Style="{StaticResource TabItemStyle}">数据管理</TabItem>
-            <TabItem Header="气缸管理" Style="{StaticResource TabItemStyle}">气缸管理</TabItem>
+            <TabItem Header="数据管理" Style="{StaticResource TabItemStyle}">
+                <view:DataManagerControl />
+            </TabItem>
+            <TabItem Header="气缸管理" Style="{StaticResource TabItemStyle}">
+                <view:CylinderManagerControl/>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>
