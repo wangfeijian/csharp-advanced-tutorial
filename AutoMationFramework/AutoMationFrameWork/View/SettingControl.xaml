@@ -48,7 +48,7 @@
                 <view:DataManagerControl />
             </TabItem>
             <TabItem Header="气缸管理" Style="{StaticResource TabItemStyle}">
-                <view:CylinderManagerControl/>
+                <view:CylinderManagerControl />
             </TabItem>
         </TabControl>
     </Grid>
