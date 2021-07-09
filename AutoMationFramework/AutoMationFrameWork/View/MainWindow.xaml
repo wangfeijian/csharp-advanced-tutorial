@@ -103,7 +103,7 @@
                     Margin="2"
                     Click="Button_OnClick"
                     FontSize="45"
-                    Foreground="#22b573"
+                    Foreground="#F39D3F"
                     Tag="Camera"
                     Template="{StaticResource ButtonTemplate}" />
                 <Button

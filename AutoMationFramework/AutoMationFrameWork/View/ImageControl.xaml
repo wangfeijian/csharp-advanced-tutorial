@@ -5,19 +5,168 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:halconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet"
     xmlns:local="clr-namespace:AutoMationFrameWork.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="ShowControl"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Border Name="ShowBorder" Grid.Row="1">
-            <halconDotNet:HSmartWindowControlWPF Name="HSmartWindow" HInitWindow="HSmartWindow_HInitWindow" />
-        </Border>
-    </Grid>
+    <materialDesign:Card
+        Margin="10,10,5,5"
+        Padding="5"
+        Background="#F0F0F0"
+        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+        UniformCornerRadius="6">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Margin="2"
+                FontSize="12"
+                Foreground="Black"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                Text="Vision Step" />
+            <Separator
+                Grid.Row="1"
+                Height="5"
+                Margin="0"
+                Style="{StaticResource MaterialDesignDarkSeparator}" />
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Content="&#xe6c8;"
+                        Height="20"
+                        Margin="2"
+                        FontSize="15"
+                        Foreground="#333333"
+                        Template="{StaticResource ButtonTemplate}" />
+                    <Button
+                        Content="&#xe659;"
+                        Height="20"
+                        Margin="2"
+                        FontSize="15"
+                        Foreground="#333333"
+                        Template="{StaticResource ButtonTemplate}" />
+                    <Button
+                        Content="&#xe601;"
+                        Height="20"
+                        Margin="2"
+                        FontSize="15"
+                        Foreground="#333333"
+                        Template="{StaticResource ButtonTemplate}" />
+                    <Button
+                        Content="&#xe600;"
+                        Height="20"
+                        Margin="2"
+                        FontSize="15"
+                        Foreground="#333333"
+                        Template="{StaticResource ButtonTemplate}" />
+                    <Separator
+                        Width="1"
+                        Height="15"
+                        Margin="2"
+                        Foreground="#D3D3D3"
+                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <Button
+                        Content="&#xe6f2;"
+                        Height="20"
+                        Margin="2"
+                        FontSize="15"
+                        Foreground="#333333"
+                        Template="{StaticResource ButtonTemplate}" />
+                    <Button
+                        Content="&#xe674;"
+                        Height="20"
+                        Margin="2"
+                        FontSize="15"
+                        Foreground="#333333"
+                        Template="{StaticResource ButtonTemplate}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Button
+                        Content="&#xe62d;"
+                        Height="20"
+                        Margin="2"
+                        FontSize="15"
+                        Foreground="#333333"
+                        Template="{StaticResource ButtonTemplate}" />
+                    <Button
+                        Content="&#xe967;"
+                        Height="20"
+                        Margin="2"
+                        FontSize="15"
+                        Foreground="#333333"
+                        Template="{StaticResource ButtonTemplate}" />
+                </StackPanel>
+            </Grid>
+            <Border Name="ShowBorder" Grid.Row="3">
+                <halconDotNet:HSmartWindowControlWPF Name="HSmartWindow" HInitWindow="HSmartWindow_HInitWindow" />
+            </Border>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
+                <TextBlock  FontSize="10" Foreground="#4F28D4" Text="35ms" />
+                <Separator
+                    Grid.Column="0"
+                    Width="1"
+                    Height="10"
+                    Margin="2"
+                    HorizontalAlignment="Right"
+                    Foreground="#D3D3D3"
+                    Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                <TextBlock
+                    FontSize="10"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Foreground="#538A51"
+                    Text="坐标：1924,3250" />
+                <TextBlock
+                    FontSize="10"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right "
+                    Foreground="#538A51"
+                    Text="缩放：30.55%" />
+                <Separator
+                    Grid.Column="2"
+                    Width="1"
+                    Height="10"
+                    Margin="2"
+                    HorizontalAlignment="Left"
+                    Foreground="#D3D3D3"
+                    Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                <TextBlock
+                    FontSize="10"
+                    Grid.Column="3"
+                    HorizontalAlignment="Right "
+                    Foreground="#538A51"
+                    Text="值：125" />
+                <Separator
+                    Grid.Column="3"
+                    Width="1"
+                    Height="10"
+                    Margin="2"
+                    HorizontalAlignment="Left"
+                    Foreground="#D3D3D3"
+                    Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
 </UserControl>

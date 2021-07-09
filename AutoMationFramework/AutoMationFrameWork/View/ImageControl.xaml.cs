@@ -31,7 +31,7 @@ namespace AutoMationFrameWork.View
             HWindow h = HSmartWindow.HalconWindow;
             if (h != null)
             {
-                HOperatorSet.SetWindowParam(h,"background_color", "#50bc93");
+                HOperatorSet.SetWindowParam(h,"background_color", "#E5B881");
                 HOperatorSet.ClearWindow(h);
             }
         }
