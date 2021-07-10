@@ -10,12 +10,12 @@
     d:DesignHeight="610"
     d:DesignWidth="950"
     mc:Ignorable="d">
-    <Grid>
+    <Grid Background="#C2C3C9">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <Grid Background="#C2C3C9">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -36,5 +36,45 @@
             <view:ImageControl Grid.Row="2" Grid.Column="1" />
             <view:ImageControl Grid.Row="2" Grid.Column="2" />
         </Grid>
+        <Border
+            Name="HideBorder"
+            Grid.Column="1"
+            Width="300"
+            BorderThickness="0"> 
+            <materialDesign:Card
+                Margin="5,10,10,5"
+                Padding="5"
+                Background="#E5B881"
+                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                UniformCornerRadius="6">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="16,16,16,4"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="手动控制 " />
+                    <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+
+                </Grid>
+            </materialDesign:Card>
+        </Border>
+        <Button
+            Name="HideButton"
+            Grid.Column="1"
+            Width="20"
+            Height="20"
+            Margin="-10,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top "
+            Background="#f29600"
+            Click="HideButtonOnClick"
+            Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+            <materialDesign:PackIcon Name="HideButtonIcon" Kind="ChevronRightBoxOutline" />
+        </Button>
     </Grid>
 </UserControl>
