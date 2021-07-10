@@ -104,4 +104,25 @@
         <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="IsReadOnly" Value="False" />
     </Style>
+    <ControlTemplate x:Key="RadioButtonTemplate" TargetType="{x:Type RadioButton}">
+        <Border x:Name="Border" Background="Transparent">
+            <ContentPresenter
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextBlock.FontFamily="pack://application:,,,/Fonts/#IconFont" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="Border" Property="Background" Value="#27D0D8" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.Pressed.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 </ResourceDictionary>
