@@ -31,14 +31,14 @@ namespace AutoMationFrameWork.View
             if (HideBorder.Width<=0)
             {
                 HideBorder.Width = 300;
-                HideButton.Margin = new Thickness(-10,10,0,0);
-                HideButtonIcon.Kind = PackIconKind.ChevronRightBoxOutline;
+                HideButton.Margin = new Thickness(5,10,0,0);
+                HideButtonIcon.Kind = PackIconKind.ChevronRightCircleOutline;
             }
             else
             {
                 HideBorder.Width = 0;
                 HideButton.Margin = new Thickness(-25, 10, 0, 0);
-                HideButtonIcon.Kind = PackIconKind.ChevronLeftBoxOutline;
+                HideButtonIcon.Kind = PackIconKind.ChevronLeftCircleOutline;
             }
         }
     }

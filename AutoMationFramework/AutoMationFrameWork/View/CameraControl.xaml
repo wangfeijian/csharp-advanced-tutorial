@@ -40,7 +40,7 @@
             Name="HideBorder"
             Grid.Column="1"
             Width="300"
-            BorderThickness="0"> 
+            BorderThickness="0">
             <materialDesign:Card
                 Margin="5,10,10,5"
                 Padding="5"
@@ -52,6 +52,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
@@ -59,7 +61,98 @@
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                         Text="手动控制 " />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-
+                    <StackPanel Grid.Row="2" Orientation="Vertical">
+                        <TextBlock
+                            Margin="16,2,8,2"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            Text="图像选择" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <RadioButton
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
+                                相机
+                            </RadioButton>
+                            <RadioButton
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
+                                文件
+                            </RadioButton>
+                            <RadioButton
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
+                                文件夹
+                            </RadioButton>
+                        </Grid>
+                        <TextBlock Text="D:\Project\2021\05\贴合机\3.程序\STCVision\exe\123.jpg" TextWrapping="WrapWithOverflow" />
+                        <Separator Style="{StaticResource MaterialDesignLightSeparator}" />
+                        <TextBlock
+                            Margin="16,2,8,2"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            Text="功能选择" />
+                        <Grid Margin="16,2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="80" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Margin="3">
+                                <ComboBoxItem>T1</ComboBoxItem>
+                                <ComboBoxItem>T2</ComboBoxItem>
+                                <ComboBoxItem>T3</ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Grid.Row="1" Grid.Column="0" />
+                            <Button
+                                Content="测试"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Height="50"
+                                Margin="5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                        </Grid>
+                        <Separator Style="{StaticResource MaterialDesignLightSeparator}" />
+                        <TextBlock
+                            Margin="16,2,8,2"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            Text="设置" />
+                        <Grid Margin="16,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Content="系统设置"
+                                Margin="5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                            <Button
+                                Content="算法调试"
+                                Grid.Column="1"
+                                Margin="5"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Background="#899DC0"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                        </Grid>
+                    </StackPanel>
+                    <Separator Grid.Row="3" Style="{StaticResource MaterialDesignLightSeparator}" />
+                    <ListBox Grid.Row="4">
+                        <ListBoxItem Template="{StaticResource ListBoxItemTemplate}">测试log</ListBoxItem>
+                        <ListBoxItem Template="{StaticResource ListBoxItemTemplate}">这里是测试一些Log信息的显示，可以显示 tcp的回复等信息</ListBoxItem>
+                        <ListBoxItem Template="{StaticResource ListBoxItemTemplate}" Background="Red">报错信息</ListBoxItem>
+                    </ListBox>
                 </Grid>
             </materialDesign:Card>
         </Border>
@@ -68,13 +161,15 @@
             Grid.Column="1"
             Width="20"
             Height="20"
-            Margin="-10,10,0,0"
+            Margin="5,10,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top "
-            Background="#f29600"
+            Background="Transparent"
+            BorderBrush="Transparent"
             Click="HideButtonOnClick"
+            Foreground="#717171"
             Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
-            <materialDesign:PackIcon Name="HideButtonIcon" Kind="ChevronRightBoxOutline" />
+            <materialDesign:PackIcon Name="HideButtonIcon" Kind="ChevronRightCircleOutline" />
         </Button>
     </Grid>
 </UserControl>

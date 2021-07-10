@@ -8,6 +8,20 @@
     <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+    <ControlTemplate x:Key="ListBoxItemTemplate" TargetType="ListBoxItem">
+        <Border Name="Border" Background="{TemplateBinding ListBoxItem.Background}">
+            <TextBlock
+                Margin="4"
+                Text="{TemplateBinding ListBoxItem.Content}"
+                TextWrapping="WrapWithOverflow" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#CFA674" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="#CFA674" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
     <ControlTemplate x:Key="ButtonTemplate" TargetType="{x:Type Button}">
         <Border x:Name="Border" Background="Transparent">
             <ContentPresenter

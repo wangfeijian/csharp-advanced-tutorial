@@ -42,9 +42,6 @@
                 smtx:XamlDisplay.Ignore="This">
                 <smtx:XamlDisplay UniqueKey="chips_1" Margin="0 0 6 4">
                     <materialDesign:Chip Content="James Willock">
-                        <materialDesign:Chip.Icon>
-                            <Image Source="Resources/ProfilePic.jpg" />
-                        </materialDesign:Chip.Icon>
                     </materialDesign:Chip>
                 </smtx:XamlDisplay>
                 
@@ -82,9 +79,6 @@
                         IsDeletable="True"
                         ToolTip="Just a tool tip"
                         DeleteToolTip="Your friendly neighbor delete button">
-                        <materialDesign:Chip.Icon>
-                            <Image Source="Resources/ProfilePic.jpg" />
-                        </materialDesign:Chip.Icon>
                     </materialDesign:Chip>
                 </smtx:XamlDisplay>
 
