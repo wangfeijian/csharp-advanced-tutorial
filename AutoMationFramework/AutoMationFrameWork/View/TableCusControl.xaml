@@ -8,8 +8,8 @@
     xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
+    d:DesignHeight="610"
+    d:DesignWidth="950"
     Background="#626262"
     mc:Ignorable="d">
         <UserControl.Resources>

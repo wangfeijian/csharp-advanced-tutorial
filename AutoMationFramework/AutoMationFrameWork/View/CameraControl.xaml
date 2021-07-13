@@ -150,8 +150,8 @@
                     <Separator Grid.Row="3" Style="{StaticResource MaterialDesignLightSeparator}" />
                     <ListBox Grid.Row="4">
                         <ListBoxItem Template="{StaticResource ListBoxItemTemplate}">测试log</ListBoxItem>
-                        <ListBoxItem Template="{StaticResource ListBoxItemTemplate}">这里是测试一些Log信息的显示，可以显示 tcp的回复等信息</ListBoxItem>
-                        <ListBoxItem Template="{StaticResource ListBoxItemTemplate}" Background="Red">报错信息</ListBoxItem>
+                        <ListBoxItem Background="Red" Template="{StaticResource ListBoxItemTemplate}">报错信息</ListBoxItem>
+                        <ListBoxItem Background="Yellow" Template="{StaticResource ListBoxItemTemplate}">警告信息</ListBoxItem>
                     </ListBox>
                 </Grid>
             </materialDesign:Card>
