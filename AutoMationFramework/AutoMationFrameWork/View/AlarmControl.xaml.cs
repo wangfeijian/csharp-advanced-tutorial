@@ -12,17 +12,35 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AvalonDock.Themes;
 
 namespace AutoMationFrameWork.View
 {
     /// <summary>
     /// AlarmControl.xaml 的交互逻辑
     /// </summary>
-    public partial class AlarmControl : UserControl
+    public partial class AlarmControl 
     {
         public AlarmControl()
         {
             InitializeComponent();
+            this.dockingManager.Theme = new Vs2013LightTheme();
+        }
+
+        private void Hide_Click(object sender, RoutedEventArgs e)
+        {
+            var test = this.dockingManager;
+            Screen3.Hide();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Screen2.Show();
+        }
+
+        private void Show_Click(object sender, RoutedEventArgs e)
+        {
+            Screen3.Show();
         }
     }
 }

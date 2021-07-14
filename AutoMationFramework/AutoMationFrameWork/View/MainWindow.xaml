@@ -11,7 +11,6 @@
     Title="运动控制软件"
     Width="1000"
     Height="700"
-    AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     ResizeMode="CanResizeWithGrip"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -23,12 +22,347 @@
         <Binding Path="Main" Source="{StaticResource Locator}" />
     </Window.DataContext>
     <Border BorderBrush="#D6D6D6" BorderThickness="1">
-        <Grid>
+        <Grid x:Name="BG" PreviewMouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
+            <Grid
+                x:Name="nav_pnl"
+                Width="65"
+                HorizontalAlignment="Left">
+                <StackPanel Name="TogglePanel" Background="#F5F5F5">
+                    <Grid Height="90">
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="73,-20,0,0"
+                            Background="Transparent"
+                            FontSize="22"
+                            Style="{StaticResource font_style}"
+                            Text="菜 单">
+                            <TextBlock.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="10"
+                                    Direction="-90"
+                                    ShadowDepth="1"
+                                    Color="Black" />
+                            </TextBlock.Effect>
+                        </TextBlock>
+                        <ToggleButton
+                            x:Name="Tg_Btn"
+                            Grid.Column="0"
+                            Width="30"
+                            Height="30"
+                            Margin="18,-20,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            BorderThickness="0"
+                            Style="{StaticResource tb_style}">
+                            <ToggleButton.Background>
+                                <ImageBrush ImageSource="../Resources/Image/tgBtn_default.png" Stretch="None" />
+                            </ToggleButton.Background>
+                            <ToggleButton.Triggers>
+                                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                    <BeginStoryboard>
+                                        <Storyboard x:Name="HideStackPanel">
+                                            <DoubleAnimation
+                                                BeginTime="0:0:0"
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                From="230"
+                                                To="65"
+                                                Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                    <BeginStoryboard>
+                                        <Storyboard x:Name="ShowStackPanel">
+                                            <DoubleAnimation
+                                                BeginTime="0:0:0"
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                From="65"
+                                                To="230"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ToggleButton.Triggers>
+                        </ToggleButton>
+                    </Grid>
+                    <ListView
+                        x:Name="LV"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListViewItem
+                            Name="MainBtn"
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            MouseEnter="ListViewItem_MouseEnter"
+                            Selected="Button_OnClick"
+                            Tag="Main">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xe7ed;"
+                                    Foreground="#27d0d8"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="主页" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_home"
+                                    Content="主页"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListViewItem
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            MouseEnter="ListViewItem_MouseEnter">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xe65f;"
+                                    Foreground="#006569"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="启动" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_start"
+                                    Content="启动"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListViewItem
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            MouseEnter="ListViewItem_MouseEnter">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xe606;"
+                                    Foreground="#691fff"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="暂停" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_pause"
+                                    Content="暂停"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListViewItem
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            MouseEnter="ListViewItem_MouseEnter">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xec6d;"
+                                    Foreground="#ff0000"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="停止" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_stop"
+                                    Content="停止"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListViewItem
+                            Name="SetBtn"
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            Selected="Button_OnClick"
+                            MouseEnter="ListViewItem_MouseEnter"
+                            Tag="Set">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xe63a;"
+                                    Foreground="#50bc93"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="设置" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_settings"
+                                    Content="设置"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListViewItem
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            Selected="Button_OnClick"
+                            MouseEnter="ListViewItem_MouseEnter"
+                            Tag="Camera">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xe624;"
+                                    Foreground="#F39D3F"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="视觉" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_camera"
+                                    Content="视觉"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListViewItem
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            Selected="Button_OnClick"
+                            MouseEnter="ListViewItem_MouseEnter"
+                            Tag="Table">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xe615;"
+                                    Foreground="#626262"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="统计" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_table"
+                                    Content="统计"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListViewItem
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            Selected="Button_OnClick"
+                            MouseEnter="ListViewItem_MouseEnter"
+                            Tag="Alarm">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xe636;"
+                                    Foreground="#f29600"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="报警" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_alarm"
+                                    Content="报警"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListViewItem
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            Selected="Button_OnClick"
+                            MouseEnter="ListViewItem_MouseEnter"
+                            Tag="User">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xe66d;"
+                                    Foreground="#141134"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="用户" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_user"
+                                    Content="用户"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListViewItem
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Left"
+                            MouseEnter="ListViewItem_MouseEnter">
+                            <StackPanel Width="230" Orientation="Horizontal">
+                                <Label
+                                    Content="&#xe6ad;"
+                                    Foreground="#16c2c2"
+                                    Style="{StaticResource LabelListViewStyle}" />
+                                <TextBlock
+                                    Margin="25,0,0,0"
+                                    Style="{StaticResource font_style}"
+                                    Text="语言" />
+                            </StackPanel>
+                            <ListViewItem.ToolTip>
+                                <ToolTip
+                                    x:Name="tt_lang"
+                                    Content="语言"
+                                    Style="{StaticResource tt_style}" />
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border
+                                                x:Name="Bd"
+                                                Height="50"
+                                                Padding="{TemplateBinding Padding}"
+                                                Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                SnapsToDevicePixels="True">
+                                                <ContentPresenter
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="IsMouseOver" Value="True" />
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="Bd" Property="Background" Value="#404D5B" />
+                                                    <Setter TargetName="Bd" Property="BorderBrush" Value="#404D5B" />
+                                                </MultiTrigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Selector.IsSelected" Value="True" />
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="Bd" Property="Background" Value="#BBBCC2" />
+                                                    <Setter TargetName="Bd" Property="BorderBrush" Value="#BBBCC2" />
+                                                </MultiTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+            <!--<Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="Auto" />
@@ -144,7 +478,7 @@
                     FontSize="45"
                     Foreground="#16c2c2"
                     Template="{StaticResource ButtonTemplate}" />
-            </Grid>
+            </Grid>-->
             <Grid Name="MainGrid" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -155,7 +489,7 @@
                     Background="#F5F5F5"
                     BorderBrush="#D6D6D6"
                     BorderThickness="1,0,0,1"
-                    MouseDown="BorderTitle_OnMouseDown">
+                    MouseLeftButtonDown="BorderTitle_OnMouseDown">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />

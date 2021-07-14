@@ -3,602 +3,636 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:avalon="https://github.com/Dirkster99/AvalonDock"
+    xmlns:avalondock="https://github.com/Dirkster99/AvalonDock"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:AutoMationFrameWork.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="670"
     d:DesignWidth="1024"
-    Background="#27D0D8"
+    Background="#EEEEF2"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="250" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.RowSpan="3">
-            <materialDesign:Card
-                Margin="10,10,5,5"
-                Padding="5"
-                Background="#03a9f4"
-                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                UniformCornerRadius="6">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <TextBlock
-                        Grid.Row="0"
-                        Margin="16,16,16,4"
-                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="Company Name" />
-                    <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                    <TextBlock
-                        Name="TimeTextBlock"
-                        Grid.Row="2"
-                        Margin="16,0,16,8"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource MaterialDesignBody2TextBlock}"
-                        Text="{Binding Path=Now, Source={x:Static system:DateTime.Now}, StringFormat='yyyy-MM-dd ddd hh:mm:ss'}" />
-                </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card
-                Margin="10,5,5,5"
-                Padding="5"
-                Background="#03a9f4"
-                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <TextBlock
-                        Grid.Row="0"
-                        Margin="16,16,16,4"
-                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="运 行 信 息" />
-                    <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                    <TextBlock
-                        Grid.Row="2"
-                        Margin="16,0,16,8"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource MaterialDesignBody2TextBlock}"
-                        Text="这里是一些报错信息"
-                        TextWrapping="Wrap" />
-                    <Separator Grid.Row="3" Style="{StaticResource MaterialDesignLightSeparator}" />
-                    <Button
-                        Grid.Row="2"
-                        Margin="0,0,16,-20"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                        <materialDesign:PackIcon Kind="NotificationClearAll" />
-                    </Button>
-                    <TextBlock
-                        Grid.Row="4"
-                        Margin="16,0,16,8"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource MaterialDesignBody2TextBlock}"
-                        Text="设备运行总时间：" />
-                    <TextBlock
-                        Grid.Row="5"
-                        Margin="16,0,16,8"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource MaterialDesignBody2TextBlock}"
-                        Text="程序运行总时间：" />
-                    <TextBlock
-                        Grid.Row="6"
-                        Margin="16,0,16,8"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource MaterialDesignBody2TextBlock}"
-                        Text="周    期   时   间：" />
-                    <StackPanel
-                        Grid.Row="7"
-                        Margin="16,0,16,8"
-                        Orientation="Horizontal">
-                        <ProgressBar
-                            Width="200"
-                            Height="30"
-                            Margin="0,0,10,0"
-                            materialDesign:TransitionAssist.DisableTransitions="True"
-                            Background="LightGray"
-                            Foreground="LimeGreen"
-                            Value="80" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Text="20%" />
-                    </StackPanel>
-                </Grid>
-            </materialDesign:Card>
-        </StackPanel>
-        <Grid
-            Grid.Row="0"
-            Grid.RowSpan="3"
-            Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*" />
-                <ColumnDefinition Width="120" />
-            </Grid.ColumnDefinitions>
-            <materialDesign:Card
-                Margin="5,10,5,5"
-                Padding="0"
-                Background="#03a9f4"
-                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                UniformCornerRadius="6">
-                <DataGrid AutoGenerateColumns="False" CanUserAddRows="False">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn
-                            Width="Auto"
-                            Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
-                            Header="Index">
-                            <DataGridCheckBoxColumn.HeaderStyle>
-                                <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridCheckBoxColumn.HeaderStyle>
-                        </DataGridCheckBoxColumn>
+    <avalondock:DockingManager
+        x:Name="dockingManager"
+        AllowMixedOrientation="True"
+        IsVirtualizingAnchorable="True">
+        <DockingManager.ContextMenu>
+            <ContextMenu Name="DockMenu" StaysOpen="True">
+                <MenuItem
+                    Name="SystemRightButton"
+                    Click="SystemRightButton_OnClick"
+                    Header="系统信息"
+                    IsCheckable="True"
+                    IsChecked="True" />
+                <MenuItem
+                    Name="MechineRightButton"
+                    Click="MechineRightButton_OnClick"
+                    Header="设备信息"
+                    IsCheckable="True"
+                    IsChecked="True" />
+                <MenuItem
+                    Name="LogRightButton"
+                    Click="LogRightButton_OnClick"
+                    Header="日志"
+                    IsCheckable="True"
+                    IsChecked="True" />
+            </ContextMenu>
+        </DockingManager.ContextMenu>
+        <avalondock:LayoutRoot>
+            <avalondock:LayoutPanel Orientation="Vertical">
+                <avalondock:LayoutDocumentPaneGroup>
+                    <avalondock:LayoutDocumentPane>
+                        <avalondock:LayoutDocument
+                            x:Name="MotionInfoLayout"
+                            Title="总控"
+                            CanClose="False">
+                            <materialDesign:Card
+                                Margin="5,10,5,5"
+                                Padding="0"
+                                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                UniformCornerRadius="6">
+                                <DataGrid AutoGenerateColumns="False" CanUserAddRows="False">
+                                    <DataGrid.Columns>
+                                        <DataGridCheckBoxColumn
+                                            Width="Auto"
+                                            Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                            Header="Index">
+                                            <DataGridCheckBoxColumn.HeaderStyle>
+                                                <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                </Style>
+                                            </DataGridCheckBoxColumn.HeaderStyle>
+                                        </DataGridCheckBoxColumn>
 
-                        <DataGridTextColumn
-                            Width="Auto"
-                            Binding="{Binding Code}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Code" />
+                                        <DataGridTextColumn
+                                            Width="Auto"
+                                            Binding="{Binding Code}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                            Header="Code" />
 
-                        <!--  if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn  -->
-                        <materialDesign:DataGridTextColumn
-                            Width="Auto"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Name">
-                            <materialDesign:DataGridTextColumn.Binding>
-                                <Binding Path="Name" />
-                            </materialDesign:DataGridTextColumn.Binding>
-                        </materialDesign:DataGridTextColumn>
+                                        <!--  if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn  -->
+                                        <materialDesign:DataGridTextColumn
+                                            Width="Auto"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                            Header="Name">
+                                            <materialDesign:DataGridTextColumn.Binding>
+                                                <Binding Path="Name" />
+                                            </materialDesign:DataGridTextColumn.Binding>
+                                        </materialDesign:DataGridTextColumn>
 
-                        <!--  set a max length to get an indicator in the editor  -->
-                        <DataGridTextColumn
-                            Width="Auto"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Description" />
+                                        <!--  set a max length to get an indicator in the editor  -->
+                                        <DataGridTextColumn
+                                            Width="Auto"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                            Header="Description" />
 
-                        <materialDesign:DataGridTextColumn
-                            Width="Auto"
-                            Binding="{Binding Numeric}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                            Header="Number with long header">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Right" />
-                                    <Setter Property="ContentTemplate">
-                                        <Setter.Value>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    Text="{Binding}"
-                                                    TextAlignment="Right"
-                                                    TextWrapping="Wrap" />
-                                            </DataTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
+                                        <materialDesign:DataGridTextColumn
+                                            Width="Auto"
+                                            Binding="{Binding Numeric}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                            Header="Number with long header">
+                                            <DataGridTextColumn.HeaderStyle>
+                                                <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                    <Setter Property="ContentTemplate">
+                                                        <Setter.Value>
+                                                            <DataTemplate>
+                                                                <TextBlock
+                                                                    Text="{Binding}"
+                                                                    TextAlignment="Right"
+                                                                    TextWrapping="Wrap" />
+                                                            </DataTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </DataGridTextColumn.HeaderStyle>
 
-                            <DataGridTextColumn.ElementStyle>
-                                <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
-                                    <Setter Property="HorizontalAlignment" Value="Right" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </materialDesign:DataGridTextColumn>
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </materialDesign:DataGridTextColumn>
 
-                        <!--  use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo  -->
-                        <materialDesign:DataGridComboBoxColumn
-                            Width="Auto"
-                            Header="Food with long header"
-                            IsEditable="True"
-                            ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Foods}"
-                            SelectedValueBinding="{Binding Food}">
-                            <!--Setting the editing element style allows access to all of the combo box's properties
+                                        <!--  use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo  -->
+                                        <materialDesign:DataGridComboBoxColumn
+                                            Width="Auto"
+                                            Header="Food with long header"
+                                            IsEditable="True"
+                                            ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Foods}"
+                                            SelectedValueBinding="{Binding Food}">
+                                            <!--Setting the editing element style allows access to all of the combo box's properties
                         <materialDesign:MaterialDataGridComboBoxColumn.EditingElementStyle>
                             <Style TargetType="ComboBox" BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type ComboBox}, ResourceId=MaterialDataGridComboBoxColumnEditingStyle}}" >
                                 <Setter Property="IsEditable" Value="True" />
                             </Style>
                         </materialDesign:MaterialDataGridComboBoxColumn.EditingElementStyle>
-                            -->
-                        </materialDesign:DataGridComboBoxColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </materialDesign:Card>
-            <StackPanel Grid.Column="1">
-                <materialDesign:Card
-                    Margin="5,10,5,5"
-                    Padding="5"
-                    Background="{DynamicResource PrimaryHueLightBrush}"
-                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                    UniformCornerRadius="6">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            Margin="16,16,16,4"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="统计" />
-                        <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                        <TextBlock
-                            Grid.Row="2"
-                            Margin="16,0,16,8"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Text="总   数:" />
-                        <TextBlock
-                            Grid.Row="3"
-                            Margin="16,0,16,8"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Text="合   格:" />
-                        <TextBlock
-                            Grid.Row="4"
-                            Margin="16,0,16,8"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Text="不合格:" />
-                        <TextBlock
-                            Grid.Row="5"
-                            Margin="16,0,16,8"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Text="良   率:" />
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card
-                    Margin="5,5,5,5"
-                    Padding="5"
-                    Background="{DynamicResource PrimaryHueLightBrush}"
-                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                    UniformCornerRadius="6">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            Margin="16,16,16,4"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="工单" />
-                        <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                        <StackPanel Grid.Row="2" Orientation="Horizontal">
-                            <TextBlock
-                                Margin="16,0,16,8"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                Text="总   数:" />
-                            <TextBox Width="25" />
-                        </StackPanel>
-                        <TextBlock
-                            Grid.Row="3"
-                            Margin="16,0,16,8"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Text="已生产:" />
-                    </Grid>
-                </materialDesign:Card>
-            </StackPanel>
-        </Grid>
-        <Grid
-            Grid.Row="0"
-            Grid.RowSpan="3"
-            Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <materialDesign:Card
-                Margin="5,10,10,5"
-                Padding="5"
-                Background="{DynamicResource SecondaryHueMidBrush}"
-                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                UniformCornerRadius="6">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Button
-                        Content="自动模式"
-                        Height="40"
-                        Margin="10,10,10,5"
-                        materialDesign:ButtonAssist.CornerRadius="10"
-                        Background="{StaticResource MaterialDesignDarkBackground}"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
-                    <Button
-                        Content="单片模式"
-                        Grid.Row="1"
-                        Height="40"
-                        Margin="10,5,10,5"
-                        materialDesign:ButtonAssist.CornerRadius="10"
-                        Background="{StaticResource MaterialDesignDarkBackground}"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
-                    <Button
-                        Content="清除记录"
-                        Grid.Row="2"
-                        Height="40"
-                        Margin="10,5,10,5"
-                        materialDesign:ButtonAssist.CornerRadius="10"
-                        Background="{StaticResource MaterialDesignDarkBackground}"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
-                </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card
-                Grid.Row="1"
-                Margin="5,5,10,5"
-                Padding="5"
-                Background="{DynamicResource SecondaryHueMidBrush}"
-                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                UniformCornerRadius="6">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <StackPanel
-                        Margin="5"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <materialDesign:PackIcon
-                            Width="32"
-                            Height="32"
-                            VerticalAlignment="Center"
-                            Foreground="Gray"
-                            Kind="Circle" />
-                        <TextBlock
-                            Margin="10,0,0,5"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="自 动 状 态" />
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="1"
-                        Margin="5"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <materialDesign:PackIcon
-                            Width="32"
-                            Height="32"
-                            VerticalAlignment="Center"
-                            Foreground="Green"
-                            Kind="Circle" />
-                        <TextBlock
-                            Margin="10,0,0,5"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="手 动 状 态" />
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="2"
-                        Margin="5"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <materialDesign:PackIcon
-                            Width="32"
-                            Height="32"
-                            VerticalAlignment="Center"
-                            Foreground="Gray"
-                            Kind="Circle" />
-                        <TextBlock
-                            Margin="10,0,0,5"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="设 备 暂 停" />
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="3"
-                        Margin="5"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <materialDesign:PackIcon
-                            Width="32"
-                            Height="32"
-                            VerticalAlignment="Center"
-                            Foreground="Gray"
-                            Kind="Circle" />
-                        <TextBlock
-                            Margin="10,0,0,5"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="设 备 急 停" />
-                    </StackPanel>
+                                            -->
+                                        </materialDesign:DataGridComboBoxColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </materialDesign:Card>
+                        </avalondock:LayoutDocument>
+                    </avalondock:LayoutDocumentPane>
+                </avalondock:LayoutDocumentPaneGroup>
+            </avalondock:LayoutPanel>
+            <avalondock:LayoutRoot.LeftSide>
+                <avalondock:LayoutAnchorSide>
+                    <avalondock:LayoutAnchorGroup>
+                        <avalondock:LayoutAnchorable
+                            x:Name="SystemInfoLayout"
+                            Title="系统信息"
+                            AutoHideMinWidth="300"
+                            FloatingHeight="800"
+                            FloatingWidth="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel>
+                                    <materialDesign:Card
+                                        Margin="10,5,5,5"
+                                        Padding="5"
+                                        Background="#27D0D8"
+                                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                Margin="16,16,16,4"
+                                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                Text="Equipment Name" />
+                                            <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                            <TextBlock
+                                                Name="TimeTextBlock"
+                                                Grid.Row="2"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="{Binding Path=Now, Source={x:Static system:DateTime.Now}, StringFormat='yyyy-MM-dd ddd hh:mm:ss'}" />
+                                            <Separator Grid.Row="3" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                            <TextBlock
+                                                Grid.Row="4"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="这里是一些报错信息"
+                                                TextWrapping="Wrap" />
+                                            <Separator Grid.Row="5" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                            <Button
+                                                Grid.Row="3"
+                                                Margin="0,0,16,-20"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Bottom"
+                                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                                                <materialDesign:PackIcon Kind="NotificationClearAll" />
+                                            </Button>
+                                            <TextBlock
+                                                Grid.Row="6"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="设备运行总时间：" />
+                                            <TextBlock
+                                                Grid.Row="7"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="程序运行总时间：" />
+                                            <TextBlock
+                                                Grid.Row="8"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="周    期   时   间：" />
+                                            <StackPanel
+                                                Grid.Row="9"
+                                                Margin="16,0,16,8"
+                                                Orientation="Horizontal">
+                                                <ProgressBar
+                                                    Width="200"
+                                                    Height="30"
+                                                    Margin="0,0,5,0"
+                                                    materialDesign:TransitionAssist.DisableTransitions="True"
+                                                    Background="LightGray"
+                                                    Foreground="LimeGreen"
+                                                    Value="80" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                    Text="20%" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:Card
+                                            Margin="5,10,5,5"
+                                            Padding="5"
+                                            Background="#27D0D8"
+                                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                            UniformCornerRadius="6">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock
+                                                    Grid.Row="0"
+                                                    Margin="16,16,16,4"
+                                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                    Text="统计" />
+                                                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                                <TextBlock
+                                                    Grid.Row="2"
+                                                    Margin="16,0,16,8"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                    Text="总   数:" />
+                                                <TextBlock
+                                                    Grid.Row="3"
+                                                    Margin="16,0,16,8"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                    Text="合   格:" />
+                                                <TextBlock
+                                                    Grid.Row="4"
+                                                    Margin="16,0,16,8"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                    Text="不合格:" />
+                                                <TextBlock
+                                                    Grid.Row="5"
+                                                    Margin="16,0,16,8"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                    Text="良   率:" />
+                                            </Grid>
+                                        </materialDesign:Card>
+                                        <materialDesign:Card
+                                            Grid.Column="1"
+                                            Margin="5,10,5,5"
+                                            Padding="5"
+                                            Background="#27D0D8"
+                                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                            UniformCornerRadius="6">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock
+                                                    Grid.Row="0"
+                                                    Margin="16,16,16,4"
+                                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                    Text="工单" />
+                                                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                                    <TextBlock
+                                                        Margin="16,0,16,8"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                        Text="总   数:" />
+                                                    <TextBox Width="20" />
+                                                </StackPanel>
+                                                <TextBlock
+                                                    Grid.Row="3"
+                                                    Margin="16,0,16,8"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                    Text="已生产:" />
+                                            </Grid>
+                                        </materialDesign:Card>
+                                    </Grid>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </avalondock:LayoutAnchorable>
+                    </avalondock:LayoutAnchorGroup>
+                </avalondock:LayoutAnchorSide>
+            </avalondock:LayoutRoot.LeftSide>
+            <avalondock:LayoutRoot.RightSide>
+                <avalondock:LayoutAnchorSide>
+                    <avalondock:LayoutAnchorGroup>
+                        <avalondock:LayoutAnchorable
+                            x:Name="MechineInfoLayout"
+                            Title="设备信息"
+                            AutoHideMinWidth="250"
+                            FloatingHeight="800"
+                            FloatingWidth="250">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel>
+                                    <materialDesign:Card
+                                        Margin="5,10,10,5"
+                                        Padding="5"
+                                        Background="#27D0D8"
+                                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                        UniformCornerRadius="6">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Button
+                                                Content="自动模式"
+                                                Height="40"
+                                                Margin="10,10,10,5"
+                                                materialDesign:ButtonAssist.CornerRadius="10"
+                                                Background="{StaticResource MaterialDesignDarkBackground}"
+                                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                                            <Button
+                                                Content="单片模式"
+                                                Grid.Row="1"
+                                                Height="40"
+                                                Margin="10,5,10,5"
+                                                materialDesign:ButtonAssist.CornerRadius="10"
+                                                Background="{StaticResource MaterialDesignDarkBackground}"
+                                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                                            <Button
+                                                Content="清除记录"
+                                                Grid.Row="2"
+                                                Height="40"
+                                                Margin="10,5,10,5"
+                                                materialDesign:ButtonAssist.CornerRadius="10"
+                                                Background="{StaticResource MaterialDesignDarkBackground}"
+                                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                                        </Grid>
+                                    </materialDesign:Card>
+                                    <materialDesign:Card
+                                        Margin="5,5,10,5"
+                                        Padding="5"
+                                        Background="#27D0D8"
+                                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                        UniformCornerRadius="6">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Margin="5"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <materialDesign:PackIcon
+                                                    Width="32"
+                                                    Height="32"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="Gray"
+                                                    Kind="Circle" />
+                                                <TextBlock
+                                                    Margin="10,0,0,5"
+                                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                    Text="自 动 状 态" />
+                                            </StackPanel>
+                                            <StackPanel
+                                                Grid.Row="1"
+                                                Margin="5"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <materialDesign:PackIcon
+                                                    Width="32"
+                                                    Height="32"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="Green"
+                                                    Kind="Circle" />
+                                                <TextBlock
+                                                    Margin="10,0,0,5"
+                                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                    Text="手 动 状 态" />
+                                            </StackPanel>
+                                            <StackPanel
+                                                Grid.Row="2"
+                                                Margin="5"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <materialDesign:PackIcon
+                                                    Width="32"
+                                                    Height="32"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="Gray"
+                                                    Kind="Circle" />
+                                                <TextBlock
+                                                    Margin="10,0,0,5"
+                                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                    Text="设 备 暂 停" />
+                                            </StackPanel>
+                                            <StackPanel
+                                                Grid.Row="3"
+                                                Margin="5"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <materialDesign:PackIcon
+                                                    Width="32"
+                                                    Height="32"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="Gray"
+                                                    Kind="Circle" />
+                                                <TextBlock
+                                                    Margin="10,0,0,5"
+                                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                    Text="设 备 急 停" />
+                                            </StackPanel>
 
-                </Grid>
-            </materialDesign:Card>
-        </Grid>
-        <GroupBox
-            Name="LogGroupBox"
-            Grid.Row="3"
-            Grid.RowSpan="2"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Margin="5"
-            Header="日 志 报 警"
-            Style="{DynamicResource MaterialDesignCardGroupBox}">
-            <GroupBox.HeaderTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon
-                            Width="32"
-                            Height="32"
-                            VerticalAlignment="Center"
-                            Kind="Text" />
-                        <TextBlock
-                            Margin="8,0,0,0"
-                            VerticalAlignment="Center"
-                            FontFamily="华文仿宋"
-                            FontSize="25"
-                            FontWeight="Bold"
-                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                            Text="{Binding}" />
-                    </StackPanel>
-                </DataTemplate>
-            </GroupBox.HeaderTemplate>
-        </GroupBox>
-
-        <materialDesign:Card
-            Grid.Row="3"
-            Grid.RowSpan="2"
-            Grid.Column="2"
-            Margin="5,5,10,5"
-            Padding="5"
-            Background="#3F51B5"
-            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-            UniformCornerRadius="6">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Margin="16,5,16,4"
-                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    Text="其它信息" />
-                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                <TextBlock
-                    Grid.Row="2"
-                    Margin="16,0,16,8"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource MaterialDesignBody2TextBlock}"
-                    Text="当前用户:" />
-                <TextBlock
-                    Grid.Row="3"
-                    Margin="16,0,16,8"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource MaterialDesignBody2TextBlock}"
-                    Text="运行模式:" />
-                <TextBlock
-                    Grid.Row="4"
-                    Margin="16,0,16,8"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource MaterialDesignBody2TextBlock}"
-                    Text="设备状态:" />
-                <TextBlock
-                    Grid.Row="5"
-                    Margin="16,0,16,8"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource MaterialDesignBody2TextBlock}"
-                    Text="系统速度:" />
-                <TextBlock
-                    Grid.Row="6"
-                    Margin="16,0,16,8"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource MaterialDesignBody2TextBlock}"
-                    Text="产品类型:" />
-                <Grid Grid.Row="7" Margin="0,5,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Center" Text="CPU占用" />
-                        <ProgressBar
-                            Name="CpuProgressBar"
-                            Width="50"
-                            Height="50"
-                            Margin="5"
-                            Background="White"
-                            Foreground="Black"
-                            IsIndeterminate="True"
-                            Style="{StaticResource MaterialDesignCircularProgressBar}"
-                            Value="95.5" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Center" Text="内存占用" />
-                        <ProgressBar
-                            Name="RamProgressBar"
-                            Width="50"
-                            Height="50"
-                            Margin="5"
-                            Background="White"
-                            Foreground="Black"
-                            IsIndeterminate="True"
-                            Style="{StaticResource MaterialDesignCircularProgressBar}"
-                            Value="90" />
-                    </StackPanel>
-                    <TextBlock
-                        Name="CpuTextBlock"
-                        Grid.Column="0"
-                        Margin="0,37,0,0"
-                        HorizontalAlignment="Center"
-                        Foreground="Black"
-                        Text="30%" />
-                    <TextBlock
-                        Name="RamTextBlock"
-                        Grid.Column="1"
-                        Margin="0,32,0,0"
-                        HorizontalAlignment="Center"
-                        Foreground="Black"
-                        Text="93.5%" />
-                    <TextBlock
-                        Name="Ram2TextBlock"
-                        Grid.Column="1"
-                        Margin="0,43,0,0"
-                        HorizontalAlignment="Center"
-                        Foreground="Black"
-                        Text="MB" />
-                </Grid>
-            </Grid>
-        </materialDesign:Card>
-    </Grid>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                    <materialDesign:Card
+                                        Margin="5,5,10,5"
+                                        Padding="5"
+                                        Background="#27D0D8"
+                                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                        UniformCornerRadius="6">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                Margin="16,5,16,4"
+                                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                Text="其它信息" />
+                                            <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                            <TextBlock
+                                                Grid.Row="2"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="当前用户:" />
+                                            <TextBlock
+                                                Grid.Row="3"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="运行模式:" />
+                                            <TextBlock
+                                                Grid.Row="4"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="设备状态:" />
+                                            <TextBlock
+                                                Grid.Row="5"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="系统速度:" />
+                                            <TextBlock
+                                                Grid.Row="6"
+                                                Margin="16,0,16,8"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                Text="产品类型:" />
+                                            <Grid Grid.Row="7" Margin="0,5,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock HorizontalAlignment="Center" Text="CPU占用" />
+                                                    <ProgressBar
+                                                        Name="CpuProgressBar"
+                                                        Width="50"
+                                                        Height="50"
+                                                        Margin="5"
+                                                        Background="White"
+                                                        Foreground="Black"
+                                                        IsIndeterminate="True"
+                                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                        Value="95.5" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                                    <TextBlock HorizontalAlignment="Center" Text="内存占用" />
+                                                    <ProgressBar
+                                                        Name="RamProgressBar"
+                                                        Width="50"
+                                                        Height="50"
+                                                        Margin="5"
+                                                        Background="White"
+                                                        Foreground="Black"
+                                                        IsIndeterminate="True"
+                                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                        Value="90" />
+                                                </StackPanel>
+                                                <TextBlock
+                                                    Name="CpuTextBlock"
+                                                    Grid.Column="0"
+                                                    Margin="0,37,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    Foreground="Black"
+                                                    Text="30%" />
+                                                <TextBlock
+                                                    Name="RamTextBlock"
+                                                    Grid.Column="1"
+                                                    Margin="0,32,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    Foreground="Black"
+                                                    Text="93.5%" />
+                                                <TextBlock
+                                                    Name="Ram2TextBlock"
+                                                    Grid.Column="1"
+                                                    Margin="0,43,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    Foreground="Black"
+                                                    Text="MB" />
+                                            </Grid>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </avalondock:LayoutAnchorable>
+                    </avalondock:LayoutAnchorGroup>
+                </avalondock:LayoutAnchorSide>
+            </avalondock:LayoutRoot.RightSide>
+            <avalondock:LayoutRoot.BottomSide>
+                <avalondock:LayoutAnchorSide>
+                    <avalondock:LayoutAnchorGroup>
+                        <avalondock:LayoutAnchorable
+                            x:Name="LogInfoLayout"
+                            Title="日志"
+                            AutoHideMinHeight="300"
+                            FloatingHeight="400"
+                            FloatingWidth="800">
+                            <GroupBox
+                                Name="LogGroupBox"
+                                Margin="5"
+                                materialDesign:ColorZoneAssist.Background="#27D0D8"
+                                materialDesign:ColorZoneAssist.Foreground="White"
+                                materialDesign:ColorZoneAssist.Mode="Custom"
+                                Header="日 志 报 警"
+                                Style="{DynamicResource MaterialDesignGroupBox}">
+                                <GroupBox.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="32"
+                                                Height="32"
+                                                VerticalAlignment="Center"
+                                                Kind="Text" />
+                                            <TextBlock
+                                                Margin="8,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontFamily="华文仿宋"
+                                                FontSize="25"
+                                                FontWeight="Bold"
+                                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                                Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GroupBox.HeaderTemplate>
+                            </GroupBox>
+                        </avalondock:LayoutAnchorable>
+                    </avalondock:LayoutAnchorGroup>
+                </avalondock:LayoutAnchorSide>
+            </avalondock:LayoutRoot.BottomSide>
+        </avalondock:LayoutRoot>
+    </avalondock:DockingManager>
 </UserControl>

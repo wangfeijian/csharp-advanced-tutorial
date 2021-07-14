@@ -99,5 +99,41 @@ namespace AutoMationFrameWork.View
                     break;
             }
         }
+
+        private void SystemRightButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (SystemRightButton.IsChecked)
+            {
+                SystemInfoLayout.Show();
+            }
+            else
+            {
+                SystemInfoLayout.Hide();
+            }
+        }
+
+        private void MechineRightButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (MechineRightButton.IsChecked)
+            {
+                MechineInfoLayout.Show();
+            }
+            else
+            {
+                MechineInfoLayout.Hide();
+            }
+        }
+
+        private void LogRightButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (LogRightButton.IsChecked)
+            {
+                LogInfoLayout.Show();
+            }
+            else
+            {
+                LogInfoLayout.Hide();
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ListViewItem = System.Windows.Controls.ListViewItem;
 
 namespace AutoMationFrameWork.View
 {
@@ -24,13 +25,14 @@ namespace AutoMationFrameWork.View
         public MainWindow()
         {
             InitializeComponent();
+            LV.SelectedIndex = 0;
         }
 
         private void Button_OnClick(object sender, RoutedEventArgs e)
         {
-            var btn = sender as Button;
+            var listItem = sender as ListViewItem;
 
-            switch (btn.Tag.ToString())
+            switch (listItem.Tag.ToString())
             {
                 case "Main":
                     SelectControl("MainUi");
@@ -69,7 +71,43 @@ namespace AutoMationFrameWork.View
 
         private void BorderTitle_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
+            
             this.DragMove();
+        }
+
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Tg_Btn.IsChecked == true)
+            {
+                tt_alarm.Visibility = Visibility.Collapsed;
+                tt_camera.Visibility = Visibility.Collapsed;
+                tt_home.Visibility = Visibility.Collapsed;
+                tt_lang.Visibility = Visibility.Collapsed;
+                tt_pause.Visibility = Visibility.Collapsed;
+                tt_settings.Visibility = Visibility.Collapsed;
+                tt_start.Visibility = Visibility.Collapsed;
+                tt_stop.Visibility = Visibility.Collapsed;
+                tt_table.Visibility = Visibility.Collapsed;
+                tt_user.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tt_alarm.Visibility = Visibility.Visible;
+                tt_camera.Visibility = Visibility.Visible;
+                tt_home.Visibility = Visibility.Visible;
+                tt_lang.Visibility = Visibility.Visible;
+                tt_pause.Visibility = Visibility.Visible;
+                tt_settings.Visibility = Visibility.Visible;
+                tt_start.Visibility = Visibility.Visible;
+                tt_stop.Visibility = Visibility.Visible;
+                tt_table.Visibility = Visibility.Visible;
+                tt_user.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Tg_Btn.IsChecked = false;
         }
 
         private void WindowsState_OnClick(object sender, RoutedEventArgs e)
