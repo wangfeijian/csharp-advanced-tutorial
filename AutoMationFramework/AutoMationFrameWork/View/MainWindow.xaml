@@ -12,8 +12,10 @@
     Width="1000"
     Height="700"
     Background="{DynamicResource MaterialDesignPaper}"
+    Loaded="MainWindow_Loaded"
     ResizeMode="CanResizeWithGrip"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    Unloaded="MainWindow_Unloaded"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
     WindowStyle="None"
@@ -32,10 +34,10 @@
                 Width="65"
                 HorizontalAlignment="Left">
                 <StackPanel Name="TogglePanel" Background="#F5F5F5">
-                    <Grid Height="90">
+                    <Grid Height="60">
                         <TextBlock
                             Grid.Column="0"
-                            Margin="73,-20,0,0"
+                            Margin="73,0,0,0"
                             Background="Transparent"
                             FontSize="22"
                             Style="{StaticResource font_style}"
@@ -53,7 +55,7 @@
                             Grid.Column="0"
                             Width="30"
                             Height="30"
-                            Margin="18,-20,0,0"
+                            Margin="18,0,0,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             BorderThickness="0"
@@ -187,8 +189,8 @@
                             Name="SetBtn"
                             Margin="0,0,0,15"
                             HorizontalAlignment="Left"
-                            Selected="Button_OnClick"
                             MouseEnter="ListViewItem_MouseEnter"
+                            Selected="Button_OnClick"
                             Tag="Set">
                             <StackPanel Width="230" Orientation="Horizontal">
                                 <Label
@@ -210,8 +212,8 @@
                         <ListViewItem
                             Margin="0,0,0,15"
                             HorizontalAlignment="Left"
-                            Selected="Button_OnClick"
                             MouseEnter="ListViewItem_MouseEnter"
+                            Selected="Button_OnClick"
                             Tag="Camera">
                             <StackPanel Width="230" Orientation="Horizontal">
                                 <Label
@@ -233,8 +235,8 @@
                         <ListViewItem
                             Margin="0,0,0,15"
                             HorizontalAlignment="Left"
-                            Selected="Button_OnClick"
                             MouseEnter="ListViewItem_MouseEnter"
+                            Selected="Button_OnClick"
                             Tag="Table">
                             <StackPanel Width="230" Orientation="Horizontal">
                                 <Label
@@ -256,8 +258,8 @@
                         <ListViewItem
                             Margin="0,0,0,15"
                             HorizontalAlignment="Left"
-                            Selected="Button_OnClick"
                             MouseEnter="ListViewItem_MouseEnter"
+                            Selected="Button_OnClick"
                             Tag="Alarm">
                             <StackPanel Width="230" Orientation="Horizontal">
                                 <Label
@@ -279,8 +281,8 @@
                         <ListViewItem
                             Margin="0,0,0,15"
                             HorizontalAlignment="Left"
-                            Selected="Button_OnClick"
                             MouseEnter="ListViewItem_MouseEnter"
+                            Selected="Button_OnClick"
                             Tag="User">
                             <StackPanel Width="230" Orientation="Horizontal">
                                 <Label

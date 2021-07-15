@@ -9,6 +9,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:viewModel="clr-namespace:AutoMationFrameWork.ViewModel"
     d:DesignHeight="670"
     d:DesignWidth="1024"
     Background="#EEEEF2"
@@ -20,20 +21,24 @@
         <DockingManager.ContextMenu>
             <ContextMenu Name="DockMenu" StaysOpen="True">
                 <MenuItem
+                    Name="SaveRightButton"
+                    Header="保存布局"/>
+                <MenuItem
+                    Name="LoadRightButton"
+                    Header="加载布局"/>
+                <Separator/>
+                <MenuItem
                     Name="SystemRightButton"
-                    Click="SystemRightButton_OnClick"
                     Header="系统信息"
                     IsCheckable="True"
                     IsChecked="True" />
                 <MenuItem
                     Name="MechineRightButton"
-                    Click="MechineRightButton_OnClick"
                     Header="设备信息"
                     IsCheckable="True"
                     IsChecked="True" />
                 <MenuItem
                     Name="LogRightButton"
-                    Click="LogRightButton_OnClick"
                     Header="日志"
                     IsCheckable="True"
                     IsChecked="True" />
@@ -46,7 +51,8 @@
                         <avalondock:LayoutDocument
                             x:Name="MotionInfoLayout"
                             Title="总控"
-                            CanClose="False">
+                            CanClose="False"
+                            ContentId="MotionInfoLayoutId">
                             <materialDesign:Card
                                 Margin="5,10,5,5"
                                 Padding="0"
@@ -148,7 +154,9 @@
                         <avalondock:LayoutAnchorable
                             x:Name="SystemInfoLayout"
                             Title="系统信息"
+                            CanClose="False"
                             AutoHideMinWidth="300"
+                            ContentId="SystemInfoLayoutId"
                             FloatingHeight="800"
                             FloatingWidth="300">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -352,7 +360,9 @@
                         <avalondock:LayoutAnchorable
                             x:Name="MechineInfoLayout"
                             Title="设备信息"
+                            CanClose="False"
                             AutoHideMinWidth="250"
+                            ContentId="MechineInfoLayoutId"
                             FloatingHeight="800"
                             FloatingWidth="250">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -599,6 +609,8 @@
                             x:Name="LogInfoLayout"
                             Title="日志"
                             AutoHideMinHeight="300"
+                            CanClose="False"
+                            ContentId="LogInfoLayoutId"
                             FloatingHeight="400"
                             FloatingWidth="800">
                             <GroupBox

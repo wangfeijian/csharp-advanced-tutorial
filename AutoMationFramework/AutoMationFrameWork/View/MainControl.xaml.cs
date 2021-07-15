@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using AvalonDock.Controls;
+using AvalonDock.Layout;
+using AvalonDock.Layout.Serialization;
 
 namespace AutoMationFrameWork.View
 {
@@ -42,8 +46,31 @@ namespace AutoMationFrameWork.View
             showTimer.Tick += ShowTime;
             showTimer.Interval = new TimeSpan(0, 0, 0, 1);
             showTimer.Start();
+            LogRightButton.Click += LogRightButton_OnClick;
+            MechineRightButton.Click += MechineRightButton_OnClick;
+            SystemRightButton.Click += SystemRightButton_OnClick;
         }
 
+        public void LoadMainControlLayout()
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + "AvalonDock.config";
+            var serializer = new XmlLayoutSerializer(dockingManager);
+            serializer.LayoutSerializationCallback += (s, args) =>
+            {
+                args.Content = args.Content;
+            };
+
+            if (File.Exists(file))
+                serializer.Deserialize(file);
+        }
+
+        public void SaveMainControlLayout()
+        {
+
+            string file = AppDomain.CurrentDomain.BaseDirectory + "AvalonDock.config";
+            var serializer = new XmlLayoutSerializer(dockingManager);
+            serializer.Serialize(file);
+        }
         private void ShowTime(object sender, EventArgs e)
         {
             double cpu = m_CpuCounter.NextValue();
@@ -102,38 +129,34 @@ namespace AutoMationFrameWork.View
 
         private void SystemRightButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (SystemRightButton.IsChecked)
+            ControlLayout(SystemRightButton.IsChecked,"SystemInfoLayoutId");
+        }
+
+        private void ControlLayout(bool isChecked,string contentId)
+        {
+            var layout = dockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
+            var layoutAnchrableValue = from value in layout
+                where value.ContentId == contentId
+                select value;
+
+            if (isChecked)
             {
-                SystemInfoLayout.Show();
+                layoutAnchrableValue.First().Show();
             }
             else
             {
-                SystemInfoLayout.Hide();
+                layoutAnchrableValue.First().Hide();
             }
         }
 
         private void MechineRightButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (MechineRightButton.IsChecked)
-            {
-                MechineInfoLayout.Show();
-            }
-            else
-            {
-                MechineInfoLayout.Hide();
-            }
+            ControlLayout(MechineRightButton.IsChecked,"MechineInfoLayoutId");
         }
 
         private void LogRightButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (LogRightButton.IsChecked)
-            {
-                LogInfoLayout.Show();
-            }
-            else
-            {
-                LogInfoLayout.Hide();
-            }
+            ControlLayout(LogRightButton.IsChecked,"LogInfoLayoutId");
         }
     }
 }

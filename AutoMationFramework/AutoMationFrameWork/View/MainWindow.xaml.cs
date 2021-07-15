@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,7 +72,7 @@ namespace AutoMationFrameWork.View
 
         private void BorderTitle_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            
+
             this.DragMove();
         }
 
@@ -133,9 +134,26 @@ namespace AutoMationFrameWork.View
                     }
                     break;
                 case "CloseBtn":
-                    Environment.Exit(0);
+                    if (MessageBox.Show("是否保存布局", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                    {
+                        Close();
+                    }
+                    else
+                    {
+                        Environment.Exit(0);
+                    }
                     break;
             }
+        }
+
+        private void MainWindow_Unloaded(object sender, EventArgs e)
+        {
+            MainUi.SaveMainControlLayout();
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            MainUi.LoadMainControlLayout();
         }
     }
 }
