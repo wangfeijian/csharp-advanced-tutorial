@@ -402,7 +402,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Style="{StaticResource MaterialDesignScrollViewer}"
-                        VerticalScrollBarVisibility="Auto">
+                        VerticalScrollBarVisibility="Hidden">
                         <TextBlock
                             xml:space="preserve"
                             FontSize="15"

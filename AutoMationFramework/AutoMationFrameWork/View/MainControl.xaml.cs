@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -18,6 +18,10 @@ using System.Windows.Threading;
 using AvalonDock.Controls;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace AutoMationFrameWork.View
 {
@@ -49,16 +53,65 @@ namespace AutoMationFrameWork.View
             LogRightButton.Click += LogRightButton_OnClick;
             MechineRightButton.Click += MechineRightButton_OnClick;
             SystemRightButton.Click += SystemRightButton_OnClick;
+            LoadRightButton.Click += LoadLayoutFromFile;
+            SaveRightButton.Click += SaveLayoutToFile;
+        }
+
+        private void LoadLayoutFromFile(object sender, RoutedEventArgs e)
+        {
+            var openFile = new OpenFileDialog { DefaultExt = ".config", Filter = "Config File (.config)|*.config" };
+            if (openFile.ShowDialog() == true)
+            {
+                string file = openFile.FileName;
+                try
+                {
+                    LoadLayout(file);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show($"加载失败！请确定文件是否为layout配置文件！{exception}");
+                    return;
+                }
+                MessageBox.Show("加载成功！");
+            }
+            else
+            {
+                MessageBox.Show("加载失败！未选择文件！");
+            }
+        }
+
+        private void SaveLayoutToFile(object sender, RoutedEventArgs e)
+        {
+            var saveFile = new SaveFileDialog
+            {
+                DefaultExt = ".config",
+                FileName = "AvalonDock",
+                Filter = "Config File (.config)|*.config"
+            };
+
+
+            if (saveFile.ShowDialog() == true)
+            {
+                string file = saveFile.FileName;
+                SaveLayout(file);
+                MessageBox.Show("保存成功！");
+            }
+            else
+            {
+                MessageBox.Show("保存失败！未指定文件！");
+            }
         }
 
         public void LoadMainControlLayout()
         {
             string file = AppDomain.CurrentDomain.BaseDirectory + "AvalonDock.config";
+            LoadLayout(file);
+        }
+
+        private void LoadLayout(string file)
+        {
             var serializer = new XmlLayoutSerializer(dockingManager);
-            serializer.LayoutSerializationCallback += (s, args) =>
-            {
-                args.Content = args.Content;
-            };
+            serializer.LayoutSerializationCallback += (s, args) => { args.Content = args.Content; };
 
             if (File.Exists(file))
                 serializer.Deserialize(file);
@@ -66,11 +119,16 @@ namespace AutoMationFrameWork.View
 
         public void SaveMainControlLayout()
         {
-
             string file = AppDomain.CurrentDomain.BaseDirectory + "AvalonDock.config";
+            SaveLayout(file);
+        }
+
+        private void SaveLayout(string file)
+        {
             var serializer = new XmlLayoutSerializer(dockingManager);
             serializer.Serialize(file);
         }
+
         private void ShowTime(object sender, EventArgs e)
         {
             double cpu = m_CpuCounter.NextValue();
@@ -129,15 +187,15 @@ namespace AutoMationFrameWork.View
 
         private void SystemRightButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ControlLayout(SystemRightButton.IsChecked,"SystemInfoLayoutId");
+            ControlLayout(SystemRightButton.IsChecked, "SystemInfoLayoutId");
         }
 
-        private void ControlLayout(bool isChecked,string contentId)
+        private void ControlLayout(bool isChecked, string contentId)
         {
             var layout = dockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
             var layoutAnchrableValue = from value in layout
-                where value.ContentId == contentId
-                select value;
+                                       where value.ContentId == contentId
+                                       select value;
 
             if (isChecked)
             {
@@ -151,12 +209,12 @@ namespace AutoMationFrameWork.View
 
         private void MechineRightButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ControlLayout(MechineRightButton.IsChecked,"MechineInfoLayoutId");
+            ControlLayout(MechineRightButton.IsChecked, "MechineInfoLayoutId");
         }
 
         private void LogRightButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ControlLayout(LogRightButton.IsChecked,"LogInfoLayoutId");
+            ControlLayout(LogRightButton.IsChecked, "LogInfoLayoutId");
         }
     }
 }
