@@ -125,11 +125,15 @@
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
+                                Name="StartButton"
+                                Selected="StartButton_OnSelected"
                                 Margin="0,0,0,15"
                                 HorizontalAlignment="Left"
+                                IsEnabled="True"
                                 MouseEnter="ListViewItem_MouseEnter">
                                 <StackPanel Width="230" Orientation="Horizontal">
                                     <Label
+                                        Name="StartLabel"
                                         Content="&#xe65f;"
                                         Foreground="#006569"
                                         Style="{StaticResource LabelListViewStyle}" />
@@ -146,13 +150,17 @@
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
+                                Name="PauseButton"
+                                Selected="PauseButton_OnSelected"
                                 Margin="0,0,0,15"
+                                IsEnabled="False"
                                 HorizontalAlignment="Left"
                                 MouseEnter="ListViewItem_MouseEnter">
                                 <StackPanel Width="230" Orientation="Horizontal">
                                     <Label
+                                        Name="PauseLabel"
                                         Content="&#xe606;"
-                                        Foreground="#691fff"
+                                        Foreground="#c4c4c7"
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
@@ -167,13 +175,17 @@
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
+                                Name="StopButton"
+                                Selected="StopButton_OnSelected"
                                 Margin="0,0,0,15"
+                                IsEnabled="False"
                                 HorizontalAlignment="Left"
                                 MouseEnter="ListViewItem_MouseEnter">
                                 <StackPanel Width="230" Orientation="Horizontal">
                                     <Label
+                                        Name="StopLabel"
                                         Content="&#xec6d;"
-                                        Foreground="#ff0000"
+                                        Foreground="#c4c4c7"
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"

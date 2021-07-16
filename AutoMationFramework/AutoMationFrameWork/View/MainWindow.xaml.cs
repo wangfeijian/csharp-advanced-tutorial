@@ -171,5 +171,41 @@ namespace AutoMationFrameWork.View
                 parent.RaiseEvent(eventArg);
             }
         }
+
+        private void StartButton_OnSelected(object sender, RoutedEventArgs e)
+        {
+            StartButton.IsEnabled = false;
+            StartLabel.Foreground = new SolidColorBrush(Color.FromRgb(196,196,199));
+
+            PauseButton.IsEnabled = true;
+            PauseLabel.Foreground = new SolidColorBrush(Color.FromRgb(105,31,255)); //"#691fff"
+
+            StopButton.IsEnabled = true;
+            StopLabel.Foreground = new SolidColorBrush(Color.FromRgb(255,0,0)); //"#ff0000"
+        }
+
+        private void PauseButton_OnSelected(object sender, RoutedEventArgs e)
+        {
+            StartButton.IsEnabled = true;
+            StartLabel.Foreground = new SolidColorBrush(Color.FromRgb(0,101,105));// "#006569";
+
+            PauseButton.IsEnabled = false;
+            PauseLabel.Foreground = new SolidColorBrush(Color.FromRgb(196,196,199));
+
+            StopButton.IsEnabled = true;
+            StopLabel.Foreground = new SolidColorBrush(Color.FromRgb(255,0,0));
+        }
+
+        private void StopButton_OnSelected(object sender, RoutedEventArgs e)
+        {
+            StartButton.IsEnabled = true;
+            StartLabel.Foreground = new SolidColorBrush(Color.FromRgb(0,101,105));// "#006569";
+
+            PauseButton.IsEnabled = false;
+            PauseLabel.Foreground = new SolidColorBrush(Color.FromRgb(196,196,199));
+
+            StopButton.IsEnabled = false;
+            StopLabel.Foreground = new SolidColorBrush(Color.FromRgb(196,196,199));
+        }
     }
 }
