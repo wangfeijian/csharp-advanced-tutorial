@@ -25,7 +25,7 @@
                 TabStripPlacement="Bottom">
                 <TabItem
                     Height="38"
-                    Header="数据分类"
+                    Header="{StaticResource DataType}"
                     Style="{StaticResource TabItemStyle}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -55,7 +55,7 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </CheckBox>
-                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="增加/修改数据" />
+                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="{StaticResource EditData}" />
                             </StackPanel>
                         </TextBlock>
                         <TextBox
@@ -67,7 +67,7 @@
                             VerticalAlignment="Center" />
                         <Button
                             Name="AddButton"
-                            Content="添加数据组"
+                            Content="{StaticResource AddDataGroup}"
                             Grid.Column="2"
                             Grid.ColumnSpan="2"
                             Margin="15,5,15,5"
@@ -81,7 +81,7 @@
                         </Button>
                         <Button
                             Name="RemoveButton"
-                            Content="删除数据组"
+                            Content="{StaticResource DeleteDataGroup}"
                             Grid.Column="4"
                             Grid.ColumnSpan="2"
                             Margin="15,5,15,5"
@@ -95,7 +95,7 @@
                         </Button>
                         <Button
                             Name="UpdateButton"
-                            Content="更新数据组"
+                            Content="{StaticResource UpdateDataGroup}"
                             Grid.Column="6"
                             Grid.ColumnSpan="2"
                             Margin="15,5,15,5"
@@ -112,7 +112,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="数据组名称：" />
+                            Text="{StaticResource DataGroupName}" />
                         <ComboBox
                             Name="DataComboBox"
                             Grid.Row="1"
@@ -136,7 +136,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="版本：" />
+                            Text="{StaticResource Version}" />
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="3"
@@ -155,7 +155,7 @@
                                     Name="IsPdca"
                                     VerticalAlignment="Center"
                                     IsChecked="{Binding DataClassTitle.PdcaEnable}" />
-                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="是否PDCA" />
+                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="{StaticResource IsPdca}" />
                             </StackPanel>
                         </TextBlock>
                         <ComboBox
@@ -179,49 +179,49 @@
                                     Width="*"
                                     Binding="{Binding Name}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="名称"
+                                    Header="{StaticResource DataName}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding DataType}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="数据类型"
+                                    Header="{StaticResource DataClass}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding DataIndex}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="数据索引"
+                                    Header="{StaticResource DataIndex}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding StandardValue}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="标准值"
+                                    Header="{StaticResource DataStValue}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding UpperValue}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="上限"
+                                    Header="{StaticResource DataUpperValue}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding LowerValue}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="下限"
+                                    Header="{StaticResource DataLowerValue}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding OffsetValue}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="补偿值"
+                                    Header="{StaticResource DataOffset}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding Unit}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="单位"
+                                    Header="{StaticResource DataUnit}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                             </DataGrid.Columns>
                         </DataGrid>
@@ -229,7 +229,7 @@
                 </TabItem>
                 <TabItem
                     Height="38"
-                    Header="数据显示"
+                    Header="{StaticResource DataShow}"
                     Style="{StaticResource TabItemStyle}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -239,7 +239,7 @@
                         <TextBlock VerticalAlignment="Center">
                             <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
                                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding DataShowClass.IsUpload}" />
-                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="是否PDCA" />
+                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="{StaticResource IsPdca}" />
                             </StackPanel>
                         </TextBlock>
                         <DataGrid
@@ -252,13 +252,13 @@
                                     Width="*"
                                     Binding="{Binding Name}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="名称"
+                                    Header="{StaticResource DataName}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding Index}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="数据索引"
+                                    Header="{StaticResource DataIndex}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
 
                             </DataGrid.Columns>
@@ -267,7 +267,7 @@
                 </TabItem>
                 <TabItem
                     Height="38"
-                    Header="数据保存"
+                    Header="{StaticResource DataSave}"
                     Style="{StaticResource TabItemStyle}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -277,7 +277,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                             <ColumnDefinition />
                             <ColumnDefinition />
                             <ColumnDefinition />
@@ -291,7 +291,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="保存类型：" />
+                            Text="{StaticResource DataSaveType}" />
                         <ComboBox
                             Name="DataSaveComboBox"
                             Grid.Column="1"
@@ -313,7 +313,7 @@
                             VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding DataSave.IsUpload}" />
-                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="是否保存" />
+                                <TextBlock Style="{StaticResource TextBlockDataGridHeader}" Text="{StaticResource DataIsSave}" />
                             </StackPanel>
                         </TextBlock>
                         <TextBlock
@@ -322,7 +322,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="保存路径："
+                            Text="{StaticResource DataSavePath}"
                             Visibility="{Binding IsNotDb}" />
                         <TextBox
                             Grid.Column="4"
@@ -333,7 +333,7 @@
                             Text="{Binding DataSave.SavePath}"
                             Visibility="{Binding IsNotDb}" />
                         <Button
-                            Content="浏览"
+                            Content="{StaticResource Browse}"
                             Grid.Column="7"
                             Margin="15,5,15,5"
                             Style="{StaticResource MaterialDesignRaisedButton}"
@@ -344,7 +344,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="服务地址："
+                            Text="{StaticResource ServerAddress}"
                             Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="1"
@@ -361,7 +361,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="端口号："
+                            Text="{StaticResource Port}"
                             Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="1"
@@ -378,7 +378,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="用户名："
+                            Text="{StaticResource DataUserName}"
                             Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="1"
@@ -395,7 +395,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="密码："
+                            Text="{StaticResource DataPassword}"
                             Visibility="{Binding IsDb}" />
                         <PasswordBox
                             Grid.Row="1"
@@ -411,7 +411,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="数据库："
+                            Text="{StaticResource Database}"
                             Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="2"
@@ -428,7 +428,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Style="{StaticResource TextBlockDataGridHeader}"
-                            Text="数据表："
+                            Text="{StaticResource DataTable}"
                             Visibility="{Binding IsDb}" />
                         <TextBox
                             Grid.Row="2"
@@ -439,7 +439,7 @@
                             Text="{Binding DataSave.DataTable}"
                             Visibility="{Binding IsDb}" />
                         <Button
-                            Content="查看"
+                            Content="{StaticResource View}"
                             Grid.Row="2"
                             Grid.Column="4"
                             Grid.ColumnSpan="2"
@@ -456,13 +456,13 @@
                                     Width="*"
                                     Binding="{Binding Name}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="名称"
+                                    Header="{StaticResource DataName}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding Index}"
                                     ElementStyle="{StaticResource DataGridContentStyle}"
-                                    Header="数据索引"
+                                    Header="{StaticResource DataIndex}"
                                     HeaderStyle="{StaticResource DataGridHeadStyle}" />
                             </DataGrid.Columns>
                         </DataGrid>
@@ -480,42 +480,42 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button
-                Content="保存文件"
+                Content="{StaticResource SaveFile}"
                 Grid.Column="0"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="另存为"
+                Content="{StaticResource SaveAs}"
                 Grid.Column="1"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="保存默认"
+                Content="{StaticResource SaveDefault}"
                 Grid.Column="2"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="应用"
+                Content="{StaticResource Apply}"
                 Grid.Column="3"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="还原上一次"
+                Content="{StaticResource RestoreLastTime}"
                 Grid.Column="4"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="恢复默认"
+                Content="{StaticResource Reset}"
                 Grid.Column="5"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"

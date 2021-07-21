@@ -23,7 +23,7 @@
                 TabStripPlacement="Bottom">
                 <TabItem
                     Height="38"
-                    Header="控制"
+                    Header="{StaticResource CyControl}"
                     Style="{StaticResource TabItemStyle}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid>
@@ -54,8 +54,9 @@
                     </ScrollViewer>
                 </TabItem>
                 <TabItem
+                    Name="CyManageItem"
                     Height="38"
-                    Header="管理"
+                    Header="{StaticResource CyManage}"
                     Style="{StaticResource TabItemStyle}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel>
@@ -68,61 +69,61 @@
                                         Width="*"
                                         Binding="{Binding Name}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="名称"
+                                        Header="{StaticResource CyName}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                     <DataGridTextColumn
                                         Width="*"
                                         Binding="{Binding EngName}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="翻译"
+                                        Header="{StaticResource CyEngName}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                     <DataGridTextColumn
                                         Width="40"
                                         Binding="{Binding Type}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="类型"
+                                        Header="{StaticResource CyType}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                     <DataGridTextColumn
                                         Width="*"
                                         Binding="{Binding ExtendOutput}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="伸出输出"
+                                        Header="{StaticResource CyExtendOutput}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                     <DataGridTextColumn
                                         Width="*"
                                         Binding="{Binding RetractOutput}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="缩回输出"
+                                        Header="{StaticResource CyRetractOutput}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                     <DataGridTextColumn
                                         Width="*"
                                         Binding="{Binding ExtendInput}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="伸出输入"
+                                        Header="{StaticResource CyExtendInput}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                     <DataGridTextColumn
                                         Width="*"
                                         Binding="{Binding RetractInput}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="缩回输入"
+                                        Header="{StaticResource CyRetractInput}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                     <DataGridTextColumn
-                                        Width="60"
+                                        Width="80"
                                         Binding="{Binding ExtendEnable}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="伸出启用"
+                                        Header="{StaticResource CyExtendEnable}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                     <DataGridTextColumn
-                                        Width="60"
+                                        Width="80"
                                         Binding="{Binding RetractEnable}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="缩回启用"
+                                        Header="{StaticResource CyRetractEnable}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                     <DataGridTextColumn
-                                        Width="60"
+                                        Width="80"
                                         Binding="{Binding TimeOut}"
                                         ElementStyle="{StaticResource DataGridContentStyle}"
-                                        Header="超时时间"
+                                        Header="{StaticResource CyTimeOut}"
                                         HeaderStyle="{StaticResource DataGridHeadStyle}" />
                                 </DataGrid.Columns>
                             </DataGrid>
@@ -138,25 +139,28 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button
-                Content="删除气缸"
+                Content="{StaticResource DeleteCy}"
                 Grid.Column="0"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
+                IsEnabled="{Binding Path=IsSelected, ElementName=CyManageItem}"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="应用"
+                Content="{StaticResource Apply}"
                 Grid.Column="1"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
+                IsEnabled="{Binding Path=IsSelected, ElementName=CyManageItem}"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="保存配置"
+                Content="{StaticResource SaveConfig}"
                 Grid.Column="2"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
+                IsEnabled="{Binding Path=IsSelected, ElementName=CyManageItem}"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
         </Grid>
     </Grid>

@@ -15,27 +15,28 @@
     Background="#EEEEF2"
     mc:Ignorable="d">
     <avalondock:DockingManager
+        Loaded="DockingManager_OnLoaded"
         x:Name="dockingManager"
         AllowMixedOrientation="True"
         IsVirtualizingAnchorable="True">
         <DockingManager.ContextMenu>
             <ContextMenu Name="DockMenu" StaysOpen="True">
-                <MenuItem Name="SaveRightButton" Header="保存布局" />
-                <MenuItem Name="LoadRightButton" Header="加载布局" />
+                <MenuItem Name="SaveRightButton" Header="{StaticResource SaveLayoutBtn}" />
+                <MenuItem Name="LoadRightButton" Header="{StaticResource LoadLayout}" />
                 <Separator />
                 <MenuItem
                     Name="SystemRightButton"
-                    Header="系统信息"
+                    Header="{StaticResource SystemInfo}"
                     IsCheckable="True"
                     IsChecked="True" />
                 <MenuItem
                     Name="MechineRightButton"
-                    Header="设备信息"
+                    Header="{StaticResource MachineInfo}"
                     IsCheckable="True"
                     IsChecked="True" />
                 <MenuItem
                     Name="LogRightButton"
-                    Header="日志"
+                    Header="{StaticResource Log}"
                     IsCheckable="True"
                     IsChecked="True" />
             </ContextMenu>
@@ -46,7 +47,7 @@
                     <avalondock:LayoutDocumentPane>
                         <avalondock:LayoutDocument
                             x:Name="MotionInfoLayout"
-                            Title="总控"
+                            Title="{StaticResource MainControl}"
                             CanClose="False"
                             ContentId="MotionInfoLayoutId">
                             <materialDesign:Card
@@ -149,7 +150,7 @@
                     <avalondock:LayoutAnchorGroup>
                         <avalondock:LayoutAnchorable
                             x:Name="SystemInfoLayout"
-                            Title="系统信息"
+                            Title="{StaticResource SystemInfo}"
                             AutoHideMinWidth="300"
                             CanClose="False"
                             ContentId="SystemInfoLayoutId"
@@ -213,21 +214,21 @@
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                Text="设备运行总时间：" />
+                                                Text="{StaticResource MachineRunTotalTime}" />
                                             <TextBlock
                                                 Grid.Row="7"
                                                 Margin="16,0,16,8"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                Text="程序运行总时间：" />
+                                                Text="{StaticResource SoftwareRunTotalTime}" />
                                             <TextBlock
                                                 Grid.Row="8"
                                                 Margin="16,0,16,8"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                Text="周    期   时   间：" />
+                                                Text="{StaticResource CircleTime}" />
                                             <StackPanel
                                                 Grid.Row="9"
                                                 Margin="16,0,16,8"
@@ -271,7 +272,7 @@
                                                     Grid.Row="0"
                                                     Margin="16,16,16,4"
                                                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                                    Text="统计" />
+                                                    Text="{StaticResource Statistics}" />
                                                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                                                 <TextBlock
                                                     Grid.Row="2"
@@ -279,28 +280,28 @@
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Center"
                                                     Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                    Text="总   数:" />
+                                                    Text="{StaticResource Total}" />
                                                 <TextBlock
                                                     Grid.Row="3"
                                                     Margin="16,0,16,8"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Center"
                                                     Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                    Text="合   格:" />
+                                                    Text="{StaticResource Pass}" />
                                                 <TextBlock
                                                     Grid.Row="4"
                                                     Margin="16,0,16,8"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Center"
                                                     Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                    Text="不合格:" />
+                                                    Text="{StaticResource Fail}" />
                                                 <TextBlock
                                                     Grid.Row="5"
                                                     Margin="16,0,16,8"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Center"
                                                     Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                    Text="良   率:" />
+                                                    Text="{StaticResource PassRate}" />
                                             </Grid>
                                         </materialDesign:Card>
                                         <materialDesign:Card
@@ -323,7 +324,7 @@
                                                     Grid.Row="0"
                                                     Margin="16,16,16,4"
                                                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                                    Text="工单" />
+                                                    Text="{StaticResource Order}" />
                                                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                                                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                                                     <TextBlock
@@ -331,7 +332,7 @@
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
                                                         Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                        Text="总   数:" />
+                                                        Text="{StaticResource Total}" />
                                                     <TextBox Width="20" />
                                                 </StackPanel>
                                                 <TextBlock
@@ -340,7 +341,7 @@
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Center"
                                                     Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                    Text="已生产:" />
+                                                    Text="{StaticResource Produced}" />
                                             </Grid>
                                         </materialDesign:Card>
                                     </Grid>
@@ -355,7 +356,7 @@
                     <avalondock:LayoutAnchorGroup>
                         <avalondock:LayoutAnchorable
                             x:Name="MechineInfoLayout"
-                            Title="设备信息"
+                            Title="{StaticResource MachineInfo}"
                             AutoHideMinWidth="250"
                             CanClose="False"
                             ContentId="MechineInfoLayoutId"
@@ -376,14 +377,14 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Button
-                                                Content="自动模式"
+                                                Content="{StaticResource AutomaticMode}"
                                                 Height="40"
                                                 Margin="10,10,10,5"
                                                 materialDesign:ButtonAssist.CornerRadius="10"
                                                 Background="{StaticResource MaterialDesignDarkBackground}"
                                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                                             <Button
-                                                Content="单片模式"
+                                                Content="{StaticResource SingleChipMode}"
                                                 Grid.Row="1"
                                                 Height="40"
                                                 Margin="10,5,10,5"
@@ -391,7 +392,7 @@
                                                 Background="{StaticResource MaterialDesignDarkBackground}"
                                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                                             <Button
-                                                Content="清除记录"
+                                                Content="{StaticResource ClearRecords}"
                                                 Grid.Row="2"
                                                 Height="40"
                                                 Margin="10,5,10,5"
@@ -415,7 +416,7 @@
                                             </Grid.RowDefinitions>
                                             <StackPanel
                                                 Margin="5"
-                                                HorizontalAlignment="Center"
+                                                HorizontalAlignment="Left"
                                                 Orientation="Horizontal">
                                                 <materialDesign:PackIcon
                                                     Width="32"
@@ -426,12 +427,12 @@
                                                 <TextBlock
                                                     Margin="10,0,0,5"
                                                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                                    Text="自 动 状 态" />
+                                                    Text="{StaticResource AutomaticState}" />
                                             </StackPanel>
                                             <StackPanel
                                                 Grid.Row="1"
                                                 Margin="5"
-                                                HorizontalAlignment="Center"
+                                                HorizontalAlignment="Left"
                                                 Orientation="Horizontal">
                                                 <materialDesign:PackIcon
                                                     Width="32"
@@ -442,12 +443,12 @@
                                                 <TextBlock
                                                     Margin="10,0,0,5"
                                                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                                    Text="手 动 状 态" />
+                                                    Text="{StaticResource ManualStatus}" />
                                             </StackPanel>
                                             <StackPanel
                                                 Grid.Row="2"
                                                 Margin="5"
-                                                HorizontalAlignment="Center"
+                                                HorizontalAlignment="Left"
                                                 Orientation="Horizontal">
                                                 <materialDesign:PackIcon
                                                     Width="32"
@@ -458,12 +459,12 @@
                                                 <TextBlock
                                                     Margin="10,0,0,5"
                                                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                                    Text="设 备 暂 停" />
+                                                    Text="{StaticResource MachinePause}" />
                                             </StackPanel>
                                             <StackPanel
                                                 Grid.Row="3"
                                                 Margin="5"
-                                                HorizontalAlignment="Center"
+                                                HorizontalAlignment="Left"
                                                 Orientation="Horizontal">
                                                 <materialDesign:PackIcon
                                                     Width="32"
@@ -474,7 +475,7 @@
                                                 <TextBlock
                                                     Margin="10,0,0,5"
                                                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                                    Text="设 备 急 停" />
+                                                    Text="{StaticResource MachineEmergencyStop}" />
                                             </StackPanel>
 
                                         </Grid>
@@ -500,7 +501,7 @@
                                                 Grid.Row="0"
                                                 Margin="16,5,16,4"
                                                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                                Text="其它信息" />
+                                                Text="{StaticResource OtherInfo}" />
                                             <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                                             <TextBlock
                                                 Grid.Row="2"
@@ -508,42 +509,42 @@
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                Text="当前用户:" />
+                                                Text="{StaticResource CurrentUser}" />
                                             <TextBlock
                                                 Grid.Row="3"
                                                 Margin="16,0,16,8"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                Text="运行模式:" />
+                                                Text="{StaticResource RunMode}" />
                                             <TextBlock
                                                 Grid.Row="4"
                                                 Margin="16,0,16,8"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                Text="设备状态:" />
+                                                Text="{StaticResource MachineState}" />
                                             <TextBlock
                                                 Grid.Row="5"
                                                 Margin="16,0,16,8"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                Text="系统速度:" />
+                                                Text="{StaticResource SystemSpeed}" />
                                             <TextBlock
                                                 Grid.Row="6"
                                                 Margin="16,0,16,8"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                                Text="产品类型:" />
+                                                Text="{StaticResource ProductType}" />
                                             <Grid Grid.Row="7" Margin="0,5,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Text="CPU占用" />
+                                                    <TextBlock HorizontalAlignment="Center" Text="{StaticResource CpuUsage}" />
                                                     <ProgressBar
                                                         Name="CpuProgressBar"
                                                         Width="50"
@@ -556,7 +557,7 @@
                                                         Value="95.5" />
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                                                    <TextBlock HorizontalAlignment="Center" Text="内存占用" />
+                                                    <TextBlock HorizontalAlignment="Center" Text="{StaticResource RamUsage}" />
                                                     <ProgressBar
                                                         Name="RamProgressBar"
                                                         Width="50"
@@ -603,7 +604,7 @@
                     <avalondock:LayoutAnchorGroup>
                         <avalondock:LayoutAnchorable
                             x:Name="LogInfoLayout"
-                            Title="日志"
+                            Title="{StaticResource Log}"
                             AutoHideMinHeight="300"
                             CanClose="False"
                             ContentId="LogInfoLayoutId"
@@ -615,7 +616,7 @@
                                 materialDesign:ColorZoneAssist.Background="#27D0D8"
                                 materialDesign:ColorZoneAssist.Foreground="White"
                                 materialDesign:ColorZoneAssist.Mode="Custom"
-                                Header="日 志 报 警"
+                                Header="{StaticResource LogAlarm}"
                                 Style="{DynamicResource MaterialDesignGroupBox}">
                                 <GroupBox.HeaderTemplate>
                                     <DataTemplate>

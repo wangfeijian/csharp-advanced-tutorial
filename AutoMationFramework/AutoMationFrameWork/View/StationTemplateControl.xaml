@@ -32,7 +32,7 @@
                     HorizontalAlignment="Left"
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    Text="站位控制" />
+                    Text="{StaticResource StationControl}" />
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" />
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
@@ -50,7 +50,7 @@
                         materialDesign:ColorZoneAssist.Background="#50bc93"
                         materialDesign:ColorZoneAssist.Foreground="White"
                         materialDesign:ColorZoneAssist.Mode="Custom"
-                        Header="运动控制"
+                        Header="{StaticResource MotionControl}"
                         Style="{DynamicResource MaterialDesignCardGroupBox}">
                         <GroupBox.HeaderTemplate>
                             <DataTemplate>
@@ -84,23 +84,20 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <RadioButton
+                                    Content="{StaticResource Absolute}"
                                     Grid.Column="0"
                                     HorizontalAlignment="Center"
-                                    Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
-                                    绝对
-                                </RadioButton>
+                                    Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}" />
                                 <RadioButton
+                                    Content="{StaticResource Relative}"
                                     Grid.Column="1"
                                     HorizontalAlignment="Center"
-                                    Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
-                                    相对
-                                </RadioButton>
+                                    Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}" />
                                 <RadioButton
+                                    Content="JOG"
                                     Grid.Column="2"
                                     HorizontalAlignment="Center"
-                                    Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
-                                    JOG
-                                </RadioButton>
+                                    Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}" />
                             </Grid>
                             <Grid Grid.Row="1">
                                 <Grid.RowDefinitions>
@@ -311,56 +308,56 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="报警" />
+                                Text="{StaticResource Alarm}" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="2"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="正限位" />
+                                Text="{StaticResource PositiveLimit}" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="3"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="负限位" />
+                                Text="{StaticResource NegativeLimit}" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="4"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="原点" />
+                                Text="{StaticResource Origin}" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="急停" />
+                                Text="{StaticResource EmergencyStop}" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="6"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="零位" />
+                                Text="{StaticResource Zero}" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="7"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="到位" />
+                                Text="{StaticResource InPlace}" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="8"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="使能" />
+                                Text="{StaticResource ServoOn}" />
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="0"
@@ -711,14 +708,14 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="当前位置" />
+                                Text="{StaticResource CurrentPos}" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="2"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="移动距离" />
+                                Text="{StaticResource MoveDistance}" />
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="0"
@@ -732,7 +729,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Text="轴速度" />
+                                Text="{StaticResource AxisSpeed}" />
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="0"
@@ -831,7 +828,7 @@
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="5000" />
                             <Button
-                                Content="使能"
+                                Content="{StaticResource ServoOn}"
                                 Grid.Row="1"
                                 Grid.Column="3"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -839,7 +836,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="原点"
+                                Content="{StaticResource Origin}"
                                 Grid.Row="1"
                                 Grid.Column="4"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -847,7 +844,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="清零"
+                                Content="{StaticResource Zero}"
                                 Grid.Row="1"
                                 Grid.Column="5"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -855,7 +852,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="清错"
+                                Content="{StaticResource ClearError}"
                                 Grid.Row="1"
                                 Grid.Column="6"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -863,7 +860,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="使能"
+                                Content="{StaticResource ServoOn}"
                                 Grid.Row="2"
                                 Grid.Column="3"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -871,7 +868,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="原点"
+                                Content="{StaticResource Origin}"
                                 Grid.Row="2"
                                 Grid.Column="4"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -879,7 +876,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="清零"
+                                Content="{StaticResource Zero}"
                                 Grid.Row="2"
                                 Grid.Column="5"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -887,7 +884,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="清错"
+                                Content="{StaticResource ClearError}"
                                 Grid.Row="2"
                                 Grid.Column="6"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -895,7 +892,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="使能"
+                                Content="{StaticResource ServoOn}"
                                 Grid.Row="3"
                                 Grid.Column="3"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -903,7 +900,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="原点"
+                                Content="{StaticResource Origin}"
                                 Grid.Row="3"
                                 Grid.Column="4"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -911,7 +908,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="清零"
+                                Content="{StaticResource Zero}"
                                 Grid.Row="3"
                                 Grid.Column="5"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -919,7 +916,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="清错"
+                                Content="{StaticResource ClearError}"
                                 Grid.Row="3"
                                 Grid.Column="6"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -927,7 +924,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="使能"
+                                Content="{StaticResource ServoOn}"
                                 Grid.Row="4"
                                 Grid.Column="3"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -935,7 +932,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="原点"
+                                Content="{StaticResource Origin}"
                                 Grid.Row="4"
                                 Grid.Column="4"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -943,7 +940,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="清零"
+                                Content="{StaticResource Zero}"
                                 Grid.Row="4"
                                 Grid.Column="5"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -951,7 +948,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="清错"
+                                Content="{StaticResource ClearError}"
                                 Grid.Row="4"
                                 Grid.Column="6"
                                 Margin="2.5,2.5,2.5,2.5"
@@ -984,12 +981,12 @@
                             FontSize="20"
                             FontWeight="Bold"
                             Style="{StaticResource TabControlStyle}">
-                            <TabItem Header="点位" Style="{StaticResource TabItemStyle}">点位</TabItem>
+                            <TabItem Header="{StaticResource Point}" Style="{StaticResource TabItemStyle}">点位</TabItem>
                             <TabItem Header="IO" Style="{StaticResource TabItemStyle}">IO</TabItem>
-                            <TabItem Header="气缸" Style="{StaticResource TabItemStyle}">气缸</TabItem>
+                            <TabItem Header="{StaticResource Cylinder}" Style="{StaticResource TabItemStyle}">气缸</TabItem>
                         </TabControl>
                         <Button
-                            Content="单轴移动"
+                            Content="{StaticResource SingleAxisMove}"
                             Grid.Row="1"
                             Grid.Column="0"
                             Margin="2.5,2.5,2.5,2.5"
@@ -997,7 +994,7 @@
                             Background="#899DC0"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                         <Button
-                            Content="全轴移动"
+                            Content="{StaticResource AllMove}"
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="2.5,2.5,2.5,2.5"
@@ -1005,7 +1002,7 @@
                             Background="#899DC0"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                         <Button
-                            Content="更新此轴"
+                            Content="{StaticResource UpdateThisAxis}"
                             Grid.Row="1"
                             Grid.Column="2"
                             Margin="2.5,2.5,2.5,2.5"
@@ -1013,7 +1010,7 @@
                             Background="#899DC0"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                         <Button
-                            Content="更新此点"
+                            Content="{StaticResource UpdateThisPoint}"
                             Grid.Row="1"
                             Grid.Column="3"
                             Margin="2.5,2.5,2.5,2.5"
@@ -1021,7 +1018,7 @@
                             Background="#899DC0"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                         <Button
-                            Content="保存点位"
+                            Content="{StaticResource SavePoint}"
                             Grid.Row="1"
                             Grid.Column="4"
                             Margin="2.5,2.5,2.5,2.5"
@@ -1049,7 +1046,7 @@
                     Margin="16,16,16,4"
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    Text="站位流程编写" />
+                    Text="{StaticResource StationProcessEdit}" />
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" />
                 <Grid Grid.Row="2">
                     <TreeView MinWidth="220" FontSize="12">

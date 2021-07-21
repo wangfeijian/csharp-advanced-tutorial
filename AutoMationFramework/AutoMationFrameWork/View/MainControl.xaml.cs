@@ -18,6 +18,8 @@ using System.Windows.Threading;
 using AvalonDock.Controls;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
+using CommonTools;
+using Newtonsoft.Json;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
@@ -36,11 +38,14 @@ namespace AutoMationFrameWork.View
         private string CpuStr;
         private string RamStr;
         private string Ram2Str;
+        private Dictionary<string, string> lang;
 
         public MainControl()
         {
             InitializeComponent();
 
+            string filename = Directory.GetCurrentDirectory() + "\\Config\\config.json";
+            lang = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(filename));
             string strProcessName = Process.GetCurrentProcess().ProcessName;
             m_CpuCounter = new PerformanceCounter("Process", "% Processor Time", strProcessName);
             m_RamCounter = new PerformanceCounter("Process", "Working Set - Private", strProcessName);
@@ -147,8 +152,19 @@ namespace AutoMationFrameWork.View
             CpuTextBlock.Text = CpuStr;
             RamTextBlock.Text = RamStr;
             Ram2TextBlock.Text = Ram2Str;
-
-            string strTime = DateTime.Now.ToString("yyyy-MM-dd dddd hh:mm:ss");
+            string strTime="";
+            if (lang["lang"] == "zh_cn")
+            {
+                strTime = DateTime.Now.ToString("yyyy-MM-dd dddd hh:mm:ss");
+            }
+            else if(lang["lang"] == "en_us")
+            {
+                string dayOfWeek = DateTime.Now.DayOfWeek.ToString().Substring(0, 3).ToUpper();
+                string date = DateTime.Now.ToString("MM/dd/yy");
+                string time = DateTime.Now.ToString("HH:mm:ss");
+                string now = $"{date} {dayOfWeek} {time}";
+                strTime = now;
+            }
             TimeTextBlock.Text = strTime;
         }
 
@@ -215,6 +231,29 @@ namespace AutoMationFrameWork.View
         private void LogRightButton_OnClick(object sender, RoutedEventArgs e)
         {
             ControlLayout(LogRightButton.IsChecked, "LogInfoLayoutId");
+        }
+
+        private void DockingManager_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var layout = dockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
+            foreach (var layoutAnchorable in layout)
+            {
+                if (layoutAnchorable.ContentId=="SystemInfoLayoutId")
+                {
+                    layoutAnchorable.Title = LocationServices.GetLang("SystemInfo");
+                }
+                else if (layoutAnchorable.ContentId == "MechineInfoLayoutId")
+                {
+                    layoutAnchorable.Title = LocationServices.GetLang("MachineInfo");
+                }
+                else if (layoutAnchorable.ContentId == "LogInfoLayoutId")
+                {
+                    layoutAnchorable.Title = LocationServices.GetLang("Log");
+                }
+            }
+
+            var layoutDoc = dockingManager.Layout.Descendents().OfType<LayoutDocument>();
+            layoutDoc.First().Title = LocationServices.GetLang("MainControl");
         }
     }
 }

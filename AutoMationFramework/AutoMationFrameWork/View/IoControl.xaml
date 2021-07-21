@@ -45,7 +45,7 @@
                         Grid.Row="0"
                         Margin="16,16,16,4"
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="系统IO输入" />
+                        Text="{StaticResource SysIoIn}" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
@@ -90,7 +90,7 @@
                         Grid.Row="0"
                         Margin="16,16,16,4"
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="系统IO输出" />
+                        Text="{StaticResource SysIoOut}" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
@@ -137,14 +137,14 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button
-                        Content="Vision"
+                        Content="{StaticResource Vision}"
                         Height="Auto"
                         Margin="5,5,2.5,2.5"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Background="#899DC0"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
                     <Button
-                        Content="Server"
+                        Content="{StaticResource Server}"
                         Grid.Row="0"
                         Grid.Column="1"
                         Height="Auto"
@@ -153,7 +153,7 @@
                         Background="#899DC0"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
                     <Button
-                        Content="Light"
+                        Content="{StaticResource Light}"
                         Grid.Row="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
@@ -163,7 +163,7 @@
                         Background="#899DC0"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
                     <Button
-                        Content="外围设备"
+                        Content="{StaticResource Client}"
                         Grid.Row="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
@@ -173,7 +173,7 @@
                         Background="#899DC0"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
                     <Button
-                        Content="站位调试器"
+                        Content="{StaticResource StationDebug}"
                         Grid.Row="3"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
@@ -203,7 +203,7 @@
                     Grid.Row="0"
                     Margin="16,16,16,4"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    Text="IO 输入" />
+                    Text="{StaticResource IoIn}" />
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
@@ -409,7 +409,7 @@
                     Grid.Row="0"
                     Margin="16,16,16,4"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    Text="IO 输出" />
+                    Text="{StaticResource IoOut}" />
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
@@ -603,14 +603,14 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button
-                Content="上一页"
+                Content="{StaticResource PreviousPage}"
                 Height="Auto"
                 Margin="10,5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="下一页"
+                Content="{StaticResource NextPage}"
                 Grid.Column="1"
                 Height="Auto"
                 Margin="10,5,5,5"
@@ -624,14 +624,14 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button
-                Content="上一页"
+                Content="{StaticResource PreviousPage}"
                 Height="Auto"
                 Margin="5,5,10,5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="下一页"
+                Content="{StaticResource NextPage}"
                 Grid.Column="1"
                 Height="Auto"
                 Margin="10,5"

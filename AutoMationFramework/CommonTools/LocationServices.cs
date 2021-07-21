@@ -25,6 +25,20 @@ namespace CommonTools
             }
         }
 
+        public static void SetMessageBox()
+        {
+            MessageBoxManager.OK = LocationServices.GetLang("OK");
+            MessageBoxManager.Cancel = LocationServices.GetLang("Cancel");
+            MessageBoxManager.Retry = LocationServices.GetLang("Retry");
+            MessageBoxManager.Ignore = LocationServices.GetLang("Ignore");
+            MessageBoxManager.Abort = LocationServices.GetLang("Abort");
+            MessageBoxManager.Yes = LocationServices.GetLang("Yes");
+            MessageBoxManager.No = LocationServices.GetLang("No");
+
+            //Register manager
+            MessageBoxManager.Register();
+        }
+
         public static string GetLang(string InfoKey)
         {
             try

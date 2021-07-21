@@ -25,49 +25,49 @@
                             Width="*"
                             Binding="{Binding KeyValue}"
                             ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="键值"
+                            Header="{StaticResource KeyValue}"
                             HeaderStyle="{StaticResource DataGridHeadStyle}" />
                         <DataGridTextColumn
                             Width="100"
                             Binding="{Binding CurrentValue}"
                             ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="当前值"
+                            Header="{StaticResource CurrentValue}"
                             HeaderStyle="{StaticResource DataGridHeadStyle}" />
                         <DataGridTextColumn
                             Width="70"
                             Binding="{Binding Unit}"
                             ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="单位"
+                            Header="{StaticResource DataUnit}"
                             HeaderStyle="{StaticResource DataGridHeadStyle}" />
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding ParamDesc}"
                             ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="参数描述"
+                            Header="{StaticResource ParamDes}"
                             HeaderStyle="{StaticResource DataGridHeadStyle}" />
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding EnglishDesc}"
                             ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="翻译"
+                            Header="{StaticResource Translation}"
                             HeaderStyle="{StaticResource DataGridHeadStyle}" />
                         <DataGridTextColumn
                             Width="80"
                             Binding="{Binding MinValue}"
                             ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="最小值"
+                            Header="{StaticResource MinValue}"
                             HeaderStyle="{StaticResource DataGridHeadStyle}" />
                         <DataGridTextColumn
                             Width="80"
                             Binding="{Binding MaxValue}"
                             ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="最大值"
+                            Header="{StaticResource MaxValue}"
                             HeaderStyle="{StaticResource DataGridHeadStyle}" />
                         <DataGridTextColumn
                             Width="70"
                             Binding="{Binding Authority}"
                             ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="权限"
+                            Header="{StaticResource Authority}"
                             HeaderStyle="{StaticResource DataGridHeadStyle}" />
                     </DataGrid.Columns>
                 </DataGrid>
@@ -84,49 +84,49 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button
-                Content="保存文件"
+                Content="{StaticResource SaveFile}"
                 Grid.Column="0"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="另存为"
+                Content="{StaticResource SaveAs}"
                 Grid.Column="1"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="保存默认"
+                Content="{StaticResource SaveDefault}"
                 Grid.Column="2"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="试用参数"
+                Content="{StaticResource TrialParameters}"
                 Grid.Column="3"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="选择此配置"
+                Content="{StaticResource SelectThisConfig}"
                 Grid.Column="4"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="还原上一次"
+                Content="{StaticResource RestoreLastTime}"
                 Grid.Column="5"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
-                Content="恢复默认"
+                Content="{StaticResource Reset}"
                 Grid.Column="6"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"

@@ -18,7 +18,7 @@
             FontSize="25"
             FontWeight="Bold"
             Style="{StaticResource TabControlStyle}">
-            <TabItem Header="站位调试" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="{StaticResource StaDebug}" Style="{StaticResource TabItemStyle}">
                 <Grid Background="#50bc93">
                     <TabControl
                         FontFamily="华文仿宋"
@@ -26,28 +26,28 @@
                         FontWeight="Bold"
                         Style="{StaticResource TabControlStyle}"
                         TabStripPlacement="Bottom">
-                        <TabItem Header="测试一站" Style="{StaticResource TabItemStyle}">
+                        <TabItem Header="{StaticResource TestStationOne}" Style="{StaticResource TabItemStyle}">
                             <view:StationTemplateControl />
                         </TabItem>
-                        <TabItem Header="测试二站" Style="{StaticResource TabItemStyle}">
+                        <TabItem Header="{StaticResource TestStationTwo}" Style="{StaticResource TabItemStyle}">
                             <view:StationTemplateControl />
                         </TabItem>
                     </TabControl>
                 </Grid>
             </TabItem>
-            <TabItem Header="IO输入输出" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="{StaticResource IOInputOutPut}" Style="{StaticResource TabItemStyle}">
                 <view:IoControl />
             </TabItem>
-            <TabItem Header="轴配置" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="{StaticResource AxisConfigManger}" Style="{StaticResource TabItemStyle}">
                 <view:AxisConfigControl />
             </TabItem>
-            <TabItem Header="系统参数设置" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="{StaticResource SystemParamSet}" Style="{StaticResource TabItemStyle}">
                 <view:SystemParameterControl />
             </TabItem>
-            <TabItem Header="数据管理" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="{StaticResource DataManage}" Style="{StaticResource TabItemStyle}">
                 <view:DataManagerControl />
             </TabItem>
-            <TabItem Header="气缸管理" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="{StaticResource CylinderManage}" Style="{StaticResource TabItemStyle}">
                 <view:CylinderManagerControl />
             </TabItem>
         </TabControl>
