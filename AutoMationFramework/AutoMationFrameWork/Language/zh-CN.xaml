@@ -1,5 +1,27 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-  <!--全局语言变量-->
-  <sys:String x:Key="Language">DefaultCH</sys:String>
-  <sys:String x:Key="Process Exists">程序已经运行</sys:String>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--  全局语言变量  -->
+    <sys:String x:Key="Language">DefaultCH</sys:String>
+    <sys:String x:Key="Process Exists">程序已经运行</sys:String>
+    <sys:String x:Key="Menu">菜  单</sys:String>
+    <sys:String x:Key="HomePage">主页</sys:String>
+    <sys:String x:Key="Start">启动</sys:String>
+    <sys:String x:Key="Pause">暂停</sys:String>
+    <sys:String x:Key="Stop">停止</sys:String>
+    <sys:String x:Key="Setting">设置</sys:String>
+    <sys:String x:Key="Vision">视觉</sys:String>
+    <sys:String x:Key="Statistics">统计</sys:String>
+    <sys:String x:Key="Alarm">报警</sys:String>
+    <sys:String x:Key="User">用户</sys:String>
+    <sys:String x:Key="LangType">语言</sys:String>
+    <sys:String x:Key="LangTypeIcon">&#xebe2;</sys:String>
+    <sys:String x:Key="SelectLanguage">语言选择</sys:String>
+    <sys:String x:Key="Chinese">中文</sys:String>
+    <sys:String x:Key="English">英文</sys:String>
+    <sys:String x:Key="Select">选 择</sys:String>
+    <sys:String x:Key="UnSelectLang">请选择语言！</sys:String>
+    <sys:String x:Key="UnchangeSelectLang">语言选择未改变, 如果你不想改变，请点击关闭退出!</sys:String>
+    <sys:String x:Key="ChangeSelectLang">语言切换成功，程序即将关闭，重新打开后生效。</sys:String>
 </ResourceDictionary>

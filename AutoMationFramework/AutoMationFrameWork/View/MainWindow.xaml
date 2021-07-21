@@ -8,7 +8,6 @@
     xmlns:local="clr-namespace:AutoMationFrameWork.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="MainWin"
-    Title="运动控制软件"
     Width="1000"
     Height="700"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -42,7 +41,7 @@
                                 Background="Transparent"
                                 FontSize="22"
                                 Style="{StaticResource font_style}"
-                                Text="菜 单">
+                                Text="{StaticResource Menu}">
                                 <TextBlock.Effect>
                                     <DropShadowEffect
                                         BlurRadius="10"
@@ -96,9 +95,9 @@
                         </Grid>
                         <ListView
                             x:Name="LV"
-                            PreviewMouseWheel="LV_OnPreviewMouseWheel"
                             Background="Transparent"
                             BorderBrush="Transparent"
+                            PreviewMouseWheel="LV_OnPreviewMouseWheel"
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListViewItem
                                 Name="MainBtn"
@@ -115,22 +114,22 @@
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="主页" />
+                                        Text="{StaticResource HomePage}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_home"
-                                        Content="主页"
+                                        Content="{StaticResource HomePage}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
                                 Name="StartButton"
-                                Selected="StartButton_OnSelected"
                                 Margin="0,0,0,15"
                                 HorizontalAlignment="Left"
                                 IsEnabled="True"
-                                MouseEnter="ListViewItem_MouseEnter">
+                                MouseEnter="ListViewItem_MouseEnter"
+                                Selected="StartButton_OnSelected">
                                 <StackPanel Width="230" Orientation="Horizontal">
                                     <Label
                                         Name="StartLabel"
@@ -140,22 +139,22 @@
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="启动" />
+                                        Text="{StaticResource Start}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_start"
-                                        Content="启动"
+                                        Content="{StaticResource Start}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
                                 Name="PauseButton"
-                                Selected="PauseButton_OnSelected"
                                 Margin="0,0,0,15"
-                                IsEnabled="False"
                                 HorizontalAlignment="Left"
-                                MouseEnter="ListViewItem_MouseEnter">
+                                IsEnabled="False"
+                                MouseEnter="ListViewItem_MouseEnter"
+                                Selected="PauseButton_OnSelected">
                                 <StackPanel Width="230" Orientation="Horizontal">
                                     <Label
                                         Name="PauseLabel"
@@ -165,22 +164,22 @@
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="暂停" />
+                                        Text="{StaticResource Pause}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_pause"
-                                        Content="暂停"
+                                        Content="{StaticResource Pause}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
                                 Name="StopButton"
-                                Selected="StopButton_OnSelected"
                                 Margin="0,0,0,15"
-                                IsEnabled="False"
                                 HorizontalAlignment="Left"
-                                MouseEnter="ListViewItem_MouseEnter">
+                                IsEnabled="False"
+                                MouseEnter="ListViewItem_MouseEnter"
+                                Selected="StopButton_OnSelected">
                                 <StackPanel Width="230" Orientation="Horizontal">
                                     <Label
                                         Name="StopLabel"
@@ -190,12 +189,12 @@
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="停止" />
+                                        Text="{StaticResource Stop}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_stop"
-                                        Content="停止"
+                                        Content="{StaticResource Stop}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
@@ -214,12 +213,12 @@
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="设置" />
+                                        Text="{StaticResource Setting}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_settings"
-                                        Content="设置"
+                                        Content="{StaticResource Setting}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
@@ -237,12 +236,12 @@
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="视觉" />
+                                        Text="{StaticResource Vision}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_camera"
-                                        Content="视觉"
+                                        Content="{StaticResource Vision}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
@@ -260,12 +259,12 @@
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="统计" />
+                                        Text="{StaticResource Statistics}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_table"
-                                        Content="统计"
+                                        Content="{StaticResource Statistics}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
@@ -283,12 +282,12 @@
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="报警" />
+                                        Text="{StaticResource Alarm}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_alarm"
-                                        Content="报警"
+                                        Content="{StaticResource Alarm}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
@@ -306,33 +305,34 @@
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="用户" />
+                                        Text="{StaticResource User}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_user"
-                                        Content="用户"
+                                        Content="{StaticResource User}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
                                 Margin="0,0,0,15"
                                 HorizontalAlignment="Left"
-                                MouseEnter="ListViewItem_MouseEnter">
+                                MouseEnter="ListViewItem_MouseEnter"
+                                Selected="SelectLanguage">
                                 <StackPanel Width="230" Orientation="Horizontal">
                                     <Label
-                                        Content="&#xe6ad;"
+                                        Content="{StaticResource LangTypeIcon}"
                                         Foreground="#16c2c2"
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
                                         Style="{StaticResource font_style}"
-                                        Text="语言" />
+                                        Text="{StaticResource LangType}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_lang"
-                                        Content="语言"
+                                        Content="{StaticResource LangType}"
                                         Style="{StaticResource tt_style}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
@@ -526,7 +526,7 @@
                             Template="{StaticResource ButtonTemplate}" />
                         <Button
                             Name="MaxBtn"
-                            Content="&#xe62b;"
+                            Content="&#xe65b;"
                             Grid.Column="2"
                             Height="25"
                             Margin="5,2"

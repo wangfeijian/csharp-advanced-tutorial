@@ -1,0 +1,27 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--  全局语言变量  -->
+    <sys:String x:Key="Language">DefaultCH</sys:String>
+    <sys:String x:Key="Process Exists">Process Exists</sys:String>
+    <sys:String x:Key="Menu">M E N U</sys:String>
+    <sys:String x:Key="HomePage">HomePage</sys:String>
+    <sys:String x:Key="Start">Start</sys:String>
+    <sys:String x:Key="Pause">Pause</sys:String>
+    <sys:String x:Key="Stop">Stop</sys:String>
+    <sys:String x:Key="Setting">Setting</sys:String>
+    <sys:String x:Key="Vision">Vision</sys:String>
+    <sys:String x:Key="Statistics">Statistics</sys:String>
+    <sys:String x:Key="Alarm">Alarm</sys:String>
+    <sys:String x:Key="User">User</sys:String>
+    <sys:String x:Key="LangType">Language</sys:String>
+    <sys:String x:Key="LangTypeIcon">&#xe6ad;</sys:String>
+    <sys:String x:Key="SelectLanguage">SelectLanguage</sys:String>
+    <sys:String x:Key="Chinese">Chinese</sys:String>
+    <sys:String x:Key="English">English</sys:String>
+    <sys:String x:Key="Select">Select</sys:String>
+    <sys:String x:Key="UnSelectLang">Please Select Language!</sys:String>
+    <sys:String x:Key="UnchangeSelectLang">Unchange Language, If You Don't Want To Change, Please Click Close Button!</sys:String>
+    <sys:String x:Key="ChangeSelectLang">Language switching is successful, the program is about to close, and then take effect after reopen.</sys:String>
+</ResourceDictionary>

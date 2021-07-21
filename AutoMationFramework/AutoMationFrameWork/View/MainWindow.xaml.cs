@@ -207,5 +207,11 @@ namespace AutoMationFrameWork.View
             StopButton.IsEnabled = false;
             StopLabel.Foreground = new SolidColorBrush(Color.FromRgb(196,196,199));
         }
+
+        private void SelectLanguage(object sender, RoutedEventArgs e)
+        {
+            SelectLanguageWindow selectLanguage = new SelectLanguageWindow();
+            selectLanguage.ShowDialog();
+        }
     }
 }

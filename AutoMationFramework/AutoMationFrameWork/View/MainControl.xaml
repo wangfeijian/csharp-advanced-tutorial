@@ -20,13 +20,9 @@
         IsVirtualizingAnchorable="True">
         <DockingManager.ContextMenu>
             <ContextMenu Name="DockMenu" StaysOpen="True">
-                <MenuItem
-                    Name="SaveRightButton"
-                    Header="保存布局"/>
-                <MenuItem
-                    Name="LoadRightButton"
-                    Header="加载布局"/>
-                <Separator/>
+                <MenuItem Name="SaveRightButton" Header="保存布局" />
+                <MenuItem Name="LoadRightButton" Header="加载布局" />
+                <Separator />
                 <MenuItem
                     Name="SystemRightButton"
                     Header="系统信息"
@@ -154,8 +150,8 @@
                         <avalondock:LayoutAnchorable
                             x:Name="SystemInfoLayout"
                             Title="系统信息"
-                            CanClose="False"
                             AutoHideMinWidth="300"
+                            CanClose="False"
                             ContentId="SystemInfoLayoutId"
                             FloatingHeight="800"
                             FloatingWidth="300">
@@ -360,8 +356,8 @@
                         <avalondock:LayoutAnchorable
                             x:Name="MechineInfoLayout"
                             Title="设备信息"
-                            CanClose="False"
                             AutoHideMinWidth="250"
+                            CanClose="False"
                             ContentId="MechineInfoLayoutId"
                             FloatingHeight="800"
                             FloatingWidth="250">
