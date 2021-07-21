@@ -29,10 +29,21 @@ namespace AutoMationFrameWork
                bool createdNew;
                mutex = new Mutex(true, "AutoMationFrameWork", out createdNew);
                ResourceDictionary resource = LocationServices.GetResource(new CultureInfo(GetLangType()));
+
                if (resource != null)
                {
                    Resources.MergedDictionaries.Add(resource);
                    Thread.CurrentThread.CurrentUICulture = new CultureInfo(GetLangType());
+                   MessageBoxManager.OK = LocationServices.GetLang("OK");
+                   MessageBoxManager.Cancel = LocationServices.GetLang("Cancel");
+                   MessageBoxManager.Retry = LocationServices.GetLang("Retry");
+                   MessageBoxManager.Ignore = LocationServices.GetLang("Ignore");
+                   MessageBoxManager.Abort = LocationServices.GetLang("Abort");
+                   MessageBoxManager.Yes = LocationServices.GetLang("Yes");
+                   MessageBoxManager.No = LocationServices.GetLang("No");
+
+                   //Register manager
+                   MessageBoxManager.Register();
                }
                else
                {

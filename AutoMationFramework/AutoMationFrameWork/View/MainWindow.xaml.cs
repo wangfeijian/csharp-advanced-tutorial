@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CommonTools;
 using ListViewItem = System.Windows.Controls.ListViewItem;
 
 namespace AutoMationFrameWork.View
@@ -134,7 +135,7 @@ namespace AutoMationFrameWork.View
                     }
                     break;
                 case "CloseBtn":
-                    if (MessageBox.Show("是否保存布局", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                    if (MessageBox.Show(LocationServices.GetLang("SaveLayout"), LocationServices.GetLang("Tips"), MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                     {
                         Close();
                     }

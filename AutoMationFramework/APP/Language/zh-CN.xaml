@@ -20,8 +20,90 @@
     <sys:String x:Key="SelectLanguage">语言选择</sys:String>
     <sys:String x:Key="Chinese">中文</sys:String>
     <sys:String x:Key="English">英文</sys:String>
+    <sys:String x:Key="Tips">提示</sys:String>
+    <sys:String x:Key="SaveLayout">是否保存布局</sys:String>
     <sys:String x:Key="Select">选 择</sys:String>
+    <sys:String x:Key="ManualControl">手动控制</sys:String>
+    <sys:String x:Key="ImageSelect">图像选择</sys:String>
+    <sys:String x:Key="FunctionSelection">功能选择</sys:String>
     <sys:String x:Key="UnSelectLang">请选择语言！</sys:String>
+    <sys:String x:Key="Coordinate">坐标：</sys:String>
+    <sys:String x:Key="Zoom">缩放：</sys:String>
+    <sys:String x:Key="PixelValue">值：</sys:String>
     <sys:String x:Key="UnchangeSelectLang">语言选择未改变, 如果你不想改变，请点击关闭退出!</sys:String>
     <sys:String x:Key="ChangeSelectLang">语言切换成功，程序即将关闭，重新打开后生效。</sys:String>
+    <!--  MessageBox变量  -->
+    <sys:String x:Key="OK">确定</sys:String>
+    <sys:String x:Key="Cancel">取消</sys:String>
+    <sys:String x:Key="Retry">重试</sys:String>
+    <sys:String x:Key="Ignore">忽略</sys:String>
+    <sys:String x:Key="Abort">中止</sys:String>
+    <sys:String x:Key="Yes">是</sys:String>
+    <sys:String x:Key="No">否</sys:String>
+    <!--  AxisConfig变量  -->
+    <sys:String x:Key="CardType">卡类型</sys:String>
+    <sys:String x:Key="CardName">名称</sys:String>
+    <sys:String x:Key="AxisNum">轴号</sys:String>
+    <sys:String x:Key="GearRatio">脉冲每毫米(度)</sys:String>
+    <sys:String x:Key="HomeType">回零    方式</sys:String>
+    <sys:String x:Key="HomeMinSpeed">回零最小速度</sys:String>
+    <sys:String x:Key="HomeMaxSpeed">回零最大速度</sys:String>
+    <sys:String x:Key="HomeAcc">回零加速时间</sys:String>
+    <sys:String x:Key="HomeDec">回零减速时间</sys:String>
+    <sys:String x:Key="MaxRunSpeed">最大运行速度</sys:String>
+    <sys:String x:Key="AccTime">加速    时间</sys:String>
+    <sys:String x:Key="DecTime">减速    时间</sys:String>
+    <sys:String x:Key="Smooth">平滑    系数</sys:String>
+    <sys:String x:Key="InPlaceError">到位    误差</sys:String>
+    <sys:String x:Key="SoftLimitEnable">软正限位启用</sys:String>
+    <sys:String x:Key="SoftLimit">软正    限位</sys:String>
+    <sys:String x:Key="SoftNegativeLimitEnable">软负限位启用</sys:String>
+    <sys:String x:Key="SoftNegativeLimit">软负    限位</sys:String>
+    <sys:String x:Key="AxisConfig">轴配置说明</sys:String>
+    <sys:String x:Key="AxisConfigDes" xml:space="preserve">
+        1、齿轮比：
+        脉冲每毫米，或者脉冲每度，根据驱动器一圈多少脉冲以及电机导程计算，计算方式：一圈脉冲数 / 电机导程，例如电机转一圈需要 10000pls，电机的导程为 5mm，则齿轮比配置为 10000 / 5 = 2000。
+        2、回零方式：
+        0 – 以原点信号为原点，正方向回零，不带 EZ 信号
+        1 – 以原点信号为原点，负方向回零，不带 EZ 信号
+        2 – 以正极限信号为原点，正方向回零，不带 EZ 信号
+        3 – 以负限位信号为原点，负方向回零，不带 EZ 信号
+        4 – 以 EZ 信号为原点，正方向回零
+        5 – 以 EZ 信号为原点，负方向回零
+        6 – 以原点信号为原点，正方向回零，带 EZ 信号
+        7 – 以原点信号为原点，负方向回零，带 EZ 信号
+        8 – 以正极限信号为原点，正方向回零，带 EZ 信号
+        9 – 以负限位信号为原点，负方向回零，带 EZ 信号
+        999 – 其他模式，直接从卡中读取回原点模式，无需指定参数
+        1000 – 其他总线型，不能从卡中读取回原点方式，总线型回零方式是由驱动器决定的，需要按照驱动器的回零方式自己手动填写，填写值基于此值累加，例如汇川总线型，选择驱动器回原点方式 1，则实际填入的参数为 1000 + 1 = 1001；
+        3、回零最小速度：
+        碰到原点信号后的爬行速度，单位 pls
+        4、回零最大速度：
+        回零的最大运行速度，单位 pls
+        5、回零加速时间：
+        多长时间加速到最大回零速度，单位 ms
+        6、回零减速时间：
+        多长时间从最大回零速度减速到 0，单位 ms
+        7、最大运行速度：
+        轴运动时的最大速度，单位 pls
+        8、加速时间：
+        运动到最大运行速度所需要的时间，单位 ms
+        9、减速时间：
+        从最大运行速度减速到 0 所需要的时间，单位 ms
+        10、平滑系数：
+        用于决定轴运动的曲线， T 型或 S 型，值越大越平滑。
+        11、到位误差：
+        轴到位之后，发送脉冲和返回脉冲的差值，超过此差值会报错，单位 pls
+    </sys:String>
+    <!--  HomeType变量  -->
+    <sys:String x:Key="NegativeAndHome">负方向加原点回零</sys:String>
+    <!--  Button Content  -->
+    <sys:String x:Key="Apply">应用</sys:String>
+    <sys:String x:Key="Save">保存</sys:String>
+    <sys:String x:Key="Camera">相机</sys:String>
+    <sys:String x:Key="File">文件</sys:String>
+    <sys:String x:Key="Folder">文件夹</sys:String>
+    <sys:String x:Key="Test">测试</sys:String>
+    <sys:String x:Key="SystemSetting">系统设置</sys:String>
+    <sys:String x:Key="AlgorithmDebugging">算法调试</sys:String>
 </ResourceDictionary>

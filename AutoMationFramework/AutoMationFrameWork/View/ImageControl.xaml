@@ -140,13 +140,13 @@
                     HorizontalAlignment="Right"
                     FontSize="10"
                     Foreground="#538A51"
-                    Text="坐标：1924,3250" />
+                    Text="{Binding Source={StaticResource Coordinate}, StringFormat={}{0}1335\,460}" />
                 <TextBlock
                     Grid.Column="2"
                     HorizontalAlignment="Right "
                     FontSize="10"
                     Foreground="#538A51"
-                    Text="缩放：30.55%" />
+                    Text="{Binding Source={StaticResource Zoom}, StringFormat={}{0}30.55%}" />
                 <Separator
                     Grid.Column="2"
                     Width="1"
@@ -160,7 +160,7 @@
                     HorizontalAlignment="Right "
                     FontSize="10"
                     Foreground="#538A51"
-                    Text="值：125" />
+                    Text="{Binding Source={StaticResource PixelValue}, StringFormat={}{0}125}" />
                 <Separator
                     Grid.Column="3"
                     Width="1"

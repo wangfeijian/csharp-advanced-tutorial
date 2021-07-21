@@ -20,8 +20,90 @@
     <sys:String x:Key="SelectLanguage">SelectLanguage</sys:String>
     <sys:String x:Key="Chinese">Chinese</sys:String>
     <sys:String x:Key="English">English</sys:String>
+    <sys:String x:Key="Tips">Tips</sys:String>
+    <sys:String x:Key="SaveLayout">Whether saving layout</sys:String>
     <sys:String x:Key="Select">Select</sys:String>
+    <sys:String x:Key="ManualControl">Manual Control</sys:String>
+    <sys:String x:Key="ImageSelect">Image Select</sys:String>
+    <sys:String x:Key="Coordinate">Coordinate:</sys:String>
+    <sys:String x:Key="Zoom">Zoom:</sys:String>
+    <sys:String x:Key="PixelValue">Value:</sys:String>
+    <sys:String x:Key="FunctionSelection">Function Selection</sys:String>
     <sys:String x:Key="UnSelectLang">Please Select Language!</sys:String>
     <sys:String x:Key="UnchangeSelectLang">Unchange Language, If You Don't Want To Change, Please Click Close Button!</sys:String>
     <sys:String x:Key="ChangeSelectLang">Language switching is successful, the program is about to close, and then take effect after reopen.</sys:String>
+    <!--  MessageBox变量  -->
+    <sys:String x:Key="OK">OK</sys:String>
+    <sys:String x:Key="Cancel">Cancel</sys:String>
+    <sys:String x:Key="Retry">Retry</sys:String>
+    <sys:String x:Key="Ignore">Ignore</sys:String>
+    <sys:String x:Key="Abort">Abort</sys:String>
+    <sys:String x:Key="Yes">Yes</sys:String>
+    <sys:String x:Key="No">No</sys:String>
+    <!--  AxisConfig变量  -->
+    <sys:String x:Key="CardType">Card  Type</sys:String>
+    <sys:String x:Key="CardName">Card  Name</sys:String>
+    <sys:String x:Key="AxisNum">Axis  Num</sys:String>
+    <sys:String x:Key="GearRatio">mm/Pulse Degree/Pulse</sys:String>
+    <sys:String x:Key="HomeType">Home  Type</sys:String>
+    <sys:String x:Key="HomeMinSpeed">Home  Min  Speed</sys:String>
+    <sys:String x:Key="HomeMaxSpeed">Home  Max  Speed</sys:String>
+    <sys:String x:Key="HomeAcc">Home  Acc  Time</sys:String>
+    <sys:String x:Key="HomeDec">Home  Dec  Time</sys:String>
+    <sys:String x:Key="MaxRunSpeed">Max  Run  Speed</sys:String>
+    <sys:String x:Key="AccTime">Acc  Time</sys:String>
+    <sys:String x:Key="DecTime">Dec  Time</sys:String>
+    <sys:String x:Key="Smooth">Smooth</sys:String>
+    <sys:String x:Key="InPlaceError">In   Place  Error</sys:String>
+    <sys:String x:Key="SoftLimitEnable">Soft  Limit  Enable</sys:String>
+    <sys:String x:Key="SoftLimit">Soft  Limit</sys:String>
+    <sys:String x:Key="SoftNegativeLimitEnable">Soft  Negative  Limit  Enable</sys:String>
+    <sys:String x:Key="SoftNegativeLimit">Soft  Negative  Limit</sys:String>
+    <sys:String x:Key="AxisConfig">Axis Config Description</sys:String>
+    <sys:String x:Key="AxisConfigDes" xml:space="preserve">
+        1, Gear Ratio:
+        Pulse per millimeter, or pulse each degree, according to the driver, the driver is calculated, the motor is calculated, the method of the pulse number / motor guide, such as the motor transfer, 1000 pls, the motor is 5mm, then the gear Compared to 10000/5 = 2000.
+        2, Back Zero:
+        0 - With the origin signal as the origin, zero in the positive direction, without EZ signal
+        1 - With the origin signal as the origin, negative direction, no EZ signal
+        2 - With the positive limit signal as the origin, zero in the positive direction, without EZ signal
+        3 - With the negative limit signal as the origin, negative direction, no EZ signal
+        4 - With EZ signal as the origin, positive direction
+        5 - With EZ signal as the origin, negative direction
+        6 - With the origin signal as the origin, positive direction, zero, with EZ signal
+        7 - With the origin signal as the origin, negative direction, with EZ signal
+        8 - With the positive limit signal as the origin, zero in the positive direction, with EZ signal
+        9 - With the negative limit signal as the origin, negative direction, zero, with EZ signal
+        999 - Other modes, read back from the card to the original point mode, no specified parameters
+        1000 - Other bus type, cannot read back to the original point in the card, the bus type is determined by the drive, and needs to be manually fill in according to the drive of the retrieval. The fillover value is based on this value, such as Huichuan bus type. , Select the drive backhaul point method 1, the actual filled parameter is 1000 + 1 = 1001;
+        3, Zero Minimum Speed:
+        Crawling speed after the origin signal, unit PLS
+        4, Zero The Maximum Speed:
+        Return to Zero Running speed, unit PLS
+        5, Back Zero Acceleration Time:
+        How long can you speed up to a maximum zero speed, unit MS
+        6, Zero Speed Reduction Time:
+        How long is it slower from the maximum zero speed to 0, unit MS
+        7, Maximum Running Speed:
+        Maximum speed during axial movement, unit PLS
+        8, Acceleration Time:
+        Time required to exercise to maximum running speed, unit MS
+        9, Deceleration Time:
+        Time required to decelerate from the maximum run speed to 0, unit MS
+        10, Smooth Coefficient:
+        The curve, T type or S type used to determine the axis movement, the larger the value, the smoother.
+        11, In Place Error:
+        After the axis is in place, the difference between the pulse and the returns of the pulse will be transmitted, and this difference will be reported, the unit PLS
+    </sys:String>
+    <!--  HomeType变量  -->
+    <sys:String x:Key="NegativeAndHome">Negative And Home</sys:String>
+    <!--  Button Content  -->
+    <sys:String x:Key="Apply">Apply</sys:String>
+    <sys:String x:Key="Save">Save</sys:String>
+    <sys:String x:Key="Camera">Camera</sys:String>
+    <sys:String x:Key="File">File</sys:String>
+    <sys:String x:Key="Folder">Folder</sys:String>
+    <sys:String x:Key="Test">Test</sys:String>
+    <sys:String x:Key="SystemSetting">Sys Setting</sys:String>
+    <sys:String x:Key="AlgorithmDebugging">Debugging</sys:String>
 </ResourceDictionary>

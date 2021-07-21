@@ -59,13 +59,13 @@
                         Grid.Row="0"
                         Margin="16,16,16,4"
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="手动控制 " />
+                        Text="{StaticResource ManualControl}" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                     <StackPanel Grid.Row="2" Orientation="Vertical">
                         <TextBlock
                             Margin="16,2,8,2"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                            Text="图像选择" />
+                            Text="{StaticResource ImageSelect}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -73,30 +73,27 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <RadioButton
+                                Content="{StaticResource Camera}"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
-                                Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
-                                相机
-                            </RadioButton>
+                                Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}" />
                             <RadioButton
+                                Content="{StaticResource File}"
                                 Grid.Column="1"
                                 HorizontalAlignment="Center"
-                                Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
-                                文件
-                            </RadioButton>
+                                Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}" />
                             <RadioButton
+                                Content="{StaticResource Folder}"
                                 Grid.Column="2"
                                 HorizontalAlignment="Center"
-                                Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}">
-                                文件夹
-                            </RadioButton>
+                                Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}" />
                         </Grid>
                         <TextBlock Text="D:\Project\2021\05\贴合机\3.程序\STCVision\exe\123.jpg" TextWrapping="WrapWithOverflow" />
                         <Separator Style="{StaticResource MaterialDesignLightSeparator}" />
                         <TextBlock
                             Margin="16,2,8,2"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                            Text="功能选择" />
+                            Text="{StaticResource FunctionSelection}" />
                         <Grid Margin="16,2">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
@@ -113,7 +110,7 @@
                             </ComboBox>
                             <TextBox Grid.Row="1" Grid.Column="0" />
                             <Button
-                                Content="测试"
+                                Content="{StaticResource Test}"
                                 Grid.RowSpan="2"
                                 Grid.Column="1"
                                 Height="50"
@@ -126,20 +123,20 @@
                         <TextBlock
                             Margin="16,2,8,2"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                            Text="设置" />
+                            Text="{StaticResource Setting}" />
                         <Grid Margin="16,2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Button
-                                Content="系统设置"
+                                Content="{StaticResource SystemSetting}"
                                 Margin="5"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
-                                Content="算法调试"
+                                Content="{StaticResource AlgorithmDebugging}"
                                 Grid.Column="1"
                                 Margin="5"
                                 materialDesign:ButtonAssist.CornerRadius="5"
