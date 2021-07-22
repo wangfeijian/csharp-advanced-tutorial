@@ -64,7 +64,12 @@ namespace AutoMationFrameWork.View
 
         private void LoadLayoutFromFile(object sender, RoutedEventArgs e)
         {
-            var openFile = new OpenFileDialog { DefaultExt = ".config", Filter = "Config File (.config)|*.config" };
+            var openFile = new OpenFileDialog
+            {
+                DefaultExt = ".config",
+                Filter = "Config File (.config)|*.config",
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory+"Config\\",
+            };
             if (openFile.ShowDialog() == true)
             {
                 string file = openFile.FileName;
@@ -91,7 +96,8 @@ namespace AutoMationFrameWork.View
             {
                 DefaultExt = ".config",
                 FileName = "AvalonDock",
-                Filter = "Config File (.config)|*.config"
+                Filter = "Config File (.config)|*.config",
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory+"Config\\",
             };
 
 
@@ -109,7 +115,7 @@ namespace AutoMationFrameWork.View
 
         public void LoadMainControlLayout()
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory + "AvalonDock.config";
+            string file = AppDomain.CurrentDomain.BaseDirectory + "Config\\AvalonDock.config";
             LoadLayout(file);
         }
 
@@ -124,7 +130,7 @@ namespace AutoMationFrameWork.View
 
         public void SaveMainControlLayout()
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory + "AvalonDock.config";
+            string file = AppDomain.CurrentDomain.BaseDirectory + "Config\\AvalonDock.config";
             SaveLayout(file);
         }
 
@@ -152,12 +158,12 @@ namespace AutoMationFrameWork.View
             CpuTextBlock.Text = CpuStr;
             RamTextBlock.Text = RamStr;
             Ram2TextBlock.Text = Ram2Str;
-            string strTime="";
+            string strTime = "";
             if (lang["lang"] == "zh_cn")
             {
                 strTime = DateTime.Now.ToString("yyyy-MM-dd dddd hh:mm:ss");
             }
-            else if(lang["lang"] == "en_us")
+            else if (lang["lang"] == "en_us")
             {
                 string dayOfWeek = DateTime.Now.DayOfWeek.ToString().Substring(0, 3).ToUpper();
                 string date = DateTime.Now.ToString("MM/dd/yy");
@@ -238,7 +244,7 @@ namespace AutoMationFrameWork.View
             var layout = dockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
             foreach (var layoutAnchorable in layout)
             {
-                if (layoutAnchorable.ContentId=="SystemInfoLayoutId")
+                if (layoutAnchorable.ContentId == "SystemInfoLayoutId")
                 {
                     layoutAnchorable.Title = LocationServices.GetLang("SystemInfo");
                 }
