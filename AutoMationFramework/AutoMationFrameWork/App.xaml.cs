@@ -25,7 +25,7 @@ namespace AutoMationFrameWork
         public App()
         {
             Startup += (StartupEventHandler)((s, e) =>
-           {
+            {
                bool createdNew;
                mutex = new Mutex(true, "AutoMationFrameWork", out createdNew);
                ResourceDictionary resource = LocationServices.GetResource(new CultureInfo(GetLangType()));
