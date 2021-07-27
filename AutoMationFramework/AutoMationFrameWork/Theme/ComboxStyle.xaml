@@ -1,7 +1,17 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+﻿<!--
+    *********************************************************************
+    *               Author:         wangfeijian                         *
+    *                                                                   *
+    *               CreatTime:      2021-07-01                          *
+    *                                                                   *
+    *               ModifyTime:     2021-07-27                          *
+    *                                                                   *
+    *               Email:          wangfeijianhao@163.com              *
+    *                                                                   *
+    *               Description:    Static resource                     *
+    *********************************************************************
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--  下拉按钮  -->
     <Style x:Key="ComboxStyleBtn" TargetType="ToggleButton">
         <Setter Property="Template">
@@ -108,6 +118,7 @@
                         </Border>
                         <Popup
                             x:Name="Popup"
+                            Grid.Column="0"
                             AllowsTransparency="True"
                             Focusable="False"
                             IsOpen="{TemplateBinding IsDropDownOpen}"

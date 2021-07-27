@@ -1,4 +1,16 @@
-﻿using System.Runtime.InteropServices;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-07-26                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Program authority                        *
+*********************************************************************/
+
+using System.Runtime.InteropServices;
 
 namespace CommonTools
 {

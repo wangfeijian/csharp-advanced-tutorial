@@ -1,4 +1,17 @@
-﻿<UserControl
+﻿<!--
+    *********************************************************************
+    *               Author:         wangfeijian                         *
+    *                                                                   *
+    *               CreatTime:      2021-06-29                          *
+    *                                                                   *
+    *               ModifyTime:     2021-07-27                          *
+    *                                                                   *
+    *               Email:          wangfeijianhao@163.com              *
+    *                                                                   *
+    *               Description:    UserControl for station template    *
+    *********************************************************************
+-->
+<UserControl
     x:Class="AutoMationFrameWork.View.StationTemplateControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

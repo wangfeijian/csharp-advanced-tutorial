@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-06-22                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    UserControl for camera back code         *
+*********************************************************************/
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MaterialDesignThemes.Wpf;
 
 namespace AutoMationFrameWork.View
@@ -19,7 +17,7 @@ namespace AutoMationFrameWork.View
     /// <summary>
     /// CameraControl.xaml 的交互逻辑
     /// </summary>
-    public partial class CameraControl : UserControl
+    public partial class CameraControl
     {
         public CameraControl()
         {

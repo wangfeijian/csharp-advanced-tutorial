@@ -1,36 +1,33 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-06-22                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    UserControl for main back code           *
+*********************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using AvalonDock.Controls;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
 using CommonTools;
 using Newtonsoft.Json;
-using MessageBox = System.Windows.MessageBox;
-using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
-using UserControl = System.Windows.Controls.UserControl;
+using Microsoft.Win32;
 
 namespace AutoMationFrameWork.View
 {
     /// <summary>
     /// MainControl.xaml 的交互逻辑
     /// </summary>
-    public partial class MainControl : UserControl
+    public partial class MainControl 
     {
         private PerformanceCounter m_CpuCounter;
         private PerformanceCounter m_RamCounter;
@@ -121,7 +118,7 @@ namespace AutoMationFrameWork.View
 
         private void LoadLayout(string file)
         {
-            var serializer = new XmlLayoutSerializer(dockingManager);
+            var serializer = new XmlLayoutSerializer(DockingManager);
             serializer.LayoutSerializationCallback += (s, args) => { args.Content = args.Content; };
 
             if (File.Exists(file))
@@ -136,7 +133,7 @@ namespace AutoMationFrameWork.View
 
         private void SaveLayout(string file)
         {
-            var serializer = new XmlLayoutSerializer(dockingManager);
+            var serializer = new XmlLayoutSerializer(DockingManager);
             serializer.Serialize(file);
         }
 
@@ -214,7 +211,7 @@ namespace AutoMationFrameWork.View
 
         private void ControlLayout(bool isChecked, string contentId)
         {
-            var layout = dockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
+            var layout = DockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
             var layoutAnchrableValue = from value in layout
                                        where value.ContentId == contentId
                                        select value;
@@ -241,7 +238,7 @@ namespace AutoMationFrameWork.View
 
         private void DockingManager_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var layout = dockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
+            var layout = DockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
             foreach (var layoutAnchorable in layout)
             {
                 if (layoutAnchorable.ContentId == "SystemInfoLayoutId")
@@ -258,7 +255,7 @@ namespace AutoMationFrameWork.View
                 }
             }
 
-            var layoutDoc = dockingManager.Layout.Descendents().OfType<LayoutDocument>();
+            var layoutDoc = DockingManager.Layout.Descendents().OfType<LayoutDocument>();
             layoutDoc.First().Title = LocationServices.GetLang("MainControl");
         }
     }

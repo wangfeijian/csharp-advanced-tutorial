@@ -1,9 +1,21 @@
-﻿<Window
+﻿<!--
+    *********************************************************************
+    *               Author:         wangfeijian                         *
+    *                                                                   *
+    *               CreatTime:      2021-07-21                          *
+    *                                                                   *
+    *               ModifyTime:     2021-07-27                          *
+    *                                                                   *
+    *               Email:          wangfeijianhao@163.com              *
+    *                                                                   *
+    *               Description:    Window for select language          *
+    *********************************************************************
+-->
+<Window
     x:Class="AutoMationFrameWork.View.SelectLanguageWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:AutoMationFrameWork.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{StaticResource SelectLanguage}"
     Width="300"
@@ -28,6 +40,7 @@
             FontWeight="Bold" />
         <ComboBox
             Name="LangCombox"
+            Grid.Row="0"
             Grid.Column="1"
             Margin="5">
             <ComboBoxItem Content="{StaticResource Chinese}" />

@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-07-26                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Singleton pattern class                  *
+*********************************************************************/
+
+using System;
 using System.Threading;
 using System.Windows.Controls;
 

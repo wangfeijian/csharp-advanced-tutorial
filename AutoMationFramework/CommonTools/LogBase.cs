@@ -1,4 +1,16 @@
-﻿using System.Collections.Generic;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-07-22                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Log base class                           *
+*********************************************************************/
+
+using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace CommonTools

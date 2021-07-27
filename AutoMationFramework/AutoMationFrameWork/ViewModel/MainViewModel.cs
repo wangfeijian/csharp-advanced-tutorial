@@ -1,3 +1,14 @@
+/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-06-22                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    MainView view model                      *
+*********************************************************************/
 using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;

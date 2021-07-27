@@ -1,9 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-07-26                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    System manager class                     *
+*********************************************************************/
+
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommonTools
 {
@@ -24,29 +32,29 @@ namespace CommonTools
     public class SystemManager:SingletonPattern<SystemManager>
     {
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern char GetBit(int index);
+        private static extern char GetBit(int index);
 
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void SetBit(int index, char value);
+        private static extern void SetBit(int index, char value);
 
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int GetInt(int index);
+        private static extern int GetInt(int index);
 
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void SetInt(int index, int value);
+        private static extern void SetInt(int index, int value);
 
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern double GetDouble(int index);
+        private static extern double GetDouble(int index);
 
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void SetDouble(int index, double value);
+        private static extern void SetDouble(int index, double value);
 
         // c中的char *返回，在c#中需要通过IntPtr来接收
         //Marshal.PtrToStringAnsi(ptr1)通过这个方法来转成字符串
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr GetString(int index);
+        private static extern IntPtr GetString(int index);
 
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void SetString(int index, string str);
+        private static extern void SetString(int index, string str);
     }
 }

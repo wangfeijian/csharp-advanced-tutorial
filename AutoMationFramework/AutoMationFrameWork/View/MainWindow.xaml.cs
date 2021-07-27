@@ -1,61 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-06-22                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Window for main back code                *
+*********************************************************************/
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CommonTools;
-using ListViewItem = System.Windows.Controls.ListViewItem;
 
 namespace AutoMationFrameWork.View
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
-            LV.SelectedIndex = 0;
+            Lv.SelectedIndex = 0;
         }
 
         private void Button_OnClick(object sender, RoutedEventArgs e)
         {
             var listItem = sender as ListViewItem;
 
-            switch (listItem.Tag.ToString())
-            {
-                case "Main":
-                    SelectControl("MainUi");
-                    break;
-                case "Set":
-                    SelectControl("SetUi");
-                    break;
-                case "Camera":
-                    SelectControl("CameraUi");
-                    break;
-                case "Table":
-                    SelectControl("TableUi");
-                    break;
-                case "Alarm":
-                    SelectControl("AlarmUi");
-                    break;
-                case "User":
-                    SelectControl("UserUi");
-                    break;
-
-            }
+            if (listItem != null)
+                switch (listItem.Tag.ToString())
+                {
+                    case "Main":
+                        SelectControl("MainUi");
+                        break;
+                    case "Set":
+                        SelectControl("SetUi");
+                        break;
+                    case "Camera":
+                        SelectControl("CameraUi");
+                        break;
+                    case "Table":
+                        SelectControl("TableUi");
+                        break;
+                    case "Alarm":
+                        SelectControl("AlarmUi");
+                        break;
+                    case "User":
+                        SelectControl("UserUi");
+                        break;
+                }
         }
 
         private void SelectControl(string name)
@@ -74,12 +73,12 @@ namespace AutoMationFrameWork.View
         private void BorderTitle_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
 
-            this.DragMove();
+            DragMove();
         }
 
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (Tg_Btn.IsChecked == true)
+            if (TgBtn.IsChecked == true)
             {
                 tt_alarm.Visibility = Visibility.Collapsed;
                 tt_camera.Visibility = Visibility.Collapsed;
@@ -109,42 +108,46 @@ namespace AutoMationFrameWork.View
 
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Tg_Btn.IsChecked = false;
+            TgBtn.IsChecked = false;
         }
 
         private void WindowsState_OnClick(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
 
-            switch (btn.Name)
-            {
-                case "MinBtn":
-                    if (WindowState != WindowState.Minimized)
-                        WindowState = WindowState.Minimized;
-                    break;
-                case "MaxBtn":
-                    if (WindowState != WindowState.Maximized)
-                    {
-                        WindowState = WindowState.Maximized;
-                        btn.Content = "\xe65b";
-                    }
-                    else
-                    {
-                        WindowState = WindowState.Normal;
-                        btn.Content = "\xe62b";
-                    }
-                    break;
-                case "CloseBtn":
-                    if (MessageBox.Show(LocationServices.GetLang("SaveLayout"), LocationServices.GetLang("Tips"), MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-                    {
-                        Close();
-                    }
-                    else
-                    {
-                        Environment.Exit(0);
-                    }
-                    break;
-            }
+            if (btn != null)
+                switch (btn.Name)
+                {
+                    case "MinBtn":
+                        if (WindowState != WindowState.Minimized)
+                            WindowState = WindowState.Minimized;
+                        break;
+                    case "MaxBtn":
+                        if (WindowState != WindowState.Maximized)
+                        {
+                            WindowState = WindowState.Maximized;
+                            btn.Content = "\xe65b";
+                        }
+                        else
+                        {
+                            WindowState = WindowState.Normal;
+                            btn.Content = "\xe62b";
+                        }
+
+                        break;
+                    case "CloseBtn":
+                        if (MessageBox.Show(LocationServices.GetLang("SaveLayout"), LocationServices.GetLang("Tips"),
+                                MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                        {
+                            Close();
+                        }
+                        else
+                        {
+                            Environment.Exit(0);
+                        }
+
+                        break;
+                }
         }
 
         private void MainWindow_Unloaded(object sender, EventArgs e)
@@ -166,10 +169,10 @@ namespace AutoMationFrameWork.View
 
                 // 激发一个鼠标滚轮事件，冒泡给外层ListView接收到
                 var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
-                eventArg.RoutedEvent = UIElement.MouseWheelEvent;
+                eventArg.RoutedEvent = MouseWheelEvent;
                 eventArg.Source = sender;
                 var parent = ((Control)sender).Parent as UIElement;
-                parent.RaiseEvent(eventArg);
+                if (parent != null) parent.RaiseEvent(eventArg);
             }
         }
 

@@ -1,16 +1,22 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-07-27                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Read write config file use XML           *
+*********************************************************************/
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Xml;
 using System.Xml.Linq;
 using AutoMationFrameWork.Model;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 
 namespace AutoMationFrameWork.Servers
 {
@@ -1090,7 +1096,7 @@ namespace AutoMationFrameWork.Servers
                     }
 
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     MessageBox.Show("文件错误", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                     return (T)tCfg;

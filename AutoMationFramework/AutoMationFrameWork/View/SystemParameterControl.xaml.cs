@@ -10,18 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using AutoMationFrameWork.Servers;
-using AutoMationFrameWork.ViewModel;
-using GalaSoft.MvvmLight.Ioc;
+/*********************************************************************
+*           Author:        wangfeijian                               *
+*                                                                    *
+*           CreatTime:     2021-06-30                                *
+*                                                                    *
+*           ModifyTime:    2021-07-27                                *
+*                                                                    *
+*           Email:         wangfeijianhao@163.com                    *
+*                                                                    *
+*           Description:   UserControl for system parameter back code*
+*********************************************************************/
 
 namespace AutoMationFrameWork.View
 {
     /// <summary>
     /// SystemParameterControl.xaml 的交互逻辑
     /// </summary>
-    public partial class SystemParameterControl : UserControl
+    public partial class SystemParameterControl 
     {
         public SystemParameterControl()
         {

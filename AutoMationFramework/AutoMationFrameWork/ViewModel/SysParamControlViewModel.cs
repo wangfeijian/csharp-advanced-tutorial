@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-07-27                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    System parameter control view model      *
+*********************************************************************/
+using System;
 using System.Windows;
 using System.Windows.Input;
 using AutoMationFrameWork.Model;

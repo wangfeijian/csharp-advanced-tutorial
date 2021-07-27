@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-06-21                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Program entrance                         *
+*********************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;

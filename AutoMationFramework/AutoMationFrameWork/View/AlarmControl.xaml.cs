@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-06-22                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    UserControl for alarm back code          *
+*********************************************************************/
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using AvalonDock.Themes;
 
 namespace AutoMationFrameWork.View
@@ -24,12 +22,11 @@ namespace AutoMationFrameWork.View
         public AlarmControl()
         {
             InitializeComponent();
-            this.dockingManager.Theme = new Vs2013LightTheme();
+            DockingManager.Theme = new Vs2013LightTheme();
         }
 
         private void Hide_Click(object sender, RoutedEventArgs e)
         {
-            var test = this.dockingManager;
             Screen3.Hide();
         }
 

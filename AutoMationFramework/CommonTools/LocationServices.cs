@@ -1,11 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-07-19                               *
+*                                                                    *
+*           ModifyTime:     2021-07-27                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Language manager class                   *
+*********************************************************************/
+
+using System;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace CommonTools
@@ -21,45 +28,45 @@ namespace CommonTools
             }
             catch
             {
-                return (ResourceDictionary)null;
+                return null;
             }
         }
 
         public static void SetMessageBox()
         {
-            MessageBoxManager.OK = LocationServices.GetLang("OK");
-            MessageBoxManager.Cancel = LocationServices.GetLang("Cancel");
-            MessageBoxManager.Retry = LocationServices.GetLang("Retry");
-            MessageBoxManager.Ignore = LocationServices.GetLang("Ignore");
-            MessageBoxManager.Abort = LocationServices.GetLang("Abort");
-            MessageBoxManager.Yes = LocationServices.GetLang("Yes");
-            MessageBoxManager.No = LocationServices.GetLang("No");
+            MessageBoxManager.OK = GetLang("OK");
+            MessageBoxManager.Cancel = GetLang("Cancel");
+            MessageBoxManager.Retry = GetLang("Retry");
+            MessageBoxManager.Ignore = GetLang("Ignore");
+            MessageBoxManager.Abort = GetLang("Abort");
+            MessageBoxManager.Yes = GetLang("Yes");
+            MessageBoxManager.No = GetLang("No");
 
             //Register manager
             MessageBoxManager.Register();
         }
 
-        public static string GetLang(string InfoKey)
+        public static string GetLang(string infoKey)
         {
             try
             {
-                return (string)Application.Current.TryFindResource((object)InfoKey) ?? InfoKey;
+                return (string)Application.Current.TryFindResource(infoKey) ?? infoKey;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return InfoKey;
+                return infoKey;
             }
         }
 
-        public static string GetLang(string InfoKey, string InfoValue)
+        public static string GetLang(string infoKey, string infoValue)
         {
             try
             {
-                return (string)Application.Current.TryFindResource((object)InfoKey) ?? InfoValue;
+                return (string)Application.Current.TryFindResource(infoKey) ?? infoValue;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return InfoKey;
+                return infoKey;
             }
         }
 

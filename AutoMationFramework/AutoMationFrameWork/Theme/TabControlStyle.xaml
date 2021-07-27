@@ -1,4 +1,17 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<!--
+    *********************************************************************
+    *               Author:         wangfeijian                         *
+    *                                                                   *
+    *               CreatTime:      2021-06-28                          *
+    *                                                                   *
+    *               ModifyTime:     2021-07-27                          *
+    *                                                                   *
+    *               Email:          wangfeijianhao@163.com              *
+    *                                                                   *
+    *               Description:    Static resource                     *
+    *********************************************************************
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style x:Key="TabControlStyle" TargetType="{x:Type TabControl}">
         <Setter Property="Padding" Value="2" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -34,6 +47,8 @@
                             KeyboardNavigation.TabIndex="1"
                             Rows="1" />
                         <Line
+                            Grid.Row="0"
+                            Grid.Column="0"
                             Margin="0,0,0,1"
                             VerticalAlignment="Bottom"
                             SnapsToDevicePixels="True"

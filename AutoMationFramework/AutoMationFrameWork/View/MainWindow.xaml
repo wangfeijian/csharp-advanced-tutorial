@@ -1,10 +1,21 @@
-﻿<Window
+﻿<!--
+    *********************************************************************
+    *               Author:         wangfeijian                         *
+    *                                                                   *
+    *               CreatTime:      2021-06-22                          *
+    *                                                                   *
+    *               ModifyTime:     2021-07-27                          *
+    *                                                                   *
+    *               Email:          wangfeijianhao@163.com              *
+    *                                                                   *
+    *               Description:    Window for main                     *
+    *********************************************************************
+-->
+<Window
     x:Class="AutoMationFrameWork.View.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:command="http://www.galasoft.ch/mvvmlight"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:AutoMationFrameWork.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="MainWin"
@@ -23,13 +34,13 @@
         <Binding Path="Main" Source="{StaticResource Locator}" />
     </Window.DataContext>
     <Border BorderBrush="#D6D6D6" BorderThickness="1">
-        <Grid x:Name="BG" PreviewMouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
+        <Grid x:Name="Bg" PreviewMouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid
-                x:Name="nav_pnl"
+                x:Name="NavPnl"
                 Width="65"
                 HorizontalAlignment="Left">
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -40,7 +51,7 @@
                                 Margin="73,0,0,0"
                                 Background="Transparent"
                                 FontSize="22"
-                                Style="{StaticResource font_style}"
+                                Style="{StaticResource FontStyle}"
                                 Text="{StaticResource Menu}">
                                 <TextBlock.Effect>
                                     <DropShadowEffect
@@ -51,7 +62,7 @@
                                 </TextBlock.Effect>
                             </TextBlock>
                             <ToggleButton
-                                x:Name="Tg_Btn"
+                                x:Name="TgBtn"
                                 Grid.Column="0"
                                 Width="30"
                                 Height="30"
@@ -59,7 +70,7 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 BorderThickness="0"
-                                Style="{StaticResource tb_style}">
+                                Style="{StaticResource TbStyle}">
                                 <ToggleButton.Background>
                                     <ImageBrush ImageSource="../Resources/Image/tgBtn_default.png" Stretch="None" />
                                 </ToggleButton.Background>
@@ -69,7 +80,7 @@
                                             <Storyboard x:Name="HideStackPanel">
                                                 <DoubleAnimation
                                                     BeginTime="0:0:0"
-                                                    Storyboard.TargetName="nav_pnl"
+                                                    Storyboard.TargetName="NavPnl"
                                                     Storyboard.TargetProperty="Width"
                                                     From="230"
                                                     To="65"
@@ -82,7 +93,7 @@
                                             <Storyboard x:Name="ShowStackPanel">
                                                 <DoubleAnimation
                                                     BeginTime="0:0:0"
-                                                    Storyboard.TargetName="nav_pnl"
+                                                    Storyboard.TargetName="NavPnl"
                                                     Storyboard.TargetProperty="Width"
                                                     From="65"
                                                     To="230"
@@ -94,7 +105,7 @@
                             </ToggleButton>
                         </Grid>
                         <ListView
-                            x:Name="LV"
+                            x:Name="Lv"
                             Background="Transparent"
                             BorderBrush="Transparent"
                             PreviewMouseWheel="LV_OnPreviewMouseWheel"
@@ -113,14 +124,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource HomePage}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_home"
                                         Content="{StaticResource HomePage}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
@@ -138,14 +149,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource Start}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_start"
                                         Content="{StaticResource Start}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
@@ -163,14 +174,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource Pause}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_pause"
                                         Content="{StaticResource Pause}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
@@ -188,14 +199,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource Stop}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_stop"
                                         Content="{StaticResource Stop}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
@@ -212,14 +223,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource Setting}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_settings"
                                         Content="{StaticResource Setting}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
@@ -235,14 +246,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource Vision}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_camera"
                                         Content="{StaticResource Vision}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
@@ -258,14 +269,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource Statistics}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_table"
                                         Content="{StaticResource Statistics}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
@@ -281,14 +292,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource Alarm}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_alarm"
                                         Content="{StaticResource Alarm}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
@@ -304,14 +315,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource User}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_user"
                                         Content="{StaticResource User}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListViewItem
@@ -326,14 +337,14 @@
                                         Style="{StaticResource LabelListViewStyle}" />
                                     <TextBlock
                                         Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"
+                                        Style="{StaticResource FontStyle}"
                                         Text="{StaticResource LangType}" />
                                 </StackPanel>
                                 <ListViewItem.ToolTip>
                                     <ToolTip
                                         x:Name="tt_lang"
                                         Content="{StaticResource LangType}"
-                                        Style="{StaticResource tt_style}" />
+                                        Style="{StaticResource TtStyle}" />
                                 </ListViewItem.ToolTip>
                             </ListViewItem>
                             <ListView.ItemContainerStyle>

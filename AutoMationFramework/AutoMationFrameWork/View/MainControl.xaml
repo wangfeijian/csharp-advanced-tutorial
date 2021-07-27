@@ -1,21 +1,31 @@
-﻿<UserControl
+﻿<!--
+    *********************************************************************
+    *               Author:         wangfeijian                         *
+    *                                                                   *
+    *               CreatTime:      2021-06-23                          *
+    *                                                                   *
+    *               ModifyTime:     2021-07-27                          *
+    *                                                                   *
+    *               Email:          wangfeijianhao@163.com              *
+    *                                                                   *
+    *               Description:    UserControl for main                *
+    *********************************************************************
+-->
+<UserControl
     x:Class="AutoMationFrameWork.View.MainControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:avalon="https://github.com/Dirkster99/AvalonDock"
     xmlns:avalondock="https://github.com/Dirkster99/AvalonDock"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:AutoMationFrameWork.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
-    xmlns:viewModel="clr-namespace:AutoMationFrameWork.ViewModel"
     d:DesignHeight="670"
     d:DesignWidth="1024"
     Background="#EEEEF2"
     mc:Ignorable="d">
     <avalondock:DockingManager
-        x:Name="dockingManager"
+        x:Name="DockingManager"
         AllowMixedOrientation="True"
         IsVirtualizingAnchorable="True"
         Loaded="DockingManager_OnLoaded">
