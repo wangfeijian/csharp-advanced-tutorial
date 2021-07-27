@@ -2,80 +2,80 @@
     x:Class="AutoMationFrameWork.View.SystemParameterControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:AutoMationFrameWork.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="610"
     d:DesignWidth="950"
     mc:Ignorable="d">
+    <UserControl.DataContext>
+        <Binding Path="SysParam" Source="{StaticResource Locator}" />
+    </UserControl.DataContext>
     <Grid Margin="5" Background="#50bc93">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <DataGrid
-                    Name="IoInputDatGrid"
-                    ItemsSource="{Binding}"
-                    Style="{StaticResource DataGridStyle}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding KeyValue}"
-                            ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="{StaticResource KeyValue}"
-                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
-                        <DataGridTextColumn
-                            Width="100"
-                            Binding="{Binding CurrentValue}"
-                            ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="{StaticResource CurrentValue}"
-                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
-                        <DataGridTextColumn
-                            Width="70"
-                            Binding="{Binding Unit}"
-                            ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="{StaticResource DataUnit}"
-                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding ParamDesc}"
-                            ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="{StaticResource ParamDes}"
-                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding EnglishDesc}"
-                            ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="{StaticResource Translation}"
-                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
-                        <DataGridTextColumn
-                            Width="80"
-                            Binding="{Binding MinValue}"
-                            ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="{StaticResource MinValue}"
-                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
-                        <DataGridTextColumn
-                            Width="80"
-                            Binding="{Binding MaxValue}"
-                            ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="{StaticResource MaxValue}"
-                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
-                        <DataGridTextColumn
-                            Width="70"
-                            Binding="{Binding Authority}"
-                            ElementStyle="{StaticResource DataGridContentStyle}"
-                            Header="{StaticResource Authority}"
-                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
-        </ScrollViewer>
+        <DataGrid
+            Name="ParamDatGrid"
+            ItemsSource="{Binding AllParameters.ParameterInfos}"
+            Style="{StaticResource DataGridStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding KeyValue}"
+                    ElementStyle="{StaticResource DataGridContentStyle}"
+                    Header="{StaticResource KeyValue}"
+                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                <DataGridTextColumn
+                    Width="100"
+                    Binding="{Binding CurrentValue}"
+                    ElementStyle="{StaticResource DataGridContentStyle}"
+                    Header="{StaticResource CurrentValue}"
+                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                <DataGridTextColumn
+                    Width="70"
+                    Binding="{Binding Unit}"
+                    ElementStyle="{StaticResource DataGridContentStyle}"
+                    Header="{StaticResource DataUnit}"
+                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding ParamDesc}"
+                    ElementStyle="{StaticResource DataGridContentStyle}"
+                    Header="{StaticResource ParamDes}"
+                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding EnglishDesc}"
+                    ElementStyle="{StaticResource DataGridContentStyle}"
+                    Header="{StaticResource Translation}"
+                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                <DataGridTextColumn
+                    Width="80"
+                    Binding="{Binding MinValue}"
+                    ElementStyle="{StaticResource DataGridContentStyle}"
+                    Header="{StaticResource MinValue}"
+                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                <DataGridTextColumn
+                    Width="80"
+                    Binding="{Binding MaxValue}"
+                    ElementStyle="{StaticResource DataGridContentStyle}"
+                    Header="{StaticResource MaxValue}"
+                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                <DataGridTextColumn
+                    Width="70"
+                    Binding="{Binding Authority}"
+                    ElementStyle="{StaticResource DataGridContentStyle}"
+                    Header="{StaticResource Authority}"
+                    HeaderStyle="{StaticResource DataGridHeadStyle}" />
+            </DataGrid.Columns>
+        </DataGrid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -89,49 +89,78 @@
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
+                Style="{StaticResource MaterialDesignRaisedButton}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <command:EventToCommand Command="{Binding SaveConfigCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
             <Button
                 Content="{StaticResource SaveAs}"
                 Grid.Column="1"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
+                Style="{StaticResource MaterialDesignRaisedButton}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <command:EventToCommand Command="{Binding SaveAsConfigCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
             <Button
                 Content="{StaticResource SaveDefault}"
                 Grid.Column="2"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
+                Style="{StaticResource MaterialDesignRaisedButton}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <command:EventToCommand Command="{Binding SaveDefaultConfigCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
             <Button
                 Content="{StaticResource TrialParameters}"
                 Grid.Column="3"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
+                Style="{StaticResource MaterialDesignRaisedButton}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <command:EventToCommand Command="{Binding SaveConfigCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
             <Button
-                Content="{StaticResource SelectThisConfig}"
+                Content="{StaticResource SelectConfig}"
                 Grid.Column="4"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
+                Style="{StaticResource MaterialDesignRaisedButton}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <command:EventToCommand Command="{Binding LoadConfigCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
             <Button
-                Content="{StaticResource RestoreLastTime}"
+                Content="{StaticResource Reset}"
                 Grid.Column="5"
                 Margin="2.5,5,5,2.5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
-            <Button
-                Content="{StaticResource Reset}"
-                Grid.Column="6"
-                Margin="2.5,5,5,2.5"
-                materialDesign:ButtonAssist.CornerRadius="5"
-                Background="#899DC0"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
+                Style="{StaticResource MaterialDesignRaisedButton}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <command:EventToCommand Command="{Binding ResetDefaultConfigCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

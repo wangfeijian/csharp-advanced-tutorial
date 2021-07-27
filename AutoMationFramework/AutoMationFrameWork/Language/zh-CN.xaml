@@ -167,7 +167,6 @@
     <sys:String x:Key="SaveFile">保存文件</sys:String>
     <sys:String x:Key="SaveAs">另存为</sys:String>
     <sys:String x:Key="SaveDefault">保存默认</sys:String>
-    <sys:String x:Key="RestoreLastTime">还原上一次</sys:String>
     <sys:String x:Key="Reset">恢复默认</sys:String>
     <sys:String x:Key="Server">服务器</sys:String>
     <sys:String x:Key="Light">光源</sys:String>
@@ -190,7 +189,8 @@
     <sys:String x:Key="Absolute">绝对</sys:String>
     <sys:String x:Key="Relative">相对</sys:String>
     <sys:String x:Key="TrialParameters">试用参数</sys:String>
-    <sys:String x:Key="SelectThisConfig">选择此配置</sys:String>
+    <sys:String x:Key="SelectConfig">选择配置</sys:String>
+    <sys:String x:Key="RestoreLastTime">还原上一次</sys:String>
     <!--  气缸管理变量  -->
     <sys:String x:Key="CyName">名称</sys:String>
     <sys:String x:Key="CyEngName">翻译</sys:String>
@@ -239,4 +239,12 @@
     <sys:String x:Key="SystemInfo">系统信息</sys:String>
     <sys:String x:Key="MachineInfo">设备信息</sys:String>
     <sys:String x:Key="Log">日志</sys:String>
+    <!--  MessageBox提示信息  -->
+    <sys:String x:Key="NoDefaultConfig">没有默认配置，请先保存默认配置！</sys:String>
+    <sys:String x:Key="LoadDefaultConfigSuccess">加载默认配置成功！</sys:String>
+    <sys:String x:Key="SaveDefaultConfigSuccess">保存默认配置成功！</sys:String>
+    <sys:String x:Key="UnselectedFile">未选择文件！</sys:String>
+    <sys:String x:Key="SaveSuccess">保存成功！</sys:String>
+    <sys:String x:Key="LoadSuccess">加载成功！</sys:String>
+    <sys:String x:Key="FileError">文件错误！</sys:String>
 </ResourceDictionary>

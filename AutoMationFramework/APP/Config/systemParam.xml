@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SystemParam>
+  <ParamDsecribe>
+    <ParamDescribe 修改者="Admin" 文件描述="系统配置参数-运行用" />
+  </ParamDsecribe>
+  <Param>
+    <Param 键值="RunParam" 当前值="" 单位="" 参数描述="-----------运行参数设置-----------" 翻译="---Operation parameter setting---" 最小值="" 最大值="" />
+    <Param 键值="AxisXSpeed" 当前值="80" 单位="%" 参数描述="X轴速度(速度百分比)" 翻译="X-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisYSpeed" 当前值="80" 单位="%" 参数描述="Y轴速度(速度百分比)" 翻译="Y-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisZSpeed" 当前值="80" 单位="%" 参数描述="Z轴速度(速度百分比)" 翻译="Z-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisUSpeed" 当前值="80" 单位="%" 参数描述="U轴速度(速度百分比)" 翻译="U-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisASpeed" 当前值="80" 单位="%" 参数描述="X轴速度(速度百分比)" 翻译="X-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisBSpeed" 当前值="80" 单位="%" 参数描述="Y轴速度(速度百分比)" 翻译="Y-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisCSpeed" 当前值="80" 单位="%" 参数描述="Z轴速度(速度百分比)" 翻译="Z-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisDSpeed" 当前值="80" 单位="%" 参数描述="U轴速度(速度百分比)" 翻译="U-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisSpeed" 当前值="5000" 单位="" 参数描述="标定时轴速度" 翻译="Axis calib speed" 最小值="100" 最大值="5000" />
+    <Param 键值="TimeParam" 当前值="" 单位="" 参数描述="-----------超时参数设置-----------" 翻译="---Timeout parameter setting---" 最小值="" 最大值="" />
+    <Param 键值="IoTimeOut" 当前值="10" 单位="sec" 参数描述="IO等待超时时间" 翻译="IO wait timeout" 最小值="0" 最大值="100" />
+    <Param 键值="MotionTimeOut" 当前值="100" 单位="sec" 参数描述="轴运动等待超时时间" 翻译="Axis movement waiting timeout" 最小值="0" 最大值="600" />
+    <Param 键值="RegTimeOut" 当前值="100" 单位="sec" 参数描述="寄存器等待超时时间" 翻译="Register wait timeout" 最小值="0" 最大值="600" />
+    <Param 键值="CommunicationTimeOut" 当前值="100" 单位="sec" 参数描述="通讯命令超时时间" 翻译="Communication timeout" 最小值="0" 最大值="600" />
+    <Param 键值="OpcTimeOut" 当前值="100" 单位="sec" 参数描述="Opc等待超时时间" 翻译="OPC wait timeout" 最小值="0" 最大值="600" />
+    <Param 键值="LaserMeasureCount" 当前值="10" 单位="/" 参数描述="镭射测量次数" 翻译="Laser measure counts" 最小值="1" 最大值="50" />
+    <Param 键值="LaserDistance1" 当前值="110.89" 单位="mm" 参数描述="镭射头之间的距离" 翻译="Distance between two laser" 最小值="0.1" 最大值="1000" />
+    <Param 键值="LaserDistance2" 当前值="227.21" 单位="mm" 参数描述="镭射头之间的距离" 翻译="Distance between two laser" 最小值="0.1" 最大值="1000" />
+    <Param 键值="LaserDistance3" 当前值="341.15" 单位="mm" 参数描述="镭射头之间的距离" 翻译="Distance between two laser" 最小值="0.1" 最大值="1000" />
+    <Param 键值="LaserTwoStep_1" 当前值="22" 单位="mm" 参数描述="镭射二站的步长一" 翻译="The fisrt step of the second station" 最小值="0.1" 最大值="1000" />
+    <Param 键值="LaserTwoStep_2" 当前值="17.37" 单位="mm" 参数描述="镭射二站的步长二" 翻译="The second step of the second station" 最小值="0.1" 最大值="1000" />
+    <Param 键值="LaserThreeStep_1" 当前值="25.97" 单位="mm" 参数描述="镭射三站的步长一" 翻译="The fisrt step of the thirdly station" 最小值="0.1" 最大值="1000" />
+    <Param 键值="LaserThreeStep_2" 当前值="32.26" 单位="mm" 参数描述="镭射三站的步长二" 翻译="The second step of the thirdly station" 最小值="0.1" 最大值="1000" />
+  </Param>
+</SystemParam>

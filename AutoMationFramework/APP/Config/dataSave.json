@@ -1,0 +1,41 @@
+{
+	"SelectSaveType": 0,
+	"IsUpload": true,
+	"SavePath": "d:\\exe\\pdca",
+	"ServiceAddress": "127.0.0.1",
+	"Port": "3306",
+	"User": "root",
+	"Password": "FE8D9B9D918A9BCFCCCD",
+	"DataBase": "test",
+	"DataTable": "table_test",
+	"DataIndexes": [
+		{
+			"Name": "开始时间",
+			"Index": "m_dtBeginTime"
+		},
+		{
+			"Name": "结束时间",
+			"Index": "m_dtEndTime"
+		},
+		{
+			"Name": "物料码",
+			"Index": "m_strBarCode"
+		},
+		{
+			"Name": "手动物料码",
+			"Index": "m_strSN"
+		},
+		{
+			"Name": "手动扫码颜色",
+			"Index": "m_Color"
+		},
+		{
+			"Name": "程序选择颜色",
+			"Index": "ProductColor"
+		},
+		{
+			"Name": "数据",
+			"Index": "m_strConcatDatas"
+		}
+	]
+}

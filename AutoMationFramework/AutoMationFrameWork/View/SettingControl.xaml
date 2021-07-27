@@ -36,10 +36,10 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{StaticResource IOInputOutPut}" Style="{StaticResource TabItemStyle}">
-                <view:IoControl />
+                <view:IoControl DataContext="{Binding}" />
             </TabItem>
             <TabItem Header="{StaticResource AxisConfigManger}" Style="{StaticResource TabItemStyle}">
-                <view:AxisConfigControl />
+                <view:AxisConfigControl DataContext="{Binding}" />
             </TabItem>
             <TabItem Header="{StaticResource SystemParamSet}" Style="{StaticResource TabItemStyle}">
                 <view:SystemParameterControl />

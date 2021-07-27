@@ -167,7 +167,6 @@
     <sys:String x:Key="SaveFile">SaveFile</sys:String>
     <sys:String x:Key="SaveAs">SaveAs</sys:String>
     <sys:String x:Key="SaveDefault">SaveDefault</sys:String>
-    <sys:String x:Key="RestoreLastTime">RestoreLastTime</sys:String>
     <sys:String x:Key="Reset">Reset</sys:String>
     <sys:String x:Key="Server">Server</sys:String>
     <sys:String x:Key="Light">Light</sys:String>
@@ -190,7 +189,8 @@
     <sys:String x:Key="Absolute">Absolute</sys:String>
     <sys:String x:Key="Relative">Relative</sys:String>
     <sys:String x:Key="TrialParameters">TrialParameters</sys:String>
-    <sys:String x:Key="SelectThisConfig">SelectThisConfig</sys:String>
+    <sys:String x:Key="SelectConfig">SelectConfig</sys:String>
+    <sys:String x:Key="RestoreLastTime">RestoreLastTime</sys:String>
     <!--  气缸管理变量  -->
     <sys:String x:Key="CyName">Name</sys:String>
     <sys:String x:Key="CyEngName">EngName</sys:String>
@@ -239,4 +239,12 @@
     <sys:String x:Key="SystemInfo">SystemInfo</sys:String>
     <sys:String x:Key="MachineInfo">MachineInfo</sys:String>
     <sys:String x:Key="Log">Log</sys:String>
+    <!--  MessageBox提示信息  -->
+    <sys:String x:Key="NoDefaultConfig">No default config, please save default config first!</sys:String>
+    <sys:String x:Key="LoadDefaultConfigSuccess">Load default config success!</sys:String>
+    <sys:String x:Key="SaveDefaultConfigSuccess">Save default config success!</sys:String>
+    <sys:String x:Key="UnselectedFile">Unselected File!!</sys:String>
+    <sys:String x:Key="SaveSuccess">Save Success!!</sys:String>
+    <sys:String x:Key="LoadSuccess">Load Success!!</sys:String>
+    <sys:String x:Key="FileError">File Error!!</sys:String>
 </ResourceDictionary>

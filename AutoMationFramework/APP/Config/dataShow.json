@@ -1,0 +1,1 @@
+{"IsUpload":false,"DataIndexes":[{"Name":"开始时间","Index":"m_dtBeginTime"},{"Name":"结束时间","Index":"m_dtEndTime"},{"Name":"二维码","Index":"m_strBarCode"},{"Name":"手动扫码","Index":"m_strSN"},{"Name":"手动扫码颜色","Index":"m_Color"},{"Name":"程序选择颜色","Index":"m_ProductColor"}]}

@@ -24,6 +24,7 @@ namespace AutoMationFrameWork
 
         public App()
         {
+            Authority.GetUserMode();
             Startup += (StartupEventHandler)((s, e) =>
             {
                bool createdNew;
@@ -49,7 +50,7 @@ namespace AutoMationFrameWork
            });
             var directoryInfo = new DirectoryInfo(System.Windows.Forms.Application.ExecutablePath).Parent;
             if (directoryInfo != null)
-                SetDllDirectory(directoryInfo.FullName + "\\PublicFile\\x64");
+                SetDllDirectory(directoryInfo.FullName + "\\Dll");
             FrameworkCompatibilityPreferences.AreInactiveSelectionHighlightBrushKeysSupported = false;
         }
 

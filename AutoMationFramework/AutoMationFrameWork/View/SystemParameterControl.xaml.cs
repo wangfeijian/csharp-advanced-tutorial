@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AutoMationFrameWork.Servers;
+using AutoMationFrameWork.ViewModel;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace AutoMationFrameWork.View
 {
@@ -23,6 +26,8 @@ namespace AutoMationFrameWork.View
         public SystemParameterControl()
         {
             InitializeComponent();
+            //IoInputDatGrid.DataContext = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
+
         }
     }
 }

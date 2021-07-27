@@ -15,10 +15,10 @@
     Background="#EEEEF2"
     mc:Ignorable="d">
     <avalondock:DockingManager
-        Loaded="DockingManager_OnLoaded"
         x:Name="dockingManager"
         AllowMixedOrientation="True"
-        IsVirtualizingAnchorable="True">
+        IsVirtualizingAnchorable="True"
+        Loaded="DockingManager_OnLoaded">
         <DockingManager.ContextMenu>
             <ContextMenu Name="DockMenu" StaysOpen="True">
                 <MenuItem Name="SaveRightButton" Header="{StaticResource SaveLayoutBtn}" />

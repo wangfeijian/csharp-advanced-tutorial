@@ -115,8 +115,9 @@
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
     <Style x:Key="DataGridStyle" TargetType="DataGrid">
-        <Setter Property="AlternatingRowBackground" Value="LightSkyBlue" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
         <Setter Property="AlternationCount" Value="2" />
+        <Setter Property="Background" Value="#CADDEC" />
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="CanUserAddRows" Value="True" />
         <Setter Property="CanUserDeleteRows" Value="True" />
@@ -125,6 +126,11 @@
         <Setter Property="GridLinesVisibility" Value="None" />
         <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="IsReadOnly" Value="False" />
+        <Style.Triggers>
+            <Trigger Property="DataGrid.AlternationIndex" Value="0">
+                <Setter Property="RowBackground" Value="#ABCDE8" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <ControlTemplate x:Key="RadioButtonTemplate" TargetType="{x:Type RadioButton}">
         <Border x:Name="Border" Background="Transparent">
