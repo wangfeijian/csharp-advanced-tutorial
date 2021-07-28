@@ -177,11 +177,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\SysParamModel.cs" />
-    <Compile Include="Servers\IBuildConfig.cs" />
-    <Compile Include="Servers\JsonBuildConfig.cs" />
-    <Compile Include="Servers\XMLBuildConfig.cs" />
-    <Compile Include="ViewModel\SysParamControlViewModel.cs" />
     <Compile Include="View\AlarmControl.xaml.cs">
       <DependentUpon>AlarmControl.xaml</DependentUpon>
     </Compile>

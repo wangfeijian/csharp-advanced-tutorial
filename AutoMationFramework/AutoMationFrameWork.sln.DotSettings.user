@@ -3,4 +3,5 @@
   &lt;Assembly Path="D:\Study\dotNet\csharp-advanced-tutorial\AutoMationFramework\packages\Dirkster.AvalonDock.4.51.1\lib\net40\AvalonDock.dll" /&gt;&#xD;
   &lt;Assembly Path="D:\Project\7月\螺丝机\保护罩三号\1_Program\GeneralFramework.exe" /&gt;&#xD;
   &lt;Assembly Path="D:\Project\7月\螺丝机\保护罩三号\1_Program\myLibs\Apps.Localization\Apps.Localization.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\Study\dotNet\csharp-advanced-tutorial\AutoMationFramework\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

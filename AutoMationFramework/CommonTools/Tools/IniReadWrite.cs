@@ -3,7 +3,7 @@
 *                                                                    *
 *           CreatTime:      2021-07-22                               *
 *                                                                    *
-*           ModifyTime:     2021-07-27                               *
+*           ModifyTime:     2021-07-28                               *
 *                                                                    *
 *           Email:          wangfeijianhao@163.com                   *
 *                                                                    *
@@ -17,24 +17,42 @@ using System.Text;
 
 namespace CommonTools.Tools
 {
+    /// <summary>
+    /// 进制枚举
+    /// </summary>
     public enum Base
     {
-        /// <summary>二进制</summary>
+        /// <summary>
+        /// 二进制
+        /// </summary>
         BaseBinary = 2,
-        /// <summary>8进制</summary>
+
+        /// <summary>
+        /// 8进制
+        /// </summary>
         BaseOctal = 8,
-        /// <summary>10进制</summary>
-        BaseDecimal = 10, // 0x0000000A
-                           /// <summary>16进制</summary>
-        BaseHex = 16, // 0x00000010
+
+        /// <summary>
+        /// 10进制
+        /// </summary>
+        BaseDecimal = 10, 
+
+        /// <summary>
+        /// 16进制
+        /// </summary>
+        BaseHex = 16
     }
+
+    /// <summary>
+    /// ini文件读写类
+    /// </summary>
     public class IniReadWrite
     {
-        private Encoding _encoding = Encoding.UTF8;
-        private string _strIniFile;
         private const int DefProfileThreshold = 512;
 
-        /// <summary>获取INI文件中的键值</summary>
+        /// <summary>
+        /// 获取INI文件中的键值
+        /// </summary>
         /// <param name="lpAppName">ini节名</param>
         /// <param name="lpKeyName">ini键名</param>
         /// <param name="lpDefault">默认值：当无对应键值，则返回该值。</param>
@@ -45,7 +63,9 @@ namespace CommonTools.Tools
         [DllImport("kernel32.dll")]
         private static extern int GetPrivateProfileString(byte[] lpAppName, byte[] lpKeyName, byte[] lpDefault, byte[] lpReturnedString, int nSize, string lpFileName);
 
-        /// <summary>写入INI文件键值</summary>
+        /// <summary>
+        /// 写入INI文件键值
+        /// </summary>
         /// <param name="lpAppName">ini节名</param>
         /// <param name="lpKeyName">ini键名</param>
         /// <param name="lpString">写入值</param>
@@ -54,7 +74,9 @@ namespace CommonTools.Tools
         [DllImport("kernel32.dll")]
         private static extern int WritePrivateProfileString(byte[] lpAppName, byte[] lpKeyName, byte[] lpString, string lpFileName);
 
-        /// <summary>获取INI文件中所有节点的名称</summary>
+        /// <summary>
+        /// 获取INI文件中所有节点的名称
+        /// </summary>
         /// <param name="lpszReturnBuffer">结果缓冲区</param>
         /// <param name="nSize">缓冲区大小</param>
         /// <param name="lpFileName">INI文件路径</param>
@@ -62,7 +84,9 @@ namespace CommonTools.Tools
         [DllImport("kernel32.dll")]
         private static extern int GetPrivateProfileSectionNames(byte[] lpszReturnBuffer, int nSize, string lpFileName);
 
-        /// <summary>获取INI文件中节点对应的所有关键字和值</summary>
+        /// <summary>
+        /// 获取INI文件中节点对应的所有关键字和值
+        /// </summary>
         /// <param name="lpAppName"></param>
         /// <param name="lpReturnedString"></param>
         /// <param name="nSize"></param>
@@ -71,7 +95,9 @@ namespace CommonTools.Tools
         [DllImport("kernel32.dll")]
         private static extern int GetPrivateProfileSection(byte[] lpAppName, byte[] lpReturnedString, int nSize, string lpFileName);
 
-        /// <summary>替换INI文件中的节点名称</summary>
+        /// <summary>
+        /// 替换INI文件中的节点名称
+        /// </summary>
         /// <param name="lpAppName">旧节点名称</param>
         /// <param name="lpString">新的节点名称</param>
         /// <param name="lpFileName">INI文件</param>
@@ -79,59 +105,51 @@ namespace CommonTools.Tools
         [DllImport("kernel32.dll")]
         private static extern int WritePrivateProfileSection(byte[] lpAppName, byte[] lpString, string lpFileName);
 
-        /// <summary>编码格式</summary>
-        public Encoding Encoding
-        {
-            get
-            {
-                return _encoding;
-            }
-            set
-            {
-                _encoding = value;
-            }
-        }
+        /// <summary>
+        /// 编码格式
+        /// </summary>
+        public Encoding Encoding { get; set; } = Encoding.UTF8;
 
-        /// <summary>构造函数</summary>
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         public IniReadWrite()
         {
         }
 
-        /// <summary>构造函数</summary>
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         /// <param name="strIniFile"></param>
         public IniReadWrite(string strIniFile)
         {
-            _strIniFile = strIniFile;
+            IniFile = strIniFile;
         }
 
-        /// <summary>构造函数</summary>
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         /// <param name="strIniFile"></param>
         /// <param name="encode"></param>
         public IniReadWrite(string strIniFile, Encoding encode)
         {
-            _strIniFile = strIniFile;
-            _encoding = encode;
+            IniFile = strIniFile;
+            Encoding = encode;
         }
 
-        /// <summary>INI文件</summary>
-        public string IniFile
-        {
-            get
-            {
-                return _strIniFile;
-            }
-            set
-            {
-                _strIniFile = value;
-            }
-        }
+        /// <summary>
+        /// INI文件
+        /// </summary>
+        public string IniFile { get; set; }
 
         private byte[] GetBytes(string s)
         {
-            return s == null ? null : _encoding.GetBytes(s);
+            return s == null ? null : Encoding.GetBytes(s);
         }
 
-        /// <summary>获取指定节点的键值</summary>
+        /// <summary>
+        /// 获取指定节点的键值
+        /// </summary>
         /// <param name="strSection">节点</param>
         /// <param name="strKey">关键字</param>
         /// <param name="strDefault">默认值</param>
@@ -151,13 +169,15 @@ namespace CommonTools.Tools
             {
                 nSize += 512;
                 numArray = new byte[nSize + 1];
-                privateProfileString = GetPrivateProfileString(GetBytes(strSection), GetBytes(strKey), GetBytes(strDefault), numArray, nSize, _strIniFile);
+                privateProfileString = GetPrivateProfileString(GetBytes(strSection), GetBytes(strKey), GetBytes(strDefault), numArray, nSize, IniFile);
             }
             while (privateProfileString + 1 >= nSize);
-            return _encoding.GetString(numArray, 0, privateProfileString);
+            return Encoding.GetString(numArray, 0, privateProfileString);
         }
 
-        /// <summary>写入指定节点键值</summary>
+        /// <summary>
+        /// 写入指定节点键值
+        /// </summary>
         /// <param name="strSection">节点</param>
         /// <param name="strKey">关键字</param>
         /// <param name="strValue">值</param>
@@ -166,10 +186,12 @@ namespace CommonTools.Tools
         {
             if (string.IsNullOrEmpty(strSection) || string.IsNullOrEmpty(strKey))
                 return false;
-            return WritePrivateProfileString(GetBytes(strSection), GetBytes(strKey), GetBytes(strValue), _strIniFile) == 1;
+            return WritePrivateProfileString(GetBytes(strSection), GetBytes(strKey), GetBytes(strValue), IniFile) == 1;
         }
 
-        /// <summary>往指定节点和关键字追加字符串</summary>
+        /// <summary>
+        /// 往指定节点和关键字追加字符串
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <param name="strValue"></param>
@@ -180,7 +202,9 @@ namespace CommonTools.Tools
             return WriteString(strSection, strKey, strValue1);
         }
 
-        /// <summary>获取指定节点和关键字的数值数组</summary>
+        /// <summary>
+        /// 获取指定节点和关键字的数值数组
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <param name="separator">分隔符</param>
@@ -197,7 +221,9 @@ namespace CommonTools.Tools
             return strArray;
         }
 
-        /// <summary>获取指定节点和关键字的数值数组</summary>
+        /// <summary>
+        /// 获取指定节点和关键字的数值数组
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <param name="separator">分隔符</param>
@@ -222,7 +248,9 @@ namespace CommonTools.Tools
             }
         }
 
-        /// <summary>获取指定节点和关键字的数值数组</summary>
+        /// <summary>
+        /// 获取指定节点和关键字的数值数组
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <param name="separator">分隔符</param>
@@ -247,7 +275,9 @@ namespace CommonTools.Tools
             }
         }
 
-        /// <summary>写指定节点和关键字的数组</summary>
+        /// <summary>
+        /// 写指定节点和关键字的数组
+        /// </summary>
         /// <param name="strSection">节点</param>
         /// <param name="strKey">关键字</param>
         /// <param name="strArray">字符串数组</param>
@@ -267,7 +297,9 @@ namespace CommonTools.Tools
             return WriteString(strSection, strKey, stringBuilder.ToString());
         }
 
-        /// <summary>写指定节点和关键字的数组</summary>
+        /// <summary>
+        /// 写指定节点和关键字的数组
+        /// </summary>
         /// <param name="strSection">节点</param>
         /// <param name="strKey">关键字</param>
         /// <param name="array">数组</param>
@@ -287,7 +319,9 @@ namespace CommonTools.Tools
             return WriteString(strSection, strKey, stringBuilder.ToString());
         }
 
-        /// <summary>写指定节点和关键字的数组</summary>
+        /// <summary>
+        /// 写指定节点和关键字的数组
+        /// </summary>
         /// <param name="strSection">节点</param>
         /// <param name="strKey">关键字</param>
         /// <param name="array">数组</param>
@@ -307,7 +341,9 @@ namespace CommonTools.Tools
             return WriteString(strSection, strKey, stringBuilder.ToString());
         }
 
-        /// <summary>获取指定节点和关键字的数值</summary>
+        /// <summary>
+        /// 获取指定节点和关键字的数值
+        /// </summary>
         /// <param name="strSection">节点</param>
         /// <param name="strKey">关键字</param>
         /// <param name="nDefault">默认值</param>
@@ -326,7 +362,9 @@ namespace CommonTools.Tools
             }
         }
 
-        /// <summary>写入指定节点关键字的数值</summary>
+        /// <summary>
+        /// 写入指定节点关键字的数值
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <param name="nValue"></param>
@@ -338,7 +376,9 @@ namespace CommonTools.Tools
             return WriteString(strSection, strKey, strValue);
         }
 
-        /// <summary>获取指定节点和关键字的浮点型数值</summary>
+        /// <summary>
+        /// 获取指定节点和关键字的浮点型数值
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <param name="dbDefault"></param>
@@ -356,7 +396,9 @@ namespace CommonTools.Tools
             }
         }
 
-        /// <summary>写入指定节点关键字的浮点数数值</summary>
+        /// <summary>
+        /// 写入指定节点关键字的浮点数数值
+        /// </summary>
         /// <param name="strSection">节点</param>
         /// <param name="strKey">关键字</param>
         /// <param name="dbValue">数值</param>
@@ -373,7 +415,9 @@ namespace CommonTools.Tools
             return WriteString(strSection, strKey, strValue);
         }
 
-        /// <summary>获取指定节点和关键字的bool型数值</summary>
+        /// <summary>
+        /// 获取指定节点和关键字的bool型数值
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <param name="bDefault"></param>
@@ -391,7 +435,9 @@ namespace CommonTools.Tools
             }
         }
 
-        /// <summary>写入指定节点关键字的bool型数值</summary>
+        /// <summary>
+        /// 写入指定节点关键字的bool型数值
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <param name="bValue"></param>
@@ -402,7 +448,9 @@ namespace CommonTools.Tools
             return WriteString(strSection, strKey, strValue);
         }
 
-        /// <summary>判断节点是否存在</summary>
+        /// <summary>
+        /// 判断节点是否存在
+        /// </summary>
         /// <param name="strSection">节点</param>
         /// <returns></returns>
         public bool IsSectionExist(string strSection)
@@ -410,7 +458,9 @@ namespace CommonTools.Tools
             return Array.IndexOf(GetSectionNames(), strSection) >= 0;
         }
 
-        /// <summary>获取所有的节点</summary>
+        /// <summary>
+        /// 获取所有的节点
+        /// </summary>
         /// <returns></returns>
         public string[] GetSectionNames()
         {
@@ -421,21 +471,25 @@ namespace CommonTools.Tools
             {
                 nSize += 512;
                 numArray = new byte[nSize + 1];
-                profileSectionNames = GetPrivateProfileSectionNames(numArray, nSize, _strIniFile);
+                profileSectionNames = GetPrivateProfileSectionNames(numArray, nSize, IniFile);
             }
             while (profileSectionNames + 2 >= nSize);
             return Encoding.Default.GetString(numArray, 0, profileSectionNames).Split(new char[1], StringSplitOptions.RemoveEmptyEntries);
         }
 
-        /// <summary>删除节点</summary>
+        /// <summary>
+        /// 删除节点
+        /// </summary>
         /// <param name="strSection">节点</param>
         /// <returns></returns>
         public bool DeleteSection(string strSection)
         {
-            return WritePrivateProfileString(GetBytes(strSection), null, GetBytes(""), _strIniFile) == 1;
+            return WritePrivateProfileString(GetBytes(strSection), null, GetBytes(""), IniFile) == 1;
         }
 
-        /// <summary>指定键是否存在</summary>
+        /// <summary>
+        /// 指定键是否存在
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <returns></returns>
@@ -444,7 +498,9 @@ namespace CommonTools.Tools
             return Array.IndexOf(GetKeyNames(strSection), strKey) >= 0;
         }
 
-        /// <summary>获取指定节点的所有键</summary>
+        /// <summary>
+        /// 获取指定节点的所有键
+        /// </summary>
         /// <param name="strSection"></param>
         /// <returns></returns>
         public string[] GetKeyNames(string strSection)
@@ -456,10 +512,10 @@ namespace CommonTools.Tools
             {
                 nSize += 512;
                 numArray = new byte[nSize + 1];
-                privateProfileSection = GetPrivateProfileSection(GetBytes(strSection), numArray, nSize, _strIniFile);
+                privateProfileSection = GetPrivateProfileSection(GetBytes(strSection), numArray, nSize, IniFile);
             }
             while (privateProfileSection + 2 >= nSize);
-            string[] strArray1 = _encoding.GetString(numArray, 0, privateProfileSection).Split(new char[1], StringSplitOptions.RemoveEmptyEntries);
+            string[] strArray1 = Encoding.GetString(numArray, 0, privateProfileSection).Split(new char[1], StringSplitOptions.RemoveEmptyEntries);
             List<string> stringList = new List<string>();
             foreach (string str in strArray1)
             {
@@ -472,16 +528,20 @@ namespace CommonTools.Tools
             return stringList.ToArray();
         }
 
-        /// <summary>删除键</summary>
+        /// <summary>
+        /// 删除键
+        /// </summary>
         /// <param name="strSection"></param>
         /// <param name="strKey"></param>
         /// <returns></returns>
         public bool DeleteKey(string strSection, string strKey)
         {
-            return WritePrivateProfileString(GetBytes(strSection), GetBytes(strKey), null, _strIniFile) == 1;
+            return WritePrivateProfileString(GetBytes(strSection), GetBytes(strKey), null, IniFile) == 1;
         }
 
-        /// <summary>删除节点下的所有键</summary>
+        /// <summary>
+        /// 删除节点下的所有键
+        /// </summary>
         /// <param name="strSection"></param>
         /// <returns></returns>
         public bool DeleteKeys(string strSection)

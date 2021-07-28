@@ -94,6 +94,7 @@
     <sys:String x:Key="MinValue">MinValue</sys:String>
     <sys:String x:Key="MaxValue">MaxValue</sys:String>
     <sys:String x:Key="Authority">Authority</sys:String>
+    <sys:String x:Key="ParamError">System parameters error!!</sys:String>
     <!--  MessageBox变量  -->
     <sys:String x:Key="OK">OK</sys:String>
     <sys:String x:Key="Cancel">Cancel</sys:String>

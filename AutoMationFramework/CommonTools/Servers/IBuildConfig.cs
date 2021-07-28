@@ -10,7 +10,7 @@
 *           Description:    Read write config file interface         *
 *********************************************************************/
 
-namespace AutoMationFrameWork.Servers
+namespace CommonTools.Servers
 {
     public interface IBuildConfig
     {

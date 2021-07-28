@@ -11,7 +11,7 @@
 *********************************************************************/
 using System.Collections.Generic;
 
-namespace AutoMationFrameWork.Model
+namespace CommonTools.Model
 {
     /// <summary>
     /// 系统参数类型

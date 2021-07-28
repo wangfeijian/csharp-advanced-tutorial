@@ -15,10 +15,10 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
-using AutoMationFrameWork.Model;
+using CommonTools.Model;
 using Microsoft.Win32;
 
-namespace AutoMationFrameWork.Servers
+namespace CommonTools.Servers
 {
     public class XmlBuildConfig : IBuildConfig
     {

@@ -35,6 +35,14 @@
             Name="ParamDatGrid"
             ItemsSource="{Binding AllParameters.ParameterInfos}"
             Style="{StaticResource DataGridStyle}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="CellEditEnding">
+                    <command:EventToCommand Command="{Binding CellValueChangeCommand}" CommandParameter="{Binding ElementName=ParamDatGrid}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="LoadingRow">
+                    <command:EventToCommand Command="{Binding LoadingRowCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"

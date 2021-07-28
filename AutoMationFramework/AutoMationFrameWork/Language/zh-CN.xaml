@@ -4,7 +4,7 @@
     *                                                                   *
     *               CreatTime:      2021-07-23                          *
     *                                                                   *
-    *               ModifyTime:     2021-07-23                          *
+    *               ModifyTime:     2021-07-28                          *
     *                                                                   *
     *               Email:          wangfeijianhao@163.com              *
     *                                                                   *
@@ -94,6 +94,7 @@
     <sys:String x:Key="MinValue">最小值</sys:String>
     <sys:String x:Key="MaxValue">最大值</sys:String>
     <sys:String x:Key="Authority">权限</sys:String>
+    <sys:String x:Key="ParamError">系统运行参数错误！</sys:String>
     <!--  MessageBox变量  -->
     <sys:String x:Key="OK">确定</sys:String>
     <sys:String x:Key="Cancel">取消</sys:String>

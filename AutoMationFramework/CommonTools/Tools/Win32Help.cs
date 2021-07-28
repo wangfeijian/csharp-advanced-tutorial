@@ -3,7 +3,7 @@
 *                                                                    *
 *           CreatTime:      2021-07-22                               *
 *                                                                    *
-*           ModifyTime:     2021-07-27                               *
+*           ModifyTime:     2021-07-28                               *
 *                                                                    *
 *           Email:          wangfeijianhao@163.com                   *
 *                                                                    *
@@ -35,10 +35,14 @@ namespace CommonTools.Tools
         public uint DwTime;
     }
 
+    /// <summary>
+    /// Windows API帮助类
+    /// </summary>
     public static class Win32Help
     {
-        /// <summary>帮助类</summary>
-        /// <summary>Hides the window and activates another window</summary>
+        /// <summary>
+        /// Hides the window and activates another window
+        /// </summary>
         public const int SwHide = 0;
         /// <summary>
         /// Activates and displays a window.
@@ -59,13 +63,17 @@ namespace CommonTools.Tools
         /// </summary>
         public const int SwRestore = 9;
 
-        /// <summary>调用windows API获取鼠标键盘空闲时间</summary>
+        /// <summary>
+        /// 调用windows API获取鼠标键盘空闲时间
+        /// </summary>
         /// <param name="plii"></param>
         /// <returns></returns>
         [DllImport("user32.dll")]
         public static extern bool GetLastInputInfo(ref LastInputInfo plii);
 
-        /// <summary>该函数设置由不同线程产生的窗口的显示状态</summary>
+        /// <summary>
+        /// 该函数设置由不同线程产生的窗口的显示状态
+        /// </summary>
         /// <param name="hWnd">窗口句柄</param>
         /// <param name="cmdShow">指定窗口如何显示。查看允许值列表，请查阅ShowWindow函数的说明部分</param>
         /// <returns>如果函数原来可见，返回值为非零；如果函数原来被隐藏，返回值为零</returns>
@@ -81,13 +89,17 @@ namespace CommonTools.Tools
         [DllImport("user32.dll")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        /// <summary>.指定的窗口是否最小化</summary>
+        /// <summary>
+        /// 指定的窗口是否最小化
+        /// </summary>
         /// <param name="hWnd">窗口句柄</param>
         /// <returns></returns>
         [DllImport("user32.dll")]
         public static extern bool IsIconic(IntPtr hWnd);
 
-        /// <summary>获取鼠标键盘空闲时间</summary>
+        /// <summary>
+        /// 获取鼠标键盘空闲时间
+        /// </summary>
         /// <returns></returns>
         public static int GetIdleTick()
         {
@@ -98,7 +110,9 @@ namespace CommonTools.Tools
             return Environment.TickCount - (int)plii.DwTime;
         }
 
-        /// <summary>字节数组转换为ASCII字符串</summary>
+        /// <summary>
+        /// 字节数组转换为ASCII字符串
+        /// </summary>
         /// <param name="array"></param>
         /// <returns></returns>
         public static string ByteToAsciiString(byte[] array)
@@ -109,7 +123,9 @@ namespace CommonTools.Tools
             return stringBuilder.ToString();
         }
 
-        /// <summary>字节数组转换为ASCII字符串</summary>
+        /// <summary>
+        /// 字节数组转换为ASCII字符串
+        /// </summary>
         /// <param name="array"></param>
         /// <param name="startIndex"></param>
         /// <param name="length"></param>
@@ -127,7 +143,9 @@ namespace CommonTools.Tools
             return stringBuilder.ToString();
         }
 
-        /// <summary>ASCII字符串转换为字节数组</summary>
+        /// <summary>
+        /// ASCII字符串转换为字节数组
+        /// </summary>
         /// <param name="strAscii"></param>
         /// <returns></returns>
         public static byte[] AsciiStringToByte(string strAscii)
@@ -138,7 +156,9 @@ namespace CommonTools.Tools
             return numArray;
         }
 
-        /// <summary>ASCII字符串转换为字节数组</summary>
+        /// <summary>
+        /// ASCII字符串转换为字节数组
+        /// </summary>
         /// <param name="strAscii"></param>
         /// <param name="split"></param>
         /// <returns></returns>
@@ -147,7 +167,9 @@ namespace CommonTools.Tools
             return AsciiStringToByte(strAscii.Replace(split, ""));
         }
 
-        /// <summary>获取当前进程的实例</summary>
+        /// <summary>
+        /// 获取当前进程的实例
+        /// </summary>
         /// <param name="bIgnorePath">是否忽略路径比较，如果忽略路径比较，只能运行一个实例；
         /// 反之同一个路径下的只能运行一个</param>
         /// <returns></returns>
@@ -164,13 +186,17 @@ namespace CommonTools.Tools
             return null;
         }
 
-        /// <summary>重启应用程序</summary>
+        /// <summary>
+        /// 重启应用程序
+        /// </summary>
         public static void RestartApplication()
         {
             Process.Start(Assembly.GetExecutingAssembly().Location);
         }
 
-        /// <summary>启动应用程序</summary>
+        /// <summary>
+        /// 启动应用程序
+        /// </summary>
         /// <param name="strAppPath">应用程序完整路径</param>
         /// <param name="bOneInstance">只运行一个进程</param>
         /// <returns></returns>
@@ -187,7 +213,9 @@ namespace CommonTools.Tools
             }.Start();
         }
 
-        /// <summary>应用程序是否运行</summary>
+        /// <summary>
+        /// 应用程序是否运行
+        /// </summary>
         /// <param name="strAppName">应用程序的名称，不包含路径和后缀</param>
         /// <returns></returns>
         public static bool IsAppRunning(string strAppName)
@@ -195,7 +223,9 @@ namespace CommonTools.Tools
             return (uint)Process.GetProcessesByName(strAppName).Length > 0U;
         }
 
-        /// <summary>关闭进程</summary>
+        /// <summary>
+        /// 关闭进程
+        /// </summary>
         /// <param name="strAppName">应用程序的名称，不包含路径和后缀</param>
         /// <returns></returns>
         public static void StopApplication(string strAppName)
@@ -204,7 +234,9 @@ namespace CommonTools.Tools
                 process.Kill();
         }
 
-        /// <summary>根据文件路径获取文件标题</summary>
+        /// <summary>
+        /// 根据文件路径获取文件标题
+        /// </summary>
         /// <param name="strPath"></param>
         /// <returns></returns>
         public static string GetFileTitle(string strPath)
@@ -216,7 +248,9 @@ namespace CommonTools.Tools
             return fileInfo.Name;
         }
 
-        /// <summary>将一个实体类复制到另一个实体类</summary>
+        /// <summary>
+        /// 将一个实体类复制到另一个实体类
+        /// </summary>
         /// <param name="objectsrc">源实体类</param>
         /// <param name="objectdest">复制到的实体类</param>
         /// <param name="excudeFields">不复制的属性</param>
@@ -238,7 +272,9 @@ namespace CommonTools.Tools
             }
         }
 
-        /// <summary>转换为弧度</summary>
+        /// <summary>
+        /// 转换为弧度
+        /// </summary>
         /// <param name="degree"></param>
         /// <returns></returns>
         public static double ToRad(double degree)
@@ -246,7 +282,9 @@ namespace CommonTools.Tools
             return degree / 180.0 * Math.PI;
         }
 
-        /// <summary>转换为角度</summary>
+        /// <summary>
+        /// 转换为角度
+        /// </summary>
         /// <param name="rad"></param>
         /// <returns></returns>
         public static double ToDegree(double rad)
@@ -254,7 +292,9 @@ namespace CommonTools.Tools
             return rad / Math.PI * 180.0;
         }
 
-        /// <summary>文件夹拷贝</summary>
+        /// <summary>
+        /// 文件夹拷贝
+        /// </summary>
         /// <param name="strSourceFolder">源文件夹</param>
         /// <param name="strDestFolder">目标文件夹</param>
         public static void CopyFolder(string strSourceFolder, string strDestFolder)
@@ -272,7 +312,9 @@ namespace CommonTools.Tools
             }
         }
 
-        /// <summary>连接共享文件夹</summary>
+        /// <summary>
+        /// 连接共享文件夹
+        /// </summary>
         /// <param name="path">共享路径</param>
         /// <param name="user">用户名</param>
         /// <param name="password">密码</param>
@@ -296,7 +338,9 @@ namespace CommonTools.Tools
             return string.IsNullOrEmpty(error);
         }
 
-        /// <summary>文本加密</summary>
+        /// <summary>
+        /// 文本加密
+        /// </summary>
         /// <param name="strText"></param>
         /// <returns></returns>
         public static string Encode(string strText)
@@ -310,7 +354,9 @@ namespace CommonTools.Tools
             return ByteToAsciiString(byteList.ToArray());
         }
 
-        /// <summary>字符串解密</summary>
+        /// <summary>
+        /// 字符串解密
+        /// </summary>
         /// <param name="strEncode"></param>
         /// <returns></returns>
         public static string Decode(string strEncode)

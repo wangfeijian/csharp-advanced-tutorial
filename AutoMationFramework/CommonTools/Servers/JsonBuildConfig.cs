@@ -3,7 +3,7 @@
 *                                                                    *
 *           CreatTime:      2021-07-27                               *
 *                                                                    *
-*           ModifyTime:     2021-07-27                               *
+*           ModifyTime:     2021-07-28                               *
 *                                                                    *
 *           Email:          wangfeijianhao@163.com                   *
 *                                                                    *
@@ -13,12 +13,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using AutoMationFrameWork.Model;
+using CommonTools.Model;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using CommonTools.Tools;
 
-namespace AutoMationFrameWork.Servers
+namespace CommonTools.Servers
 {
     public class JsonBuildConfig : IBuildConfig
     {

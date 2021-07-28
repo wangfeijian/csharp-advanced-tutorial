@@ -32,8 +32,6 @@ namespace AutoMationFrameWork.View
         public SystemParameterControl()
         {
             InitializeComponent();
-            //IoInputDatGrid.DataContext = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
-
         }
     }
 }

@@ -12,12 +12,13 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using AutoMationFrameWork.Servers;
+using CommonTools.Servers;
 using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+using CommonTools.ViewModel;
 using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Configuration;
+using System.Reflection;
 
 namespace AutoMationFrameWork.ViewModel
 {
@@ -36,7 +37,8 @@ namespace AutoMationFrameWork.ViewModel
             string ConfigKey = ConfigStr["DllKey"];
             string ConfigDllName = ConfigKey.Split(',')[0];
             string ConfigClassName = ConfigKey.Split(',')[1];
-            Type t = Type.GetType(ConfigClassName);
+            var assembly = Assembly.Load(ConfigDllName);
+            Type t = assembly.GetType(ConfigClassName);
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -50,7 +52,7 @@ namespace AutoMationFrameWork.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
-            
+
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<SysParamControlViewModel>();
             SimpleIoc.Default.Register(() => { return (IBuildConfig)t.Assembly.CreateInstance(ConfigClassName); });
@@ -65,7 +67,7 @@ namespace AutoMationFrameWork.ViewModel
         }
 
         public SysParamControlViewModel SysParam => ServiceLocator.Current.GetInstance<SysParamControlViewModel>();
-        
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
