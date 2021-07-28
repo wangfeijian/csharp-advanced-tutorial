@@ -12,7 +12,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace CommonTools
+namespace CommonTools.Tools
 {
     public enum UserMode
     {

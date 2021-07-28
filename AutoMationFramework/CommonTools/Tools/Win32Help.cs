@@ -19,7 +19,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace CommonTools
+namespace CommonTools.Tools
 {
     public struct LastInputInfo
     {

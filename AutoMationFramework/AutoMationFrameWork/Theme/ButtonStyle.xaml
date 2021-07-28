@@ -134,6 +134,7 @@
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="CanUserAddRows" Value="True" />
         <Setter Property="CanUserDeleteRows" Value="True" />
+        <Setter Property="FontFamily" Value="Times New Roman" />
         <Setter Property="CanUserResizeColumns" Value="False" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="GridLinesVisibility" Value="None" />

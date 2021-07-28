@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using CommonTools;
+using CommonTools.Tools;
 using Newtonsoft.Json;
 
 namespace AutoMationFrameWork

@@ -16,7 +16,7 @@ using AutoMationFrameWork.Model;
 using AutoMationFrameWork.Servers;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using CommonTools;
+using CommonTools.Tools;
 
 namespace AutoMationFrameWork.ViewModel
 {

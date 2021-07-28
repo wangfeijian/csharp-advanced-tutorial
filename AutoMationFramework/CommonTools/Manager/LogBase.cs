@@ -13,7 +13,7 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 
-namespace CommonTools
+namespace CommonTools.Manager
 {
     /// <summary>日志信息显示委托函数</summary>
     /// <param name="logListBox"></param>

@@ -15,7 +15,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace CommonTools
+namespace CommonTools.Tools
 {
     public enum Base
     {

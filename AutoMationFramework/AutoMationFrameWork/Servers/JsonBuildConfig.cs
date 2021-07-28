@@ -16,7 +16,7 @@ using System.Windows;
 using AutoMationFrameWork.Model;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using CommonTools;
+using CommonTools.Tools;
 
 namespace AutoMationFrameWork.Servers
 {

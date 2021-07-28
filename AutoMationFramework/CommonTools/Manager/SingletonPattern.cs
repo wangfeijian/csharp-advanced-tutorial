@@ -14,7 +14,7 @@ using System;
 using System.Threading;
 using System.Windows.Controls;
 
-namespace CommonTools
+namespace CommonTools.Manager
 {
     /// <summary>
     /// 单例模板类

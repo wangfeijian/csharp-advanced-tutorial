@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using CommonTools;
+using CommonTools.Tools;
 using Newtonsoft.Json;
 
 namespace AutoMationFrameWork.View

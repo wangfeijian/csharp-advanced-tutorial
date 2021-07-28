@@ -417,7 +417,9 @@
                         VerticalScrollBarVisibility="Hidden">
                         <TextBlock
                             xml:space="preserve"
+                            FontFamily="Times New Roman"
                             FontSize="15"
+                            FontWeight="Light"
                             Text="{StaticResource AxisConfigDes}"
                             TextWrapping="WrapWithOverflow" />
                     </ScrollViewer>

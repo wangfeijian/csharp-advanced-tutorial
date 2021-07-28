@@ -124,7 +124,7 @@
     <sys:String x:Key="AxisConfig">Axis Config Description</sys:String>
     <sys:String x:Key="AxisConfigDes" xml:space="preserve">
         1, Gear Ratio:
-        Pulse per millimeter, or pulse each degree, according to the driver, the driver is calculated, the motor is calculated, the method of the pulse number / motor guide, such as the motor transfer, 1000 pls, the motor is 5mm, then the gear Compared to 10000/5 = 2000.
+        Pulse per millimeter, or pulse each degree, according to the driver, the driver is calculated, the motor is calculated, the method of the pulse number / motor guide, such as the motor transfer, 10000 pls, the motor is 5mm, then the gear Compared to 10000/5 = 2000.
         2, Back Zero:
         0 - With the origin signal as the origin, zero in the positive direction, without EZ signal
         1 - With the origin signal as the origin, negative direction, no EZ signal

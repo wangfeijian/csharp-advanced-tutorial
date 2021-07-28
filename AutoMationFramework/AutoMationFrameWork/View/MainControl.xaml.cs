@@ -18,7 +18,7 @@ using System.Windows;
 using System.Windows.Threading;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
-using CommonTools;
+using CommonTools.Tools;
 using Newtonsoft.Json;
 using Microsoft.Win32;
 

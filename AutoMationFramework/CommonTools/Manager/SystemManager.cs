@@ -13,7 +13,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace CommonTools
+namespace CommonTools.Manager
 {
     /// <summary>系统运行模式设这一，自动运行模式，空跑模式，标定模式，其它自定义模式，</summary>
     public enum SystemMode

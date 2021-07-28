@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
-namespace CommonTools
+namespace CommonTools.Manager
 {
 	public class MessageBoxManager
 	{
