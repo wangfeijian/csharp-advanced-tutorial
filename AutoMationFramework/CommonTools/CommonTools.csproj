@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\SysParamModel.cs" />
+    <Compile Include="Servers\AttributeManager.cs" />
+    <Compile Include="Servers\CheckAttribute.cs" />
     <Compile Include="Servers\IBuildConfig.cs" />
     <Compile Include="Servers\JsonBuildConfig.cs" />
     <Compile Include="Servers\XMLBuildConfig.cs" />

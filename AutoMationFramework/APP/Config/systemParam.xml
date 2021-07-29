@@ -10,7 +10,7 @@
     <Param 键值="AxisZSpeed" 当前值="80" 单位="%" 参数描述="Z轴速度(速度百分比)" 翻译="Z-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisUSpeed" 当前值="80" 单位="%" 参数描述="U轴速度(速度百分比)" 翻译="U-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisASpeed" 当前值="80" 单位="%" 参数描述="X轴速度(速度百分比)" 翻译="X-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
-    <Param 键值="AxisBSpeed" 当前值="102" 单位="%" 参数描述="Y轴速度(速度百分比)" 翻译="Y-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisBSpeed" 当前值="120" 单位="%" 参数描述="Y轴速度(速度百分比)" 翻译="Y-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisCSpeed" 当前值="80" 单位="%" 参数描述="Z轴速度(速度百分比)" 翻译="Z-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisDSpeed" 当前值="80" 单位="%" 参数描述="U轴速度(速度百分比)" 翻译="U-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisSpeed" 当前值="5000" 单位="" 参数描述="标定时轴速度" 翻译="Axis calib speed" 最小值="100" 最大值="5000" />

@@ -10,13 +10,16 @@
 *           Description:    System parameter model                   *
 *********************************************************************/
 using System.Collections.Generic;
+using System.Windows;
+using CommonTools.Servers;
+using CommonTools.Tools;
 
 namespace CommonTools.Model
 {
     /// <summary>
     /// 系统参数类型
     /// </summary>
-    public class ParameterInfo
+    public class ParamInfo
     {
         /// <summary>
         /// 键值
@@ -25,6 +28,7 @@ namespace CommonTools.Model
         /// <summary>
         /// 当前值
         /// </summary>
+        [CheckValue]
         public string CurrentValue { get; set; }
         /// <summary>
         /// 单位
@@ -50,6 +54,17 @@ namespace CommonTools.Model
         /// 权限
         /// </summary>
         public string Authority { get; set; }
+
+        public void CheckValue()
+        {
+            string msg = string.Empty;
+
+            if (!AttributeManager.CheckValue(this, out msg))
+            {
+                CurrentValue = MinValue;
+                MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 
     /// <summary>
@@ -57,11 +72,11 @@ namespace CommonTools.Model
     /// </summary>
     public class Parameters
     {
-        private List<ParameterInfo> _parameterInfos;
+        private List<ParamInfo> _parameterInfos;
         /// <summary>
         /// 参数集合
         /// </summary>
-        public List<ParameterInfo> ParameterInfos
+        public List<ParamInfo> ParameterInfos
         {
             get { return _parameterInfos; }
             set { _parameterInfos = value; }

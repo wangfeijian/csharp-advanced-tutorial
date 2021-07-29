@@ -24,7 +24,7 @@ namespace CommonTools.Servers
     {
         public void SaveConfig<T>(T tCfg, string fileName)
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory +"Config\\"+ fileName+".json";
+            string file = AppDomain.CurrentDomain.BaseDirectory + "Config\\" + fileName + ".json";
             string value = JsonConvert.SerializeObject(tCfg);
             File.WriteAllText(file, value);
         }
@@ -69,6 +69,15 @@ namespace CommonTools.Servers
                 {
                     tCfg = JsonConvert.DeserializeObject<T>(File.ReadAllText(file));
 
+                    Parameters param = tCfg as Parameters;
+
+                    if (param != null)
+                    {
+                        foreach (var parameter in param.ParameterInfos)
+                        {
+                            parameter.CheckValue();
+                        }
+                    }
                 }
                 catch (Exception)
                 {
@@ -92,22 +101,22 @@ namespace CommonTools.Servers
             switch (config)
             {
                 case "system":
-                    //return (T)(object)LoadSystemConfig<SystemCfg>();
+                //return (T)(object)LoadSystemConfig<SystemCfg>();
                 case "point":
-                    //return (T)(object)LoadPointConfig<List<StationPoint>>();
+                //return (T)(object)LoadPointConfig<List<StationPoint>>();
                 case "systemParam":
                 case "systemParamDefault":
                     return (T)(object)LoadParamConfig<Parameters>(config);
                 case "otherConfig":
-                    //return (T)(object)LoadOtherConfig<OtherConfig>();
+                //return (T)(object)LoadOtherConfig<OtherConfig>();
                 case "dataClass":
-                    //return (T)(object)LoadDataClass<AllDataClass>();
+                //return (T)(object)LoadDataClass<AllDataClass>();
                 case "dataClassTitle":
-                    //return (T)(object)LoadDataClassTitle<DataClassTitle>();
+                //return (T)(object)LoadDataClassTitle<DataClassTitle>();
                 case "dataInfo":
-                    //return (T)(object)LoadDataClassInfo<ObservableCollection<DataInfo>>();
+                //return (T)(object)LoadDataClassInfo<ObservableCollection<DataInfo>>();
                 case "dataShow":
-                    //return (T)(object)LoadDataShow<DataShowClass>();
+                //return (T)(object)LoadDataShow<DataShowClass>();
                 case "dataSave":
                     break;
                     //return (T)(object)LoadDataSave<DataSaveClass>();
@@ -213,20 +222,26 @@ namespace CommonTools.Servers
 
         private T LoadParamConfig<T>(string fileName) where T : Parameters
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory+"Config\\"+fileName+".json";
+            string file = AppDomain.CurrentDomain.BaseDirectory + "Config\\" + fileName + ".json";
             Parameters paramCfg;
 
             if (!File.Exists(file))
             {
                 paramCfg = new Parameters
                 {
-                    ParameterInfos = new List<ParameterInfo>()
+                    ParameterInfos = new List<ParamInfo>()
                 };
                 return paramCfg as T;
             }
             else
             {
                 paramCfg = JsonConvert.DeserializeObject<Parameters>(File.ReadAllText(file));
+
+                foreach (var parameter in paramCfg.ParameterInfos)
+                {
+                    parameter.CheckValue();
+                }
+
                 return paramCfg as T;
             }
         }

@@ -31,7 +31,7 @@ namespace CommonTools.ViewModel
         public ICommand SaveDefaultConfigCommand { get; set; }
         public ICommand ResetDefaultConfigCommand { get; set; }
         public ICommand CellValueChangeCommand { get; set; }
-        public ICommand LoadingRowCommand { get; set; }
+        //public ICommand LoadingRowCommand { get; set; }
 
 
         private readonly IBuildConfig _bulidConfig;
@@ -59,39 +59,41 @@ namespace CommonTools.ViewModel
             SaveDefaultConfigCommand = new RelayCommand(SaveDefaultConfig);
             ResetDefaultConfigCommand = new RelayCommand(LoadDefaultConfig);
             CellValueChangeCommand = new RelayCommand<object>(CellValueChangedCheck);
-            LoadingRowCommand = new RelayCommand<DataGridRowEventArgs>(LoadingRowInit);
+            //LoadingRowCommand = new RelayCommand<DataGridRowEventArgs>(LoadingRowInit);
         }
 
-        private void LoadingRowInit(DataGridRowEventArgs e)
-        {
-            var dataRow = e.Row.DataContext as ParameterInfo;
-            if (dataRow != null)
-            {
-                string strValue = dataRow.CurrentValue;
-                string strMin = dataRow.MinValue;
-                string strMax = dataRow.MaxValue;
+        //private void LoadingRowInit(DataGridRowEventArgs e)
+        //{
+        //    var dataRow = e.Row.DataContext as ParamInfo;
+        //    if (dataRow != null)
+        //    {
+        //        string strValue = dataRow.CurrentValue;
+        //        string strMin = dataRow.MinValue;
+        //        string strMax = dataRow.MaxValue;
 
-                if (strMin == string.Empty || strMax == string.Empty) return;
-                double value = 0;
-                try
-                {
-                    value = Convert.ToDouble(strValue);
-                }
-                catch
-                {
-                    MessageBox.Show(LocationServices.GetLang("ParamError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
-                    Environment.Exit(0);
-                }
+        //        if (strMin == string.Empty || strMax == string.Empty) return;
+        //        double value = 0;
+        //        try
+        //        {
+        //            value = Convert.ToDouble(strValue);
+        //        }
+        //        catch
+        //        {
+        //            dataRow.CurrentValue = strMin;
+        //            //MessageBox.Show(LocationServices.GetLang("ParamError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+        //            //Environment.Exit(0);
+        //        }
 
-                double min = Convert.ToDouble(strMin);
-                double max = Convert.ToDouble(strMax);
-                if (value > max || value < min)
-                {
-                    MessageBox.Show(LocationServices.GetLang("ParamError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
-                    Environment.Exit(0);
-                }
-            }
-        }
+        //        double min = Convert.ToDouble(strMin);
+        //        double max = Convert.ToDouble(strMax);
+        //        if (value > max || value < min)
+        //        {
+        //            dataRow.CurrentValue = strMin;
+        //            //MessageBox.Show(LocationServices.GetLang("ParamError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+        //            //Environment.Exit(0);
+        //        }
+        //    }
+        //}
 
         private void CellValueChangedCheck(object obj)
         {

@@ -35,7 +35,7 @@ namespace AutoMationFrameWork
 
         public App()
         {
-            Authority.GetUserMode();
+            //Authority.GetUserMode();
             Startup += (StartupEventHandler)((s, e) =>
             {
                bool createdNew;

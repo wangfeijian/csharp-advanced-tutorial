@@ -351,7 +351,7 @@ namespace CommonTools.Servers
             {
                 parameters = new Parameters
                 {
-                    ParameterInfos = new List<ParameterInfo>()
+                    ParameterInfos = new List<ParamInfo>()
                 };
                 return parameters as T;
             }
@@ -369,7 +369,7 @@ namespace CommonTools.Servers
             var param = from item in doc.Descendants("Param")
                         where item.HasAttributes
                         select
-                            new ParameterInfo
+                            new ParamInfo
                             {
                                 KeyValue = item.Attribute("键值")?.Value,
                                 CurrentValue = item.Attribute("当前值")?.Value,
@@ -384,6 +384,11 @@ namespace CommonTools.Servers
             {
                 ParameterInfos = param.ToList()
             };
+
+            foreach (var parameter in parameters.ParameterInfos)
+            {
+                parameter.CheckValue();
+            }
             return parameters;
         }
 

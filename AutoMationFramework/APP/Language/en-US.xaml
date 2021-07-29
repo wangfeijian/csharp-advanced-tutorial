@@ -95,6 +95,7 @@
     <sys:String x:Key="MaxValue">MaxValue</sys:String>
     <sys:String x:Key="Authority">Authority</sys:String>
     <sys:String x:Key="ParamError">System parameters error!!</sys:String>
+    <sys:String x:Key="ParamMessageInfo">The value of the system parameter {0} is not in the set range!! Minimum replacement will be used!!</sys:String>
     <!--  MessageBox变量  -->
     <sys:String x:Key="OK">OK</sys:String>
     <sys:String x:Key="Cancel">Cancel</sys:String>
