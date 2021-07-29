@@ -96,6 +96,9 @@
     <sys:String x:Key="Authority">权限</sys:String>
     <sys:String x:Key="ParamError">系统运行参数错误！</sys:String>
     <sys:String x:Key="ParamMessageInfo">系统参数{0}的值不在设置范围内！！将使用最小值替换！！</sys:String>
+    <sys:String x:Key="ParamNotExist">系统配置文件中{0}参数不存在!!</sys:String>
+    <sys:String x:Key="LogPathSetError">log4net.config配置文件路径设置错误!!</sys:String>
+    <sys:String x:Key="LogConfigReadError">日志系统配置文件读取失败!!</sys:String>
     <!--  MessageBox变量  -->
     <sys:String x:Key="OK">确定</sys:String>
     <sys:String x:Key="Cancel">取消</sys:String>

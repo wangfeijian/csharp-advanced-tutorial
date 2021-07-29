@@ -11,6 +11,7 @@
 *********************************************************************/
 
 using System.Runtime.InteropServices;
+using CommonTools.Manager;
 
 namespace CommonTools.Tools
 {
@@ -45,7 +46,7 @@ namespace CommonTools.Tools
         /// </summary>
         public delegate void ModeChangedHandler();
 
-        private static UserMode _userMode = (UserMode) GetCurUser();
+        private static UserMode _userMode = (UserMode)GetCurUser();
 
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int GetCurUser();
@@ -132,11 +133,11 @@ namespace CommonTools.Tools
         /// <param name="strOldPassword">旧密码</param>
         /// <param name="strNewPassword">新密码</param>
         /// <returns></returns>
-        public static bool ChangePassword(UserMode newMode,string strOldPassword, string strNewPassword)
+        public static bool ChangePassword(UserMode newMode, string strOldPassword, string strNewPassword)
         {
-            if (ChangePassword((int)newMode, strOldPassword, strNewPassword)==1)
+            if (ChangePassword((int)newMode, strOldPassword, strNewPassword) == 1)
             {
-                //SingletonTemplate<WarningMgr>.GetInstance().Info("Modify the user " + newMode.ToString() + " password success !");
+                SingletonPattern<RunInforManager>.GetInstance().Info("Modify the user " + newMode + " password success !");
                 return true;
             }
             //SingletonTemplate<WarningMgr>.GetInstance().Info("Modify the user " + newMode.ToString() + " password failed !");
@@ -153,7 +154,8 @@ namespace CommonTools.Tools
         {
             if ((UserMode)ChangeUser((int)newMode, strPassword) != newMode)
                 return false;
-            //SingletonTemplate<WarningMgr>.GetInstance().Info(_userMode.ToString() + " change security to " + newMode.ToString());
+
+            SingletonPattern<RunInforManager>.GetInstance().Info(_userMode + " change security to " + newMode);
             _userMode = newMode;
 
             ModeChangedEvent?.Invoke();

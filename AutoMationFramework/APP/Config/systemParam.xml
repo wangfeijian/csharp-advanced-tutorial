@@ -1,16 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <SystemParam>
-  <ParamDsecribe>
+  <ParamDescribe>
     <ParamDescribe 修改者="Admin" 文件描述="系统配置参数-运行用" />
-  </ParamDsecribe>
+  </ParamDescribe>
   <Param>
     <Param 键值="RunParam" 当前值="" 单位="" 参数描述="-----------运行参数设置-----------" 翻译="---Operation parameter setting---" 最小值="" 最大值="" />
-    <Param 键值="AxisXSpeed" 当前值="90" 单位="%" 参数描述="X轴速度(速度百分比)" 翻译="X-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisXSpeed" 当前值="80" 单位="%" 参数描述="X轴速度(速度百分比)" 翻译="X-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisYSpeed" 当前值="80" 单位="%" 参数描述="Y轴速度(速度百分比)" 翻译="Y-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisZSpeed" 当前值="80" 单位="%" 参数描述="Z轴速度(速度百分比)" 翻译="Z-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisUSpeed" 当前值="80" 单位="%" 参数描述="U轴速度(速度百分比)" 翻译="U-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisASpeed" 当前值="80" 单位="%" 参数描述="X轴速度(速度百分比)" 翻译="X-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
-    <Param 键值="AxisBSpeed" 当前值="120" 单位="%" 参数描述="Y轴速度(速度百分比)" 翻译="Y-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
+    <Param 键值="AxisBSpeed" 当前值="80" 单位="%" 参数描述="Y轴速度(速度百分比)" 翻译="Y-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisCSpeed" 当前值="80" 单位="%" 参数描述="Z轴速度(速度百分比)" 翻译="Z-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisDSpeed" 当前值="80" 单位="%" 参数描述="U轴速度(速度百分比)" 翻译="U-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />
     <Param 键值="AxisSpeed" 当前值="5000" 单位="" 参数描述="标定时轴速度" 翻译="Axis calib speed" 最小值="100" 最大值="5000" />
@@ -20,6 +20,44 @@
     <Param 键值="RegTimeOut" 当前值="100" 单位="sec" 参数描述="寄存器等待超时时间" 翻译="Register wait timeout" 最小值="0" 最大值="600" />
     <Param 键值="CommunicationTimeOut" 当前值="100" 单位="sec" 参数描述="通讯命令超时时间" 翻译="Communication timeout" 最小值="0" 最大值="600" />
     <Param 键值="OpcTimeOut" 当前值="100" 单位="sec" 参数描述="Opc等待超时时间" 翻译="OPC wait timeout" 最小值="0" 最大值="600" />
+    <Param 键值="MessageTimeOut" 当前值="100" 单位="sec" 参数描述="提示框等待时间" 翻译="Prompt box waiting time" 最小值="0" 最大值="3600" />
+    <Param 键值="ScanTime" 当前值="10" 单位="ms" 参数描述="系统扫描周期" 翻译="System scan cycle" 最小值="1" 最大值="50" />
+    <Param 键值="IdleTime" 当前值="10" 单位="min" 参数描述="无操作自动转为OP模式时间" 翻译="Idle switch to OP mode time" 最小值="1" 最大值="60" />
+    <Param 键值="CylDelayTime" 当前值="100" 单位="ms" 参数描述="气缸延时时间" 翻译="Cylinder delay time" 最小值="0" 最大值="10000" />
+    <Param 键值="AntiShakeTimeMs" 当前值="50" 单位="ms" 参数描述="IO防抖时间" 翻译="IO anti shake time" 最小值="0" 最大值="100" />
+    <Param 键值="MoveInpDelay" 当前值="50" 单位="ms" 参数描述="运动到位延时" 翻译="Move inp delay" 最小值="0" 最大值="10000" />
+    <Param 键值="CCDInpDelay" 当前值="200" 单位="ms" 参数描述="相机到位延时" 翻译="CCD inp delay" 最小值="0" 最大值="10000" />
+    <Param 键值="Laser1InpDelay" 当前值="200" 单位="ms" 参数描述="镭射1到位延时" 翻译="Laser1 inp delay" 最小值="0" 最大值="10000" />
+    <Param 键值="Laser2InpDelay" 当前值="200" 单位="ms" 参数描述="镭射2到位延时" 翻译="Laser2 inp delay" 最小值="0" 最大值="10000" />
+    <Param 键值="DebugParam" 当前值="" 单位="" 参数描述="-----------调试参数设置-----------" 翻译="Debug parameter settings" 最小值="" 最大值="" />
+    <Param 键值="SafetyDoor" 当前值="0" 单位="/" 参数描述="是否启动安全门（1:启用 0:不启用）" 翻译="Enable safety door(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="FullScreen" 当前值="0" 单位="/" 参数描述="程序全屏运行（1:启用 0:不启用）" 翻译="Enable full screen(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="AutoCycle" 当前值="0" 单位="/" 参数描述="全自动运行（1:启用 0:不启用）" 翻译="Fully automatic operation(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="SystemSpeed" 当前值="100" 单位="%" 参数描述="系统运动速度百分比" 翻译="System speed percentage" 最小值="1" 最大值="100" />
+    <Param 键值="VisionEnable" 当前值="0" 单位="/" 参数描述="是否启用相机（1:启用 0:不启用）" 翻译="Enable vision(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="CameraCrossEnable" 当前值="1" 单位="/" 参数描述="是否启用相机十字线（1:启用 0:不启用）" 翻译="Enable Camera cross(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="PDCAEnable" 当前值="0" 单位="/" 参数描述="是否启动PDCA数据上传（1:启用 0:不启用）" 翻译="Enable PDCA(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="SaveShowLogEnable" 当前值="0" 单位="/" 参数描述="是否保存ShowLog（1:启用 0:不启用）" 翻译="Enable save show log(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="AntiShakeEnable" 当前值="1" 单位="/" 参数描述="是否启用IO防抖（1:启用 0:不启用）" 翻译="Enable IO anti shake(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="GrrTestEnable" 当前值="0" 单位="/" 参数描述="是否启用GRR测试（1:启用 0:不启用）" 翻译="Enable Grr test(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="GrrTestNum" 当前值="32" 单位="/" 参数描述="GRR测试次数" 翻译="Grr test number" 最小值="1" 最大值="1000" />
+    <Param 键值="TopCoverEnable" 当前值="0" 单位="/" 参数描述="是否启用盖板测试（1:启用 0:不启用）" 翻译="Enable TopCover test(1:Enable 0:Disable)" 最小值="0" 最大值="1" />
+    <Param 键值="Laser1OffsetX" 当前值="1.1" 单位="/" 参数描述="镭射1定位偏差X" 翻译="Laser1 offset x" 最小值="0.01" 最大值="10" />
+    <Param 键值="Laser1OffsetY" 当前值="0.3" 单位="/" 参数描述="镭射1定位偏差Y" 翻译="Laser1 offset y" 最小值="0.01" 最大值="10" />
+    <Param 键值="Laser1PointOffset" 当前值="0.05" 单位="/" 参数描述="镭射1点位范围偏差" 翻译="Laser1 point offset" 最小值="0.01" 最大值="10" />
+    <Param 键值="FileSaveParam" 当前值="" 单位="" 参数描述="---------文件保存参数设置---------" 翻译="---File save parameter settings---" 最小值="" 最大值="" />
+    <Param 键值="ImageSavePath" 当前值="d:\exe\Image" 单位="/" 参数描述="图片存储路径" 翻译="Picture storage path" 最小值="" 最大值="" />
+    <Param 键值="ImageSaveParam" 当前值="2" 单位="/" 参数描述="原始图存储(0:不存储 1:NG图 2:存储)" 翻译="Save raw picture(0:none 1:NG picture 2:All)" 最小值="0" 最大值="2" />
+    <Param 键值="WindowSaveParam" 当前值="2" 单位="" 参数描述="窗口图存储(0:不存储 1:NG图 2:存储)" 翻译="Save window picture(0:none 1:NG picture 2:All)" 最小值="0" 最大值="2" />
+    <Param 键值="ImageKeepTime" 当前值="10" 单位="day" 参数描述="图像文件存储时间" 翻译="Image file storage days" 最小值="10" 最大值="1000" />
+    <Param 键值="LogSavePath" 当前值="d:\exe\Log" 单位="/" 参数描述="日志存储路径" 翻译="Log storage path" 最小值="" 最大值="" />
+    <Param 键值="ReportSavePath" 当前值="d:\exe\Report" 单位="/" 参数描述="测试报告存储路径" 翻译="Test report storage path" 最小值="" 最大值="" />
+    <Param 键值="LogKeepTime" 当前值="31" 单位="day" 参数描述="日志存储时间" 翻译="Log storage days" 最小值="10" 最大值="1000" />
+    <Param 键值="DataSavePath" 当前值="d:\exe\Data" 单位="/" 参数描述="数据文件存储路径" 翻译="Data file storage path" 最小值="" 最大值="" />
+    <Param 键值="DataKeepTime" 当前值="31" 单位="day" 参数描述="数据文件存储时间" 翻译="Data file storage days" 最小值="10" 最大值="1000" />
+    <Param 键值="CCD1CalibStep" 当前值="1.5" 单位="mm" 参数描述="相机1标定步长" 翻译="CCD1 Calib step" 最小值="0.1" 最大值="1000" />
+    <Param 键值="CCD3CalibStep" 当前值="4" 单位="mm" 参数描述="相机3标定步长" 翻译="CCD3 Calib step" 最小值="0.1" 最大值="1000" />
+    <Param 键值="CalibInpDelay" 当前值="1000" 单位="ms" 参数描述="标定到位延时" 翻译="Calib delay" 最小值="0" 最大值="10000" />
     <Param 键值="LaserMeasureCount" 当前值="10" 单位="/" 参数描述="镭射测量次数" 翻译="Laser measure counts" 最小值="1" 最大值="50" />
     <Param 键值="LaserDistance1" 当前值="110.89" 单位="mm" 参数描述="镭射头之间的距离" 翻译="Distance between two laser" 最小值="0.1" 最大值="1000" />
     <Param 键值="LaserDistance2" 当前值="227.21" 单位="mm" 参数描述="镭射头之间的距离" 翻译="Distance between two laser" 最小值="0.1" 最大值="1000" />

@@ -43,7 +43,7 @@ namespace CommonTools.Servers
             double min = Convert.ToDouble(strMin);
             double max = Convert.ToDouble(strMax);
 
-            return value > min && value < max;
+            return value >= min && value <= max;
 
         }
     }

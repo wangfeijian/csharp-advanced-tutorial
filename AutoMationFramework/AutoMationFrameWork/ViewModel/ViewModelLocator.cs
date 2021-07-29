@@ -19,6 +19,7 @@ using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Configuration;
 using System.Reflection;
+using CommonTools.Manager;
 
 namespace AutoMationFrameWork.ViewModel
 {
@@ -56,6 +57,8 @@ namespace AutoMationFrameWork.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<SysParamControlViewModel>();
             SimpleIoc.Default.Register(() => { return (IBuildConfig)t.Assembly.CreateInstance(ConfigClassName); });
+
+            RunInforManager.GetInstance().ReadXmlConfig();
         }
 
         public MainViewModel Main

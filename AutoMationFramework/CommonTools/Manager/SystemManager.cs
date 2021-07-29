@@ -12,10 +12,16 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using GalaSoft.MvvmLight.Ioc;
 using System.Windows;
+using CommonTools.Model;
+using CommonTools.Tools;
+using CommonTools.ViewModel;
 
 namespace CommonTools.Manager
 {
@@ -183,6 +189,9 @@ namespace CommonTools.Manager
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void SetDouble(int index, double value);
 
+        [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void AppendMonitor(string szPath, string szExt, double dbKeepDays, int bRestart);
+
         // c中的char *返回，在c#中需要通过IntPtr来接收
         //Marshal.PtrToStringAnsi(ptr1)通过这个方法来转成字符串
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -209,36 +218,249 @@ namespace CommonTools.Manager
         /// <summary>
         /// 改变系统运行模式
         /// </summary>
-        /// <param name="Mode"></param>
-        public void ChangeMode(SystemMode Mode)
+        /// <param name="mode"></param>
+        public void ChangeMode(SystemMode mode)
         {
-            if (_mode == Mode)
+            if (_mode == mode)
                 return;
 
-            //SingletonTemplate<WarningMgr>.GetInstance().Info(this._mode.ToString() + " change Mode to " + Mode.ToString());
-            _mode = Mode;
+            SingletonPattern<RunInforManager>.GetInstance().Info(_mode + " change Mode to " + Mode);
+            _mode = mode;
 
-            StateChangedEvent?.Invoke(Mode);
+            StateChangedEvent?.Invoke(mode);
         }
 
-        /// <summary>获取参数字符串值</summary>
+        /// <summary>
+        /// 判断当前是否属于空跑模式
+        /// </summary>
+        /// <returns></returns>
+        public bool IsDryRunMode()
+        {
+            return _mode == SystemMode.DryRunMode;
+        }
+
+        /// <summary>
+        /// 判断当前是否属于自动标定模式
+        /// </summary>
+        /// <returns></returns>
+        public bool IsAutoCalibMode()
+        {
+            return _mode == SystemMode.CalibRunMode;
+        }
+
+        /// <summary>
+        /// 判断当前是否属于模拟运行模式
+        /// </summary>
+        /// <returns></returns>
+        public bool IsSimulateRunMode()
+        {
+            return _mode == SystemMode.SimulateRunMode;
+        }
+
+        /// <summary>
+        /// 判断当前是否属于正常运行模式
+        /// </summary>
+        /// <returns></returns>
+        public bool IsNormalRunMode()
+        {
+            return _mode == SystemMode.NormalRunMode;
+        }
+
+        /// <summary>
+        /// 获取系统扫描周期时间
+        /// </summary>
+        public int ScanTime => _nScanTime;
+
+        /// <summary>获取系统速度百分比</summary>
+        public double SystemSpeed
+        {
+            get
+            {
+                return GetParamDouble(nameof(SystemSpeed));
+            }
+            set
+            {
+                SetParamDouble(nameof(SystemSpeed), value);
+            }
+        }
+
+        private void InitParam()
+        {
+            _nScanTime = GetParamInt("ScanTime");
+            if (_nScanTime == 0)
+                _nScanTime = 20;
+            AppendMonitor(GetImagePath(), "bmp", GetParamDouble("ImageKeepTime"), 1);
+            AppendMonitor(GetImagePath(), "jpg", GetParamDouble("ImageKeepTime"), 0);
+            AppendMonitor(GetImagePath(), "png", GetParamDouble("ImageKeepTime"), 0);
+            AppendMonitor(GetDataPath(), "csv", GetParamDouble("DataKeepTime"), 0);
+            AppendMonitor(GetLogPath(), "csv", GetParamDouble("LogKeepTime"), 0);
+            foreach (KeyValuePair<string, double> keyValuePair in _dictMonitorPath)
+            {
+                string[] strArray = keyValuePair.Key.Split('=');
+                if (strArray.Length == 2)
+                    AppendMonitor(strArray[0], strArray[1], keyValuePair.Value, 0);
+            }
+        }
+
+        /// <summary>
+        /// 添加监控文件
+        /// </summary>
+        /// <param name="strPath">监控路径</param>
+        /// <param name="strExt">监控文件后缀名</param>
+        /// <param name="dbDays">监控天数</param>
+        public void AppendMonitor(string strPath, string strExt, double dbDays)
+        {
+            AppendMonitor(strPath, strExt, dbDays, 0);
+            this._dictMonitorPath.AddOrUpdate(strPath + "=" + strExt, dbDays, (key, value) => dbDays);
+        }
+
+        /// <summary>
+        /// 获取参数浮点数值
+        /// </summary>
+        /// <param name="szParam">值索引</param>
+        /// <returns></returns>
+        public double GetParamDouble(string szParam)
+        {
+            var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
+            var param = from item in systemParm.AllParameters.ParameterInfos
+                        where item.KeyValue == szParam
+                        select item;
+
+            var paramInfos = param as ParamInfo[] ?? param.ToArray();
+
+            if (paramInfos.Length == 0)
+            {
+                string info = LocationServices.GetLang("LocationServices");
+                string msg = string.Format(info, szParam);
+                MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+                return 0.0;
+            }
+
+            return Convert.ToDouble(paramInfos.First().CurrentValue);
+        }
+
+        /// <summary>
+        /// 获取参数浮点数值
+        /// </summary>
+        /// <param name="szParam">值索引</param>
+        /// <returns></returns>
+        public int GetParamInt(string szParam)
+        {
+            var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
+            var param = from item in systemParm.AllParameters.ParameterInfos
+                        where item.KeyValue == szParam
+                        select item;
+
+            var paramInfos = param as ParamInfo[] ?? param.ToArray();
+
+            if (paramInfos.Length == 0)
+            {
+                string info = LocationServices.GetLang("LocationServices");
+                string msg = string.Format(info, szParam);
+                MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+                return 0;
+            }
+
+            return Convert.ToInt32(paramInfos.First().CurrentValue);
+        }
+
+        /// <summary>
+        /// 设置参数浮点数值
+        /// </summary>
+        /// <param name="szParam">值索引</param>
+        /// <param name="fData">浮点值</param>
+        /// <returns></returns>
+        public void SetParamDouble(string szParam, double fData)
+        {
+            var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
+            var param = from item in systemParm.AllParameters.ParameterInfos
+                        where item.KeyValue == szParam
+                        select item;
+            var paramInfos = param as ParamInfo[] ?? param.ToArray();
+
+            if (paramInfos.Length > 0)
+            {
+
+                foreach (var paramInfo in systemParm.AllParameters.ParameterInfos)
+                {
+                    // ISSUE: reference to a compiler-generated field
+                    
+                    if (paramInfo.CurrentValue != fData.ToString(CultureInfo.CurrentCulture))
+                    {
+                        // ISSUE: reference to a compiler-generated field
+                        SystemParamChangedEvent?.Invoke(szParam, paramInfo.CurrentValue, fData);
+                    }
+                    paramInfo.CurrentValue = fData.ToString(CultureInfo.CurrentCulture);
+                }
+            }
+            else
+            {
+                string info = LocationServices.GetLang("LocationServices");
+                string msg = string.Format(info, szParam);
+                MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// 获取参数字符串值
+        /// </summary>
         /// <param name="szParam">值索引</param>
         /// <returns></returns>
         public string GetParamString(string szParam)
         {
-            //var systemParm = SimpleIoc.Default.GetInstance<AutoMationFrameWork.ViewModel.SysParamControlViewModel>
-            //if (this.m_DicParam.ContainsKey(szParam))
-            //    return this.m_DicParam[szParam].m_strValue;
-            //string format = "系统配置文件中{0}参数不存在";
-            //string caption = "参数配置错误";
-            //if ((uint)SingletonTemplate<LanguageMgr>.GetInstance().LanguageID > 0U)
-            //{
-            //    format = "The {0} parameter does not exist in the system configuration file";
-            //    caption = "Parameter configuration error";
-            //}
-            //int num = (int)MessageBox.Show(string.Format(format, (object)szParam), caption);
-            return string.Empty;
+            var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
+            var param = from item in systemParm.AllParameters.ParameterInfos
+                where item.KeyValue == szParam
+                select item;
 
+            var paramInfos = param as ParamInfo[] ?? param.ToArray();
+
+            if (paramInfos.Length==0)
+            {
+                string info = LocationServices.GetLang("LocationServices");
+                string msg = string.Format(info, szParam);
+                MessageBox.Show(msg,LocationServices.GetLang("Tips"),MessageBoxButton.OK,MessageBoxImage.Error);
+                return string.Empty;
+            }
+
+            return paramInfos.First().CurrentValue;
+        }
+
+        /// <summary>
+        /// 得到保存Image路径下子文件夹的绝对路径
+        /// </summary>
+        /// <param name="strSubDir"></param>
+        /// <returns></returns>
+        public string GetImagePath(string strSubDir = "")
+        {
+            return GetOrCreateDir(GetParamString("ImageSavePath"), strSubDir);
+        }
+
+        /// <summary>
+        /// 得到保存data路径下子文件夹的绝对路径
+        /// </summary>
+        /// <param name="strSubDir"></param>
+        /// <returns></returns>
+        public string GetDataPath(string strSubDir = "")
+        {
+            return GetOrCreateDir(GetParamString("DataSavePath"), strSubDir);
+        }
+
+        /// <summary>
+        /// 得到保存log路径下子文件夹的绝对路径
+        /// </summary>
+        /// <param name="strSubDir"></param>
+        /// <returns></returns>
+        public string GetLogPath(string strSubDir = "")
+        {
+            return GetOrCreateDir(GetParamString("LogSavePath"), strSubDir);
+        }
+
+        private string GetOrCreateDir(string strDir, string strSubDir)
+        {
+            if (!Directory.Exists(strDir + strSubDir))
+                Directory.CreateDirectory(strDir + strSubDir);
+            return strDir + strSubDir;
         }
     }
 }

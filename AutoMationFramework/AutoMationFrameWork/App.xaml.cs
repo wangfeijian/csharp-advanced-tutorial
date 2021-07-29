@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using CommonTools.Manager;
 using CommonTools.Tools;
 using Newtonsoft.Json;
 
@@ -35,7 +36,7 @@ namespace AutoMationFrameWork
 
         public App()
         {
-            //Authority.GetUserMode();
+            Authority.GetUserMode();
             Startup += (StartupEventHandler)((s, e) =>
             {
                bool createdNew;
@@ -59,6 +60,7 @@ namespace AutoMationFrameWork
                    Environment.Exit(0);
                }
            });
+
             var directoryInfo = new DirectoryInfo(System.Windows.Forms.Application.ExecutablePath).Parent;
             if (directoryInfo != null)
                 SetDllDirectory(directoryInfo.FullName + "\\Dll");
