@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMationFrameWork", "Auto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTools", "CommonTools\CommonTools.csproj", "{B11174C1-280B-4E41-9856-7DA214A6F6C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMationFrameworkDll", "AutoMationFrameworkDll\AutoMationFrameworkDll.csproj", "{4B7A172B-89A8-40EE-80EB-19CFE8325A6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionIo", "MotionIo\MotionIo.csproj", "{72AB7783-800D-4EFA-871B-18B9D975107E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,22 @@ Global
 		{B11174C1-280B-4E41-9856-7DA214A6F6C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B11174C1-280B-4E41-9856-7DA214A6F6C3}.Release|x64.ActiveCfg = Release|Any CPU
 		{B11174C1-280B-4E41-9856-7DA214A6F6C3}.Release|x64.Build.0 = Release|Any CPU
+		{4B7A172B-89A8-40EE-80EB-19CFE8325A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B7A172B-89A8-40EE-80EB-19CFE8325A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B7A172B-89A8-40EE-80EB-19CFE8325A6B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4B7A172B-89A8-40EE-80EB-19CFE8325A6B}.Debug|x64.Build.0 = Debug|Any CPU
+		{4B7A172B-89A8-40EE-80EB-19CFE8325A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B7A172B-89A8-40EE-80EB-19CFE8325A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B7A172B-89A8-40EE-80EB-19CFE8325A6B}.Release|x64.ActiveCfg = Release|Any CPU
+		{4B7A172B-89A8-40EE-80EB-19CFE8325A6B}.Release|x64.Build.0 = Release|Any CPU
+		{72AB7783-800D-4EFA-871B-18B9D975107E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72AB7783-800D-4EFA-871B-18B9D975107E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72AB7783-800D-4EFA-871B-18B9D975107E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{72AB7783-800D-4EFA-871B-18B9D975107E}.Debug|x64.Build.0 = Debug|Any CPU
+		{72AB7783-800D-4EFA-871B-18B9D975107E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72AB7783-800D-4EFA-871B-18B9D975107E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72AB7783-800D-4EFA-871B-18B9D975107E}.Release|x64.ActiveCfg = Release|Any CPU
+		{72AB7783-800D-4EFA-871B-18B9D975107E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{72AB7783-800D-4EFA-871B-18B9D975107E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MotionIo</RootNamespace>
+    <AssemblyName>MotionIo</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\APP\Dll\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>..\APP\Dll\MotionIo.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APS168.cs" />
+    <Compile Include="APS_Define.cs" />
+    <Compile Include="Dask.cs" />
+    <Compile Include="ecat_motion.cs" />
+    <Compile Include="GTS.cs" />
+    <Compile Include="ImcApi.cs" />
+    <Compile Include="IOC0640.cs" />
+    <Compile Include="IoControl.cs" />
+    <Compile Include="IoControl0640A.cs" />
+    <Compile Include="IoControl7230.cs" />
+    <Compile Include="IoControl7432.cs" />
+    <Compile Include="IoControl8254.cs" />
+    <Compile Include="IoControlDelta.cs" />
+    <Compile Include="IoControlDmc3400.cs" />
+    <Compile Include="IoControlDmcCan.cs" />
+    <Compile Include="IoControlDmcEcat.cs" />
+    <Compile Include="IoControlGts.cs" />
+    <Compile Include="IoControlInoEcat.cs" />
+    <Compile Include="IoControlPcieM60.cs" />
+    <Compile Include="LTDMC.cs" />
+    <Compile Include="Motion.cs" />
+    <Compile Include="Motion_DmcEcat.cs" />
+    <Compile Include="Motion_InoEcat.cs" />
+    <Compile Include="Motion_PCIeM60.cs" />
+    <Compile Include="PCI_DMC.cs" />
+    <Compile Include="PCI_DMC_ERR.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTools\CommonTools.csproj">
+      <Project>{b11174c1-280b-4e41-9856-7da214a6f6c3}</Project>
+      <Name>CommonTools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

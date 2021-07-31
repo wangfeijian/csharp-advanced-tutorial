@@ -44,10 +44,14 @@ namespace CommonTools.ViewModel
             set { Set(ref _allParameters, value); }
         }
 
-        public SysParamControlViewModel(IBuildConfig buildConfig)
+        public string FileDir { get; set; }
+
+        public SysParamControlViewModel(IBuildConfig buildConfig, string dir)
         {
+            FileDir = AppDomain.CurrentDomain.BaseDirectory + "Config\\" + dir;
+            string fileName = FileDir + "\\systemParam";
             _bulidConfig = buildConfig;
-            AllParameters = _bulidConfig.LoadConfig<Parameters>("systemParam");
+            AllParameters = _bulidConfig.LoadConfig<Parameters>(fileName);
             InitCommand();
         }
 
@@ -116,7 +120,7 @@ namespace CommonTools.ViewModel
                 }
                 catch
                 {
-                    ((TextBox) dataGrid.Columns[1].GetCellContent(dataGrid.Items[dataGrid.SelectedIndex])).Text = strValue;
+                    ((TextBox)dataGrid.Columns[1].GetCellContent(dataGrid.Items[dataGrid.SelectedIndex])).Text = strValue;
                     MessageBox.Show(LocationServices.GetLang("ParamError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -125,16 +129,17 @@ namespace CommonTools.ViewModel
                 double max = Convert.ToDouble(strMax);
                 if (value > max || value < min)
                 {
-                    ((TextBox) dataGrid.Columns[1].GetCellContent(dataGrid.Items[dataGrid.SelectedIndex])).Text = strValue;
+                    ((TextBox)dataGrid.Columns[1].GetCellContent(dataGrid.Items[dataGrid.SelectedIndex])).Text = strValue;
                     MessageBox.Show(LocationServices.GetLang("ParamError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
         private void LoadDefaultConfig()
         {
+            string file = FileDir + "\\systemParamDefault";
             try
             {
-                AllParameters = _bulidConfig.LoadConfig<Parameters>("systemParamDefault");
+                AllParameters = _bulidConfig.LoadConfig<Parameters>(file);
             }
             catch (Exception e)
             {
@@ -147,7 +152,8 @@ namespace CommonTools.ViewModel
 
         private void SaveDefaultConfig()
         {
-            _bulidConfig.SaveConfig(AllParameters, "systemParamDefault");
+            string file = FileDir + "\\systemParamDefault";
+            _bulidConfig.SaveConfig(AllParameters, file);
             MessageBox.Show(LocationServices.GetLang("SaveDefaultConfigSuccess"));
         }
 
@@ -171,7 +177,8 @@ namespace CommonTools.ViewModel
 
         private void SaveConfig()
         {
-            _bulidConfig.SaveConfig(AllParameters, "systemParam");
+            string file = FileDir + "\\systemParam";
+            _bulidConfig.SaveConfig(AllParameters, file);
             MessageBox.Show(LocationServices.GetLang("SaveSuccess"));
         }
 

@@ -139,20 +139,16 @@ namespace AutoMationFrameWork.View
                         if (MessageBox.Show(LocationServices.GetLang("SaveLayout"), LocationServices.GetLang("Tips"),
                                 MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                         {
+                            MainUi.SaveMainControlLayout();
                             Close();
                         }
                         else
                         {
-                            Environment.Exit(0);
+                            Close();
                         }
 
                         break;
                 }
-        }
-
-        private void MainWindow_Unloaded(object sender, EventArgs e)
-        {
-            MainUi.SaveMainControlLayout();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

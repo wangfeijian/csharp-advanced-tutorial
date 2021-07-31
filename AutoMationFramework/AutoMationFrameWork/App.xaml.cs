@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using AutoMationFrameWork.ViewModel;
 using CommonTools.Manager;
 using CommonTools.Tools;
 using Newtonsoft.Json;
@@ -36,7 +37,6 @@ namespace AutoMationFrameWork
 
         public App()
         {
-            Authority.GetUserMode();
             Startup += (StartupEventHandler)((s, e) =>
             {
                bool createdNew;
@@ -67,6 +67,10 @@ namespace AutoMationFrameWork
             FrameworkCompatibilityPreferences.AreInactiveSelectionHighlightBrushKeysSupported = false;
         }
 
+         ~App()
+         {
+             ViewModelLocator.Cleanup();
+         }
 
         private string GetLangType()
         {

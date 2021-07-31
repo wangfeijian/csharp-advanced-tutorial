@@ -140,7 +140,7 @@ namespace CommonTools.Tools
                 SingletonPattern<RunInforManager>.GetInstance().Info("Modify the user " + newMode + " password success !");
                 return true;
             }
-            //SingletonTemplate<WarningMgr>.GetInstance().Info("Modify the user " + newMode.ToString() + " password failed !");
+            SingletonPattern<RunInforManager>.GetInstance().Info("Modify the user " + newMode + " password failed !");
             return true;
         }
 

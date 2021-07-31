@@ -24,7 +24,7 @@ namespace CommonTools.Servers
     {
         public void SaveConfig<T>(T tCfg, string fileName)
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory + "Config\\" + fileName + ".json";
+            string file = fileName + ".json";
             string value = JsonConvert.SerializeObject(tCfg);
             File.WriteAllText(file, value);
         }
@@ -96,12 +96,16 @@ namespace CommonTools.Servers
 
         public T LoadConfig<T>(string config)
         {
+            int starNum = config.LastIndexOf("\\", StringComparison.Ordinal) + 1;
+            int nums = config.Length - starNum;
+            string file = config.Substring(starNum, nums);
+
             object tCfg = new object();
 
-            switch (config)
+            switch (file)
             {
-                case "system":
-                //return (T)(object)LoadSystemConfig<SystemCfg>();
+                case "systemCfg":
+                    return (T)(object)LoadSystemConfig<SystemCfg>(config);
                 case "point":
                 //return (T)(object)LoadPointConfig<List<StationPoint>>();
                 case "systemParam":
@@ -167,32 +171,32 @@ namespace CommonTools.Servers
             return (T)tCfg;
         }
 
-        //private T LoadSystemConfig<T>() where T : SystemCfg
-        //{
-        //    string file = AppDomain.CurrentDomain.BaseDirectory + "systemCfg.json";
-        //    SystemCfg systemCfg;
+        private T LoadSystemConfig<T>(string fileName) where T : SystemCfg
+        {
+            string file = fileName + ".json";
+            SystemCfg systemCfg;
 
-        //    if (!File.Exists(file))
-        //    {
-        //        systemCfg = new SystemCfg
-        //        {
-        //            IoInput = new List<IoInputPoint>(),
-        //            IoOutput = new List<IoOutputPoint>(),
-        //            IoCardsList = new List<IoCardInfo>(),
-        //            SysInput = new List<SysInputPoint>(),
-        //            SysOutput = new List<SysOutputPoint>(),
-        //            MotionCardsList = new List<MotionCard>(),
-        //            EthInfos = new List<EthInfo>(),
-        //            StationInfos = new List<StationInfo>()
-        //        };
-        //        return systemCfg as T;
-        //    }
-        //    else
-        //    {
-        //        systemCfg = JsonConvert.DeserializeObject<SystemCfg>(File.ReadAllText(file));
-        //        return systemCfg as T;
-        //    }
-        //}
+            if (!File.Exists(file))
+            {
+                systemCfg = new SystemCfg
+                {
+                    IoInput = new List<IoInputPoint>(),
+                    IoOutput = new List<IoOutputPoint>(),
+                    IoCardsList = new List<IoCardInfo>(),
+                    SysInput = new List<SysInputPoint>(),
+                    SysOutput = new List<SysOutputPoint>(),
+                    MotionCardsList = new List<MotionCard>(),
+                    EthInfos = new List<EthInfo>(),
+                    StationInfos = new List<StationInfo>()
+                };
+                return systemCfg as T;
+            }
+            else
+            {
+                systemCfg = JsonConvert.DeserializeObject<SystemCfg>(File.ReadAllText(file));
+                return systemCfg as T;
+            }
+        }
 
         //private T LoadPointConfig<T>() where T : List<StationPoint>
         //{
@@ -222,7 +226,7 @@ namespace CommonTools.Servers
 
         private T LoadParamConfig<T>(string fileName) where T : Parameters
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory + "Config\\" + fileName + ".json";
+            string file = fileName + ".json";
             Parameters paramCfg;
 
             if (!File.Exists(file))

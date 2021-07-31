@@ -457,25 +457,25 @@ namespace CommonTools.Manager
         /// 读取日志参数配置
         /// </summary>
         /// <returns></returns>
-        public bool ReadXmlConfig()
+        public bool ReadXmlConfig(string path)
         {
-            CheckLogPath();
-            XmlConfigurator.Configure(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "Config\\log4net.config"));
+            if(!CheckLogPath(path)) return false;
+            XmlConfigurator.Configure(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "Config\\"+path+"\\log4net.config"));
             return true;
         }
 
         /// <summary>
         /// 根据当前配置的日志文件路径变更log4net的存储路径
         /// </summary>
-        private void CheckLogPath()
+        private bool CheckLogPath(string path)
         {
             XmlDocument xmlDocument = new XmlDocument();
             try
             {
-                string filename = AppDomain.CurrentDomain.BaseDirectory + "Config\\log4net.config";
+                string filename = AppDomain.CurrentDomain.BaseDirectory + "Config\\"+path+"\\log4net.config";
                 xmlDocument.Load(filename);
                 if (!xmlDocument.HasChildNodes)
-                    return;
+                    return false;
                 XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/configuration/log4net");
                 bool flag = false;
                 if (xmlNodeList != null && xmlNodeList.Count > 0)
@@ -537,12 +537,14 @@ namespace CommonTools.Manager
                 }
                 if (flag)
                     xmlDocument.Save(filename);
+                return true;
             }
             catch (Exception)
             {
                 MessageBox.Show(LocationServices.GetLang("LogConfigReadError"),
                                                     LocationServices.GetLang("Tips"), MessageBoxButton.OK,
                                                     MessageBoxImage.Error);
+                return false;
             }
         }
 

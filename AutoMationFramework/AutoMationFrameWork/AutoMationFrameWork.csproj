@@ -77,6 +77,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>AutoMationFrameWork.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=4.51.1.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Dirkster.AvalonDock.4.51.1\lib\net40\AvalonDock.dll</HintPath>
@@ -354,7 +357,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="automation.ico" />
@@ -377,6 +382,11 @@
     <Resource Include="Resources\Image\tgBtn_MouseOver.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoMationFrameworkDll\AutoMationFrameworkDll.csproj">
+      <Project>{4b7a172b-89a8-40ee-80eb-19cfe8325a6b}</Project>
+      <Name>AutoMationFrameworkDll</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">
       <Project>{b11174c1-280b-4e41-9856-7da214a6f6c3}</Project>
       <Name>CommonTools</Name>

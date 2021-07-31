@@ -20,6 +20,9 @@ using System;
 using System.Configuration;
 using System.Reflection;
 using CommonTools.Manager;
+using System.Windows;
+using CommonTools.Tools;
+using AutoMationFrameworkDll;
 
 namespace AutoMationFrameWork.ViewModel
 {
@@ -41,6 +44,8 @@ namespace AutoMationFrameWork.ViewModel
             var assembly = Assembly.Load(ConfigDllName);
             Type t = assembly.GetType(ConfigClassName);
 
+            string ConfigDir = ConfigStr["ConfigDir"];
+
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             ////if (ViewModelBase.IsInDesignModeStatic)
@@ -56,9 +61,17 @@ namespace AutoMationFrameWork.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<SysParamControlViewModel>();
+            SimpleIoc.Default.Register(() => { return ConfigDir; });
             SimpleIoc.Default.Register(() => { return (IBuildConfig)t.Assembly.CreateInstance(ConfigClassName); });
 
-            RunInforManager.GetInstance().ReadXmlConfig();
+            if (ConfigApp(ConfigDir))
+            {
+
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         public MainViewModel Main
@@ -74,6 +87,29 @@ namespace AutoMationFrameWork.ViewModel
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
+        }
+
+        public bool ConfigApp(string ConfigDir)
+        {
+            try
+            {
+                //ErrorCodeMgr.GetInstance();
+                RunInforManager.GetInstance();
+
+                if (ConfigManager.GetInstance().LoadConfigFile(ConfigDir, ServiceLocator.Current.GetInstance<IBuildConfig>()))
+                {
+
+                    return true;
+                }
+
+                MessageBox.Show(LocationServices.GetLang("SysInitError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(LocationServices.GetLang("SysInitError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return false;
         }
     }
 }

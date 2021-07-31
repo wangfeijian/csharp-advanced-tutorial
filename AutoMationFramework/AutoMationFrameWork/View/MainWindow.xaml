@@ -25,7 +25,6 @@
     Loaded="MainWindow_Loaded"
     ResizeMode="CanResizeWithGrip"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    Unloaded="MainWindow_Unloaded"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
     WindowStyle="None"

@@ -70,7 +70,7 @@
     <sys:String x:Key="StaDebug">StationDebug</sys:String>
     <sys:String x:Key="TestStationOne">StationTestOne</sys:String>
     <sys:String x:Key="TestStationTwo">StationTestTwo</sys:String>
-    <sys:String x:Key="IOInputOutPut">IOIOInputOutPut</sys:String>
+    <sys:String x:Key="IOInputOutPut">IOInputOutPut</sys:String>
     <sys:String x:Key="AxisConfigManger">AxisConfig</sys:String>
     <sys:String x:Key="SystemParamSet">SystemParamSet</sys:String>
     <sys:String x:Key="DataManage">DataManage</sys:String>
@@ -95,10 +95,15 @@
     <sys:String x:Key="MaxValue">MaxValue</sys:String>
     <sys:String x:Key="Authority">Authority</sys:String>
     <sys:String x:Key="ParamError">System parameters error!!</sys:String>
+    <sys:String x:Key="SysInitError">System init error!!</sys:String>
     <sys:String x:Key="ParamMessageInfo">The value of the system parameter {0} is not in the set range!! Minimum replacement will be used!!</sys:String>
     <sys:String x:Key="ParamNotExist">The parameter of the system parameters {0} is not exist!!</sys:String>
     <sys:String x:Key="LogPathSetError">log4net.config file config path error!!</sys:String>
     <sys:String x:Key="LogConfigReadError">Log system config file read fail!!</sys:String>
+    <sys:String x:Key="FileNewEventLogic">File new event processing logic {0} {1} {2}!!</sys:String>
+    <sys:String x:Key="FileChangeEventLogic">File change event processing logic {0} {1} {2}!!</sys:String>
+    <sys:String x:Key="FileDeleteEventLogic">File delete event processing logic {0} {1} {2}!!</sys:String>
+    <sys:String x:Key="FileRenameEventLogic">File rename event processing logic {0} {1} {2}!!</sys:String>
     <!--  MessageBox变量  -->
     <sys:String x:Key="OK">OK</sys:String>
     <sys:String x:Key="Cancel">Cancel</sys:String>
@@ -265,4 +270,38 @@
     <sys:String x:Key="SaveSuccess">Save Success!!</sys:String>
     <sys:String x:Key="LoadSuccess">Load Success!!</sys:String>
     <sys:String x:Key="FileError">File Error!!</sys:String>
+    <!--  Motion提示信息  -->
+    <sys:String x:Key="Io0640AInitError">Initialization failed for IO card 0640A of {0}! Error code = {1}</sys:String>
+    <sys:String x:Key="Io0640AWriteIoBitError">The {0} IO card 0640A WriteIoBit Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="Io0640AWriteIoError">The {0} IO card 0640A WriteIo Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="Io7230InitError">Initialization failed for IO card 7230 of {0}! Error code = {1}</sys:String>
+    <sys:String x:Key="Io7230ReadIoInError">The {0}IO card 7230 ReadIoIn Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="Io7230ReadIoInBitError">The {0} IO card 7230 ReadIoInBit {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="Io7230ReadIoOutError">The {0} IO card 7230 ReadIoOut {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="Io7230ReadIoOutBitError">The {0} IO card 7230 ReadIoOutBit {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="Io7432InitError">Initialization failed for IO card 7432 of {0}! Error code = {1}</sys:String>
+    <sys:String x:Key="Io7432ReadIoInError">The {0} IO card 7432 ReadIoIn Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="Io7432ReadIoInBitError">The {0} IO card 7432 ReadIoInBit Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="Io7432ReadIoOutError">The {0} IO card 7432 ReadIoOut Error,result is = {1}</sys:String>
+    <sys:String x:Key="Io7432ReadIoOutBitError">The {0} IO card 7432 ReadIoOutBit Error,result is = {1}</sys:String>
+    <sys:String x:Key="Io8254ReadIoInBitError">The {0} IO card 8254 ReadIoInBit {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="Io8254ReadIoOutBitError">The {0} IO card 8254 ReadIoOutBit {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="Io8254ReadIoOutError">The {0} IO card 8254 ReadIoOut {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="Io8254DeltaReadIoInBitError">The {0} IO card Delta ReadIoInBit {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="Io8254DeltaReadIoOutBitError">The {0} IO card Delta ReadIoOutBit {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="Io8254DeltaReadIoOutError">The {0} IO card Delta ReadIoOut {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="IoDmc3400ReadIoBitError">The {0} IO card Dmc3400 WriteIoBit Error,result is {1}</sys:String>
+    <sys:String x:Key="IoDmcCanReadIoBitError">The {0} IO card DmcCan WriteIoBit Error,result is {1}</sys:String>
+    <sys:String x:Key="IoDmc3400ReadIoError">The {0} IO card Dmc3400 WriteIo Error,result is {1}</sys:String>
+    <sys:String x:Key="IoDmcCanReadIoError">The {0} IO card DmcCan WriteIo Error,result is {1}</sys:String>
+    <sys:String x:Key="IoGtsInitError">GTS initialization of the {0} motion control card failed! Result is {1}</sys:String>
+    <sys:String x:Key="IoGtsReadIoInError">The {0} IO card GTS ReadIoIn Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="IoGtsReadIoOutError">The {0} IO card GTS ReadIoOut Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="IoM2400ReadIoOutError">The {0} IO card M2400 ReadIoOut Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="IoM2400WriteIOError">The {0} IO card M2400 WriteIo Error,result is {1}</sys:String>
+    <sys:String x:Key="IoM2400WriteIOBitError">The {0} IO card M2400 WriteIoBit Error,result is {1}</sys:String>
+    <sys:String x:Key="IoM2400ReadIoOutBitError">The {0} IO card M2400 ReadIoOutBit Error,result is {1}</sys:String>
+    <sys:String x:Key="IoM2400ReadIoInBitError">The {0} IO card M2400 Read ReadIoInBit {1} Error,result is {2}</sys:String>
+    <sys:String x:Key="IoM2400ReadIoInError">The {0} IO card M2400 Read IOIn Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="NotFoundIOCard">IO card {0} can not find the available encapsulation class, please make sure motionio.dll is correct or incorrectly configured!!</sys:String>
 </ResourceDictionary>

@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <SystemParam>
-  <ParamDescribe>
+  <ParamDsecribe>
     <ParamDescribe 修改者="Admin" 文件描述="系统配置参数-运行用" />
-  </ParamDescribe>
+  </ParamDsecribe>
   <Param>
     <Param 键值="RunParam" 当前值="" 单位="" 参数描述="-----------运行参数设置-----------" 翻译="---Operation parameter setting---" 最小值="" 最大值="" />
     <Param 键值="AxisXSpeed" 当前值="80" 单位="%" 参数描述="X轴速度(速度百分比)" 翻译="X-axis speed (speed percentage)" 最小值="0.1" 最大值="100" />

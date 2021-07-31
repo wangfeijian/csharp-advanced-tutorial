@@ -58,6 +58,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,6 +68,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\SystemConfigModel.cs" />
     <Compile Include="Model\SysParamModel.cs" />
     <Compile Include="Servers\AttributeManager.cs" />
     <Compile Include="Servers\CheckAttribute.cs" />

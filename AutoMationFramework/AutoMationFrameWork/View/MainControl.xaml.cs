@@ -18,6 +18,7 @@ using System.Windows;
 using System.Windows.Threading;
 using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
+using AvalonDock.Themes;
 using CommonTools.Tools;
 using Newtonsoft.Json;
 using Microsoft.Win32;
@@ -40,6 +41,7 @@ namespace AutoMationFrameWork.View
         public MainControl()
         {
             InitializeComponent();
+            DockingManager.Theme=new Vs2013LightTheme();
 
             string filename = Directory.GetCurrentDirectory() + "\\Config\\config.json";
             lang = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(filename));

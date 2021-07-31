@@ -59,7 +59,7 @@ namespace CommonTools.Manager
     /// <summary>
     /// 系统管理类
     /// </summary>
-    public class SystemManager:SingletonPattern<SystemManager>
+    public class SystemManager : SingletonPattern<SystemManager>
     {
         #region Delegates
 
@@ -167,7 +167,7 @@ namespace CommonTools.Manager
         /// </summary>
         public event StateChangedHandler StateChangedEvent;
 
-            #endregion
+        #endregion
 
         #region 库文件导入方法
 
@@ -189,6 +189,7 @@ namespace CommonTools.Manager
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void SetDouble(int index, double value);
 
+        //未实现
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void AppendMonitor(string szPath, string szExt, double dbKeepDays, int bRestart);
 
@@ -200,7 +201,13 @@ namespace CommonTools.Manager
         [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void SetString(int index, string str);
 
+        //未实现
+        [DllImport("Dll\\SecurityLib.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern uint GetLastInputTime();
+
         #endregion
+
+        #region 属性字段
 
         private FileSystemWatcher[] _fileWatcher = new FileSystemWatcher[4];
 
@@ -214,6 +221,29 @@ namespace CommonTools.Manager
         /// 当前系统的运行模式
         /// </summary>
         public SystemMode Mode => _mode;
+
+        /// <summary>
+        /// 获取系统扫描周期时间
+        /// </summary>
+        public int ScanTime => _nScanTime;
+
+        /// <summary>获取系统速度百分比</summary>
+        public double SystemSpeed
+        {
+            get
+            {
+                return GetParamDouble(nameof(SystemSpeed));
+            }
+            set
+            {
+                SetParamDouble(nameof(SystemSpeed), value);
+            }
+        }
+        
+
+        #endregion
+
+        #region 系统模式相关
 
         /// <summary>
         /// 改变系统运行模式
@@ -266,24 +296,9 @@ namespace CommonTools.Manager
             return _mode == SystemMode.NormalRunMode;
         }
 
-        /// <summary>
-        /// 获取系统扫描周期时间
-        /// </summary>
-        public int ScanTime => _nScanTime;
+        #endregion
 
-        /// <summary>获取系统速度百分比</summary>
-        public double SystemSpeed
-        {
-            get
-            {
-                return GetParamDouble(nameof(SystemSpeed));
-            }
-            set
-            {
-                SetParamDouble(nameof(SystemSpeed), value);
-            }
-        }
-
+      
         private void InitParam()
         {
             _nScanTime = GetParamInt("ScanTime");
@@ -311,8 +326,118 @@ namespace CommonTools.Manager
         public void AppendMonitor(string strPath, string strExt, double dbDays)
         {
             AppendMonitor(strPath, strExt, dbDays, 0);
-            this._dictMonitorPath.AddOrUpdate(strPath + "=" + strExt, dbDays, (key, value) => dbDays);
+            _dictMonitorPath.AddOrUpdate(strPath + "=" + strExt, dbDays, (key, value) => dbDays);
         }
+
+        #region 系统寄存器读写方法
+
+        /// <summary>
+        /// 获取指定的位寄存器的状态
+        /// </summary>
+        /// <param name="nIndex">寄存器索引</param>
+        /// <returns></returns>
+        public bool GetRegBit(int nIndex)
+        {
+            return GetBit(nIndex) == '1';
+        }
+
+        /// <summary>
+        /// 向指定的位寄存器写入状态
+        /// </summary>
+        /// <param name="nIndex">寄存器索引</param>
+        /// <param name="bBit">状态值</param>
+        /// <param name="bNotify">是否通知Form_Auto自动界面</param>
+        public void WriteRegBit(int nIndex, bool bBit, bool bNotify = true)
+        {
+            char value = bBit ? '1' : '0';
+            SetBit(nIndex, value);
+
+            // ISSUE: reference to a compiler-generated field
+            if (!bNotify || BitChangedEvent == null)
+                return;
+            // ISSUE: reference to a compiler-generated field
+            BitChangedEvent(nIndex, bBit);
+        }
+
+        /// <summary>
+        /// 获取指定的整型寄存器的值
+        /// </summary>
+        /// <param name="nIndex">寄存器索引</param>
+        /// <returns></returns>
+        public int GetRegInt(int nIndex)
+        {
+            return GetInt(nIndex);
+        }
+
+        /// <summary>
+        /// 向指定的整型寄存器写入值
+        /// </summary>
+        /// <param name="nIndex">寄存器索引</param>
+        /// <param name="nData">要写入的数值</param>
+        /// <param name="bNotify">是否通知Form_Auto自动界面</param>
+        public void WriteRegInt(int nIndex, int nData, bool bNotify = true)
+        {
+            SetInt(nIndex, nData);
+            // ISSUE: reference to a compiler-generated field
+            if (!bNotify || IntChangedEvent == null)
+                return;
+            // ISSUE: reference to a compiler-generated field
+            IntChangedEvent(nIndex, nData);
+        }
+
+        /// <summary>
+        /// 获取一个浮点型寄存器的值
+        /// </summary>
+        /// <param name="nIndex">寄存器的值</param>
+        /// <returns></returns>
+        public double GetRegDouble(int nIndex)
+        {
+            return GetDouble(nIndex);
+        }
+
+        /// <summary>
+        /// 向一个浮点数寄存器写入值
+        /// </summary>
+        /// <param name="nIndex">寄存器索引</param>
+        /// <param name="fData">要写入的值</param>
+        /// <param name="bNotify">是否通知Form_Auto自动界面</param>
+        public void WriteRegDouble(int nIndex, double fData, bool bNotify = true)
+        {
+            SetDouble(nIndex, fData);
+            // ISSUE: reference to a compiler-generated field
+            if (!bNotify || DoubleChangedEvent == null)
+                return;
+            // ISSUE: reference to a compiler-generated field
+            DoubleChangedEvent(nIndex, fData);
+        }
+
+        /// <summary>获取一个字符串型寄存器的值</summary>
+        /// <param name="nIndex">寄存器的值</param>
+        /// <returns></returns>
+        public string GetRegString(int nIndex)
+        {
+            IntPtr ptr1 =GetString(nIndex);
+            return Marshal.PtrToStringAnsi(ptr1);
+        }
+
+        /// <summary>向一个字符创寄存器写入值</summary>
+        /// <param name="nIndex">寄存器索引</param>
+        /// <param name="sData">要写入的值</param>
+        /// <param name="bNotify">是否通知Form_Auto自动界面</param>
+        public void WriteRegString(int nIndex, string sData, bool bNotify = true)
+        {
+            SetString(nIndex, sData);
+            // ISSUE: reference to a compiler-generated field
+            if (!bNotify || StringChangedEvent == null)
+                return;
+            // ISSUE: reference to a compiler-generated field
+            StringChangedEvent(nIndex, sData);
+        }
+
+        #endregion
+
+
+        #region 系统参数读写方法
 
         /// <summary>
         /// 获取参数浮点数值
@@ -323,15 +448,15 @@ namespace CommonTools.Manager
         {
             var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
             var param = from item in systemParm.AllParameters.ParameterInfos
-                        where item.KeyValue == szParam
-                        select item;
+                where item.KeyValue == szParam
+                select item;
 
             var paramInfos = param as ParamInfo[] ?? param.ToArray();
 
             if (paramInfos.Length == 0)
             {
-                string info = LocationServices.GetLang("LocationServices");
-                string msg = string.Format(info, szParam);
+                string info = LocationServices.GetLang("ParamNotExist");
+                string msg  = string.Format(info, szParam);
                 MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
                 return 0.0;
             }
@@ -340,7 +465,7 @@ namespace CommonTools.Manager
         }
 
         /// <summary>
-        /// 获取参数浮点数值
+        /// 获取参数整型数值
         /// </summary>
         /// <param name="szParam">值索引</param>
         /// <returns></returns>
@@ -348,20 +473,157 @@ namespace CommonTools.Manager
         {
             var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
             var param = from item in systemParm.AllParameters.ParameterInfos
-                        where item.KeyValue == szParam
-                        select item;
+                where item.KeyValue == szParam
+                select item;
 
             var paramInfos = param as ParamInfo[] ?? param.ToArray();
 
             if (paramInfos.Length == 0)
             {
-                string info = LocationServices.GetLang("LocationServices");
-                string msg = string.Format(info, szParam);
+                string info = LocationServices.GetLang("ParamNotExist");
+                string msg  = string.Format(info, szParam);
                 MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
                 return 0;
             }
 
             return Convert.ToInt32(paramInfos.First().CurrentValue);
+        }
+
+        /// <summary>
+        /// 获取参数布尔数值
+        /// </summary>
+        /// <param name="szParam">值索引</param>
+        /// <returns></returns>
+        public bool GetParamBool(string szParam)
+        {
+            var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
+            var param = from item in systemParm.AllParameters.ParameterInfos
+                where item.KeyValue == szParam
+                select item;
+
+            var paramInfos = param as ParamInfo[] ?? param.ToArray();
+
+            if (paramInfos.Length == 0)
+            {
+                string info = LocationServices.GetLang("ParamNotExist");
+                string msg  = string.Format(info, szParam);
+                MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return paramInfos.First().CurrentValue =="1";
+        }
+
+        /// <summary>
+        /// 设置参数整型数值
+        /// </summary>
+        /// <param name="szParam">值索引</param>
+        /// <param name="fData">浮点值</param>
+        /// <returns></returns>
+        public void SetParamInt(string szParam, int fData)
+        {
+            var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
+            var param = from item in systemParm.AllParameters.ParameterInfos
+                where item.KeyValue == szParam
+                select item;
+            var paramInfos = param as ParamInfo[] ?? param.ToArray();
+
+            if (paramInfos.Length > 0)
+            {
+
+                foreach (var paramInfo in systemParm.AllParameters.ParameterInfos)
+                {
+                    // ISSUE: reference to a compiler-generated field
+
+                    if (paramInfo.CurrentValue != fData.ToString(CultureInfo.CurrentCulture))
+                    {
+                        // ISSUE: reference to a compiler-generated field
+                        SystemParamChangedEvent?.Invoke(szParam, paramInfo.CurrentValue, fData);
+                    }
+                    paramInfo.CurrentValue = fData.ToString(CultureInfo.CurrentCulture);
+                }
+            }
+            else
+            {
+                string info = LocationServices.GetLang("ParamNotExist");
+                string msg  = string.Format(info, szParam);
+                MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// 设置参数布尔数值
+        /// </summary>
+        /// <param name="szParam">值索引</param>
+        /// <param name="fData">浮点值</param>
+        /// <returns></returns>
+        public void SetParamBool(string szParam, bool fData)
+        {
+            var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
+            var param = from item in systemParm.AllParameters.ParameterInfos
+                where item.KeyValue == szParam
+                select item;
+            var paramInfos = param as ParamInfo[] ?? param.ToArray();
+
+            if (paramInfos.Length > 0)
+            {
+
+                foreach (var paramInfo in systemParm.AllParameters.ParameterInfos)
+                {
+                    string value = fData ? "1" : "0";
+                    // ISSUE: reference to a compiler-generated field
+
+                    if (paramInfo.CurrentValue != value)
+                    {
+                        // ISSUE: reference to a compiler-generated field
+                        SystemParamChangedEvent?.Invoke(szParam, paramInfo.CurrentValue, value);
+                    }
+                    paramInfo.CurrentValue = value;
+                }
+            }
+            else
+            {
+                string info = LocationServices.GetLang("ParamNotExist");
+                string msg  = string.Format(info, szParam);
+                MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// 设置参数布尔数值
+        /// </summary>
+        /// <param name="szParam">值索引</param>
+        /// <param name="fData">浮点值</param>
+        /// <returns></returns>
+        public void SetParamString(string szParam, string fData)
+        {
+            var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
+            var param = from item in systemParm.AllParameters.ParameterInfos
+                where item.KeyValue == szParam
+                select item;
+            var paramInfos = param as ParamInfo[] ?? param.ToArray();
+
+            if (paramInfos.Length > 0)
+            {
+
+                foreach (var paramInfo in systemParm.AllParameters.ParameterInfos)
+                {
+                    // ISSUE: reference to a compiler-generated field
+
+                    if (paramInfo.CurrentValue != fData)
+                    {
+                        // ISSUE: reference to a compiler-generated field
+                        SystemParamChangedEvent?.Invoke(szParam, paramInfo.CurrentValue, fData);
+                    }
+                    paramInfo.CurrentValue = fData;
+                }
+            }
+            else
+            {
+                string info = LocationServices.GetLang("ParamNotExist");
+                string msg  = string.Format(info, szParam);
+                MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -374,8 +636,8 @@ namespace CommonTools.Manager
         {
             var systemParm = SimpleIoc.Default.GetInstance<SysParamControlViewModel>();
             var param = from item in systemParm.AllParameters.ParameterInfos
-                        where item.KeyValue == szParam
-                        select item;
+                where item.KeyValue == szParam
+                select item;
             var paramInfos = param as ParamInfo[] ?? param.ToArray();
 
             if (paramInfos.Length > 0)
@@ -384,7 +646,7 @@ namespace CommonTools.Manager
                 foreach (var paramInfo in systemParm.AllParameters.ParameterInfos)
                 {
                     // ISSUE: reference to a compiler-generated field
-                    
+
                     if (paramInfo.CurrentValue != fData.ToString(CultureInfo.CurrentCulture))
                     {
                         // ISSUE: reference to a compiler-generated field
@@ -395,8 +657,8 @@ namespace CommonTools.Manager
             }
             else
             {
-                string info = LocationServices.GetLang("LocationServices");
-                string msg = string.Format(info, szParam);
+                string info = LocationServices.GetLang("ParamNotExist");
+                string msg  = string.Format(info, szParam);
                 MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -415,16 +677,20 @@ namespace CommonTools.Manager
 
             var paramInfos = param as ParamInfo[] ?? param.ToArray();
 
-            if (paramInfos.Length==0)
+            if (paramInfos.Length == 0)
             {
-                string info = LocationServices.GetLang("LocationServices");
-                string msg = string.Format(info, szParam);
-                MessageBox.Show(msg,LocationServices.GetLang("Tips"),MessageBoxButton.OK,MessageBoxImage.Error);
+                string info = LocationServices.GetLang("ParamNotExist");
+                string msg  = string.Format(info, szParam);
+                MessageBox.Show(msg, LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
                 return string.Empty;
             }
 
             return paramInfos.First().CurrentValue;
         }
+
+        #endregion
+
+        #region 文件夹文件操作方法
 
         /// <summary>
         /// 得到保存Image路径下子文件夹的绝对路径
@@ -447,6 +713,16 @@ namespace CommonTools.Manager
         }
 
         /// <summary>
+        /// 获取自动测试报告路径
+        /// </summary>
+        /// <param name="strSubDir"></param>
+        /// <returns></returns>
+        public string GetReportPath(string strSubDir = "")
+        {
+            return GetOrCreateDir(GetParamString("ReportSavePath"), strSubDir);
+        }
+
+        /// <summary>
         /// 得到保存log路径下子文件夹的绝对路径
         /// </summary>
         /// <param name="strSubDir"></param>
@@ -458,9 +734,186 @@ namespace CommonTools.Manager
 
         private string GetOrCreateDir(string strDir, string strSubDir)
         {
-            if (!Directory.Exists(strDir + strSubDir))
+            if (!Directory.Exists(strDir         + strSubDir))
                 Directory.CreateDirectory(strDir + strSubDir);
             return strDir + strSubDir;
         }
+
+        /// <summary>
+        /// 复制文件夹中的所有文件夹与文件到另一个文件夹
+        /// </summary>
+        /// <param name="sourcePath">源文件夹</param>
+        /// <param name="destPath">目标文件夹</param>
+        public void CopyFiles(string sourcePath, string destPath)
+        {
+            if (!Directory.Exists(sourcePath))
+                return;
+            if (!Directory.Exists(destPath))
+                Directory.CreateDirectory(destPath);
+            new List<string>(Directory.GetFiles(sourcePath)).ForEach(c =>
+            {
+                string destFileName = Path.Combine(new[]
+                {
+                    destPath,
+                    Path.GetFileName(c)
+                });
+                File.Copy(c, destFileName, true);
+            });
+            new List<string>(Directory.GetDirectories(sourcePath)).ForEach(c =>
+            {
+                string destPath1 = Path.Combine(new []
+                {
+                    destPath,
+                    Path.GetFileName(c)
+                });
+                CopyFiles(c, destPath1);
+            });
+        }
+
+        /// <summary>
+        /// 移动文件夹中的所有文件夹与文件到另一个文件夹
+        /// </summary>
+        /// <param name="strDir">源文件夹</param>
+        /// <param name="strDestDir">目的文件夹</param>
+        public void MoveFiles(string strDir, string strDestDir)
+        {
+            if (!Directory.Exists(strDir))
+                return;
+            if (!Directory.Exists(strDestDir))
+                Directory.CreateDirectory(strDestDir);
+            new List<string>(Directory.GetFiles(strDir)).ForEach(c =>
+            {
+                string str = Path.Combine(new[]
+                {
+                    strDestDir,
+                    Path.GetFileName(c)
+                });
+                if (File.Exists(str))
+                    File.Delete(str);
+                File.Move(c, str);
+            });
+            new List<string>(Directory.GetDirectories(strDir)).ForEach(c =>
+            {
+                string strDestDir1 = Path.Combine(new[]
+                {
+                    strDestDir,
+                    Path.GetFileName(c)
+                });
+                MoveFiles(c, strDestDir1);
+            });
+        }
+
+        /// <summary>
+        /// 监控指定目录文件夹下文件的增加、改变、删除、重命名
+        /// </summary>
+        /// <param name="numberFile">数组索引</param>
+        /// <param name="strMonitorFloder">要监控的指定目录文件夹</param>
+        /// <param name="strFilter">指定文件类型,可以过滤掉其他类型的文件</param>
+        /// <param name="fileCreate">文件创建事件</param>
+        /// <param name="fileDelete">文件删除事件</param>
+        /// <param name="fileRename">文件重命名事件</param>
+        /// <param name="fileChange">文件内容改变事件</param>
+        /// <returns></returns>
+        public bool MonitorImgFile(int numberFile, string strMonitorFloder, string strFilter, OnCreate fileCreate, OnDelete fileDelete, OnRename fileRename, OnChange fileChange)
+        {
+            try
+            {
+                _fileWatcher[numberFile]                       =  new FileSystemWatcher();
+                _fileWatcher[numberFile].Path                  =  strMonitorFloder;
+                _fileWatcher[numberFile].Filter                =  strFilter;
+                _fileWatcher[numberFile].Changed               += fileChange.Invoke;
+                _fileWatcher[numberFile].Created               += fileCreate.Invoke;
+                _fileWatcher[numberFile].Deleted               += fileDelete.Invoke;
+                _fileWatcher[numberFile].Renamed               += fileRename.Invoke;
+                _fileWatcher[numberFile].EnableRaisingEvents   =  true;
+                _fileWatcher[numberFile].NotifyFilter          =  NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.Attributes | NotifyFilters.Size | NotifyFilters.LastWrite | NotifyFilters.LastAccess | NotifyFilters.CreationTime | NotifyFilters.Security;
+                _fileWatcher[numberFile].IncludeSubdirectories =  true;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 停止对文件夹的监视
+        /// </summary>
+        /// <returns></returns>
+        public bool StopMonitorImgFile(int numberFile)
+        {
+            try
+            {
+                if (_fileWatcher[numberFile] != null)
+                    _fileWatcher[numberFile].EnableRaisingEvents = false;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 监视文件增加处理过程
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void OnCreated(object source, FileSystemEventArgs e)
+        {
+            string info = LocationServices.GetLang("FileNewEventLogic");
+            string msg  = string.Format(info, e.ChangeType, e.FullPath, e.Name);
+            MessageBox.Show(msg);
+        }
+
+        /// <summary>
+        /// 监视文件改变处理过程
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void OnChanged(object source, FileSystemEventArgs e)
+        {
+            string info = LocationServices.GetLang("FileChangeEventLogic");
+            string msg  = string.Format(info, e.ChangeType, e.FullPath, e.Name);
+            MessageBox.Show(msg);
+        }
+
+        /// <summary>
+        /// 监视文件增删除处理过程
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void OnDeleted(object source, FileSystemEventArgs e)
+        {
+            string info = LocationServices.GetLang("FileDeleteEventLogic");
+            string msg  = string.Format(info, e.ChangeType, e.FullPath, e.Name);
+            MessageBox.Show(msg);
+        }
+
+        /// <summary>
+        /// 监视文件重命名处理过程
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void OnRenamed(object source, RenamedEventArgs e)
+        {
+            string info = LocationServices.GetLang("FileRenameEventLogic");
+            string msg  = string.Format(info, e.ChangeType, e.FullPath, e.Name);
+            MessageBox.Show(msg);
+        }
+
+        /// <summary>
+        /// 检测屏幕鼠标键盘是否无操作超过设定的时间
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckSystemIdle()
+        {
+            if (GetLastInputTime() <= GetParamInt("IdleTime") * 60 || Authority.IsOpMode())
+                return false;
+            Authority.ChangeOpMode();
+            return true;
+        }
+
+        #endregion
     }
 }
