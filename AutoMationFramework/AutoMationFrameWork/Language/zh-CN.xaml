@@ -27,6 +27,7 @@
     <sys:String x:Key="Vision">视觉</sys:String>
     <sys:String x:Key="Statistics">统计</sys:String>
     <sys:String x:Key="Alarm">报警</sys:String>
+    <sys:String x:Key="Warning">警告</sys:String>
     <sys:String x:Key="User">用户</sys:String>
     <sys:String x:Key="LangType">语言</sys:String>
     <sys:String x:Key="LangTypeIcon">&#xebe2;</sys:String>
@@ -304,4 +305,12 @@
     <sys:String x:Key="IoM2400ReadIoInBitError">第{0}张IO卡M2400 Read ReadIoInBit {1} 错误,结果是 {2}</sys:String>
     <sys:String x:Key="IoM2400ReadIoInError">第{0}张IO卡M2400 Read IOIn 错误,错误码 = {1}</sys:String>
     <sys:String x:Key="NotFoundIOCard">IO卡{0}找不到可用的封装类，请确认motionio.dll是否正确或配置错误!!</sys:String>
+    <sys:String x:Key="ConfigIOError">配置文件Io点配置出错,卡号{0}, IO点{1}</sys:String>
+    <sys:String x:Key="IoOutError">不存在的IO输出点名称 {0}， 请确认配置是否正确</sys:String>
+    <sys:String x:Key="IoInError">不存在的IO输入点名称 {0}， 请确认配置是否正确</sys:String>
+    <sys:String x:Key="IoSetError">IO设置输出点状态出错</sys:String>
+    <sys:String x:Key="IoGetError">IO读取输入点状态出错</sys:String>
+    <sys:String x:Key="EmgPress">急停按钮被按下</sys:String>
+    <sys:String x:Key="SafeDoorOpen">安全门被打开</sys:String>
+    <sys:String x:Key="SafeDoorOpenContinue">安全门已打开，存在安全隐患请确认是否继续？</sys:String>
 </ResourceDictionary>

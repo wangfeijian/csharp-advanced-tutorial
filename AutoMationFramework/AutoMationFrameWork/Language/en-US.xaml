@@ -27,6 +27,7 @@
     <sys:String x:Key="Vision">Vision</sys:String>
     <sys:String x:Key="Statistics">Statistics</sys:String>
     <sys:String x:Key="Alarm">Alarm</sys:String>
+     <sys:String x:Key="Warning">Warning</sys:String>
     <sys:String x:Key="User">User</sys:String>
     <sys:String x:Key="LangType">Language</sys:String>
     <sys:String x:Key="LangTypeIcon">&#xe6ad;</sys:String>
@@ -303,5 +304,13 @@
     <sys:String x:Key="IoM2400ReadIoOutBitError">The {0} IO card M2400 ReadIoOutBit Error,result is {1}</sys:String>
     <sys:String x:Key="IoM2400ReadIoInBitError">The {0} IO card M2400 Read ReadIoInBit {1} Error,result is {2}</sys:String>
     <sys:String x:Key="IoM2400ReadIoInError">The {0} IO card M2400 Read IOIn Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="ConfigIOError">Config file IO point config error, card{0}, IO point{1}</sys:String>
     <sys:String x:Key="NotFoundIOCard">IO card {0} can not find the available encapsulation class, please make sure motionio.dll is correct or incorrectly configured!!</sys:String>
+    <sys:String x:Key="IoOutError">The IO output point name {0} does not exist, please confirm whether the configuration is correct</sys:String>
+    <sys:String x:Key="IoInError">The IO input point name {0} does not exist, please confirm whether the configuration is correct</sys:String>
+    <sys:String x:Key="IoSetError">IO set output point status error</sys:String>
+    <sys:String x:Key="IoGetError">IO get input point status error</sys:String>
+    <sys:String x:Key="EmgPress">Emergency stop button pressed</sys:String>
+    <sys:String x:Key="SafeDoorOpen">Safety door opened</sys:String>
+    <sys:String x:Key="SafeDoorOpenContinue">The safety door has been opened, and there is potential safety hazard. Please confirm whether to continue？</sys:String>
 </ResourceDictionary>

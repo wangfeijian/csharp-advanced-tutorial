@@ -303,5 +303,8 @@
     <sys:String x:Key="IoM2400ReadIoOutBitError">The {0} IO card M2400 ReadIoOutBit Error,result is {1}</sys:String>
     <sys:String x:Key="IoM2400ReadIoInBitError">The {0} IO card M2400 Read ReadIoInBit {1} Error,result is {2}</sys:String>
     <sys:String x:Key="IoM2400ReadIoInError">The {0} IO card M2400 Read IOIn Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="ConfigIOError">Config file IO point config error, card{0}, IO point{1}</sys:String>
     <sys:String x:Key="NotFoundIOCard">IO card {0} can not find the available encapsulation class, please make sure motionio.dll is correct or incorrectly configured!!</sys:String>
+    <sys:String x:Key="IoOutError">The IO output point name {0} does not exist, please confirm whether the configuration is correct</sys:String>
+    <sys:String x:Key="IoSetError">IO set output point status error</sys:String>
 </ResourceDictionary>
