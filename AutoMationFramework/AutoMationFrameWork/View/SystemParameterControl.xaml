@@ -22,10 +22,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="610"
     d:DesignWidth="950"
+    DataContext="{Binding Source={StaticResource Locator}, Path=SysParam}"
     mc:Ignorable="d">
-    <UserControl.DataContext>
-        <Binding Path="SysParam" Source="{StaticResource Locator}" />
-    </UserControl.DataContext>
     <Grid Margin="5" Background="#50bc93">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

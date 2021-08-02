@@ -27,12 +27,12 @@ namespace MotionIO
         /// <summary>
         /// DI组的数量，32个一组
         /// </summary>
-        private int m_nDiGrpCnt = 0;
+        private int _nDiGrpCnt;
 
         /// <summary>
         /// DO组的数量
         /// </summary>
-        private int m_nDoGrpCnt = 0;
+        private int _nDoGrpCnt;
 
         /// <summary>
         /// 构造函数
@@ -44,13 +44,11 @@ namespace MotionIO
             StrCardName = "PCIeM60";
 
             //框架中的每个汇川总线IO卡只支持32个IO，超过32个需要配置多张卡
-            //StrArrayIn = new string[InoEtherCatCard.Instance().m_tResoures.diNum];
-            //StrArrayOut = new string[InoEtherCatCard.Instance().m_tResoures.doNum];
             StrArrayIn = new string[32];
             StrArrayOut = new string[32];
 
-            m_nDiGrpCnt = (LCTEtherCatCard.Instance().m_tResoures.DiNum  + 31) / 32;
-            m_nDoGrpCnt = (LCTEtherCatCard.Instance().m_tResoures.DoNum + 31) / 32;
+            _nDiGrpCnt = (LctEtherCatCard.Instance().Resoures.DiNum  + 31) / 32;
+            _nDoGrpCnt = (LctEtherCatCard.Instance().Resoures.DoNum + 31) / 32;
         }
         
         /// <summary>
@@ -61,7 +59,7 @@ namespace MotionIO
         {
             try
             {
-                if (LCTEtherCatCard.Instance().IsInited)
+                if (LctEtherCatCard.Instance().IsInited)
                 {
                     Enable = true;
                     return true;
@@ -84,7 +82,7 @@ namespace MotionIO
         /// </summary>
         public override void DeInit()
         {
-            LCTEtherCatCard.Instance().DeInit();
+            LctEtherCatCard.Instance().DeInit();
         }
         
         /// <summary>
@@ -107,12 +105,9 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    //string str1 = "PCIeM60板卡M_Get_Digital_Port_Input失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Get_Digital_Port_Input error! Result = {0}";
-                    //}
-                    //RunInforManager.GetInstance().Error(ErrorType.Err_IO_Read_In, "PCIeM60",string.Format(str1, ret));
+                    string str1 = LocationServices.GetLang("IoCardReadIoInError");
+
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, "PCIeM60", string.Format(str1,nCardNo,"PCIeM60",data, ret));
                 }
 
                 return false;
@@ -145,13 +140,9 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    //string str1 = "PCIeM60板卡M_Get_Digital_Chn_Input失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Get_Digital_Chn_Input error! Result = {0}";
-                    //}
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_IO_Read_In, "PCIeM60",
-                    //    string.Format(str1, ret));
+                    string str1 = LocationServices.GetLang("IoCardReadIoInBitError");
+
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, "PCIeM60", string.Format(str1, CardNo, "PCIeM60", nIndex, ret));
                 }
 
                 return false;
@@ -175,13 +166,9 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    //string str1 = "PCIeM60板卡M_Get_Digital_Chn_Output失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Get_Digital_Chn_Output error! Result = {0}";
-                    //}
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_IO_Read_In, "PCIeM60",
-                    //    string.Format(str1, ret));
+                    string str1 = LocationServices.GetLang("IoCardReadIoOutBitError");
+
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, "PCIeM60", string.Format(str1, CardNo, "PCIeM60", nIndex, ret));
                 }
 
                 return false;
@@ -207,13 +194,9 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    //string str1 = "PCIeM60板卡M_Get_Digital_Port_Output失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Get_Digital_Port_Output error! Result = {0}";
-                    //}
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_IO_Read_Out, "PCIeM60",
-                    //    string.Format(str1, ret));
+                    string str1 = LocationServices.GetLang("IoCardReadIoOutError");
+
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, "PCIeM60", string.Format(str1, CardNo, "PCIeM60", nData, ret));
                 }
 
                 return false;
@@ -240,13 +223,9 @@ namespace MotionIO
                 if (ret != 0)
                 {
 
-                    //string str1 = "PCIeM60板卡M_Set_Digital_Chn_Output失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Set_Digital_Chn_Output error! Result = {0}";
-                    //}
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_IO_Write, "PCIeM60",
-                    //    string.Format(str1, ret));
+                    string str1 = LocationServices.GetLang("IoCardWriteIoBitError");
+
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoWrite, "PCIeM60", string.Format(str1, CardNo,ret,"PCIeM60"));
 
 
                     return false;
@@ -274,13 +253,9 @@ namespace MotionIO
                 {
                     if (Enable)
                     {
-                        //string str1 = "PCIeM60板卡M_Set_Digital_Port_Output失败! result = {0}";
-                        //if (LanguageMgr.GetInstance().LanguageID != 0)
-                        //{
-                        //    str1 = "PCIeM60 board card M_Set_Digital_Port_Output error! Result = {0}";
-                        //}
-                        //WarningMgr.GetInstance().Error(ErrorType.Err_IO_Write, "PCIeM60",
-                        //    string.Format(str1, ret));
+                        string str1 = LocationServices.GetLang("IoCardWriteIoError");
+
+                        RunInforManager.GetInstance().Error(ErrorType.ErrIoWrite, "PCIeM60", string.Format(str1, CardNo, ret, "PCIeM60"));
                     }
 
                     return false;

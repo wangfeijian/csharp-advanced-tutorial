@@ -186,6 +186,7 @@ namespace CommonTools.Servers
                     SysInput = new List<SysInputPoint>(),
                     SysOutput = new List<SysOutputPoint>(),
                     MotionCardsList = new List<MotionCard>(),
+                    AxisConfigList = new List<AxisCfg>(),
                     EthInfos = new List<EthInfo>(),
                     StationInfos = new List<StationInfo>()
                 };

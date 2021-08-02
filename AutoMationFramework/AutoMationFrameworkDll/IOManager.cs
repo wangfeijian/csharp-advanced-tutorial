@@ -19,6 +19,8 @@ using CommonTools.Manager;
 using CommonTools.Model;
 using CommonTools.Servers;
 using CommonTools.Tools;
+using CommonTools.ViewModel;
+using GalaSoft.MvvmLight.Ioc;
 using MotionIO;
 
 namespace AutoMationFrameworkDll
@@ -321,8 +323,8 @@ namespace AutoMationFrameworkDll
         {
             ListCard.Clear();
 
-            string fileName = AppDomain.CurrentDomain.BaseDirectory + "Config\\" + fileDir + "\\systemCfg";
-            SystemConfig = bulidConfig.LoadConfig<SystemCfg>(fileName);
+            SystemConfig = SimpleIoc.Default.GetInstance<SystemConfigViewModel>().SystemConfig;
+
             foreach (var ioCardInfo in SystemConfig.IoCardsList)
             {
                 string cardIndex = ioCardInfo.CardIndex;

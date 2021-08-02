@@ -347,7 +347,7 @@ namespace CommonTools.Servers
 
         private T LoadParamConfig<T>(string fileName) where T : Parameters
         {
-            string file = fileName +".xml";
+            string file = fileName + ".xml";
             Parameters parameters;
 
             if (!File.Exists(file))
@@ -411,6 +411,7 @@ namespace CommonTools.Servers
                     SysInput = new List<SysInputPoint>(),
                     SysOutput = new List<SysOutputPoint>(),
                     MotionCardsList = new List<MotionCard>(),
+                    AxisConfigList = new List<AxisCfg>(),
                     EthInfos = new List<EthInfo>(),
                     StationInfos = new List<StationInfo>()
                 };
@@ -487,6 +488,28 @@ namespace CommonTools.Servers
                                  MinAxisNum = item.Attribute("最小轴号")?.Value,
                                  MaxAxisNum = item.Attribute("最大轴号")?.Value
                              };
+            var axis = from item in doc.Descendants("Axis")
+                       where item.HasAttributes
+                       select
+                           new AxisCfg
+                           {
+                               AxisNum = item.Attribute("轴号")?.Value,
+                               GearRatio = item.Attribute("齿轮比")?.Value,
+                               HomeMode = item.Attribute("回零方式")?.Value,
+                               HomeSpeedMin = item.Attribute("回零最小速度")?.Value,
+                               HomeSpeedMax = item.Attribute("回零最大速度")?.Value,
+                               HomeAcc = item.Attribute("回零加速时间")?.Value,
+                               HomeDec = item.Attribute("回零减速时间")?.Value,
+                               SpeedMax = item.Attribute("最大运行速度")?.Value,
+                               Acc = item.Attribute("加速时间")?.Value,
+                               Dec = item.Attribute("减速时间")?.Value,
+                               SFac = item.Attribute("平滑系数")?.Value,
+                               InPosError = item.Attribute("到位误差")?.Value,
+                               EnableSpel = item.Attribute("软正限位启用")?.Value,
+                               EnableSmel = item.Attribute("软负限位启用")?.Value,
+                               SpelPos = item.Attribute("软正限位")?.Value,
+                               SmelPos = item.Attribute("软负限位")?.Value,
+                           };
             var station = from item in doc.Descendants("Station")
                           where item.HasAttributes
                           select
@@ -523,6 +546,7 @@ namespace CommonTools.Servers
                 SysInput = systemIoIn.ToList(),
                 SysOutput = systemIoOut.ToList(),
                 MotionCardsList = motion.ToList(),
+                AxisConfigList = axis.ToList(),
                 EthInfos = eth.ToList(),
                 StationInfos = station.ToList()
             };

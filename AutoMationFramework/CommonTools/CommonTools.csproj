@@ -86,6 +86,7 @@
     <Compile Include="Tools\Win32Help.cs" />
     <Compile Include="Manager\RunInfoManager.cs" />
     <Compile Include="ViewModel\SysParamControlViewModel.cs" />
+    <Compile Include="ViewModel\SystemConfigViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

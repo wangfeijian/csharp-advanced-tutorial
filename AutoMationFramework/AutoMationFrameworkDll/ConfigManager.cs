@@ -31,7 +31,8 @@ namespace AutoMationFrameworkDll
         public bool LoadConfigFile(string fileName, IBuildConfig buildConfig)
         {
             bool runBool = RunInforManager.GetInstance().ReadXmlConfig(fileName);
-            IoManager.GetInstance().ReadCfgFromFile(fileName,buildConfig);
+            IoManager.GetInstance().ReadCfgFromFile(fileName, buildConfig);
+            MotionManager.GetInstance().ReadCardFromCfg();
             return runBool;
         }
     }

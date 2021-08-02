@@ -185,8 +185,8 @@ namespace MotionIO
                 }
                 else
                 {
-                    string str1 = LocationServices.GetLang("IoDmcCanReadIoBitError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoWrite, $"{CardNo}.{nIndex}",string.Format(str1, CardNo, ret));
+                    string str1 = LocationServices.GetLang("IoCardWriteIoBitError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoWrite, $"{CardNo}.{nIndex}",string.Format(str1, CardNo, ret,"DmcCan"));
 
                     return false;
                 }
@@ -211,8 +211,8 @@ namespace MotionIO
                 }
                 else
                 {
-                    string str1 = LocationServices.GetLang("IoDmcCanReadIoError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoWrite,CardNo.ToString(),string.Format(str1, CardNo, ret));
+                    string str1 = LocationServices.GetLang("IoCardWriteIoError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoWrite,CardNo.ToString(),string.Format(str1, CardNo, ret,"DmcCan"));
 
                     return false;
                 }

@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,9 +63,9 @@
     <Compile Include="IoControlPcieM60.cs" />
     <Compile Include="LTDMC.cs" />
     <Compile Include="Motion.cs" />
-    <Compile Include="Motion_DmcEcat.cs" />
-    <Compile Include="Motion_InoEcat.cs" />
-    <Compile Include="Motion_PCIeM60.cs" />
+    <Compile Include="MotionDmcEcat.cs" />
+    <Compile Include="MotionInoEcat.cs" />
+    <Compile Include="MotionPCIeM60.cs" />
     <Compile Include="PCI_DMC.cs" />
     <Compile Include="PCI_DMC_ERR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

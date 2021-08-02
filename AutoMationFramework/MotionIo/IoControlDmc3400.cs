@@ -10,8 +10,6 @@
 *           Description:    DMC3400 IO card class                    *
 *********************************************************************/
 
-using System;
-using System.Threading;
 using CommonTools.Tools;
 using CommonTools.Manager;
 using csLTDMC;
@@ -23,7 +21,7 @@ namespace MotionIO
     /// </summary>
     public class IoControlDmc3400 : IoControl
     {
-        private ushort m_nInternalIndex = 0;
+        private ushort _nInternalIndex;
 
         /// <summary>
         /// 构造函数
@@ -36,7 +34,7 @@ namespace MotionIO
             StrArrayIn = new string[20];
             StrArrayOut = new string[20] ;
 
-            m_nInternalIndex = (ushort)nCardNo;
+            _nInternalIndex = (ushort)nCardNo;
         }
         
         /// <summary>
@@ -49,7 +47,7 @@ namespace MotionIO
             try
             {
                 uint uCountValue = 0;
-                short ret = LTDMC.dmc_get_io_count_value(m_nInternalIndex, 0, ref uCountValue);
+                short ret = LTDMC.dmc_get_io_count_value(_nInternalIndex, 0, ref uCountValue);
                 if (ret == (short)DMC3400_DEFINE.ERR_NOERR)
                 {
                     Enable = true;
@@ -83,7 +81,7 @@ namespace MotionIO
         public override bool  ReadIoIn(ref int data)
         {
             // 只有bit0~bit15是通用输入端口
-            int nInputData = (int)(LTDMC.dmc_read_inport(m_nInternalIndex, 0) & 0xFFFF);
+            int nInputData = (int)(LTDMC.dmc_read_inport(_nInternalIndex, 0) & 0xFFFF);
             if (InData != nInputData)
             {
                 DataChange = true;
@@ -104,7 +102,7 @@ namespace MotionIO
         /// <returns></returns>
         public override bool ReadIoInBit(int nIndex)
         {
-            short nIoState = LTDMC.dmc_read_inbit(m_nInternalIndex, (ushort)(nIndex - 1));
+            short nIoState = LTDMC.dmc_read_inbit(_nInternalIndex, (ushort)(nIndex - 1));
             return nIoState != 0;
         }
 
@@ -115,7 +113,7 @@ namespace MotionIO
         /// <returns></returns>
         public override bool ReadIoOutBit(int nIndex)
         {
-            short nIoState = LTDMC.dmc_read_outbit(m_nInternalIndex, (ushort)(nIndex - 1));
+            short nIoState = LTDMC.dmc_read_outbit(_nInternalIndex, (ushort)(nIndex - 1));
             return nIoState != 0;
         }
 
@@ -126,7 +124,7 @@ namespace MotionIO
         /// <returns></returns>
         public override bool  ReadIoOut(ref int nData)
         {            
-            int nOutputData = (int)LTDMC.dmc_read_outport(m_nInternalIndex, 0);
+            int nOutputData = (int)LTDMC.dmc_read_outport(_nInternalIndex, 0);
             OutData = nData = (nOutputData & 0xFFFF);// 只有bit0~bit15是通用输入端口
             return true;
         }
@@ -142,15 +140,15 @@ namespace MotionIO
             if (Enable)
             {
                 int onOff = bBit ? 1 : 0;
-                short ret = LTDMC.dmc_write_outbit(m_nInternalIndex, (ushort)(nIndex - 1), (ushort)onOff);
+                short ret = LTDMC.dmc_write_outbit(_nInternalIndex, (ushort)(nIndex - 1), (ushort)onOff);
                 if (ret == (short)DMC3400_DEFINE.ERR_NOERR)
                 {
                     return true;
                 }
                 else
                 {
-                    string str1 = LocationServices.GetLang("IoDmc3400ReadIoBitError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoWrite, $"{CardNo}.{nIndex}",string.Format(str1, CardNo, ret));
+                    string str1 = LocationServices.GetLang("IoCardWriteIoBitError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoWrite, $"{CardNo}.{nIndex}",string.Format(str1, CardNo, ret,"DMC3400"));
 
                     return false;
                 }
@@ -167,19 +165,19 @@ namespace MotionIO
         {
             if (Enable)
             {
-                int uOutData = (int)LTDMC.dmc_read_outport(m_nInternalIndex, 0);
+                int uOutData = (int)LTDMC.dmc_read_outport(_nInternalIndex, 0);
                 uOutData = (uOutData & ~0xFFFF) | (nData & 0xFFFF);
 
-                short ret = LTDMC.dmc_write_outport(m_nInternalIndex, 0, (uint)uOutData);
+                short ret = LTDMC.dmc_write_outport(_nInternalIndex, 0, (uint)uOutData);
                 if (ret == (short)DMC3400_DEFINE.ERR_NOERR)
                 {
                     return true;
                 }
                 else
                 {
-                    string str1 = LocationServices.GetLang("IoDmc3400ReadIoError");
+                    string str1 = LocationServices.GetLang("IoCardWriteIoError");
                     RunInforManager.GetInstance().Error(ErrorType.ErrIoWrite,CardNo.ToString(),
-                        string.Format(str1, CardNo, ret));
+                        string.Format(str1, CardNo, ret,"DMC3400"));
 
                     return false;
                 }

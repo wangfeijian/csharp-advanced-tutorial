@@ -22,10 +22,8 @@
     StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <vm:ViewModelLocator
-                xmlns:vm="clr-namespace:AutoMationFrameWork.ViewModel"
-                x:Key="Locator"
-                d:IsDataSource="True" />
+            <vm:ViewModelLocator xmlns:vm="clr-namespace:AutoMationFrameWork.ViewModel"
+                           x:Key="Locator" />
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme
                     BaseTheme="Light"

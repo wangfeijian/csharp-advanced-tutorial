@@ -54,8 +54,8 @@ namespace MotionIO
             else
             {
                 Enable = false;
-                string str1 = LocationServices.GetLang("Io7432InitError");
-                RunInforManager.GetInstance().Error(ErrorType.ErrIoInit, _nInternalCardNo.ToString(), string.Format(str1, CardNo, ret));
+                string str1 = LocationServices.GetLang("IoCardInitError");
+                RunInforManager.GetInstance().Error(ErrorType.ErrIoInit, _nInternalCardNo.ToString(), string.Format(str1, CardNo,"7432", ret));
                 return false;
             }
         }
@@ -97,8 +97,8 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io7432ReadIoInError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, _nInternalCardNo.ToString(), string.Format(str1, CardNo, ret));
+                    string str1 = LocationServices.GetLang("IoCardReadIoInError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, _nInternalCardNo.ToString(), string.Format(str1, CardNo,"7432",data, ret));
 
                 }
                 return false;
@@ -122,9 +122,9 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io7432ReadIoInBitError");
+                    string str1 = LocationServices.GetLang("IoCardReadIoInBitError");
 
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, $"{_nInternalCardNo}.{nIndex}", string.Format(str1, CardNo, nIndex, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, $"{_nInternalCardNo}.{nIndex}", string.Format(str1, CardNo,"7432", nIndex, ret));
 
                 }
                 return false;
@@ -149,8 +149,8 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io7432ReadIoOutError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, _nInternalCardNo.ToString(), string.Format(str1, CardNo, ret));
+                    string str1 = LocationServices.GetLang("IoCardReadIoOutError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, _nInternalCardNo.ToString(), string.Format(str1, CardNo,"7432",nData, ret));
                 }
                 return false;
             }
@@ -173,8 +173,8 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io7432ReadIoOutBitError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, $"{_nInternalCardNo}.{nIndex}", string.Format(str1, CardNo, nIndex, ret));
+                    string str1 = LocationServices.GetLang("IoCardReadIoOutBitError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, $"{_nInternalCardNo}.{nIndex}", string.Format(str1, CardNo,"7432", nIndex, ret));
                 }
                 return false;
             }

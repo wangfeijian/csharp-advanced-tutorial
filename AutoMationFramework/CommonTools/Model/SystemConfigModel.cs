@@ -60,6 +60,89 @@ namespace CommonTools.Model
         public string MaxAxisNum { get; set; }
     }
 
+    public class AxisCfg
+    {
+        /// <summary>
+        /// 轴号
+        /// </summary>
+        public string AxisNum{ get; set; }
+
+        /// <summary>
+        /// 齿轮比，单位脉冲每毫米、脉冲每度
+        /// </summary>
+        public string GearRatio{ get; set; }
+
+        /// <summary>
+        /// 最小速度，单位脉冲
+        /// </summary>
+        public string HomeSpeedMin{ get; set; }
+
+        /// <summary>
+        /// 最大速度，单位脉冲
+        /// </summary>
+        public string HomeSpeedMax{ get; set; }
+
+        /// <summary>
+        /// 加速时间，单位秒
+        /// </summary>
+        public string HomeAcc{ get; set; }
+
+        /// <summary>
+        /// 减速时间，单位秒
+        /// </summary>
+        public string HomeDec{ get; set; }
+
+        /// <summary>
+        /// 回原点的方式
+        /// </summary>
+        public string HomeMode{ get; set; }
+
+        /// <summary>
+        /// 最大速度，单位脉冲
+        /// </summary>
+        public string SpeedMax{ get; set; }
+
+        /// <summary>
+        /// 加速度，单位秒
+        /// </summary>
+        public string Acc{ get; set; }
+
+        /// <summary>
+        /// 减速度，单位秒
+        /// </summary>
+        public string Dec{ get; set; }
+
+        /// <summary>
+        /// 平滑系数，取值0~1，值越大越平滑
+        /// </summary>
+        public string SFac{ get; set; }
+
+        /// <summary>
+        /// 到位后的绝对值误差
+        /// </summary>
+        public string InPosError{ get; set; }
+
+        /// <summary>
+        /// 启用软正限位
+        /// </summary>
+        public string EnableSpel{ get; set; }
+
+        /// <summary>
+        /// 启用软负限位
+        /// </summary>
+        public string EnableSmel{ get; set; }
+
+        /// <summary>
+        /// 软负限位，单位pls
+        /// </summary>
+        public string SpelPos{ get; set; }
+
+        /// <summary>
+        /// 软正限位,单位pls
+        /// </summary>
+        public string SmelPos{ get; set; }
+    }
+
     public class EthInfo
     {
         public string EthNum { get; set; }
@@ -132,6 +215,13 @@ namespace CommonTools.Model
         {
             get { return _motionCards; }
             set { _motionCards = value; }
+        }
+        private List<AxisCfg> _axisConfigList;
+
+        public List<AxisCfg> AxisConfigList
+        {
+            get { return _axisConfigList; }
+            set { _axisConfigList = value; }
         }
 
         private List<EthInfo> _ethInfos;

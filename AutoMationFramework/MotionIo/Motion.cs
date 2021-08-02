@@ -1,8 +1,15 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-02                               *
+*                                                                    *
+*           ModifyTime:     2021-08-02                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Motion control base class                *
+*********************************************************************/
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace MotionIO
@@ -15,63 +22,63 @@ namespace MotionIO
         /// <summary>
         /// 原点信号+正方向
         /// </summary>
-        ORG_P = 0,
+        OrgP = 0,
 
         /// <summary>
         /// 原点信号+负方向
         /// </summary>
-        ORG_N,    
+        OrgN,    
 
         /// <summary>
         /// 正限位信号为原点，正方向回原点
         /// </summary>
-        PEL,      
+        Pel,      
 
         /// <summary>
         /// 负限位信号为原点，负方向回原点
         /// </summary>
-        MEL,      
+        Mel,      
 
 
         /// <summary>
         /// EZ信号为原点信号，正方向回原点
         /// </summary>
-        EZ_PEL,   
+        EzPel,   
 
         /// <summary>
         /// EZ信号为原点信号，负方向回原点
         /// </summary>
-        EZ_MEL,   
+        EzMel,   
 
         /// <summary>
         /// 原点信号+正方向+EZ
         /// </summary>
-        ORG_P_EZ,
+        OrgPEz,
 
         /// <summary>
         /// 原点信号+负方向+EZ
         /// </summary>
-        ORG_N_EZ,
+        OrgNEz,
 
         /// <summary>
         /// 正限位信号为原点+EZ
         /// </summary>
-        PEL_EZ,
+        PelEz,
 
         /// <summary>
         /// 负限位信号为原点+EZ
         /// </summary>
-        MEL_EZ,
+        MelEz,
 
         /// <summary>
         /// 其他模式，直接从卡中读取回原点模式，无需指定参数
         /// </summary>
-        CARD = 999,
+        Card = 999,
 
         /// <summary>
         /// 其他总线型，不能从卡中读取回原点方式，基于此值累加，例如汇川总线型，选择回原点方式1，则实际传入的参数为1000 + 1 = 1001
         /// </summary>
-        BUS_BASE = 1000,
+        BusBase = 1000,
     }
 
     /// <summary>
@@ -82,48 +89,48 @@ namespace MotionIO
         /// <summary>
         /// 判定卡是否启用或初始化成功
         /// </summary>
-        protected bool m_bEnable = false;
+        protected bool BEnable = false;
         /// <summary>
         /// 当前卡在系统中的索引号
         /// </summary>
-        protected int m_nCardIndex = 0;
+        protected int CardIndex;
         /// <summary>
         /// 卡类型名称
         /// </summary>
-        private string m_strName = string.Empty;
+        private string _strName;
         /// <summary>
         /// 卡类型支持的最小轴号
         /// </summary>
-        private int m_nMinAxisNo = 0;
+        private int _nMinAxisNo;
         /// <summary>
         /// 卡类型支持的最大轴号
         /// </summary>
-        private int m_nMaxAxisNo=255;
+        private int _nMaxAxisNo = 255;
         /// <summary>
         /// 存储连续运动缓存表与板卡对应关系的字典
         /// </summary>
-        public Dictionary<int, int> m_dicBoard = new Dictionary<int, int>();
+        public Dictionary<int, int> DicBoard = new Dictionary<int, int>();
 
         /// <summary>
         /// 4轴还是8轴或者12轴，16轴
         /// </summary>
-        public int m_nAxisNum = 4;  
+        public int AxisNum = 4;  
 
         /// <summary>
         /// 构造初始化
         /// </summary>
-        /// <param name="nCardIndex"></param>
+        /// <param name="cardIndex"></param>
         /// <param name="strName"></param>
         /// <param name="nMinAxisNo"></param>
         /// <param name="nMaxAxisNo"></param>
-        public Motion(int nCardIndex,string strName, int nMinAxisNo, int nMaxAxisNo)
+        public Motion(int cardIndex,string strName, int nMinAxisNo, int nMaxAxisNo)
         {
-            m_nCardIndex = nCardIndex;
-            m_strName = strName;
-            m_nMinAxisNo = nMinAxisNo;
-            m_nMaxAxisNo = nMaxAxisNo;
+            CardIndex = cardIndex;
+            _strName = strName;
+            _nMinAxisNo = nMinAxisNo;
+            _nMaxAxisNo = nMaxAxisNo;
 
-            m_nAxisNum = ((m_nMaxAxisNo - m_nMinAxisNo) / 4 + 1) * 4; //计算当前卡支持的轴数
+            AxisNum = ((_nMaxAxisNo - _nMinAxisNo) / 4 + 1) * 4; //计算当前卡支持的轴数
         }
         /// <summary>
         /// 卡是否启用成功
@@ -131,7 +138,7 @@ namespace MotionIO
         /// <returns></returns>
         public bool IsEnable()
         {
-            return m_bEnable;
+            return BEnable;
 
         }
 
@@ -360,19 +367,19 @@ namespace MotionIO
         ///获取运动控制卡名称 
         /// </summary>
         /// <returns></returns>
-        public string GetCardName() { return m_strName; }
+        public string GetCardName() { return _strName; }
 
         /// <summary>
         /// 获取最小轴号
         /// </summary>
         /// <returns></returns>
-        public int GetMinAxisNo() { return m_nMinAxisNo; }
+        public int GetMinAxisNo() { return _nMinAxisNo; }
 
         /// <summary>
         /// //获取最大轴号
         /// </summary>
         /// <returns></returns>
-        public int GetMaxAxisNo() { return m_nMaxAxisNo; }    
+        public int GetMaxAxisNo() { return _nMaxAxisNo; }    
 
         /// <summary>
         /// 获取系统轴号
@@ -391,7 +398,7 @@ namespace MotionIO
         /// <returns></returns>
         public bool AxisInRang(int nAxisNo)
         {
-            return nAxisNo >= m_nMinAxisNo && nAxisNo <= m_nMaxAxisNo;
+            return nAxisNo >= _nMinAxisNo && nAxisNo <= _nMaxAxisNo;
         }
 
         /// <summary>
@@ -400,7 +407,7 @@ namespace MotionIO
         /// <returns></returns>
         public int GetCardIndex()
         {
-            return m_nCardIndex;
+            return CardIndex;
         }
 
 
@@ -444,7 +451,7 @@ namespace MotionIO
         /// <param name="nAixsArray">轴数组,第一个轴为主轴，设定加速度等参数以主轴为基准</param>
         /// <param name="fCenterArray">圆心的绝对座标位置</param>   
         /// <param name="fEndArray">终点的绝对座标位置</param>   
-        /// <param name="Dir">圆弧的方向，　0:正向，　１：负向</param>
+        /// <param name="dir">圆弧的方向，　0:正向，　１：负向</param>
         /// <param name="vm">最大速度</param>
         /// <param name="acc">加速度</param>
         /// <param name="dec">减速度</param>
@@ -452,7 +459,7 @@ namespace MotionIO
         /// <param name="ve">结束速度</param>
         /// <param name="sFac">S曲线因子</param>
         /// <returns></returns>
-        public virtual bool AbsArcMove(ref int[] nAixsArray, ref double[] fCenterArray, ref double[] fEndArray, int Dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
+        public virtual bool AbsArcMove(ref int[] nAixsArray, ref double[] fCenterArray, ref double[] fEndArray, int dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
         {
             return false;
         }
@@ -463,7 +470,7 @@ namespace MotionIO
         /// <param name="nAixsArray">轴数组,第一个轴为主轴，设定加速度等参数以主轴为基准</param>
         /// <param name="fCenterOffsetArray">圆心的绝对座标位置</param>   
         /// <param name="fEndArray">终点的绝对座标位置</param>   
-        /// <param name="Dir">圆弧的方向，　0:正向，　１：负向</param>
+        /// <param name="dir">圆弧的方向，　0:正向，　１：负向</param>
         /// <param name="vm">最大速度</param>
         /// <param name="acc">加速度</param>
         /// <param name="dec">减速度</param>
@@ -471,7 +478,7 @@ namespace MotionIO
         /// <param name="ve">结束速度</param>
         /// <param name="sFac">S曲线因子</param>
         /// <returns></returns>
-        public virtual bool RelativeArcMove(ref int[] nAixsArray, ref double[] fCenterOffsetArray, ref double[] fEndArray, int Dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
+        public virtual bool RelativeArcMove(ref int[] nAixsArray, ref double[] fCenterOffsetArray, ref double[] fEndArray, int dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
         {
             return false;
         }
@@ -574,7 +581,7 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="bEnable"></param>
         /// <returns></returns>
-        public virtual bool SetSPELEnable(int nAxisNo,bool bEnable)
+        public virtual bool SetSpelEnable(int nAxisNo,bool bEnable)
         {
             return false;
         }
@@ -585,7 +592,7 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="bEnable"></param>
         /// <returns></returns>
-        public virtual bool SetSMELEnable(int nAxisNo,bool bEnable)
+        public virtual bool SetSmelEnable(int nAxisNo,bool bEnable)
         {
             return false;
         }
@@ -596,7 +603,7 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public virtual bool SetSPELPos(int nAxisNo,double pos)
+        public virtual bool SetSpelPos(int nAxisNo,double pos)
         {
             return false;
         }
@@ -607,7 +614,7 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public virtual bool SetSMELPos(int nAxisNo,double pos)
+        public virtual bool SetSmelPos(int nAxisNo,double pos)
         {
             return false;
         }

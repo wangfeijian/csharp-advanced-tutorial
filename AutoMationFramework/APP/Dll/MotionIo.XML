@@ -579,32 +579,32 @@
             
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlDelta.DeltaAddr.nType">
+        <member name="F:MotionIO.IoControlDelta.DeltaAddr.Type">
             <summary>
             
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlDelta.DeltaAddr.nCardID">
+        <member name="F:MotionIO.IoControlDelta.DeltaAddr.CardId">
             <summary>
             
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlDelta.DeltaAddr.nNodeID">
+        <member name="F:MotionIO.IoControlDelta.DeltaAddr.NodeId">
             <summary>
             
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlDelta.DeltaAddr.nSlotID">
+        <member name="F:MotionIO.IoControlDelta.DeltaAddr.SlotId">
             <summary>
             
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlDelta.DeltaAddr.nPortID">
+        <member name="F:MotionIO.IoControlDelta.DeltaAddr.PortId">
             <summary>
             
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlDelta.DeltaAddr.nIndex">
+        <member name="F:MotionIO.IoControlDelta.DeltaAddr.Index">
             <summary>
             
             </summary>
@@ -613,19 +613,19 @@
             <summary>
             
             </summary>
-            <param name="nCardID"></param>
-            <param name="nNodeID"></param>
-            <param name="nPortID"></param>
-            <param name="nSlotID"></param>
-            <param name="nIndex"></param>
-            <param name="nType"></param>
+            <param name="cardId"></param>
+            <param name="nodeId"></param>
+            <param name="portId"></param>
+            <param name="slotId"></param>
+            <param name="index"></param>
+            <param name="type"></param>
         </member>
-        <member name="F:MotionIO.IoControlDelta.addrDI">
+        <member name="F:MotionIO.IoControlDelta.AddrDi">
             <summary>
             
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlDelta.addrDO">
+        <member name="F:MotionIO.IoControlDelta.AddrDo">
             <summary>
             
             </summary>
@@ -838,7 +838,7 @@
             雷赛EtherCAT控制卡的IO控制，类名必须以"IoControl"前导，否则加载不到
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlDmcEcat.m_nCardId">
+        <member name="F:MotionIO.IoControlDmcEcat._nCardId">
             <summary>
             控制卡ID
             </summary>
@@ -981,17 +981,17 @@
             框架中的每个汇川总线IO卡只支持32个IO，超过32个需要配置多张卡
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlInoEcat.m_hCardHandle">
+        <member name="F:MotionIO.IoControlInoEcat._hCardHandle">
             <summary>
             控制卡句柄
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlInoEcat.m_nDiGrpCnt">
+        <member name="F:MotionIO.IoControlInoEcat._nDiGrpCnt">
             <summary>
             DI组的数量，汇川的IO以8个为一组
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlInoEcat.m_nDoGrpCnt">
+        <member name="F:MotionIO.IoControlInoEcat._nDoGrpCnt">
             <summary>
             DO组的数量
             </summary>
@@ -1063,12 +1063,12 @@
             框架中的每个汇川总线IO卡只支持32个IO，超过32个需要配置多张卡
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlPcieM60.m_nDiGrpCnt">
+        <member name="F:MotionIO.IoControlPcieM60._nDiGrpCnt">
             <summary>
             DI组的数量，32个一组
             </summary>
         </member>
-        <member name="F:MotionIO.IoControlPcieM60.m_nDoGrpCnt">
+        <member name="F:MotionIO.IoControlPcieM60._nDoGrpCnt">
             <summary>
             DO组的数量
             </summary>
@@ -1139,62 +1139,62 @@
             回原点模式
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.ORG_P">
+        <member name="F:MotionIO.HomeMode.OrgP">
             <summary>
             原点信号+正方向
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.ORG_N">
+        <member name="F:MotionIO.HomeMode.OrgN">
             <summary>
             原点信号+负方向
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.PEL">
+        <member name="F:MotionIO.HomeMode.Pel">
             <summary>
             正限位信号为原点，正方向回原点
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.MEL">
+        <member name="F:MotionIO.HomeMode.Mel">
             <summary>
             负限位信号为原点，负方向回原点
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.EZ_PEL">
+        <member name="F:MotionIO.HomeMode.EzPel">
             <summary>
             EZ信号为原点信号，正方向回原点
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.EZ_MEL">
+        <member name="F:MotionIO.HomeMode.EzMel">
             <summary>
             EZ信号为原点信号，负方向回原点
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.ORG_P_EZ">
+        <member name="F:MotionIO.HomeMode.OrgPEz">
             <summary>
             原点信号+正方向+EZ
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.ORG_N_EZ">
+        <member name="F:MotionIO.HomeMode.OrgNEz">
             <summary>
             原点信号+负方向+EZ
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.PEL_EZ">
+        <member name="F:MotionIO.HomeMode.PelEz">
             <summary>
             正限位信号为原点+EZ
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.MEL_EZ">
+        <member name="F:MotionIO.HomeMode.MelEz">
             <summary>
             负限位信号为原点+EZ
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.CARD">
+        <member name="F:MotionIO.HomeMode.Card">
             <summary>
             其他模式，直接从卡中读取回原点模式，无需指定参数
             </summary>
         </member>
-        <member name="F:MotionIO.HomeMode.BUS_BASE">
+        <member name="F:MotionIO.HomeMode.BusBase">
             <summary>
             其他总线型，不能从卡中读取回原点方式，基于此值累加，例如汇川总线型，选择回原点方式1，则实际传入的参数为1000 + 1 = 1001
             </summary>
@@ -1204,37 +1204,37 @@
             运动控制卡封装基类
             </summary>
         </member>
-        <member name="F:MotionIO.Motion.m_bEnable">
+        <member name="F:MotionIO.Motion.BEnable">
             <summary>
             判定卡是否启用或初始化成功
             </summary>
         </member>
-        <member name="F:MotionIO.Motion.m_nCardIndex">
+        <member name="F:MotionIO.Motion.CardIndex">
             <summary>
             当前卡在系统中的索引号
             </summary>
         </member>
-        <member name="F:MotionIO.Motion.m_strName">
+        <member name="F:MotionIO.Motion._strName">
             <summary>
             卡类型名称
             </summary>
         </member>
-        <member name="F:MotionIO.Motion.m_nMinAxisNo">
+        <member name="F:MotionIO.Motion._nMinAxisNo">
             <summary>
             卡类型支持的最小轴号
             </summary>
         </member>
-        <member name="F:MotionIO.Motion.m_nMaxAxisNo">
+        <member name="F:MotionIO.Motion._nMaxAxisNo">
             <summary>
             卡类型支持的最大轴号
             </summary>
         </member>
-        <member name="F:MotionIO.Motion.m_dicBoard">
+        <member name="F:MotionIO.Motion.DicBoard">
             <summary>
             存储连续运动缓存表与板卡对应关系的字典
             </summary>
         </member>
-        <member name="F:MotionIO.Motion.m_nAxisNum">
+        <member name="F:MotionIO.Motion.AxisNum">
             <summary>
             4轴还是8轴或者12轴，16轴
             </summary>
@@ -1243,7 +1243,7 @@
             <summary>
             构造初始化
             </summary>
-            <param name="nCardIndex"></param>
+            <param name="cardIndex"></param>
             <param name="strName"></param>
             <param name="nMinAxisNo"></param>
             <param name="nMaxAxisNo"></param>
@@ -1535,7 +1535,7 @@
             <param name="nAixsArray">轴数组,第一个轴为主轴，设定加速度等参数以主轴为基准</param>
             <param name="fCenterArray">圆心的绝对座标位置</param>   
             <param name="fEndArray">终点的绝对座标位置</param>   
-            <param name="Dir">圆弧的方向，　0:正向，　１：负向</param>
+            <param name="dir">圆弧的方向，　0:正向，　１：负向</param>
             <param name="vm">最大速度</param>
             <param name="acc">加速度</param>
             <param name="dec">减速度</param>
@@ -1551,7 +1551,7 @@
             <param name="nAixsArray">轴数组,第一个轴为主轴，设定加速度等参数以主轴为基准</param>
             <param name="fCenterOffsetArray">圆心的绝对座标位置</param>   
             <param name="fEndArray">终点的绝对座标位置</param>   
-            <param name="Dir">圆弧的方向，　0:正向，　１：负向</param>
+            <param name="dir">圆弧的方向，　0:正向，　１：负向</param>
             <param name="vm">最大速度</param>
             <param name="acc">加速度</param>
             <param name="dec">减速度</param>
@@ -1631,7 +1631,7 @@
             <param name="nMillsecond">需要延时的毫秒值</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion.SetSPELEnable(System.Int32,System.Boolean)">
+        <member name="M:MotionIO.Motion.SetSpelEnable(System.Int32,System.Boolean)">
             <summary>
             启用软件正限位
             </summary>
@@ -1639,7 +1639,7 @@
             <param name="bEnable"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion.SetSMELEnable(System.Int32,System.Boolean)">
+        <member name="M:MotionIO.Motion.SetSmelEnable(System.Int32,System.Boolean)">
             <summary>
             启用软件负限位
             </summary>
@@ -1647,7 +1647,7 @@
             <param name="bEnable"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion.SetSPELPos(System.Int32,System.Double)">
+        <member name="M:MotionIO.Motion.SetSpelPos(System.Int32,System.Double)">
             <summary>
             设置软件正限位位置
             </summary>
@@ -1655,7 +1655,7 @@
             <param name="pos"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion.SetSMELPos(System.Int32,System.Double)">
+        <member name="M:MotionIO.Motion.SetSmelPos(System.Int32,System.Double)">
             <summary>
             设置软件负限位位置
             </summary>
@@ -1704,59 +1704,59 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MotionIO.Motion_DmcEcat">
+        <member name="T:MotionIO.MotionDmcEcat">
             <summary>
-            雷赛EtherCAT运动控制卡封装,类名必须以"Motion_"前导，否则加载不到
+            雷赛EtherCAT运动控制卡封装,类名必须以"Motion"前导，否则加载不到
             </summary>
         </member>
-        <member name="F:MotionIO.Motion_DmcEcat.m_nCardId">
+        <member name="F:MotionIO.MotionDmcEcat._nCardId">
             <summary>
             控制卡ID
             </summary>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.#ctor(System.Int32,System.String,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.#ctor(System.Int32,System.String,System.Int32,System.Int32)">
             <summary>构造函数
             
             </summary>
-            <param name="nCardIndex"></param>
+            <param name="cardIndex"></param>
             <param name="strName"></param>
             <param name="nMinAxisNo"></param>
             <param name="nMaxAxisNo"></param>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.Init">
+        <member name="M:MotionIO.MotionDmcEcat.Init">
             <summary>
             轴卡初始化
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.DeInit">
+        <member name="M:MotionIO.MotionDmcEcat.DeInit">
             <summary>
             关闭轴卡
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.ServoOn(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.ServoOn(System.Int32)">
             <summary>
             给予使能
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.ServoOff(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.ServoOff(System.Int32)">
             <summary>
             断开使能
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.GetServoState(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.GetServoState(System.Int32)">
             <summary>
             读取伺服使能状态
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.Home(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.Home(System.Int32,System.Int32)">
             <summary>
             回原点
             </summary>
@@ -1764,7 +1764,7 @@
             <param name="nParam">回原点参数, 对于8254，此参数代表回原点的方向</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.Home(System.Int32,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionDmcEcat.Home(System.Int32,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             回原点
             </summary>
@@ -1778,7 +1778,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.AbsMove(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.AbsMove(System.Int32,System.Int32,System.Int32)">
             <summary>
             以绝对位置移动
             </summary>
@@ -1787,7 +1787,7 @@
             <param name="nSpeed">速度</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.AbsMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionDmcEcat.AbsMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以绝对位置移动
             </summary>
@@ -1801,7 +1801,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.RelativeMove(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.RelativeMove(System.Int32,System.Int32,System.Int32)">
             <summary>
             相对位置移动
             </summary>
@@ -1810,7 +1810,7 @@
             <param name="nSpeed">速度</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.RelativeMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionDmcEcat.RelativeMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             相对位置移动
             </summary>
@@ -1824,7 +1824,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.JogMove(System.Int32,System.Boolean,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.JogMove(System.Int32,System.Boolean,System.Int32,System.Int32)">
             <summary>
             JOG运动
             </summary>
@@ -1834,49 +1834,49 @@
             <param name="nSpeed">速度</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.StopAxis(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.StopAxis(System.Int32)">
             <summary>
             轴正常停止
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.StopEmg(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.StopEmg(System.Int32)">
             <summary>
             急停
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.GetMotionState(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.GetMotionState(System.Int32)">
             <summary>
             获取轴卡运动状态
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.GetMotionIoState(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.GetMotionIoState(System.Int32)">
             <summary>
             获取轴卡运动IO信号
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.GetAixsPos(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.GetAixsPos(System.Int32)">
             <summary>
             获取轴的当前位置
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.IsAxisNormalStop(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.IsAxisNormalStop(System.Int32)">
             <summary>
             轴是否正常停止
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns>0:正常停止, -1:未到位 其它:急停,报警等</returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.IsAxisInPos(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.IsAxisInPos(System.Int32,System.Int32)">
             <summary>
             判断轴是否到位
             </summary>
@@ -1884,14 +1884,14 @@
             <param name="nInPosError">到位误差</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.SetPosZero(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.SetPosZero(System.Int32)">
             <summary>
             位置清零
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.SetAxisParam(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.SetAxisParam(System.Int32,System.Int32,System.Int32)">
             <summary>
             设置单轴的某一运动参数
             </summary>
@@ -1900,7 +1900,7 @@
             <param name="nData">参数值</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.VelocityMove(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.VelocityMove(System.Int32,System.Int32)">
             <summary>
             速度模式旋转轴
             </summary>
@@ -1908,14 +1908,14 @@
             <param name="nSpeed"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.IsHomeNormalStop(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.IsHomeNormalStop(System.Int32)">
              <summary>
             此函数8254板卡不提供不使用,回原点内部已经封装好过程处理 
              </summary>
              <param name="nAxisNo"></param>
              <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_DmcEcat.ClearError(System.Int32)">
+        <member name="M:MotionIO.MotionDmcEcat.ClearError(System.Int32)">
             <summary>
             清除报警
             </summary>
@@ -1927,12 +1927,12 @@
             汇川EtherCAT控制卡资源
             </summary>
         </member>
-        <member name="F:MotionIO.InoEtherCatCard.m_hCardHandle">
+        <member name="F:MotionIO.InoEtherCatCard.CardHandle">
             <summary>
             控制卡句柄
             </summary>
         </member>
-        <member name="F:MotionIO.InoEtherCatCard.m_tResoures">
+        <member name="F:MotionIO.InoEtherCatCard.Resoures">
             <summary>
             卡内资源
             </summary>
@@ -1959,64 +1959,64 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MotionIO.Motion_InoEcat">
+        <member name="T:MotionIO.MotionInoEcat">
             <summary>
             汇川EtherCAT运动控制卡封装,类名必须以"Motion_"前导，否则加载不到
             </summary>
         </member>
-        <member name="F:MotionIO.Motion_InoEcat.m_hCardHandle">
+        <member name="F:MotionIO.MotionInoEcat._hCardHandle">
             <summary>
             控制卡句柄
             </summary>
         </member>
-        <member name="F:MotionIO.Motion_InoEcat.m_homePara">
+        <member name="F:MotionIO.MotionInoEcat._homePara">
             <summary>
             回原点参数
             </summary>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.#ctor(System.Int32,System.String,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.#ctor(System.Int32,System.String,System.Int32,System.Int32)">
             <summary>构造函数
             
             </summary>
-            <param name="nCardIndex"></param>
+            <param name="cardIndex"></param>
             <param name="strName"></param>
             <param name="nMinAxisNo"></param>
             <param name="nMaxAxisNo"></param>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.Init">
+        <member name="M:MotionIO.MotionInoEcat.Init">
             <summary>
             轴卡初始化
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.DeInit">
+        <member name="M:MotionIO.MotionInoEcat.DeInit">
             <summary>
             关闭轴卡
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.ServoOn(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.ServoOn(System.Int32)">
             <summary>
             给予使能
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.ServoOff(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.ServoOff(System.Int32)">
             <summary>
             断开使能
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.GetServoState(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.GetServoState(System.Int32)">
             <summary>
             读取伺服使能状态
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.Home(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.Home(System.Int32,System.Int32)">
             <summary>
             回原点
             </summary>
@@ -2024,7 +2024,7 @@
             <param name="nMode">回原点参数, 对于8254，此参数代表回原点的方向</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.Home(System.Int32,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.Home(System.Int32,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             回原点
             </summary>
@@ -2038,7 +2038,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.AbsMove(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.AbsMove(System.Int32,System.Int32,System.Int32)">
             <summary>
             以绝对位置移动
             </summary>
@@ -2047,7 +2047,7 @@
             <param name="nSpeed">速度</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.AbsMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.AbsMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以绝对位置移动
             </summary>
@@ -2061,7 +2061,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.AbsLinearMove(System.Int32[]@,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.AbsLinearMove(System.Int32[]@,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以当前位置为起始点进行多轴直线插补
             </summary>
@@ -2075,7 +2075,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.RelativeLinearMove(System.Int32[]@,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.RelativeLinearMove(System.Int32[]@,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以当前位置为起始点进行多轴直线插补
             </summary>
@@ -2089,14 +2089,14 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.AbsArcMove(System.Int32[]@,System.Double[]@,System.Double[]@,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.AbsArcMove(System.Int32[]@,System.Double[]@,System.Double[]@,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以当前点为起点做圆弧插补运动
             </summary>
             <param name="nAixsArray"></param>
             <param name="fCenterArray"></param>
             <param name="fEndArray"></param>
-            <param name="Dir"></param>
+            <param name="dir"></param>
             <param name="vm"></param>
             <param name="acc"></param>
             <param name="dec"></param>
@@ -2105,14 +2105,14 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.RelativeArcMove(System.Int32[]@,System.Double[]@,System.Double[]@,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.RelativeArcMove(System.Int32[]@,System.Double[]@,System.Double[]@,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以当前点为起点做相对圆弧插补运动
             </summary>
             <param name="nAixsArray"></param>
             <param name="fCenterOffsetArray"></param>
             <param name="fEndArray"></param>
-            <param name="Dir"></param>
+            <param name="dir"></param>
             <param name="vm"></param>
             <param name="acc"></param>
             <param name="dec"></param>
@@ -2121,7 +2121,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.InitMultMove(System.Int32,System.Int32[],System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.InitMultMove(System.Int32,System.Int32[],System.Double,System.Double)">
             <summary>
             初始化多轴插补运动
             </summary>
@@ -2131,7 +2131,7 @@
             <param name="acc"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.RelativeMove(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.RelativeMove(System.Int32,System.Int32,System.Int32)">
             <summary>
             相对位置移动
             </summary>
@@ -2140,7 +2140,7 @@
             <param name="nSpeed">速度</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.RelativeMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.RelativeMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             相对位置移动
             </summary>
@@ -2154,7 +2154,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.JogMove(System.Int32,System.Boolean,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.JogMove(System.Int32,System.Boolean,System.Int32,System.Int32)">
             <summary>
             JOG运动
             </summary>
@@ -2164,56 +2164,56 @@
             <param name="nSpeed">速度</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.StopAxis(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.StopAxis(System.Int32)">
             <summary>
             轴正常停止
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.StopEmg(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.StopEmg(System.Int32)">
             <summary>
             急停
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.GetMotionState(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.GetMotionState(System.Int32)">
             <summary>
             获取轴卡运动状态
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.GetMotionIoState(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.GetMotionIoState(System.Int32)">
             <summary>
             获取轴卡运动IO信号
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.ClearError(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.ClearError(System.Int32)">
             <summary>
             清除错误报警
             </summary>
             <param name="nAxisNo"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.GetAixsPos(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.GetAixsPos(System.Int32)">
             <summary>
             获取轴的当前位置
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.IsAxisNormalStop(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.IsAxisNormalStop(System.Int32)">
             <summary>
             轴是否正常停止
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns>0:正常停止, -1:未到位 其它:急停,报警等</returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.IsAxisInPos(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.IsAxisInPos(System.Int32,System.Int32)">
             <summary>
             判断轴是否到位
             </summary>
@@ -2221,14 +2221,14 @@
             <param name="nInPosError"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.SetPosZero(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.SetPosZero(System.Int32)">
             <summary>
             位置清零
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.SetAxisParam(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.SetAxisParam(System.Int32,System.Int32,System.Int32)">
             <summary>
             设置单轴的某一运动参数
             </summary>
@@ -2237,7 +2237,7 @@
             <param name="nData">参数值</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.VelocityMove(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.VelocityMove(System.Int32,System.Int32)">
             <summary>
             速度模式旋转轴
             </summary>
@@ -2245,42 +2245,42 @@
             <param name="nSpeed"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.IsHomeNormalStop(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.IsHomeNormalStop(System.Int32)">
              <summary>
             此函数8254板卡不提供不使用,回原点内部已经封装好过程处理 
              </summary>
              <param name="nAxisNo"></param>
              <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.IsHomeMode(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.IsHomeMode(System.Int32)">
             <summary>
             是否处于回原点模式
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns>1：处于回原点模式；其他：不是</returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.IsMultMoveStop(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.IsMultMoveStop(System.Int32)">
             <summary>
             插补运动是否停止
             </summary>
             <param name="nMtSysNo">坐标系号</param>
             <returns>0：停止  -1：未完成</returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.IsMultMoveMode(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.IsMultMoveMode(System.Int32)">
             <summary>
             是否处于多轴插补运动模式
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns>1：多轴插补运动模式；其他：不是</returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.IsImmediateMoveMode(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.IsImmediateMoveMode(System.Int32)">
             <summary>
             是否处于多轴插补运动模式
             </summary>
             <param name="nAxisNo"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.ConfigPointTable(System.Int32,System.Int32[]@,System.Boolean)">
+        <member name="M:MotionIO.MotionInoEcat.ConfigPointTable(System.Int32,System.Int32[]@,System.Boolean)">
             <summary>
             配置连续插补运动，最多只支持三轴
             </summary>
@@ -2289,7 +2289,7 @@
             <param name="bAbsolute">true:绝对位置模式，　false:相对位置模式</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.PointTable_Line_Move(System.Int32,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.PointTable_Line_Move(System.Int32,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             连续直线插补运动
             </summary>
@@ -2303,7 +2303,7 @@
             <param name="sf">平滑系数</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.PointTable_ArcE_Move(System.Int32,System.Double[]@,System.Double[]@,System.Int16,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.PointTable_ArcE_Move(System.Int32,System.Double[]@,System.Double[]@,System.Int16,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             
             </summary>
@@ -2319,7 +2319,7 @@
             <param name="sf"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.PointTable_IO(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.PointTable_IO(System.Int32,System.Int32,System.Int32)">
             <summary>
             插补缓冲区输出DO,在插入位置之后插入
             </summary>
@@ -2328,7 +2328,7 @@
             <param name="bOn">输出DO的电平，0低电平，1 高电平</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.PointTable_Delay(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.PointTable_Delay(System.Int32,System.Int32)">
             <summary>
             
             </summary>
@@ -2336,14 +2336,14 @@
             <param name="nMillsecond"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.PointTable_IsIdle(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.PointTable_IsIdle(System.Int32)">
             <summary>
             确定连续运动列表的BUFF是否已满
             </summary>
             <param name="crdNo"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.PointTable_Start(System.Int32,System.Boolean)">
+        <member name="M:MotionIO.MotionInoEcat.PointTable_Start(System.Int32,System.Boolean)">
             <summary>
             启动或停止一个连续运动
             </summary>
@@ -2351,21 +2351,21 @@
             <param name="bStart"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.IsCrdStop(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.IsCrdStop(System.Int32)">
             <summary>
             插补运动是否停止
             </summary>
             <param name="crdNo"></param>
             <returns>0 - 表示停止 -1 - 未停止</returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.IsCrdMode(System.Int32)">
+        <member name="M:MotionIO.MotionInoEcat.IsCrdMode(System.Int32)">
             <summary>
             是否处于多轴插补运动模式
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns>1：多轴插补运动模式；其他：不是</returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.SetSPELEnable(System.Int32,System.Boolean)">
+        <member name="M:MotionIO.MotionInoEcat.SetSpelEnable(System.Int32,System.Boolean)">
             <summary>
             启用软件正限位
             </summary>
@@ -2373,7 +2373,7 @@
             <param name="bEnable"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.SetSMELEnable(System.Int32,System.Boolean)">
+        <member name="M:MotionIO.MotionInoEcat.SetSmelEnable(System.Int32,System.Boolean)">
             <summary>
             启用软件负限位
             </summary>
@@ -2381,7 +2381,7 @@
             <param name="bEnable"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.SetSPELPos(System.Int32,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.SetSpelPos(System.Int32,System.Double)">
             <summary>
             设置软件正限位位置
             </summary>
@@ -2389,7 +2389,7 @@
             <param name="pos"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_InoEcat.SetSMELPos(System.Int32,System.Double)">
+        <member name="M:MotionIO.MotionInoEcat.SetSmelPos(System.Int32,System.Double)">
             <summary>
             设置软件负限位位置
             </summary>
@@ -2397,92 +2397,92 @@
             <param name="pos"></param>
             <returns></returns>
         </member>
-        <member name="T:MotionIO.LCTEtherCatCard">
+        <member name="T:MotionIO.LctEtherCatCard">
             <summary>
             凌臣EtherCAT控制卡资源
             </summary>
         </member>
-        <member name="F:MotionIO.LCTEtherCatCard.m_tResoures">
+        <member name="F:MotionIO.LctEtherCatCard.Resoures">
             <summary>
             卡内资源
             </summary>
         </member>
-        <member name="P:MotionIO.LCTEtherCatCard.IsInited">
+        <member name="P:MotionIO.LctEtherCatCard.IsInited">
             <summary>
             是否初始化
             </summary>
         </member>
-        <member name="M:MotionIO.LCTEtherCatCard.Instance">
+        <member name="M:MotionIO.LctEtherCatCard.Instance">
             <summary>
             实例
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.LCTEtherCatCard.#ctor">
+        <member name="M:MotionIO.LctEtherCatCard.#ctor">
             <summary>
             构造函数
             </summary>
         </member>
-        <member name="M:MotionIO.LCTEtherCatCard.Init">
+        <member name="M:MotionIO.LctEtherCatCard.Init">
             <summary>
             板卡初始化
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.LCTEtherCatCard.DeInit">
+        <member name="M:MotionIO.LctEtherCatCard.DeInit">
             <summary>
             板卡关闭
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MotionIO.Motion_PCIeM60">
+        <member name="T:MotionIO.MotionPCIeM60">
             <summary>
             凌臣EtherCAT运动控制卡封装,类名必须以"Motion_"前导，否则加载不到
             </summary>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.#ctor(System.Int32,System.String,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.#ctor(System.Int32,System.String,System.Int32,System.Int32)">
             <summary>构造函数
             
             </summary>
-            <param name="nCardIndex"></param>
+            <param name="cardIndex"></param>
             <param name="strName"></param>
             <param name="nMinAxisNo"></param>
             <param name="nMaxAxisNo"></param>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.Init">
+        <member name="M:MotionIO.MotionPCIeM60.Init">
             <summary>
             轴卡初始化
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.DeInit">
+        <member name="M:MotionIO.MotionPCIeM60.DeInit">
             <summary>
             关闭轴卡
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.ServoOn(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.ServoOn(System.Int32)">
             <summary>
             给予使能
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.ServoOff(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.ServoOff(System.Int32)">
             <summary>
             断开使能
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.GetServoState(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.GetServoState(System.Int32)">
             <summary>
             读取伺服使能状态
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.Home(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.Home(System.Int32,System.Int32)">
             <summary>
             回原点
             </summary>
@@ -2490,7 +2490,7 @@
             <param name="nMode">回原点参数, 对于8254，此参数代表回原点的方向</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.Home(System.Int32,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.Home(System.Int32,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             回原点
             </summary>
@@ -2504,7 +2504,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.AbsMove(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.AbsMove(System.Int32,System.Int32,System.Int32)">
             <summary>
             以绝对位置移动
             </summary>
@@ -2513,7 +2513,7 @@
             <param name="nSpeed">速度</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.AbsMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.AbsMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以绝对位置移动
             </summary>
@@ -2527,7 +2527,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.AbsLinearMove(System.Int32[]@,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.AbsLinearMove(System.Int32[]@,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以当前位置为起始点进行多轴直线插补
             </summary>
@@ -2541,7 +2541,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.RelativeLinearMove(System.Int32[]@,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.RelativeLinearMove(System.Int32[]@,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以当前位置为起始点进行多轴直线插补
             </summary>
@@ -2555,14 +2555,14 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.AbsArcMove(System.Int32[]@,System.Double[]@,System.Double[]@,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.AbsArcMove(System.Int32[]@,System.Double[]@,System.Double[]@,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以当前点为起点做圆弧插补运动
             </summary>
             <param name="nAixsArray"></param>
             <param name="fCenterArray"></param>
             <param name="fEndArray"></param>
-            <param name="Dir"></param>
+            <param name="dir"></param>
             <param name="vm"></param>
             <param name="acc"></param>
             <param name="dec"></param>
@@ -2571,14 +2571,14 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.RelativeArcMove(System.Int32[]@,System.Double[]@,System.Double[]@,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.RelativeArcMove(System.Int32[]@,System.Double[]@,System.Double[]@,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             以当前点为起点做相对圆弧插补运动
             </summary>
             <param name="nAixsArray"></param>
             <param name="fCenterOffsetArray"></param>
             <param name="fEndArray"></param>
-            <param name="Dir"></param>
+            <param name="dir"></param>
             <param name="vm"></param>
             <param name="acc"></param>
             <param name="dec"></param>
@@ -2587,7 +2587,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.RelativeMove(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.RelativeMove(System.Int32,System.Int32,System.Int32)">
             <summary>
             相对位置移动
             </summary>
@@ -2596,7 +2596,7 @@
             <param name="nSpeed">速度</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.RelativeMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.RelativeMove(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             相对位置移动
             </summary>
@@ -2610,7 +2610,7 @@
             <param name="sFac"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.JogMove(System.Int32,System.Boolean,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.JogMove(System.Int32,System.Boolean,System.Int32,System.Int32)">
             <summary>
             JOG运动
             </summary>
@@ -2620,56 +2620,56 @@
             <param name="nSpeed">速度</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.StopAxis(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.StopAxis(System.Int32)">
             <summary>
             轴正常停止
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.StopEmg(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.StopEmg(System.Int32)">
             <summary>
             急停
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.GetMotionState(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.GetMotionState(System.Int32)">
             <summary>
             获取轴卡运动状态
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.GetMotionIoState(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.GetMotionIoState(System.Int32)">
             <summary>
             获取轴卡运动IO信号
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.ClearError(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.ClearError(System.Int32)">
             <summary>
             清除错误报警
             </summary>
             <param name="nAxisNo"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.GetAixsPos(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.GetAixsPos(System.Int32)">
             <summary>
             获取轴的当前位置
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.IsAxisNormalStop(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.IsAxisNormalStop(System.Int32)">
             <summary>
             轴是否正常停止
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns>0:正常停止, -1:未到位 其它:急停,报警等</returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.IsAxisInPos(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.IsAxisInPos(System.Int32,System.Int32)">
             <summary>
             判断轴是否到位
             </summary>
@@ -2677,21 +2677,21 @@
             <param name="nInPosError"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.SetPosZero(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.SetPosZero(System.Int32)">
             <summary>
             位置清零
             </summary>
             <param name="nAxisNo">轴号</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.IsHomeMode(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.IsHomeMode(System.Int32)">
             <summary>
             是否回零模式
             </summary>
             <param name="nAxisNo"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.SetAxisParam(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.SetAxisParam(System.Int32,System.Int32,System.Int32)">
             <summary>
             设置单轴的某一运动参数
             </summary>
@@ -2700,7 +2700,7 @@
             <param name="nData">参数值</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.VelocityMove(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.VelocityMove(System.Int32,System.Int32)">
             <summary>
             速度模式旋转轴
             </summary>
@@ -2708,14 +2708,14 @@
             <param name="nSpeed"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.IsHomeNormalStop(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.IsHomeNormalStop(System.Int32)">
              <summary>
             此函数8254板卡不提供不使用,回原点内部已经封装好过程处理 
              </summary>
              <param name="nAxisNo"></param>
              <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.ConfigPointTable(System.Int32,System.Int32[]@,System.Boolean)">
+        <member name="M:MotionIO.MotionPCIeM60.ConfigPointTable(System.Int32,System.Int32[]@,System.Boolean)">
             <summary>
             配置连续插补运动，最多只支持三轴
             </summary>
@@ -2724,7 +2724,7 @@
             <param name="bAbsolute">true:绝对位置模式，　false:相对位置模式</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.PointTable_Line_Move(System.Int32,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.PointTable_Line_Move(System.Int32,System.Double[]@,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             连续直线插补运动
             </summary>
@@ -2738,7 +2738,7 @@
             <param name="sf">平滑系数</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.PointTable_ArcE_Move(System.Int32,System.Double[]@,System.Double[]@,System.Int16,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.PointTable_ArcE_Move(System.Int32,System.Double[]@,System.Double[]@,System.Int16,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             
             </summary>
@@ -2754,7 +2754,7 @@
             <param name="sf"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.PointTable_IO(System.Int32,System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.PointTable_IO(System.Int32,System.Int32,System.Int32)">
             <summary>
             插补缓冲区输出DO,在插入位置之后插入
             </summary>
@@ -2763,7 +2763,7 @@
             <param name="bOn">输出DO的电平，0低电平，1 高电平</param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.PointTable_Delay(System.Int32,System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.PointTable_Delay(System.Int32,System.Int32)">
             <summary>
             
             </summary>
@@ -2771,14 +2771,14 @@
             <param name="nMillsecond"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.PointTable_IsIdle(System.Int32)">
+        <member name="M:MotionIO.MotionPCIeM60.PointTable_IsIdle(System.Int32)">
             <summary>
             确定连续运动列表的BUFF是否已满
             </summary>
             <param name="crdNo"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.PointTable_Start(System.Int32,System.Boolean)">
+        <member name="M:MotionIO.MotionPCIeM60.PointTable_Start(System.Int32,System.Boolean)">
             <summary>
             启动或停止一个连续运动
             </summary>
@@ -2786,8 +2786,15 @@
             <param name="bStart"></param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MotionIO.Motion_PCIeM60.SetSPELEnable(System.Int32,System.Boolean)" -->
-        <member name="M:MotionIO.Motion_PCIeM60.SetSMELEnable(System.Int32,System.Boolean)">
+        <member name="M:MotionIO.MotionPCIeM60.SetSpelEnable(System.Int32,System.Boolean)">
+            <summary>
+             启用软件正限位
+             </summary>
+             <param name="nAxisNo"></param>
+             <param name="bEnable"></param>
+             <returns></returns>
+        </member>
+        <member name="M:MotionIO.MotionPCIeM60.SetSmelEnable(System.Int32,System.Boolean)">
             <summary>
             启用软件负限位
             </summary>
@@ -2795,7 +2802,7 @@
             <param name="bEnable"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.SetSPELPos(System.Int32,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.SetSpelPos(System.Int32,System.Double)">
             <summary>
             设置软件正限位位置
             </summary>
@@ -2803,7 +2810,7 @@
             <param name="pos"></param>
             <returns></returns>
         </member>
-        <member name="M:MotionIO.Motion_PCIeM60.SetSMELPos(System.Int32,System.Double)">
+        <member name="M:MotionIO.MotionPCIeM60.SetSmelPos(System.Int32,System.Double)">
             <summary>
             设置软件负限位位置
             </summary>

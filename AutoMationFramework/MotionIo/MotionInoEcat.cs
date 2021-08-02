@@ -1,9 +1,13 @@
-﻿/********************************************************************
-	created:	2018/09/12
-	filename: 	Motion_InoEcat
-	file ext:	cs
-	author:		gxf
-	purpose:	汇川EtherCAT运动控制卡的封装类
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-02                               *
+*                                                                    *
+*           ModifyTime:     2021-08-02                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Motion Ino card control class            *
 *********************************************************************/
 
 using System;
@@ -11,6 +15,9 @@ using System.Diagnostics;
 using System.Threading;
 using Inovance.InoMotionCotrollerShop.InoServiceContract.EtherCATConfigApi;
 using System.Collections.Generic;
+using System.Windows;
+using CommonTools.Manager;
+using CommonTools.Tools;
 
 namespace MotionIO
 {
@@ -22,30 +29,24 @@ namespace MotionIO
         /// <summary>
         /// 控制卡句柄
         /// </summary>
-        public UInt64 m_hCardHandle = ImcApi.ERR_HANDLE;
+        public UInt64 CardHandle = ImcApi.ERR_HANDLE;
 
         /// <summary>
         /// 卡内资源
         /// </summary>
-        public ImcApi.TRsouresNum m_tResoures = new ImcApi.TRsouresNum();
+        public ImcApi.TRsouresNum Resoures;
 
-        private static InoEtherCatCard instance = null;
+        private static InoEtherCatCard _instance;
 
-        private static readonly object m_lock = new object();
+        private static readonly object Lock = new object();
 
-        private bool m_bInited = false;
+        private bool _bInited;
 
 
         /// <summary>
         /// 是否初始化
         /// </summary>
-        public bool IsInited
-        {
-            get
-            {
-                return m_bInited;
-            }
-        }
+        public bool IsInited => _bInited;
 
         /// <summary>
         /// 实例
@@ -53,19 +54,19 @@ namespace MotionIO
         /// <returns></returns>
         public static InoEtherCatCard Instance()
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                lock (m_lock)
+                lock (Lock)
                 {
-                    if (instance == null)
+                    if (_instance == null)
                     {
-                        instance = new InoEtherCatCard();
+                        _instance = new InoEtherCatCard();
                     }
                 }
 
             }
 
-            return instance;
+            return _instance;
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace MotionIO
         /// </summary>
         private InoEtherCatCard()
         {
-            m_bInited = Init();
+            _bInited = Init();
         }
 
         /// <summary>
@@ -83,27 +84,27 @@ namespace MotionIO
         public bool Init()
         {
             //TRACE("init card\r\n");
-            //string str1 = "控制卡IMC30G-E读取卡数量失败, result = {0}";
-            //string str2 = "控制卡IMC30G-E不存在。";
-            //string str3 = "控制卡IMC30G-E打开失败, result = {0}";
-            //string str4 = "控制卡IMC30G-E下载设备文件失败, result = {0}";
-            //string str5 = "获取主站状态失败,result = {0}";
-            //string str6 = "启动EtherCAT失败,result = {0}";
-            //string str7 = "控制卡IMC30G-E下载参数文件失败, result = {0}";
-            //string str8 = "控制卡IMC30G-E扫描卡内资源失败, result = {0}";
-            //string str9 = "控制卡IMC30G-E初始化失败";
-            //if (LanguageMgr.GetInstance().LanguageID != 0)
-            //{
-            //    str1 = "Failed to read the number of IMC30G-E control cards, result = {0}";
-            //    str2 = "The control card IMC30G-E does not exist. ";
-            //    str3 = "Failed to open control card IMC30G-E, result = {0}";
-            //    str4 = "IMC30G-E of control card failed to download device file, result = {0}";
-            //    str5 = "Failed to get master status, result = {0}";
-            //    str6 = "Failed to start EtherCAT, result = {0}";
-            //    str7 = "IMC30G-E of control card failed to download parameter file, result = {0}";
-            //    str8 = "Control card IMC30G-E failed to scan resources in the card, result = {0}";
-            //    str9 = "Control card IMC30G-E initialization failed";
-            //}
+            string str1 = "控制卡IMC30G-E读取卡数量失败, result = {0}";
+            string str2 = "控制卡IMC30G-E不存在。";
+            string str3 = "控制卡IMC30G-E打开失败, result = {0}";
+            string str4 = "控制卡IMC30G-E下载设备文件失败, result = {0}";
+            string str5 = "获取主站状态失败,result = {0}";
+            string str6 = "启动EtherCAT失败,result = {0}";
+            string str7 = "控制卡IMC30G-E下载参数文件失败, result = {0}";
+            string str8 = "控制卡IMC30G-E扫描卡内资源失败, result = {0}";
+            string str9 = "控制卡IMC30G-E初始化失败";
+            if (LocationServices.GetLangType() == "en-us")
+            {
+                str1 = "Failed to read the number of IMC30G-E control cards, result = {0}";
+                str2 = "The control card IMC30G-E does not exist. ";
+                str3 = "Failed to open control card IMC30G-E, result = {0}";
+                str4 = "IMC30G-E of control card failed to download device file, result = {0}";
+                str5 = "Failed to get master status, result = {0}";
+                str6 = "Failed to start EtherCAT, result = {0}";
+                str7 = "IMC30G-E of control card failed to download parameter file, result = {0}";
+                str8 = "Control card IMC30G-E failed to scan resources in the card, result = {0}";
+                str9 = "Control card IMC30G-E initialization failed";
+            }
             try
             {
                 //【1】获取卡数量
@@ -111,9 +112,7 @@ namespace MotionIO
                 uint ret = ImcApi.IMC_GetCardsNum(ref nCardNum);
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30101,ERR-XYT,控制卡IMC30G-E读取卡数量失败, result = {0}", ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "InoEcat",
-                    //    string.Format(str1, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "InoEcat", string.Format(str1, ret.ToString("x8")));
 
                     return false;
                 }
@@ -121,55 +120,38 @@ namespace MotionIO
                 {
                     if (nCardNum <= 0)
                     {
-                        //WarningMgr.GetInstance().Error(string.Format("30102,ERR-XYT,控制卡IMC30G-E不存在。"));
-                        //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "InoEcat",
-                        //    string.Format(str2));
+                        RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "InoEcat", string.Format(str2));
 
                         return false;
                     }
                 }
 
                 //【2】打开卡句柄，打开第一张卡
-                ret = ImcApi.IMC_OpenCardHandle(0, ref m_hCardHandle);
+                ret = ImcApi.IMC_OpenCardHandle(0, ref CardHandle);
                 Thread.Sleep(200);
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
-                    m_hCardHandle = ImcApi.ERR_HANDLE;
-                    //WarningMgr.GetInstance().Error(string.Format("30103,ERR-XYT,控制卡IMC30G-E打开失败, result = {0}", ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "InoEcat",
-                    //    string.Format(str3, ret.ToString("x8")));
+                    CardHandle = ImcApi.ERR_HANDLE;
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "InoEcat", string.Format(str3, ret.ToString("x8")));
 
                     return false;
                 }
 
                 //【3】下载设备参数
-                ret = ImcApi.IMC_DownLoadDeviceConfig(m_hCardHandle, "device_config.xml");
+                ret = ImcApi.IMC_DownLoadDeviceConfig(CardHandle, "device_config.xml");
                 Thread.Sleep(2000);
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30104,ERR-XYT,控制卡IMC30G-E下载设备文件失败, result = {0}", ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "InoEcat",
-                    //    string.Format(str4, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "InoEcat", string.Format(str4, ret.ToString("x8")));
 
                     return false;
                 }
 
-                //【4】启动主站
-                //ret = ImcApi.IMC_ScanCardECAT(m_hCardHandle, 1);      //默认阻塞式启动EtherCAT
-                //if (ret != ImcApi.EXE_SUCCESS)
-                //{
-                //    WarningMgr.GetInstance().Error(string.Format("30105,ERR-XYT,控制卡IMC30G-E启动主站失败, result = {0}", ret.ToString("x8")));
-                //    return false;
-                //}
-
-                //lin_
                 uint masterStatus = 0;
-                ret = ImcApi.IMC_GetECATMasterSts(m_hCardHandle, ref masterStatus);
+                ret = ImcApi.IMC_GetECATMasterSts(CardHandle, ref masterStatus);
                 if (ret != 0)
                 {
-                    //WarningMgr.GetInstance().Error("获取主站状态失败,错误代码为0x" + ret.ToString("x8"));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "InoEcat",
-                    //    string.Format(str5, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "InoEcat", string.Format(str5, ret.ToString("x8")));
 
                     return false;
                 }
@@ -177,12 +159,10 @@ namespace MotionIO
                 {
                     if (masterStatus != ImcApi.EC_MASTER_OP)
                     {
-                        ret = ImcApi.IMC_ScanCardECAT(m_hCardHandle, 1);      //默认阻塞式启动EtherCAT
+                        ret = ImcApi.IMC_ScanCardECAT(CardHandle, 1);      //默认阻塞式启动EtherCAT
                         if (ret != 0)
                         {
-                            //WarningMgr.GetInstance().Error("启动EtherCAT失败,错误代码为0x" + ret.ToString("x8"));
-                            //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "InoEcat",
-                            //    string.Format(str6, ret.ToString("x8")));
+                            RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "InoEcat", string.Format(str6, ret.ToString("x8")));
 
                             return false;
                         }
@@ -190,27 +170,23 @@ namespace MotionIO
                 }
 
                 //【5】扫描卡内资源
-                ret = ImcApi.IMC_GetCardResource(m_hCardHandle, ref m_tResoures);
+                ret = ImcApi.IMC_GetCardResource(CardHandle, ref Resoures);
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30107,ERR-XYT,控制卡IMC30G-E扫描卡内资源失败, result = {0}", ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "InoEcat",
-                    //    string.Format(str8, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "InoEcat", string.Format(str8, ret.ToString("x8")));
 
                     return false;
                 }
 
                 //【6】所有轴断使能
-                ret = ImcApi.IMC_AxServoOff(m_hCardHandle, 0, m_tResoures.axNum);
+                ImcApi.IMC_AxServoOff(CardHandle, 0, Resoures.axNum);
 
 
                 //【7】下载系统参数
-                ret = ImcApi.IMC_DownLoadSystemConfig(m_hCardHandle, "system_config.xml");
+                ret = ImcApi.IMC_DownLoadSystemConfig(CardHandle, "system_config.xml");
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30106,ERR-XYT,控制卡IMC30G-E下载参数文件失败, result = {0}", ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "InoEcat",
-                    //    string.Format(str7, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "InoEcat", string.Format(str7, ret.ToString("x8")));
 
                     return false;
                 }
@@ -219,7 +195,7 @@ namespace MotionIO
             }
             catch (Exception e)
             {
-                //System.Windows.Forms.MessageBox.Show(e.Message, str9, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, str9, MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
@@ -228,40 +204,40 @@ namespace MotionIO
     /// <summary>
     /// 汇川EtherCAT运动控制卡封装,类名必须以"Motion_"前导，否则加载不到
     /// </summary>
-    public class Motion_InoEcat : Motion
+    public class MotionInoEcat : Motion
     {
         /// <summary>
         /// 控制卡句柄
         /// </summary>
-        private UInt64 m_hCardHandle = ImcApi.ERR_HANDLE;
-        private int m_nMultInit = 0;
+        private UInt64 _hCardHandle = ImcApi.ERR_HANDLE;
+        private int _nMultipleInit;
 
-        private Dictionary<int, int> m_dictCrdAxis = new Dictionary<int, int>();
+        private Dictionary<int, int> _dictCrdAxis = new Dictionary<int, int>();
 
         /// <summary>
         /// 回原点参数
         /// </summary>
-        private ImcApi.THomingPara m_homePara = new ImcApi.THomingPara();
+        private ImcApi.THomingPara _homePara;
 
         //todo:板卡类应该只初始化一次
         /// <summary>构造函数
         /// 
         /// </summary>
-        /// <param name="nCardIndex"></param>
+        /// <param name="cardIndex"></param>
         /// <param name="strName"></param>
         /// <param name="nMinAxisNo"></param>
         /// <param name="nMaxAxisNo"></param>
-        public Motion_InoEcat(int nCardIndex, string strName, int nMinAxisNo, int nMaxAxisNo)
-            : base(nCardIndex, strName, nMinAxisNo, nMaxAxisNo)
+        public MotionInoEcat(int cardIndex, string strName, int nMinAxisNo, int nMaxAxisNo)
+            : base(cardIndex, strName, nMinAxisNo, nMaxAxisNo)
         {
-            m_bEnable = false;
+            BEnable = false;
 
-            m_homePara.homeMethod = 0;
-            m_homePara.offset = 0;
-            m_homePara.highVel = 10000;
-            m_homePara.lowVel = 1000;
-            m_homePara.acc = 50000;
-            m_homePara.overtime = 10000;
+            _homePara.homeMethod = 0;
+            _homePara.offset = 0;
+            _homePara.highVel = 10000;
+            _homePara.lowVel = 1000;
+            _homePara.acc = 50000;
+            _homePara.overtime = 10000;
         }
         /// <summary>
         /// 轴卡初始化
@@ -271,21 +247,21 @@ namespace MotionIO
         {
             try
             {
-                m_hCardHandle = InoEtherCatCard.Instance().m_hCardHandle;
-                if (m_hCardHandle != ImcApi.ERR_HANDLE)
+                _hCardHandle = InoEtherCatCard.Instance().CardHandle;
+                if (_hCardHandle != ImcApi.ERR_HANDLE)
                 {
-                    m_bEnable = true;
+                    BEnable = true;
                     return true;
                 }
                 else
                 {
-                    m_bEnable = false;
+                    BEnable = false;
                     return false;
                 }
             }
             catch
             {
-                m_bEnable = false;
+                BEnable = false;
                 return false;
             }
         }
@@ -296,24 +272,22 @@ namespace MotionIO
         /// <returns></returns>
         public override bool DeInit()
         {
-            m_nMultInit = 0;
-            uint ret = ImcApi.IMC_CloseCardHandle(m_hCardHandle);
+            _nMultipleInit = 0;
+            uint ret = ImcApi.IMC_CloseCardHandle(_hCardHandle);
             if (ret == ImcApi.EXE_SUCCESS)
             {
                 return true;
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "IMC30G-E板卡库文件关闭出错! result = {0}";
-                   // if (LanguageMgr.GetInstance().LanguageID != 0)
+                    string str1 = "IMC30G-E板卡库文件关闭出错! result = {0}";
+                    if (LocationServices.GetLangType() == "en-us")
                     {
-                      //  str1 = "IMC30G-E board card library file close error! Result = {0}";
+                        str1 = "IMC30G-E board card library file close error! Result = {0}";
                     }
-                    //WarningMgr.GetInstance().Error(string.Format("30108,ERR-XYT,IMC30G-E板卡库文件关闭出错! result = {0}", ret.ToString("x8")));
-                   // WarningMgr.GetInstance().Error(ErrorType.Err_Motion_DeInit, m_nCardIndex.ToString(),
-                     //   string.Format(str1, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionDeInit, CardIndex.ToString(), string.Format(str1, ret.ToString("x8")));
 
                 }
                 return false;
@@ -327,18 +301,17 @@ namespace MotionIO
         /// <returns></returns>
         public override bool ServoOn(int nAxisNo)
         {
-            uint ret = ImcApi.IMC_AxServoOn(m_hCardHandle, (short)nAxisNo, 1);
+            uint ret = ImcApi.IMC_AxServoOn(_hCardHandle, (short)nAxisNo);
             if (ret == ImcApi.EXE_SUCCESS)
             {
                 return true;
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30109,ERR-XYT,IMC30G-E Card Aixs {0} servo on Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                   // WarningMgr.GetInstance().Error(ErrorType.Err_Motion_ServoOn, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Aixs {0} servo on Error,result = {1}", nAxisNo, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionServoOn, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} servo on Error,result = {ret:x8}");
 
                 }
                 return false;
@@ -354,47 +327,39 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
             else if (IsCrdMode(nAxisNo) == 1)
             {
                 int nCrdNo;
-                if (m_dictCrdAxis.TryGetValue(nAxisNo, out nCrdNo))
+                if (_dictCrdAxis.TryGetValue(nAxisNo, out nCrdNo))
                 {
-                    ImcApi.IMC_CrdStop(m_hCardHandle, (short)nCrdNo, 1);
+                    ImcApi.IMC_CrdStop(_hCardHandle, (short)nCrdNo, 1);
 
-                    ImcApi.IMC_CrdClrData(m_hCardHandle, (short)nCrdNo);
+                    ImcApi.IMC_CrdClrData(_hCardHandle, (short)nCrdNo);
 
-                    ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)nCrdNo);
+                    ImcApi.IMC_CrdDeleteMtSys(_hCardHandle, (short)nCrdNo);
 
-                    m_dictCrdAxis.Remove(nAxisNo);
+                    _dictCrdAxis.Remove(nAxisNo);
                 }
 
             }
             else if (IsImmediateMoveMode(nAxisNo) == 1)
             {
-                ImcApi.IMC_ImmediateMoveEStop(m_hCardHandle, (short)nAxisNo, 1000000.0);
+                ImcApi.IMC_ImmediateMoveEStop(_hCardHandle, (short)nAxisNo, 1000000.0);
             }
 
-            //if (IsMultMoveMode(nAxisNo) > 0)
-            //{
-            //    ImcApi.IMC_CrdStop(m_hCardHandle, 0, 1);
-            //    ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)0);
-            //    m_nMultInit = 0;
-            //}
-
-            uint ret = ImcApi.IMC_AxServoOff(m_hCardHandle, (short)nAxisNo, 1);
+            uint ret = ImcApi.IMC_AxServoOff(_hCardHandle, (short)nAxisNo);
             if (ret == ImcApi.EXE_SUCCESS)
             {
                 return true;
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30110,ERR-XYT,IMC30G-E Card Axis {0} servo off Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_ServoOff, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("IMC30G-E Card Axis {0} servo off Error,result = {1}", nAxisNo, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionServoOff, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Axis {nAxisNo} servo off Error,result = {ret:x8}");
 
                 }
                 return false;
@@ -409,7 +374,7 @@ namespace MotionIO
         public override bool GetServoState(int nAxisNo)
         {
             int[] axStatus = new int[1];
-            uint ret = ImcApi.IMC_GetAxSts(m_hCardHandle, (short)nAxisNo, axStatus, 1);
+            uint ret = ImcApi.IMC_GetAxSts(_hCardHandle, (short)nAxisNo, axStatus);
             if (ret == ImcApi.EXE_SUCCESS)
             {
                 if ((axStatus[0] & (0x01 << 1)) != 0)
@@ -419,12 +384,10 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30111,ERR-XYT,IMC30G-E Card Axis {0} get servo status Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_State, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Axis {0} get servo status Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionState, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Axis {nAxisNo} get servo status Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -440,75 +403,73 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
 
             switch ((HomeMode)nMode)
             {
-                case HomeMode.ORG_P:
+                case HomeMode.OrgP:
                     nMode = 23;
                     break;
 
-                case HomeMode.ORG_N:
+                case HomeMode.OrgN:
                     nMode = 27;
                     break;
 
-                case HomeMode.PEL:
+                case HomeMode.Pel:
                     nMode = 18;
                     break;
 
-                case HomeMode.MEL:
+                case HomeMode.Mel:
                     nMode = 17;
                     break;
 
-                case HomeMode.ORG_P_EZ:
+                case HomeMode.OrgPEz:
                     nMode = 7;
                     break;
 
-                case HomeMode.ORG_N_EZ:
+                case HomeMode.OrgNEz:
                     nMode = 11;
                     break;
 
-                case HomeMode.PEL_EZ:
+                case HomeMode.PelEz:
                     nMode = 2;
                     break;
 
-                case HomeMode.MEL_EZ:
+                case HomeMode.MelEz:
                     nMode = 1;
                     break;
 
-                case HomeMode.EZ_PEL:
+                case HomeMode.EzPel:
                     nMode = 34;
                     break;
 
-                case HomeMode.EZ_MEL:
+                case HomeMode.EzMel:
                     nMode = 33;
                     break;
 
                 default:
-                    if (nMode > (int)HomeMode.BUS_BASE && nMode <= (int)HomeMode.BUS_BASE + 35)
+                    if (nMode > (int)HomeMode.BusBase && nMode <= (int)HomeMode.BusBase + 35)
                     {
-                        nMode -= (int)HomeMode.BUS_BASE;
+                        nMode -= (int)HomeMode.BusBase;
                     }
                     else
                     {
-                        if (m_bEnable)
+                        if (BEnable)
                         {
-                            //WarningMgr.GetInstance().Error(string.Format("30112,ERR-XYT,IMC30G-E Card Axis {0} Home Mode Error", nAxisNo));
-                          //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                           //     string.Format("IMC30G-E Card Axis {0} Home Mode Error", nAxisNo));
-
+                            RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                                $"IMC30G-E Card Axis {nAxisNo} Home Mode Error");
                         }
                         return false;
                     }
                     break;
             }
 
-            ImcApi.THomingPara homePara = m_homePara;
+            ImcApi.THomingPara homePara = _homePara;
 
             homePara.homeMethod = (short)nMode;
 
-            uint ret = ImcApi.IMC_StartHoming(m_hCardHandle, (short)nAxisNo, ref homePara);
+            uint ret = ImcApi.IMC_StartHoming(_hCardHandle, (short)nAxisNo, ref homePara);
 
             if (ret == ImcApi.EXE_SUCCESS)
             {
@@ -518,12 +479,10 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30112,ERR-XYT,IMC30G-E Card Axis {0} Home Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Axis {0} Home Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Axis {nAxisNo} Home Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -545,71 +504,69 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
 
             switch ((HomeMode)nMode)
             {
-                case HomeMode.ORG_P:
+                case HomeMode.OrgP:
                     nMode = 23;
                     break;
 
-                case HomeMode.ORG_N:
+                case HomeMode.OrgN:
                     nMode = 27;
                     break;
 
-                case HomeMode.PEL:
+                case HomeMode.Pel:
                     nMode = 18;
                     break;
 
-                case HomeMode.MEL:
+                case HomeMode.Mel:
                     nMode = 17;
                     break;
 
-                case HomeMode.ORG_P_EZ:
+                case HomeMode.OrgPEz:
                     nMode = 7;
                     break;
 
-                case HomeMode.ORG_N_EZ:
+                case HomeMode.OrgNEz:
                     nMode = 11;
                     break;
 
-                case HomeMode.PEL_EZ:
+                case HomeMode.PelEz:
                     nMode = 2;
                     break;
 
-                case HomeMode.MEL_EZ:
+                case HomeMode.MelEz:
                     nMode = 1;
                     break;
 
-                case HomeMode.EZ_PEL:
+                case HomeMode.EzPel:
                     nMode = 34;
                     break;
 
-                case HomeMode.EZ_MEL:
+                case HomeMode.EzMel:
                     nMode = 33;
                     break;
 
                 default:
-                    if (nMode > (int)HomeMode.BUS_BASE && nMode <= (int)HomeMode.BUS_BASE + 35)
+                    if (nMode > (int)HomeMode.BusBase && nMode <= (int)HomeMode.BusBase + 35)
                     {
-                        nMode -= (int)HomeMode.BUS_BASE;
+                        nMode -= (int)HomeMode.BusBase;
                     }
                     else
                     {
-                        if (m_bEnable)
+                        if (BEnable)
                         {
-                            //WarningMgr.GetInstance().Error(string.Format("30112,ERR-XYT,IMC30G-E Card Axis {0} Home Mode Error", nAxisNo));
-                          //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                            //    string.Format("IMC30G-E Card Axis {0} Home Mode Error", nAxisNo));
-
+                            RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                                $"IMC30G-E Card Axis {nAxisNo} Home Mode Error");
                         }
                         return false;
                     }
                     break;
             }
 
-            ImcApi.THomingPara homePara = m_homePara;
+            ImcApi.THomingPara homePara = _homePara;
 
             homePara.homeMethod = (short)nMode;
             homePara.acc = (uint)(vm / acc);
@@ -617,7 +574,7 @@ namespace MotionIO
             homePara.lowVel = (uint)vo;
             homePara.offset = (int)offset;
 
-            uint ret = ImcApi.IMC_StartHoming(m_hCardHandle, (short)nAxisNo, ref homePara);
+            uint ret = ImcApi.IMC_StartHoming(_hCardHandle, (short)nAxisNo, ref homePara);
 
             if (ret == ImcApi.EXE_SUCCESS)
             {
@@ -627,12 +584,10 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30112,ERR-XYT,IMC30G-E Card Axis {0} Home Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Axis {0} Home Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Axis {nAxisNo} Home Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -649,51 +604,45 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
             // 读取速度
             double dVel = 0;
             double dAcc = 0;
             double dDec = 0;
-            uint ret = ImcApi.IMC_GetSingleAxMvPara(m_hCardHandle, (short)nAxisNo, ref dVel, ref dAcc, ref dDec);
+            uint ret = ImcApi.IMC_GetSingleAxMvPara(_hCardHandle, (short)nAxisNo, ref dVel, ref dAcc, ref dDec);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30113,ERR-XYT,IMC30G-E Card Aixs {0} get single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs, GetSysAxisNo(nAxisNo).ToString(),
-                      //  string.Format("IMC30G-E Card Aixs {0} get single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} get single axis moving parameter Error,result = {ret:x8}");
                 }
                 return false;
             }
             dAcc = nSpeed * 10;
             dDec = nSpeed * 10;
             // 设置速度
-            ret = ImcApi.IMC_SetSingleAxMvPara(m_hCardHandle, (short)nAxisNo, nSpeed, dAcc, dDec);
+            ret = ImcApi.IMC_SetSingleAxMvPara(_hCardHandle, (short)nAxisNo, nSpeed, dAcc, dDec);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30114,ERR-XYT,IMC30G-E Card Aixs {0} set single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                  //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs, GetSysAxisNo(nAxisNo).ToString(),
-                      //  string.Format("IMC30G-E Card Aixs {0} set single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} set single axis moving parameter Error,result = {ret:x8}");
                 }
                 return false;
             }
 
             // 执行运动
             short nPosType = 0;//运动模式0：表示绝对位置，1：表示相对位置
-            ret = ImcApi.IMC_StartPtpMove(m_hCardHandle, (short)nAxisNo, nPos, nPosType);
+            ret = ImcApi.IMC_StartPtpMove(_hCardHandle, (short)nAxisNo, nPos, nPosType);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30115,ERR-XYT,IMC30G-E Card Aixs {0} start PTP move Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs, GetSysAxisNo(nAxisNo).ToString(),
-                      //  string.Format("IMC30G-E Card Aixs {0} start PTP move Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} start PTP move Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -717,59 +666,46 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
             // 读取速度
             double dVel = vm;
             double dAcc = vm / acc;
             double dDec = vm / dec;
             // 设置速度
-            uint ret = ImcApi.IMC_SetSingleAxMvPara(m_hCardHandle, (short)nAxisNo, dVel, dAcc, dDec);
+            uint ret = ImcApi.IMC_SetSingleAxMvPara(_hCardHandle, (short)nAxisNo, dVel, dAcc, dDec);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30114,ERR-XYT,IMC30G-E Card Aixs {0} set single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs, GetSysAxisNo(nAxisNo).ToString(),
-                       // string.Format("IMC30G-E Card Aixs {0} set single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} set single axis moving parameter Error,result = {ret:x8}");
                 }
                 return false;
             }
 
             //设置平滑曲线
-            if (sFac > 0)
-            {
-                ret = ImcApi.IMC_SetSingleAxVelType(m_hCardHandle, (short)nAxisNo, 1, 100 * (1 - sFac));
-            }
-            else
-            {
-                ret = ImcApi.IMC_SetSingleAxVelType(m_hCardHandle, (short)nAxisNo, 0, 0);
-            }
+            ret = sFac > 0 ? ImcApi.IMC_SetSingleAxVelType(_hCardHandle, (short)nAxisNo, 1, 100 * (1 - sFac)) : ImcApi.IMC_SetSingleAxVelType(_hCardHandle, (short)nAxisNo, 0, 0);
 
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30114,ERR-XYT,IMC30G-E Card Aixs {0} set single axis vel type Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                  //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Aixs {0} set single axis vel type Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} set single axis vel type Error,result = {ret:x8}");
                 }
                 return false;
             }
 
             // 执行运动
             short nPosType = 0;//运动模式0：表示绝对位置，1：表示相对位置
-            ret = ImcApi.IMC_StartPtpMove(m_hCardHandle, (short)nAxisNo, fPos, nPosType);
+            ret = ImcApi.IMC_StartPtpMove(_hCardHandle, (short)nAxisNo, fPos, nPosType);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30115,ERR-XYT,IMC30G-E Card Aixs {0} start PTP move Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                  //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs, GetSysAxisNo(nAxisNo).ToString(),
-                      //  string.Format("IMC30G-E Card Aixs {0} start PTP move Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} start PTP move Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -791,9 +727,6 @@ namespace MotionIO
         public override bool AbsLinearMove(ref int[] nAixsArray, ref double[] nPosArray, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
         {
 
-            //            UINT32 IMC_ImmediateLineMoveInSynVelAcc(UINT64 cardHandle, INT16* pMaskAxNo, INT16
-            //axNum, double* pEndPos, double trajVel, double trajAcc, double trajDec, double smoothCoef, INT16
-            //type);
             short[] pMaskAxNo = new short[nAixsArray.Length];
 
             for (int i = 0; i < nAixsArray.Length; i++)
@@ -813,81 +746,16 @@ namespace MotionIO
                 dSmooth = sFac;
             }
 
-            uint ret = ImcApi.IMC_ImmediateLineMoveInSynVelAcc(m_hCardHandle, pMaskAxNo, (short)(nAixsArray.Length), nPosArray, dVel, dAcc, dDec, dSmooth, 0);
+            uint ret = ImcApi.IMC_ImmediateLineMoveInSynVelAcc(_hCardHandle, pMaskAxNo, (short)(nAixsArray.Length), nPosArray, dVel, dAcc, dDec, dSmooth, 0);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "AbsLinearMove",
-                   // string.Format("IMC30G-E Card Aixs {0} IMC_ImmediateLineMoveInSynVelAcc Error,result = {1}", pMaskAxNo[0], ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "AbsLinearMove",
+                    $"IMC30G-E Card Aixs {pMaskAxNo[0]} IMC_ImmediateLineMoveInSynVelAcc Error,result = {ret:x8}");
                 return false;
             }
 
             Thread.Sleep(100);
             return true;
-
-
-            /*
-            uint ret = 0;
-            try
-            {
-                int nMtSysNo = 0;
-                if (m_nMultInit == 0)
-                {
-                    if (!InitMultMove(nMtSysNo, nAixsArray, vm, acc))
-                    {
-                        //WarningMgr.GetInstance().Error(string.Format("30116,ERR-XYT,IMC30G-E Card Aixs {0} MultMove Init Error,result = {1}"));
-                        //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "AbsLinearMove",
-                        //    string.Format("IMC30G-E Card Aixs {0} MultMove Init Error,result = {1}"));
-
-                        return false;
-                    }
-                }
-                for (int i = 0; i < nPosArray.Length; i += nAixsArray.Length)
-                {
-                    double[] EndPos = new double[3] { 0, 0, 0 };
-
-                    for (int n = 0; n < Math.Min(EndPos.Length,nAixsArray.Length);n++)
-                    {
-                        EndPos[n] = nPosArray[i + n];
-                    }
-                    
-                    ret = ImcApi.IMC_CrdLineXYZ(m_hCardHandle, (short)nMtSysNo, EndPos, 0);//在0号坐标系下压入一段末点为(10,10,5)的直线
-                    if (ret != ImcApi.EXE_SUCCESS)
-                    {
-                        //WarningMgr.GetInstance().Error(string.Format("30116,ERR-XYT,IMC30G-E Card Aixs {0} MultMove WritePoint Error,result = {1}"));
-                        WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "AbsLinearMove",
-                            string.Format("IMC30G-E Card IMC_CrdLineXYZ Error,result = {0}", ret.ToString("x8")));
-
-                        return false;
-                    }
-                }
-                short IsFinished = new short();
-                ret = ImcApi.IMC_CrdEndData(m_hCardHandle, (short)nMtSysNo, ref IsFinished);  //把PC FIFO中的线段送入板卡FIFO中
-                if (ret != ImcApi.EXE_SUCCESS)
-                {
-                    //WarningMgr.GetInstance().Error(string.Format("30116,ERR-XYT,IMC30G-E Card Aixs {0} MultMove WritePoint Error,result = {1}"));
-                    WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "AbsLinearMove",
-                        string.Format("IMC30G-E Card IMC_CrdEndData Error,result = {0}", ret.ToString("x8")));
-
-                    return false;
-                }
-                ret = ImcApi.IMC_CrdStart(m_hCardHandle, (short)nMtSysNo); //启动插补运动
-                if (ret != ImcApi.EXE_SUCCESS)
-                {
-                    //WarningMgr.GetInstance().Error(string.Format("30116,ERR-XYT,IMC30G-E Card Aixs {0} MultMove Start Error,result = {1}"));
-                    WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "AbsLinearMove",
-                        string.Format("IMC30G-E Card IMC_CrdStart Error,result = {0}", ret.ToString("x8")));
-
-                    return false;
-                }
-                Thread.Sleep(100);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                WarningMgr.GetInstance().Error(ex.Message);
-                return false;
-            }
-            */
         }
 
         /// <summary>
@@ -923,11 +791,11 @@ namespace MotionIO
                 dSmooth = sFac;
             }
 
-            uint ret = ImcApi.IMC_ImmediateLineMoveInSynVelAcc(m_hCardHandle, pMaskAxNo, (short)(nAixsArray.Length), fPosOffsetArray, dVel, dAcc, dDec, dSmooth, 1);
+            uint ret = ImcApi.IMC_ImmediateLineMoveInSynVelAcc(_hCardHandle, pMaskAxNo, (short)(nAixsArray.Length), fPosOffsetArray, dVel, dAcc, dDec, dSmooth, 1);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-              //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "RelativeLinearMove",
-                  //  string.Format("IMC30G-E Card Aixs {0} IMC_ImmediateLineMoveInSynVelAcc Error,result = {1}", pMaskAxNo[0], ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "RelativeLinearMove",
+                    $"IMC30G-E Card Aixs {pMaskAxNo[0]} IMC_ImmediateLineMoveInSynVelAcc Error,result = {ret:x8}");
                 return false;
             }
 
@@ -941,7 +809,7 @@ namespace MotionIO
         /// <param name="nAixsArray"></param>
         /// <param name="fCenterArray"></param>
         /// <param name="fEndArray"></param>
-        /// <param name="Dir"></param>
+        /// <param name="dir"></param>
         /// <param name="vm"></param>
         /// <param name="acc"></param>
         /// <param name="dec"></param>
@@ -949,7 +817,7 @@ namespace MotionIO
         /// <param name="ve"></param>
         /// <param name="sFac"></param>
         /// <returns></returns>
-        public override bool AbsArcMove(ref int[] nAixsArray, ref double[] fCenterArray, ref double[] fEndArray, int Dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
+        public override bool AbsArcMove(ref int[] nAixsArray, ref double[] fCenterArray, ref double[] fEndArray, int dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
         {
             short[] pMaskAxNo = new short[nAixsArray.Length];
 
@@ -970,12 +838,12 @@ namespace MotionIO
                 dSmooth = sFac;
             }
 
-            uint ret = ImcApi.IMC_ImmediateArcCenterMove(m_hCardHandle, pMaskAxNo, (short)(nAixsArray.Length),
-                fCenterArray, fEndArray, (short)Dir, 0, 0, dVel, dAcc, dDec, dSmooth, 0);
+            uint ret = ImcApi.IMC_ImmediateArcCenterMove(_hCardHandle, pMaskAxNo, (short)(nAixsArray.Length),
+                fCenterArray, fEndArray, (short)dir, 0, 0, dVel, dAcc, dDec, dSmooth, 0);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "AbsArcMove",
-                 //   string.Format("IMC30G-E Card Aixs {0} IMC_ImmediateArcCenterMove Error,result = {1}", pMaskAxNo[0], ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "AbsArcMove",
+                    $"IMC30G-E Card Aixs {pMaskAxNo[0]} IMC_ImmediateArcCenterMove Error,result = {ret:x8}");
                 return false;
             }
 
@@ -989,7 +857,7 @@ namespace MotionIO
         /// <param name="nAixsArray"></param>
         /// <param name="fCenterOffsetArray"></param>
         /// <param name="fEndArray"></param>
-        /// <param name="Dir"></param>
+        /// <param name="dir"></param>
         /// <param name="vm"></param>
         /// <param name="acc"></param>
         /// <param name="dec"></param>
@@ -997,7 +865,7 @@ namespace MotionIO
         /// <param name="ve"></param>
         /// <param name="sFac"></param>
         /// <returns></returns>
-        public override bool RelativeArcMove(ref int[] nAixsArray, ref double[] fCenterOffsetArray, ref double[] fEndArray, int Dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
+        public override bool RelativeArcMove(ref int[] nAixsArray, ref double[] fCenterOffsetArray, ref double[] fEndArray, int dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
         {
             short[] pMaskAxNo = new short[nAixsArray.Length];
 
@@ -1018,12 +886,12 @@ namespace MotionIO
                 dSmooth = sFac;
             }
 
-            uint ret = ImcApi.IMC_ImmediateArcCenterMove(m_hCardHandle, pMaskAxNo, (short)(nAixsArray.Length),
-                fCenterOffsetArray, fEndArray, (short)Dir, 0, 0, dVel, dAcc, dDec, dSmooth, 1);
+            uint ret = ImcApi.IMC_ImmediateArcCenterMove(_hCardHandle, pMaskAxNo, (short)(nAixsArray.Length),
+                fCenterOffsetArray, fEndArray, (short)dir, 0, 0, dVel, dAcc, dDec, dSmooth, 1);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-               // WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "RelativeArcMove",
-               //     string.Format("IMC30G-E Card Aixs {0} IMC_ImmediateArcCenterMove Error,result = {1}", pMaskAxNo[0], ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "RelativeArcMove",
+                    $"IMC30G-E Card Aixs {pMaskAxNo[0]} IMC_ImmediateArcCenterMove Error,result = {ret:x8}");
                 return false;
             }
 
@@ -1057,35 +925,35 @@ namespace MotionIO
             }
 
             //0号位建立插补坐标系，前瞻数3000段，5000.0的急停减加速度
-            uint ret = ImcApi.IMC_CrdSetMtSys(m_hCardHandle, (short)nMtSysNo, pMaskAxNo, 3000, 500000.0);
+            uint ret = ImcApi.IMC_CrdSetMtSys(_hCardHandle, (short)nMtSysNo, pMaskAxNo, 3000, 500000.0);
             if ((ret & 0xffff) == 0x0075)
             {
-                m_nMultInit = 1;
+                _nMultipleInit = 1;
             }
             else if (ret == ImcApi.EXE_SUCCESS)
             {
-                m_nMultInit = 1;
+                _nMultipleInit = 1;
             }
             else
             {
-                m_nMultInit = 0; ;
+                _nMultipleInit = 0;
             }
-            ret = ImcApi.IMC_CrdSetTrajVel(m_hCardHandle, (short)nMtSysNo, vm);
-            ret = ImcApi.IMC_CrdSetTrajAcc(m_hCardHandle, (short)nMtSysNo, acc);//设置插补进给速度和加速度
-            ret = ImcApi.IMC_CrdSetZeroFlag(m_hCardHandle, (short)nMtSysNo, 0);  //每段末速度不强制为0
-            ret = ImcApi.IMC_CrdSetIncMode(m_hCardHandle, (short)nMtSysNo, 0); //插补编程方式为绝对编程方式
-            ImcApi.TCrdAdvParam CrdAdvParam = new ImcApi.TCrdAdvParam();
-            CrdAdvParam.userVelMode = 0;  //系统规划模式
-            CrdAdvParam.transMode = 1; //过渡模式
-            CrdAdvParam.noDataProtect = 0; //数据断流无保护
-            CrdAdvParam.noCoplaneCircOptm = 0; //异面过渡无处理
-            CrdAdvParam.turnCoef = 1.0; //拐角系数1.0
-            CrdAdvParam.tol = 0.1; //轨迹精度0.1 unit
-            ret = ImcApi.IMC_CrdSetAdvParam(m_hCardHandle, (short)nMtSysNo, ref CrdAdvParam);  //设置插补高级参数
+            ImcApi.IMC_CrdSetTrajVel(_hCardHandle, (short)nMtSysNo, vm);
+            ImcApi.IMC_CrdSetTrajAcc(_hCardHandle, (short)nMtSysNo, acc);//设置插补进给速度和加速度
+            ImcApi.IMC_CrdSetZeroFlag(_hCardHandle, (short)nMtSysNo, 0);  //每段末速度不强制为0
+            ImcApi.IMC_CrdSetIncMode(_hCardHandle, (short)nMtSysNo, 0); //插补编程方式为绝对编程方式
+            ImcApi.TCrdAdvParam crdAdvParam = new ImcApi.TCrdAdvParam();
+            crdAdvParam.userVelMode = 0;  //系统规划模式
+            crdAdvParam.transMode = 1; //过渡模式
+            crdAdvParam.noDataProtect = 0; //数据断流无保护
+            crdAdvParam.noCoplaneCircOptm = 0; //异面过渡无处理
+            crdAdvParam.turnCoef = 1.0; //拐角系数1.0
+            crdAdvParam.tol = 0.1; //轨迹精度0.1 unit
+            ret = ImcApi.IMC_CrdSetAdvParam(_hCardHandle, (short)nMtSysNo, ref crdAdvParam);  //设置插补高级参数
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "AbsLinearMove",
-                   //         string.Format("IMC30G-E Card IMC_CrdSetAdvParam Error,result = {0}", ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "AbsLinearMove",
+                    $"IMC30G-E Card IMC_CrdSetAdvParam Error,result = {ret:x8}");
 
                 return false;
             }
@@ -1104,20 +972,19 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
             // 读取速度
             double dVel = 0;
             double dAcc = 0;
             double dDec = 0;
-            uint ret = ImcApi.IMC_GetSingleAxMvPara(m_hCardHandle, (short)nAxisNo, ref dVel, ref dAcc, ref dDec);
+            uint ret = ImcApi.IMC_GetSingleAxMvPara(_hCardHandle, (short)nAxisNo, ref dVel, ref dAcc, ref dDec);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30116,ERR-XYT,IMC30G-E Card Aixs {0} get single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                   // WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Aixs {0} get single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} get single axis moving parameter Error,result = {ret:x8}");
 
                 }
                 return false;
@@ -1125,14 +992,13 @@ namespace MotionIO
             dAcc = nSpeed * 10;
             dDec = nSpeed * 10;
             // 设置速度
-            ret = ImcApi.IMC_SetSingleAxMvPara(m_hCardHandle, (short)nAxisNo, nSpeed, dAcc, dDec);
+            ret = ImcApi.IMC_SetSingleAxMvPara(_hCardHandle, (short)nAxisNo, nSpeed, dAcc, dDec);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30117,ERR-XYT,IMC30G-E Card Aixs {0} set single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("IMC30G-E Card Aixs {0} set single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} set single axis moving parameter Error,result = {ret:x8}");
 
                 }
                 return false;
@@ -1140,15 +1006,13 @@ namespace MotionIO
 
             // 执行运动
             short nPosType = 1;//运动模式0：表示绝对位置，1：表示相对位置
-            ret = ImcApi.IMC_StartPtpMove(m_hCardHandle, (short)nAxisNo, nPos, nPosType);
+            ret = ImcApi.IMC_StartPtpMove(_hCardHandle, (short)nAxisNo, nPos, nPosType);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30118,ERR-XYT,IMC30G-E Card Aixs {0} start PTP move Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                   // WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Aixs {0} start PTP move Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} start PTP move Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -1172,7 +1036,7 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
             // 读取速度
             double dVel = vm;
@@ -1180,30 +1044,26 @@ namespace MotionIO
             double dDec = vm / dec;
 
             // 设置速度
-            uint ret = ImcApi.IMC_SetSingleAxMvPara(m_hCardHandle, (short)nAxisNo, dVel, dAcc, dDec);
+            uint ret = ImcApi.IMC_SetSingleAxMvPara(_hCardHandle, (short)nAxisNo, dVel, dAcc, dDec);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30117,ERR-XYT,IMC30G-E Card Aixs {0} set single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                   // WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel, GetSysAxisNo(nAxisNo).ToString(),
-                      //  string.Format("IMC30G-E Card Aixs {0} set single axis moving parameter Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} set single axis moving parameter Error,result = {ret:x8}");
                 }
                 return false;
             }
 
             // 执行运动
             short nPosType = 1;//运动模式0：表示绝对位置，1：表示相对位置
-            ret = ImcApi.IMC_StartPtpMove(m_hCardHandle, (short)nAxisNo, fOffset, nPosType);
+            ret = ImcApi.IMC_StartPtpMove(_hCardHandle, (short)nAxisNo, fOffset, nPosType);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30118,ERR-XYT,IMC30G-E Card Aixs {0} start PTP move Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel, GetSysAxisNo(nAxisNo).ToString(),
-                      //  string.Format("IMC30G-E Card Aixs {0} start PTP move Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} start PTP move Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -1223,18 +1083,16 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
             double tgVel = bPositive ? Math.Abs(nSpeed) : -Math.Abs(nSpeed);
-            uint ret = ImcApi.IMC_StartJogMove(m_hCardHandle, (short)nAxisNo, tgVel);
+            uint ret = ImcApi.IMC_StartJogMove(_hCardHandle, (short)nAxisNo, tgVel);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30119,ERR-XYT,IMC30G-E Card Aixs {0} start jog Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                   // WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Jog, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Aixs {0} start jog Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionJog, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} start jog Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -1251,47 +1109,37 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_StopHoming(m_hCardHandle, (short)nAxisNo, 0);
+                ImcApi.IMC_StopHoming(_hCardHandle, (short)nAxisNo, 0);
                 Thread.Sleep(100);
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
             else if (IsCrdMode(nAxisNo) == 1)
             {
                 int nCrdNo;
-                if (m_dictCrdAxis.TryGetValue(nAxisNo, out nCrdNo))
+                if (_dictCrdAxis.TryGetValue(nAxisNo, out nCrdNo))
                 {
-                    ImcApi.IMC_CrdStop(m_hCardHandle, (short)nCrdNo, 0);
+                    ImcApi.IMC_CrdStop(_hCardHandle, (short)nCrdNo, 0);
 
-                    ImcApi.IMC_CrdClrData(m_hCardHandle, (short)nCrdNo);
+                    ImcApi.IMC_CrdClrData(_hCardHandle, (short)nCrdNo);
 
-                    ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)nCrdNo);
+                    ImcApi.IMC_CrdDeleteMtSys(_hCardHandle, (short)nCrdNo);
 
-                    m_dictCrdAxis.Remove(nAxisNo);
+                    _dictCrdAxis.Remove(nAxisNo);
                 }
             }
             else if (IsImmediateMoveMode(nAxisNo) == 1)
             {
-                ImcApi.IMC_ImmediateMoveStop(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_ImmediateMoveStop(_hCardHandle, (short)nAxisNo);
             }
-            //if(IsMultMoveMode(nAxisNo)>0)
-            //{
-            //    ImcApi.IMC_CrdStop(m_hCardHandle, 0, 0);
-            //    ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)0);
-            //    m_nMultInit = 0;
-            //}
-
-
 
             short stopType = 0;//0:平滑停止, 1:急速停止
-            uint ret = ImcApi.IMC_AxMoveStop(m_hCardHandle, (short)nAxisNo, stopType);
+            uint ret = ImcApi.IMC_AxMoveStop(_hCardHandle, (short)nAxisNo, stopType);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30120,ERR-XYT,IMC30G-E Card Aixs {0} stop Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                   // WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Stop, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("IMC30G-E Card Aixs {0} stop Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionStop, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} stop Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -1308,45 +1156,37 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_StopHoming(m_hCardHandle, (short)nAxisNo, 1);
+                ImcApi.IMC_StopHoming(_hCardHandle, (short)nAxisNo, 1);
                 Thread.Sleep(100);
 
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
             else if (IsCrdMode(nAxisNo) == 1)
             {
                 int nCrdNo;
-                if (m_dictCrdAxis.TryGetValue(nAxisNo, out nCrdNo))
+                if (_dictCrdAxis.TryGetValue(nAxisNo, out nCrdNo))
                 {
-                    ImcApi.IMC_CrdStop(m_hCardHandle, (short)nCrdNo, 1);
+                    ImcApi.IMC_CrdStop(_hCardHandle, (short)nCrdNo, 1);
 
-                    ImcApi.IMC_CrdClrData(m_hCardHandle, (short)nCrdNo);
+                    ImcApi.IMC_CrdClrData(_hCardHandle, (short)nCrdNo);
 
-                    ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)nCrdNo);
+                    ImcApi.IMC_CrdDeleteMtSys(_hCardHandle, (short)nCrdNo);
 
-                    m_dictCrdAxis.Remove(nAxisNo);
+                    _dictCrdAxis.Remove(nAxisNo);
                 }
             }
             else if (IsImmediateMoveMode(nAxisNo) == 1)
             {
-                ImcApi.IMC_ImmediateMoveEStop(m_hCardHandle, (short)nAxisNo, 1000000.0);
+                ImcApi.IMC_ImmediateMoveEStop(_hCardHandle, (short)nAxisNo, 1000000.0);
             }
-            //if (IsMultMoveMode(nAxisNo) > 0)
-            //{
-            //    ImcApi.IMC_CrdStop(m_hCardHandle, 0, 1);
-            //    ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)0);
-            //    m_nMultInit = 0;
-            //}
             short stopType = 1;//0:平滑停止, 1:急速停止
-            uint ret = ImcApi.IMC_AxMoveStop(m_hCardHandle, (short)nAxisNo, stopType);
+            uint ret = ImcApi.IMC_AxMoveStop(_hCardHandle, (short)nAxisNo, stopType);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30121,ERR-XYT,IMC30G-E Card Aixs {0} e-stop Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_EmgStop, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Aixs {0} e-stop Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionEmgStop, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} e-stop Error,result = {ret:x8}");
                 }
                 return false;
             }
@@ -1375,15 +1215,13 @@ namespace MotionIO
             //Bit10:总线轴标志
             //Bit11:轴异常报警           
             int[] axStatus = new int[1];
-            uint ret = ImcApi.IMC_GetAxSts(m_hCardHandle, (short)nAxisNo, axStatus, 1);
+            uint ret = ImcApi.IMC_GetAxSts(_hCardHandle, (short)nAxisNo, axStatus);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30122,ERR-XYT,IMC30G-E Card Aixs {0} Get Status Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                  //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion_State, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("IMC30G-E Card Aixs {0} Get Status Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionState, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} Get Status Error,result = {ret:x8}");
                 }
                 return -1;
             }
@@ -1412,34 +1250,25 @@ namespace MotionIO
             //Bit10:总线轴标志
             //Bit11:轴异常报警           
             int[] axStatus = new int[1];
-            //uint ret = ImcApi.IMC_ClrAxSts(m_hCardHandle, (short)nAxisNo, 1);
-            //if (ret != ImcApi.EXE_SUCCESS)
-            //{
-            //    if (Enable)
-            //        WarningMgr.GetInstance().Error(string.Format("30123,ERR-XYT,IMC30G-E Card Aixs {0} Get Status Error,result = {1}", nAxisNo, ret.ToString("x8")));
-            //    return -1;
-            //}
-            uint ret = ImcApi.IMC_GetAxSts(m_hCardHandle, (short)nAxisNo, axStatus, 1);
+
+            uint ret = ImcApi.IMC_GetAxSts(_hCardHandle, (short)nAxisNo, axStatus);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30123,ERR-XYT,IMC30G-E Card Aixs {0} Get Status Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                  //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion_State, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Aixs {0} Get Status Error,result = {1}", nAxisNo, ret.ToString("x8")));
-
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionState, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} Get Status Error,result = {ret:x8}");
                 }
                 return -1;
             }
-            int m_pDigitalInput = 0;
-            ret = ImcApi.IMC_GetAxEcatDigitalInput(m_hCardHandle, (short)nAxisNo, ref m_pDigitalInput);
+            int mPDigitalInput = 0;
+            ret = ImcApi.IMC_GetAxEcatDigitalInput(_hCardHandle, (short)nAxisNo, ref mPDigitalInput);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30123,ERR-XYT,IMC30G-E Card Aixs {0} Get Status Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                  //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion_State, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("IMC30G-E Card Aixs {0} Get Status Error,result = {1}", nAxisNo, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionState, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} Get Status Error,result = {ret:x8}");
 
                 }
                 return -1;
@@ -1455,10 +1284,6 @@ namespace MotionIO
                 nStdIo |= (0x01 << 7);
             if ((axStatus[0] & (0x01 << 3)) != 0)
                 nStdIo |= (0x01 << 6);
-            //if ((axStatus[0] & (0x01 << 4)) != 0)
-            //    nStdIo |= (0x01 << 1);//0000 0001B
-            //if ((axStatus[0] & (0x01 << 5)) != 0)
-            //    nStdIo |= (0x01 << 2);
             if ((axStatus[0] & (0x01 << 6)) != 0)
                 nStdIo |= (0x01 << 11);
             if ((axStatus[0] & (0x01 << 7)) != 0)
@@ -1466,15 +1291,15 @@ namespace MotionIO
             if ((axStatus[0] & (0x01 << 9)) != 0)
                 nStdIo |= (0x01 << 4);
 
-            if ((m_pDigitalInput & (0x01 << 0)) != 0)
+            if ((mPDigitalInput & (0x01 << 0)) != 0)
                 nStdIo |= (0x01 << 2);
-            if ((m_pDigitalInput & (0x01 << 1)) != 0)
+            if ((mPDigitalInput & (0x01 << 1)) != 0)
                 nStdIo |= (0x01 << 1);
-            if ((m_pDigitalInput & (0x01 << 2)) != 0)
+            if ((mPDigitalInput & (0x01 << 2)) != 0)
                 nStdIo |= (0x01 << 3);
 
-            if ((((axStatus[0] & (0x01 << 4)) != 0) && ((m_pDigitalInput & (0x01 << 1)) == 0))
-                || (((axStatus[0] & (0x01 << 5)) != 0) && ((m_pDigitalInput & (0x01 << 0)) == 0)))
+            if ((((axStatus[0] & (0x01 << 4)) != 0) && ((mPDigitalInput & (0x01 << 1)) == 0))
+                || (((axStatus[0] & (0x01 << 5)) != 0) && ((mPDigitalInput & (0x01 << 0)) == 0)))
             {
                 ClearError(nAxisNo);
             }
@@ -1489,7 +1314,7 @@ namespace MotionIO
         /// <returns></returns>
         public override bool ClearError(int nAxisNo)
         {
-            uint ret = ImcApi.IMC_ClrAxSts(m_hCardHandle, (short)nAxisNo, 1);
+            uint ret = ImcApi.IMC_ClrAxSts(_hCardHandle, (short)nAxisNo);
             if (ret != ImcApi.EXE_SUCCESS)
             {
                 return false;
@@ -1505,7 +1330,7 @@ namespace MotionIO
         public override double GetAixsPos(int nAxisNo)
         {
             double[] pPrfPos = new double[1];
-            uint ret = ImcApi.IMC_GetAxEncPos(m_hCardHandle, (short)nAxisNo, pPrfPos, 1);
+            uint ret = ImcApi.IMC_GetAxEncPos(_hCardHandle, (short)nAxisNo, pPrfPos);
             if (ret != ImcApi.EXE_SUCCESS)
             {
                 return -1;
@@ -1535,7 +1360,7 @@ namespace MotionIO
             //Bit10:总线轴标志
             //Bit11:轴异常报警           
             int[] axStatus = new int[1];
-            uint ret = ImcApi.IMC_GetAxSts(m_hCardHandle, (short)nAxisNo, axStatus, 1);
+            uint ret = ImcApi.IMC_GetAxSts(_hCardHandle, (short)nAxisNo, axStatus);
             if (ret != ImcApi.EXE_SUCCESS)
             {
                 return -1;
@@ -1605,13 +1430,9 @@ namespace MotionIO
         /// <returns></returns>
         public override int IsAxisInPos(int nAxisNo, int nInPosError = 1000)
         {
-            //if (IsMultMoveMode(nAxisNo)==1)
-            //{
-            //    return IsMultMoveStop(0);
-            //}
             if (IsCrdMode(nAxisNo) == 1)
             {
-                return IsCrdStop(m_dictCrdAxis[nAxisNo]);
+                return IsCrdStop(_dictCrdAxis[nAxisNo]);
             }
 
             int nRet = IsAxisNormalStop(nAxisNo);
@@ -1619,10 +1440,10 @@ namespace MotionIO
             {
                 double[] pPrfPos = new double[1];
                 double[] pEncPos = new double[1];
-                uint ret = ImcApi.IMC_GetPrfPos(m_hCardHandle, (short)nAxisNo, pPrfPos, 1);
+                uint ret = ImcApi.IMC_GetPrfPos(_hCardHandle, (short)nAxisNo, pPrfPos);
                 if (ret != ImcApi.EXE_SUCCESS)
                     return -1;
-                ret = ImcApi.IMC_GetAxEncPos(m_hCardHandle, (short)nAxisNo, pEncPos, 1);
+                ret = ImcApi.IMC_GetAxEncPos(_hCardHandle, (short)nAxisNo, pEncPos);
                 if (ret != 0)
                     return -1;
 
@@ -1639,7 +1460,7 @@ namespace MotionIO
         /// <returns></returns>
         public override bool SetPosZero(int nAxisNo)
         {
-            uint ret = ImcApi.IMC_SetAxCurPos(m_hCardHandle, (short)nAxisNo, 0);
+            uint ret = ImcApi.IMC_SetAxCurPos(_hCardHandle, (short)nAxisNo, 0);
             if (ret != ImcApi.EXE_SUCCESS)
                 return false;
 
@@ -1659,17 +1480,17 @@ namespace MotionIO
             switch (nParam)
             {
                 case 1:
-                    m_homePara.acc = (uint)nData;
+                    _homePara.acc = (uint)nData;
                     break;
                 case 2:
                     break;
 
                 case 3:
-                    m_homePara.lowVel = (uint)nData;
+                    _homePara.lowVel = (uint)nData;
                     break;
 
                 case 4:
-                    m_homePara.highVel = (uint)nData;
+                    _homePara.highVel = (uint)nData;
                     break;
 
                 default:
@@ -1689,16 +1510,15 @@ namespace MotionIO
         {
             if (IsHomeMode(nAxisNo) > 0)
             {
-                ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
             }
-            uint ret = ImcApi.IMC_StartJogMove(m_hCardHandle, (short)nAxisNo, nSpeed);
+            uint ret = ImcApi.IMC_StartJogMove(_hCardHandle, (short)nAxisNo, nSpeed);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30124,ERR-XYT,IMC30G-E Card Aixs {0} start Velocity Move Error,result = {1}", nAxisNo, ret.ToString("x8")));
-                  //  WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Vel, GetSysAxisNo(nAxisNo).ToString(),
-                     //   string.Format("IMC30G-E Card Aixs {0} start Velocity Move Error,result = {1}", nAxisNo, ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionVel, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} start Velocity Move Error,result = {ret:x8}");
                 }
 
                 return false;
@@ -1719,11 +1539,11 @@ namespace MotionIO
             //发送回原点命令后需要延时，不能立即获取回原点状态。
             short nHomeStatus = 0;
 
-            uint ret = ImcApi.IMC_GetHomingStatus(m_hCardHandle, (short)nAxisNo, ref nHomeStatus);
+            uint ret = ImcApi.IMC_GetHomingStatus(_hCardHandle, (short)nAxisNo, ref nHomeStatus);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("IMC30G-E Card Aixs {0} IMC_GetHomingStatus Error,result = {1}", nAxisNo, ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                    $"IMC30G-E Card Aixs {nAxisNo} IMC_GetHomingStatus Error,result = {ret:x8}");
                 return -1;
             }
 
@@ -1741,26 +1561,26 @@ namespace MotionIO
                     return -1;
 
                 case 1:
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("IMC30G-E Card Aixs {0} Home error -  interrupt or no start", nAxisNo));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} Home error -  interrupt or no start");
                     return -1;
 
                 case 2:
-                   // WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("IMC30G-E Card Aixs {0} Home error - not inpos", nAxisNo));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} Home error - not inpos");
                     return -1;
 
                 case 3:
                     //最新的dll可以不调用，调用了也没关系
-                    ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                    ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
                     return 0;
 
                 default:
                     //最新的dll可以不调用，调用了也没关系
-                    ImcApi.IMC_FinishHoming(m_hCardHandle, (short)nAxisNo);
+                    ImcApi.IMC_FinishHoming(_hCardHandle, (short)nAxisNo);
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("IMC30G-E Card Aixs {0} Home error", nAxisNo));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        $"IMC30G-E Card Aixs {nAxisNo} Home error");
 
                     return -1;
 
@@ -1776,14 +1596,14 @@ namespace MotionIO
         public int IsHomeMode(int nAxisNo)
         {
             short[] nctrlModel = new short[1];
-            uint ret = ImcApi.IMC_GetAxPrfMode(m_hCardHandle, (short)nAxisNo, nctrlModel);
+            uint ret = ImcApi.IMC_GetAxPrfMode(_hCardHandle, (short)nAxisNo, nctrlModel);
             if (ret != ImcApi.EXE_SUCCESS)
             {
 
                 return -2;
             }
-            int m_ctrlModel = nctrlModel[0] & 0x0f;
-            if (m_ctrlModel != 15)
+            int mCtrlModel = nctrlModel[0] & 0x0f;
+            if (mCtrlModel != 15)
             {
                 return -1;
             }
@@ -1801,15 +1621,15 @@ namespace MotionIO
         public int IsMultMoveStop(int nMtSysNo)
         {
             short sts = 0;
-            uint ret = ImcApi.IMC_CrdGetArrivalSts(m_hCardHandle, (short)nMtSysNo, ref sts);
+            uint ret = ImcApi.IMC_CrdGetArrivalSts(_hCardHandle, (short)nMtSysNo, ref sts);
 
             if (ret == ImcApi.EXE_SUCCESS)
             {
                 if (sts == 1)
                 {
-                    ImcApi.IMC_CrdStop(m_hCardHandle, (short)nMtSysNo, 0);
-                    ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)nMtSysNo);
-                    m_nMultInit = 0;
+                    ImcApi.IMC_CrdStop(_hCardHandle, (short)nMtSysNo, 0);
+                    ImcApi.IMC_CrdDeleteMtSys(_hCardHandle, (short)nMtSysNo);
+                    _nMultipleInit = 0;
                     return 0;
                 }
             }
@@ -1825,13 +1645,13 @@ namespace MotionIO
         public int IsMultMoveMode(int nAxisNo)
         {
             short[] nctrlModel = new short[1];
-            uint ret = ImcApi.IMC_GetAxPrfMode(m_hCardHandle, (short)nAxisNo, nctrlModel);
+            uint ret = ImcApi.IMC_GetAxPrfMode(_hCardHandle, (short)nAxisNo, nctrlModel);
             if (ret != ImcApi.EXE_SUCCESS)
             {
                 return -2;
             }
-            int m_ctrlModel = (nctrlModel[0] & 0x70) >> 4;
-            if (m_ctrlModel == 0x01)
+            int mCtrlModel = (nctrlModel[0] & 0x70) >> 4;
+            if (mCtrlModel == 0x01)
             {
                 return 1;
             }
@@ -1849,7 +1669,7 @@ namespace MotionIO
         public int IsImmediateMoveMode(int nAxisNo)
         {
             short[] nPrfModel = new short[1];
-            uint ret = ImcApi.IMC_GetAxPrfMode(m_hCardHandle, (short)nAxisNo, nPrfModel);
+            uint ret = ImcApi.IMC_GetAxPrfMode(_hCardHandle, (short)nAxisNo, nPrfModel);
             if (ret != ImcApi.EXE_SUCCESS)
             {
                 return -2;
@@ -1885,13 +1705,13 @@ namespace MotionIO
                     pMaskAxNo[i] = (short)nAixsArray[i];
                     ServoOn(nAixsArray[i]);
 
-                    if (m_dictCrdAxis.ContainsKey(nAixsArray[i]))
+                    if (_dictCrdAxis.ContainsKey(nAixsArray[i]))
                     {
-                        m_dictCrdAxis[nAixsArray[i]] = crdNo;
+                        _dictCrdAxis[nAixsArray[i]] = crdNo;
                     }
                     else
                     {
-                        m_dictCrdAxis.Add(nAixsArray[i], crdNo);
+                        _dictCrdAxis.Add(nAixsArray[i], crdNo);
                     }
                 }
                 else
@@ -1901,71 +1721,67 @@ namespace MotionIO
             }
 
             //插补坐标系已经建立,先删除
-            uint ret = ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)crdNo);
+            ImcApi.IMC_CrdDeleteMtSys(_hCardHandle, (short)crdNo);
 
             //0号位建立插补坐标系，前瞻数3000段，5000.0的急停减加速度
-            ret = ImcApi.IMC_CrdSetMtSys(m_hCardHandle, (short)crdNo, pMaskAxNo, 3000, 500000.0);
+            uint ret = ImcApi.IMC_CrdSetMtSys(_hCardHandle, (short)crdNo, pMaskAxNo, 3000, 500000.0);
             if ((ret & 0xffff) == 0x0075)
             {
                 //插补坐标系已经建立,先删除
-                ret = ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)crdNo);
+                ImcApi.IMC_CrdDeleteMtSys(_hCardHandle, (short)crdNo);
 
                 Thread.Sleep(100);
 
-                ret = ImcApi.IMC_CrdSetMtSys(m_hCardHandle, (short)crdNo, pMaskAxNo, 3000, 500000.0);
+                ret = ImcApi.IMC_CrdSetMtSys(_hCardHandle, (short)crdNo, pMaskAxNo, 3000, 500000.0);
             }
 
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "ConfigPointTable",
-                   //         string.Format("IMC30G-E Card IMC_CrdSetMtSys Error,result = {0}", ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "ConfigPointTable",
+                    $"IMC30G-E Card IMC_CrdSetMtSys Error,result = {ret:x8}");
 
                 return false;
             }
 
             //清除错误
-            ret = ImcApi.IMC_CrdClrError(m_hCardHandle, (short)crdNo);
+            ImcApi.IMC_CrdClrError(_hCardHandle, (short)crdNo);
 
             //清除缓存
-            ret = ImcApi.IMC_CrdClrData(m_hCardHandle, (short)crdNo);
+            ImcApi.IMC_CrdClrData(_hCardHandle, (short)crdNo);
 
             if (bAbsolute)
             {
-                ret = ImcApi.IMC_CrdSetIncMode(m_hCardHandle, (short)crdNo, 0); //插补编程方式为绝对编程方式
+                ImcApi.IMC_CrdSetIncMode(_hCardHandle, (short)crdNo, 0); //插补编程方式为绝对编程方式
             }
             else
             {
-                ret = ImcApi.IMC_CrdSetIncMode(m_hCardHandle, (short)crdNo, 1); //插补编程方式为绝对编程方式
+                ImcApi.IMC_CrdSetIncMode(_hCardHandle, (short)crdNo, 1); //插补编程方式为绝对编程方式
             }
 
 
-            ImcApi.TCrdAdvParam CrdAdvParam = new ImcApi.TCrdAdvParam();
-            CrdAdvParam.userVelMode = 0;  //系统规划模式
-            CrdAdvParam.transMode = 1; //过渡模式
-            CrdAdvParam.noDataProtect = 0; //数据断流无保护
-            CrdAdvParam.noCoplaneCircOptm = 0; //异面过渡无处理
-            CrdAdvParam.turnCoef = 1.0; //拐角系数1.0
-            CrdAdvParam.tol = 0.1; //轨迹精度0.1 unit
-            ret = ImcApi.IMC_CrdSetAdvParam(m_hCardHandle, (short)crdNo, ref CrdAdvParam);  //设置插补高级参数
+            ImcApi.TCrdAdvParam crdAdvParam = new ImcApi.TCrdAdvParam();
+            crdAdvParam.userVelMode = 0;  //系统规划模式
+            crdAdvParam.transMode = 1; //过渡模式
+            crdAdvParam.noDataProtect = 0; //数据断流无保护
+            crdAdvParam.noCoplaneCircOptm = 0; //异面过渡无处理
+            crdAdvParam.turnCoef = 1.0; //拐角系数1.0
+            crdAdvParam.tol = 0.1; //轨迹精度0.1 unit
+            ret = ImcApi.IMC_CrdSetAdvParam(_hCardHandle, (short)crdNo, ref crdAdvParam);  //设置插补高级参数
             if (ret != ImcApi.EXE_SUCCESS)
             {
-               // WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "ConfigPointTable",
-                  //          string.Format("IMC30G-E Card IMC_CrdSetAdvParam Error,result = {0}", ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "ConfigPointTable",
+                    $"IMC30G-E Card IMC_CrdSetAdvParam Error,result = {ret:x8}");
 
                 return false;
             }
 
-            //m_nCrdDimension = nAixsArray.Length;
-
-            //m_nCrdNo = crdNo;
-
-            if (m_dicBoard.ContainsKey(crdNo))
+            if (DicBoard.ContainsKey(crdNo))
             {
-                m_dicBoard[crdNo] = nAixsArray.Length;
+                DicBoard[crdNo] = nAixsArray.Length;
             }
             else
             {
-                m_dicBoard.Add(crdNo, nAixsArray.Length);
+                DicBoard.Add(crdNo, nAixsArray.Length);
             }
 
 
@@ -1987,10 +1803,10 @@ namespace MotionIO
         public override bool PointTable_Line_Move(int crdNo, ref double[] positionArray, double acc, double dec, double vs, double vm, double ve, double sf)
         {
             //判断点位长度和参数插补运动的轴数是否相等
-            if (m_dicBoard[crdNo] != positionArray.Length)
+            if (DicBoard[crdNo] != positionArray.Length)
             {
-               // WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_Line_Move",
-                //  string.Format("IMC30G-E Card MtSys {0} Dimension error,PointTable_Line_Move", crdNo));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_Line_Move",
+                    $"IMC30G-E Card MtSys {crdNo} Dimension error,PointTable_Line_Move");
                 return false;
             }
 
@@ -2001,27 +1817,29 @@ namespace MotionIO
             dec = vm / dec;
 
             //设置运行速度
-            uint ret = ImcApi.IMC_CrdSetTrajVel(m_hCardHandle, (short)crdNo, vm);
+            ImcApi.IMC_CrdSetTrajVel(_hCardHandle, (short)crdNo, vm);
 
             //设置加速度和减速度
-            ret = ImcApi.IMC_CrdSetTrajAccAndDec(m_hCardHandle, (short)crdNo, acc, dec);
+            ImcApi.IMC_CrdSetTrajAccAndDec(_hCardHandle, (short)crdNo, acc, dec);
 
             //设置开始速度,结束速度
-            ret = ImcApi.IMC_CrdUserVelPlan(m_hCardHandle, (short)crdNo, vs, ve);
+            ImcApi.IMC_CrdUserVelPlan(_hCardHandle, (short)crdNo, vs, ve);
 
             //设置平滑系数
-            ret = ImcApi.IMC_CrdSetSmoothParam(m_hCardHandle, (short)crdNo, (int)sf, sf - (int)sf);
+            ImcApi.IMC_CrdSetSmoothParam(_hCardHandle, (short)crdNo, (int)sf, sf - (int)sf);
+
+            uint ret;
 
             //插入运动点位
-            if (m_dicBoard[crdNo] == 3)
+            if (DicBoard[crdNo] == 3)
             {
                 //三轴插补
-                ret = ImcApi.IMC_CrdLineXYZ(m_hCardHandle, (short)crdNo, positionArray);
+                ret = ImcApi.IMC_CrdLineXYZ(_hCardHandle, (short)crdNo, positionArray);
 
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_Line_Move",
-                     //   string.Format("IMC30G-E Card IMC_CrdLineXYZ Error,result = {0}", ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_Line_Move",
+                        $"IMC30G-E Card IMC_CrdLineXYZ Error,result = {ret:x8}");
 
                     return false;
                 }
@@ -2029,24 +1847,24 @@ namespace MotionIO
             else
             {
                 //二轴插补，默认为XY
-                ret = ImcApi.IMC_CrdLineXY(m_hCardHandle, (short)crdNo, positionArray);
+                ret = ImcApi.IMC_CrdLineXY(_hCardHandle, (short)crdNo, positionArray);
 
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_Line_Move",
-                       // string.Format("IMC30G-E Card IMC_CrdLineXY Error,result = {0}", ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_Line_Move",
+                        $"IMC30G-E Card IMC_CrdLineXY Error,result = {ret:x8}");
 
                     return false;
                 }
             }
 
             //把数据压入队列
-            short IsFinished = new short();
-            ret = ImcApi.IMC_CrdEndData(m_hCardHandle, (short)crdNo, ref IsFinished);  //把PC FIFO中的线段送入板卡FIFO中
+            short isFinished = new short();
+            ret = ImcApi.IMC_CrdEndData(_hCardHandle, (short)crdNo, ref isFinished);  //把PC FIFO中的线段送入板卡FIFO中
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_Line_Move",
-                  //  string.Format("IMC30G-E Card IMC_CrdEndData Error,result = {0}", ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_Line_Move",
+                    $"IMC30G-E Card IMC_CrdEndData Error,result = {ret:x8}");
 
                 return false;
             }
@@ -2071,10 +1889,10 @@ namespace MotionIO
         public override bool PointTable_ArcE_Move(int crdNo, ref double[] centerArray, ref double[] endArray, short dir, double acc, double dec, double vs, double vm, double ve, double sf)
         {
             //判断点位长度和参数插补运动的轴数是否相等
-            if (m_dicBoard[crdNo] != centerArray.Length || m_dicBoard[crdNo] != 2)
+            if (DicBoard[crdNo] != centerArray.Length || DicBoard[crdNo] != 2)
             {
-               // WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_ArcE_Move",
-                //  string.Format("IMC30G-E Card MtSys {0} Dimension error,PointTable_Line_Move", crdNo));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_ArcE_Move",
+                    $"IMC30G-E Card MtSys {crdNo} Dimension error,PointTable_Line_Move");
                 return false;
             }
 
@@ -2085,34 +1903,34 @@ namespace MotionIO
             dec = vm / dec;
 
             //设置运行速度
-            uint ret = ImcApi.IMC_CrdSetTrajVel(m_hCardHandle, (short)crdNo, vm);
+            ImcApi.IMC_CrdSetTrajVel(_hCardHandle, (short)crdNo, vm);
 
             //设置加速度和减速度
-            ret = ImcApi.IMC_CrdSetTrajAccAndDec(m_hCardHandle, (short)crdNo, acc, dec);
+            ImcApi.IMC_CrdSetTrajAccAndDec(_hCardHandle, (short)crdNo, acc, dec);
 
             //设置开始速度,结束速度
-            ret = ImcApi.IMC_CrdUserVelPlan(m_hCardHandle, (short)crdNo, vs, ve);
+            ImcApi.IMC_CrdUserVelPlan(_hCardHandle, (short)crdNo, vs, ve);
 
             //设置平滑系数
-            ret = ImcApi.IMC_CrdSetSmoothParam(m_hCardHandle, (short)crdNo, (int)sf, sf - (int)sf);
+            ImcApi.IMC_CrdSetSmoothParam(_hCardHandle, (short)crdNo, (int)sf, sf - (int)sf);
 
             //XY平面内圆心末点编程。Z轴不作圆周运动
-            ret = ImcApi.IMC_CrdArcCenterXYPlane(m_hCardHandle, (short)crdNo, centerArray, endArray, dir);
+            uint ret = ImcApi.IMC_CrdArcCenterXYPlane(_hCardHandle, (short)crdNo, centerArray, endArray, dir);
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_ArcE_Move",
-                  //  string.Format("IMC30G-E Card IMC_CrdArcCenterXYPlane Error,result = {0}", ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_ArcE_Move",
+                    $"IMC30G-E Card IMC_CrdArcCenterXYPlane Error,result = {ret:x8}");
 
                 return false;
             }
 
             //把数据压入队列
-            short IsFinished = new short();
-            ret = ImcApi.IMC_CrdEndData(m_hCardHandle, (short)crdNo, ref IsFinished);  //把PC FIFO中的线段送入板卡FIFO中
+            short isFinished = new short();
+            ret = ImcApi.IMC_CrdEndData(_hCardHandle, (short)crdNo, ref isFinished);  //把PC FIFO中的线段送入板卡FIFO中
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_ArcE_Move",
-                  //  string.Format("IMC30G-E Card IMC_CrdEndData Error,result = {0}", ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_ArcE_Move",
+                    $"IMC30G-E Card IMC_CrdEndData Error,result = {ret:x8}");
 
                 return false;
             }
@@ -2129,12 +1947,12 @@ namespace MotionIO
         /// <returns></returns>
         public override bool PointTable_IO(int crdNo, int nChannel, int bOn)
         {
-            uint ret = ImcApi.IMC_CrdSetDO(m_hCardHandle, (short)crdNo, (short)nChannel, 0, (short)bOn);
+            uint ret = ImcApi.IMC_CrdSetDO(_hCardHandle, (short)crdNo, (short)nChannel, 0, (short)bOn);
 
             if (ret != ImcApi.EXE_SUCCESS)
             {
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_IO",
-                  //  string.Format("IMC30G-E Card IMC_CrdSetDO Error,result = {0}", ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_IO",
+                    $"IMC30G-E Card IMC_CrdSetDO Error,result = {ret:x8}");
 
                 return false;
             }
@@ -2150,12 +1968,12 @@ namespace MotionIO
         /// <returns></returns>
         public override bool PointTable_Delay(int crdNo, int nMillsecond)
         {
-            uint ret = ImcApi.IMC_CrdWaitTime(m_hCardHandle, (short)crdNo, nMillsecond);
+            uint ret = ImcApi.IMC_CrdWaitTime(_hCardHandle, (short)crdNo, nMillsecond);
 
             if (ret != ImcApi.EXE_SUCCESS)
             {
-               // WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_Delay",
-                 //   string.Format("IMC30G-E Card IMC_CrdWaitTime Error,result = {0}", ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_Delay",
+                    $"IMC30G-E Card IMC_CrdWaitTime Error,result = {ret:x8}");
 
                 return false;
             }
@@ -2171,12 +1989,12 @@ namespace MotionIO
         public override bool PointTable_IsIdle(int crdNo)
         {
             int nSpace = 0;
-            uint ret = ImcApi.IMC_CrdGetSpace(m_hCardHandle, (short)crdNo, ref nSpace);
+            uint ret = ImcApi.IMC_CrdGetSpace(_hCardHandle, (short)crdNo, ref nSpace);
 
             if (ret != ImcApi.EXE_SUCCESS)
             {
-               // WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_IsIdle",
-                //    string.Format("IMC30G-E Card IMC_CrdGetSpace Error,result = {0}", ret.ToString("x8")));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_IsIdle",
+                    $"IMC30G-E Card IMC_CrdGetSpace Error,result = {ret:x8}");
 
                 return false;
             }
@@ -2192,26 +2010,25 @@ namespace MotionIO
         /// <returns></returns>
         public override bool PointTable_Start(int crdNo, bool bStart)
         {
-            uint ret = 0;
             if (bStart)
             {
-                ret = ImcApi.IMC_CrdStart(m_hCardHandle, (short)crdNo);
+                var ret = ImcApi.IMC_CrdStart(_hCardHandle, (short)crdNo);
 
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, "PointTable_Start",
-                   //     string.Format("IMC30G-E Card IMC_CrdStart Error,result = {0}", ret.ToString("x8")));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, "PointTable_Start",
+                        $"IMC30G-E Card IMC_CrdStart Error,result = {ret:x8}");
 
                     return false;
                 }
             }
             else
             {
-                ret = ImcApi.IMC_CrdStop(m_hCardHandle, (short)crdNo, 0);
+                ImcApi.IMC_CrdStop(_hCardHandle, (short)crdNo, 0);
 
-                ret = ImcApi.IMC_CrdClrData(m_hCardHandle, (short)crdNo);
+                ImcApi.IMC_CrdClrData(_hCardHandle, (short)crdNo);
 
-                ret = ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)crdNo);
+                ImcApi.IMC_CrdDeleteMtSys(_hCardHandle, (short)crdNo);
             }
 
             Thread.Sleep(100);
@@ -2227,14 +2044,14 @@ namespace MotionIO
         {
             short sts = 0;
             //获取插补运动执行缓冲区最后一段的运动状态
-            uint ret = ImcApi.IMC_CrdGetArrivalSts(m_hCardHandle, (short)crdNo, ref sts);
+            uint ret = ImcApi.IMC_CrdGetArrivalSts(_hCardHandle, (short)crdNo, ref sts);
 
             if (ret == ImcApi.EXE_SUCCESS)
             {
                 if (sts == 1)
                 {
-                    ImcApi.IMC_CrdStop(m_hCardHandle, (short)crdNo, 0);
-                    ImcApi.IMC_CrdDeleteMtSys(m_hCardHandle, (short)crdNo);
+                    ImcApi.IMC_CrdStop(_hCardHandle, (short)crdNo, 0);
+                    ImcApi.IMC_CrdDeleteMtSys(_hCardHandle, (short)crdNo);
                     return 0;
                 }
             }
@@ -2263,7 +2080,7 @@ namespace MotionIO
             //                                                              0X09: PROFILE_MODE_PTPC（点位连续模式）
             //                                                              0X0b: PROFILE_MODE_CRD_SYNC(插补同步轴模式)
             //                                                              0X0f: PROFILE_MODE_HOMING(回零模式)
-            uint ret = ImcApi.IMC_GetAxPrfMode(m_hCardHandle, (short)nAxisNo, nPrfModel);
+            uint ret = ImcApi.IMC_GetAxPrfMode(_hCardHandle, (short)nAxisNo, nPrfModel);
             if (ret != ImcApi.EXE_SUCCESS)
             {
                 return -2;
@@ -2286,16 +2103,16 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="bEnable"></param>
         /// <returns></returns>
-        public override bool SetSPELEnable(int nAxisNo, bool bEnable)
+        public override bool SetSpelEnable(int nAxisNo, bool bEnable)
         {
-            uint ret = 0;
+            uint ret;
             if (bEnable)
             {
-                ret = ImcApi.IMC_AxSoftLmtsEnable(m_hCardHandle, (short)nAxisNo);
+                ret = ImcApi.IMC_AxSoftLmtsEnable(_hCardHandle, (short)nAxisNo);
             }
             else
             {
-                ret = ImcApi.IMC_AxSoftLmtsDisable(m_hCardHandle, (short)nAxisNo);
+                ret = ImcApi.IMC_AxSoftLmtsDisable(_hCardHandle, (short)nAxisNo);
             }
 
             return ret == ImcApi.EXE_SUCCESS;
@@ -2307,16 +2124,16 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="bEnable"></param>
         /// <returns></returns>
-        public override bool SetSMELEnable(int nAxisNo, bool bEnable)
+        public override bool SetSmelEnable(int nAxisNo, bool bEnable)
         {
-            uint ret = 0;
+            uint ret;
             if (bEnable)
             {
-                ret = ImcApi.IMC_AxSoftLmtsEnable(m_hCardHandle, (short)nAxisNo);
+                ret = ImcApi.IMC_AxSoftLmtsEnable(_hCardHandle, (short)nAxisNo);
             }
             else
             {
-                ret = ImcApi.IMC_AxSoftLmtsDisable(m_hCardHandle, (short)nAxisNo);
+                ret = ImcApi.IMC_AxSoftLmtsDisable(_hCardHandle, (short)nAxisNo);
             }
 
             return ret == ImcApi.EXE_SUCCESS;
@@ -2328,12 +2145,12 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public override bool SetSPELPos(int nAxisNo, double pos)
+        public override bool SetSpelPos(int nAxisNo, double pos)
         {
             int nSoftPosLimit = 0, nSoftNegLimit = 0;
-            uint ret = ImcApi.IMC_GetAxSoftLimit(m_hCardHandle, (short)nAxisNo, ref nSoftPosLimit, ref nSoftNegLimit);
+            ImcApi.IMC_GetAxSoftLimit(_hCardHandle, (short)nAxisNo, ref nSoftPosLimit, ref nSoftNegLimit);
 
-            ret = ImcApi.IMC_SetAxSoftLimit(m_hCardHandle, (short)nAxisNo, (int)pos, nSoftNegLimit);
+            uint ret = ImcApi.IMC_SetAxSoftLimit(_hCardHandle, (short)nAxisNo, (int)pos, nSoftNegLimit);
 
             return ret == ImcApi.EXE_SUCCESS;
         }
@@ -2344,12 +2161,12 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public override bool SetSMELPos(int nAxisNo, double pos)
+        public override bool SetSmelPos(int nAxisNo, double pos)
         {
             int nSoftPosLimit = 0, nSoftNegLimit = 0;
-            uint ret = ImcApi.IMC_GetAxSoftLimit(m_hCardHandle, (short)nAxisNo, ref nSoftPosLimit, ref nSoftNegLimit);
+            ImcApi.IMC_GetAxSoftLimit(_hCardHandle, (short)nAxisNo, ref nSoftPosLimit, ref nSoftNegLimit);
 
-            ret = ImcApi.IMC_SetAxSoftLimit(m_hCardHandle, (short)nAxisNo, nSoftPosLimit, (int)pos);
+            uint ret = ImcApi.IMC_SetAxSoftLimit(_hCardHandle, (short)nAxisNo, nSoftPosLimit, (int)pos);
 
             return ret == ImcApi.EXE_SUCCESS;
         }

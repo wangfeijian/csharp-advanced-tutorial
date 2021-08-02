@@ -22,6 +22,7 @@
     Width="1000"
     Height="700"
     Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
     Loaded="MainWindow_Loaded"
     ResizeMode="CanResizeWithGrip"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -29,9 +30,6 @@
     WindowState="Maximized"
     WindowStyle="None"
     mc:Ignorable="d">
-    <Window.DataContext>
-        <Binding Path="Main" Source="{StaticResource Locator}" />
-    </Window.DataContext>
     <Border BorderBrush="#D6D6D6" BorderThickness="1">
         <Grid x:Name="Bg" PreviewMouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
             <Grid.ColumnDefinitions>

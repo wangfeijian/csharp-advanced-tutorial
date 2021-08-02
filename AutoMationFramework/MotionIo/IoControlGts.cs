@@ -9,11 +9,7 @@
 *                                                                    *
 *           Description:    GTS IO card class                        *
 *********************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using CommonTools.Tools;
 using CommonTools.Manager;
 using gts;
@@ -54,9 +50,9 @@ namespace MotionIO
             }
            else
             {
-                string str1 = LocationServices.GetLang("IoGtsInitError");
+                string str1 = LocationServices.GetLang("IoCardInitError");
                 RunInforManager.GetInstance().Error(ErrorType.ErrIoInit,CardNo.ToString(),
-                    string.Format(str1, CardNo, nRtn));
+                    string.Format(str1, CardNo,StrCardName, nRtn));
 
                 return false;
             }
@@ -99,9 +95,9 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("IoGtsReadIoInError");
+                    string str1 = LocationServices.GetLang("IoCardReadIoInError");
                     RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn,CardNo.ToString(),
-                        string.Format(str1, CardNo, nRtn));
+                        string.Format(str1, CardNo,StrCardName,data, nRtn));
 
                 }
                 return false;
@@ -143,9 +139,9 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("IoGtsReadIoOutError");
+                    string str1 = LocationServices.GetLang("IoCardReadIoOutError");
                     RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut,CardNo.ToString(),
-                        string.Format(str1, CardNo, nRtn));
+                        string.Format(str1, CardNo,StrCardName,nData, nRtn));
                 }
                 return false;
             }

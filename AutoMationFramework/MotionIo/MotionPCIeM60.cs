@@ -1,9 +1,13 @@
-﻿/********************************************************************
-	created:	2020/10/24
-	filename: 	Motion_PCIeM60
-	file ext:	cs
-	author:		binggoo
-	purpose:	凌臣EtherCAT运动控制卡的封装类
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-02                               *
+*                                                                    *
+*           ModifyTime:     2021-08-02                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Motion Lct card control class            *
 *********************************************************************/
 
 using System;
@@ -11,67 +15,63 @@ using System.Diagnostics;
 using System.Threading;
 using System.Collections.Generic;
 using lctdevice;
-using System.Threading.Tasks;
 using System.IO;
+using System.Windows;
+using CommonTools.Manager;
+using CommonTools.Tools;
 
 namespace MotionIO
 {
     /// <summary>
     /// 凌臣EtherCAT控制卡资源
     /// </summary>
-    public class LCTEtherCatCard
+    public class LctEtherCatCard
     {
 
         /// <summary>
         /// 卡内资源
         /// </summary>
-        public ecat_motion.SL_RES m_tResoures = new ecat_motion.SL_RES();//从站扫描信息
+        public ecat_motion.SL_RES Resoures;//从站扫描信息
 
-        private static LCTEtherCatCard instance = null;
+        private static LctEtherCatCard _instance;
 
-        private static readonly object m_lock = new object();
+        private static readonly object Lock = new object();
 
-        private bool m_bInited = false;
+        private bool _bInited;
 
 
         /// <summary>
         /// 是否初始化
         /// </summary>
-        public bool IsInited
-        {
-            get
-            {
-                return m_bInited;
-            }
-        }
+        public bool IsInited => _bInited;
 
         /// <summary>
         /// 实例
         /// </summary>
         /// <returns></returns>
-        public static LCTEtherCatCard Instance()
+        public static LctEtherCatCard Instance()
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                lock (m_lock)
+                lock (Lock)
                 {
-                    if (instance == null)
+                    if (_instance == null)
                     {
-                        instance = new LCTEtherCatCard();
+                        _instance = new LctEtherCatCard();
                     }
                 }
 
             }
 
-            return instance;
+            return _instance;
         }
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        private LCTEtherCatCard()
+        private LctEtherCatCard()
         {
-            m_bInited = Init();
+            _bInited = Init();
         }
 
         /// <summary>
@@ -87,13 +87,13 @@ namespace MotionIO
 
                 if (ret != 0)
                 {
-                    //string str1 = "PCIeM60板卡打开失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Open error! Result = {0}";
-                    //}
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "PCIeM60",
-                    //    string.Format(str1, ret));
+                    string str1 = "PCIeM60板卡打开失败! result = {0}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_Open error! Result = {0}";
+                    }
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "PCIeM60",
+                        string.Format(str1, ret));
 
                     return false;
                 }
@@ -104,45 +104,45 @@ namespace MotionIO
                 ret = ecat_motion.M_LoadEni(@"eni.xml", 0);//加载ENI文件，ENI文件由驱动提供
                 if (ret != 0)
                 {
-                    //string str1 = "PCIeM60板卡M_LoadEni失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_LoadEni error! Result = {0}";
-                    //}
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "PCIeM60",
-                    //    string.Format(str1, ret));
+                    string str1 = "PCIeM60板卡M_LoadEni失败! result = {0}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_LoadEni error! Result = {0}";
+                    }
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "PCIeM60",
+                        string.Format(str1, ret));
                     return false;
                 }
 
                 //连接总线
                 ecat_motion.M_ResetFpga(0);//连接前重置FPGA，是否需要重置需要再确认
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 ret = ecat_motion.M_ConnectECAT(0, 0);//连接总线
                 if (ret != 0)
                 {
-                    //string str1 = "PCIeM60板卡M_ConnectECAT失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_ConnectECAT error! Result = {0}";
-                    //}
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "PCIeM60",
-                    //    string.Format(str1, ret));
+                    string str1 = "PCIeM60板卡M_ConnectECAT失败! result = {0}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_ConnectECAT error! Result = {0}";
+                    }
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "PCIeM60",
+                        string.Format(str1, ret));
 
                     ecat_motion.M_Close(0);//关闭卡片
 
                     return false;
                 }
 
-                ret = ecat_motion.M_GetSlaveResource(out m_tResoures, 0);//获取Ethercat网络中的从站资源
+                ret = ecat_motion.M_GetSlaveResource(out Resoures, 0);//获取Ethercat网络中的从站资源
                 if (ret != 0)
                 {
-                    //string str1 = "PCIeM60板卡M_GetSlaveResource失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetSlaveResource error! Result = {0}";
-                    //}
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "PCIeM60",
-                    //    string.Format(str1, ret));
+                    string str1 = "PCIeM60板卡M_GetSlaveResource失败! result = {0}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetSlaveResource error! Result = {0}";
+                    }
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "PCIeM60",
+                        string.Format(str1, ret));
 
                     ecat_motion.M_DisconnectECAT(0);//关闭总线
 
@@ -153,16 +153,16 @@ namespace MotionIO
 
                 //加载参数
                 string paramFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PCIeM60.ini");
-                ret = ecat_motion.M_LoadParamFromFile(paramFile, (short)m_tResoures.ServoNum, 0);
+                ret = ecat_motion.M_LoadParamFromFile(paramFile, (short)Resoures.ServoNum, 0);
                 if (ret != 0)
                 {
-                    //string str1 = "PCIeM60板卡M_LoadParamFromFile失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_LoadParamFromFile error! Result = {0}";
-                    //}
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init, "PCIeM60",
-                    //    string.Format(str1, ret));
+                    string str1 = "PCIeM60板卡M_LoadParamFromFile失败! result = {0}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_LoadParamFromFile error! Result = {0}";
+                    }
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, "PCIeM60",
+                        string.Format(str1, ret));
 
                     ecat_motion.M_DisconnectECAT(0);//关闭总线
 
@@ -175,7 +175,7 @@ namespace MotionIO
             }
             catch (Exception e)
             {
-              // MessageBox.Show(e.Message, e.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, e.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
@@ -186,13 +186,13 @@ namespace MotionIO
         /// <returns></returns>
         public bool DeInit()
         {
-            if (m_bInited)
+            if (_bInited)
             {
                 ecat_motion.M_DisconnectECAT(0);//关闭总线
 
                 ecat_motion.M_Close(0);//关闭卡片
 
-                m_bInited = false;
+                _bInited = false;
             }
 
             return true;
@@ -202,22 +202,22 @@ namespace MotionIO
     /// <summary>
     /// 凌臣EtherCAT运动控制卡封装,类名必须以"Motion_"前导，否则加载不到
     /// </summary>
-    public class Motion_PCIeM60 : Motion
+    public class MotionPCIeM60 : Motion
     {
-        private Dictionary<int, int> m_dictCrdAxis = new Dictionary<int, int>();
+        private Dictionary<int, int> _dictCrdAxis = new Dictionary<int, int>();
 
         //todo:板卡类应该只初始化一次
         /// <summary>构造函数
         /// 
         /// </summary>
-        /// <param name="nCardIndex"></param>
+        /// <param name="cardIndex"></param>
         /// <param name="strName"></param>
         /// <param name="nMinAxisNo"></param>
         /// <param name="nMaxAxisNo"></param>
-        public Motion_PCIeM60(int nCardIndex, string strName, int nMinAxisNo, int nMaxAxisNo)
-            : base(nCardIndex, strName, nMinAxisNo, nMaxAxisNo)
+        public MotionPCIeM60(int cardIndex, string strName, int nMinAxisNo, int nMaxAxisNo)
+            : base(cardIndex, strName, nMinAxisNo, nMaxAxisNo)
         {
-            m_bEnable = false;
+            BEnable = false;
         }
         /// <summary>
         /// 轴卡初始化
@@ -227,20 +227,20 @@ namespace MotionIO
         {
             try
             {
-                if (LCTEtherCatCard.Instance().IsInited)
+                if (LctEtherCatCard.Instance().IsInited)
                 {
-                    m_bEnable = true;
+                    BEnable = true;
                     return true;
                 }
                 else
                 {
-                    m_bEnable = false;
+                    BEnable = false;
                     return false;
                 }
             }
             catch
             {
-                m_bEnable = false;
+                BEnable = false;
                 return false;
             }
         }
@@ -251,7 +251,7 @@ namespace MotionIO
         /// <returns></returns>
         public override bool DeInit()
         {
-            LCTEtherCatCard.Instance().DeInit();
+            LctEtherCatCard.Instance().DeInit();
 
             return true;
         }
@@ -273,16 +273,16 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_Servo_On({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Servo_On({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_Servo_On({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_Servo_On({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_ServoOn, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionServoOn, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
 
                 }
                 return false;
@@ -306,16 +306,16 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_Servo_Off({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Servo_Off({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_Servo_Off({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_Servo_Off({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_ServoOff, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionServoOff, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
 
                 }
                 return false;
@@ -342,16 +342,16 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetSts({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetSts({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetSts({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetSts({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_State, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionState, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -375,59 +375,57 @@ namespace MotionIO
 
             switch ((HomeMode)nMode)
             {
-                case HomeMode.ORG_P:
+                case HomeMode.OrgP:
                     nMode = 23;
                     break;
 
-                case HomeMode.ORG_N:
+                case HomeMode.OrgN:
                     nMode = 27;
                     break;
 
-                case HomeMode.PEL:
+                case HomeMode.Pel:
                     nMode = 18;
                     break;
 
-                case HomeMode.MEL:
+                case HomeMode.Mel:
                     nMode = 17;
                     break;
 
-                case HomeMode.ORG_P_EZ:
+                case HomeMode.OrgPEz:
                     nMode = 7;
                     break;
 
-                case HomeMode.ORG_N_EZ:
+                case HomeMode.OrgNEz:
                     nMode = 11;
                     break;
 
-                case HomeMode.PEL_EZ:
+                case HomeMode.PelEz:
                     nMode = 2;
                     break;
 
-                case HomeMode.MEL_EZ:
+                case HomeMode.MelEz:
                     nMode = 1;
                     break;
 
-                case HomeMode.EZ_PEL:
+                case HomeMode.EzPel:
                     nMode = 34;
                     break;
 
-                case HomeMode.EZ_MEL:
+                case HomeMode.EzMel:
                     nMode = 33;
                     break;
 
                 default:
-                    if (nMode > (int)HomeMode.BUS_BASE && nMode <= (int)HomeMode.BUS_BASE + 35)
+                    if (nMode > (int)HomeMode.BusBase && nMode <= (int)HomeMode.BusBase + 35)
                     {
-                        nMode -= (int)HomeMode.BUS_BASE;
+                        nMode -= (int)HomeMode.BusBase;
                     }
                     else
                     {
-                        if (m_bEnable)
+                        if (BEnable)
                         {
-                            ////WarningMgr.GetInstance().Error(string.Format("30112,ERR-XYT,IMC30G-E Card Axis {0} Home Mode Error", nAxisNo));
-                            //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                            //    string.Format("PCIeM60 Card Axis {0} Home Mode Error", nAxisNo));
-
+                            RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                                $"PCIeM60 Card Axis {nAxisNo} Home Mode Error");
                         }
                         return false;
                     }
@@ -438,63 +436,63 @@ namespace MotionIO
             short ret = ecat_motion.M_SetHomingMode((short)nAxisNo, 6, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_SetHomingMode({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_SetHomingMode({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_SetHomingMode({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_SetHomingMode({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
 
             //获取回原点参数
-            short Method = 0;
-            int Offset = 0;
-            uint Vel1 = 5000;
-            uint Vel2 = 1000;
-            uint Acc = 100000;
-            ushort Function = 0;
+            short method = 0;
+            int offset = 0;
+            uint vel1 = 5000;
+            uint vel2 = 1000;
+            uint acc = 100000;
+            ushort function = 0;
 
-            ecat_motion.M_GetHomingPrm((short)nAxisNo, ref Method, ref Offset, ref Vel1, ref Vel2, ref Acc, ref Function, 0);
+            ecat_motion.M_GetHomingPrm((short)nAxisNo, ref method, ref offset, ref vel1, ref vel2, ref acc, ref function);
 
-            Method = (short)nMode;
+            method = (short)nMode;
 
-            ret = ecat_motion.M_SetHomingPrm((short)nAxisNo, Method, Offset, Vel1, Vel2, Acc, Function, 0);
+            ret = ecat_motion.M_SetHomingPrm((short)nAxisNo, method, offset, vel1, vel2, acc, function);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_SetHomingPrm({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_SetHomingPrm({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_SetHomingPrm({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_SetHomingPrm({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
 
             //开始执行驱动器回零,参数由文件导入
-            ret = ecat_motion.M_HomingStart((short)nAxisNo, 0);
+            ret = ecat_motion.M_HomingStart((short)nAxisNo);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_HomingStart({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_HomingStart({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_HomingStart({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_HomingStart({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -524,62 +522,61 @@ namespace MotionIO
             }
 
             //从1开始
-            nAxisNo += 1;   
+            nAxisNo += 1;
 
             switch ((HomeMode)nMode)
             {
-                case HomeMode.ORG_P:
+                case HomeMode.OrgP:
                     nMode = 23;
                     break;
 
-                case HomeMode.ORG_N:
+                case HomeMode.OrgN:
                     nMode = 27;
                     break;
 
-                case HomeMode.PEL:
+                case HomeMode.Pel:
                     nMode = 18;
                     break;
 
-                case HomeMode.MEL:
+                case HomeMode.Mel:
                     nMode = 17;
                     break;
 
-                case HomeMode.ORG_P_EZ:
+                case HomeMode.OrgPEz:
                     nMode = 7;
                     break;
 
-                case HomeMode.ORG_N_EZ:
+                case HomeMode.OrgNEz:
                     nMode = 11;
                     break;
 
-                case HomeMode.PEL_EZ:
+                case HomeMode.PelEz:
                     nMode = 2;
                     break;
 
-                case HomeMode.MEL_EZ:
+                case HomeMode.MelEz:
                     nMode = 1;
                     break;
 
-                case HomeMode.EZ_PEL:
+                case HomeMode.EzPel:
                     nMode = 34;
                     break;
 
-                case HomeMode.EZ_MEL:
+                case HomeMode.EzMel:
                     nMode = 33;
                     break;
 
                 default:
-                    if (nMode > (int)HomeMode.BUS_BASE && nMode <= (int)HomeMode.BUS_BASE + 35)
+                    if (nMode > (int)HomeMode.BusBase && nMode <= (int)HomeMode.BusBase + 35)
                     {
-                        nMode -= (int)HomeMode.BUS_BASE;
+                        nMode -= (int)HomeMode.BusBase;
                     }
                     else
                     {
-                        if (m_bEnable)
+                        if (BEnable)
                         {
-                            //WarningMgr.GetInstance().Error(string.Format("30112,ERR-XYT,IMC30G-E Card Axis {0} Home Mode Error", nAxisNo));
-                            //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                            //    string.Format("PCIeM60 Card Axis {0} Home Mode Error", nAxisNo));
+                            RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                                $"PCIeM60 Card Axis {nAxisNo} Home Mode Error");
 
                         }
                         return false;
@@ -591,71 +588,71 @@ namespace MotionIO
             short ret = ecat_motion.M_SetHomingMode((short)nAxisNo, 6, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_SetHomingMode({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_SetHomingMode({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_SetHomingMode({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_SetHomingMode({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
 
             //获取回原点参数
-            short Method = 0;
-            int Offset = 0;
-            uint Vel1 = 5000;
-            uint Vel2 = 1000;
-            uint Acc = 100000;
-            ushort Function = 0;
+            short method = 0;
+            int offset2 = 0;
+            uint vel1 = 5000;
+            uint vel2 = 1000;
+            uint acc2 = 100000;
+            ushort function = 0;
 
-            ecat_motion.M_GetHomingPrm((short)nAxisNo, ref Method, ref Offset, ref Vel1, ref Vel2, ref Acc, ref Function, 0);
+            ecat_motion.M_GetHomingPrm((short)nAxisNo, ref method, ref offset2, ref vel1, ref vel2, ref acc2, ref function);
 
-            Method = (short)nMode;
-            Offset = (int)offset;
-            Vel1 = (uint)vm;
-            Vel2 = (uint)vo;
-            Acc = (uint)(vm / acc);
+            method = (short)nMode;
+            offset2 = (int)offset;
+            vel1 = (uint)vm;
+            vel2 = (uint)vo;
+            acc2 = (uint)(vm / acc);
 
-            ret = ecat_motion.M_SetHomingPrm((short)nAxisNo, Method, Offset, Vel1, Vel2, Acc, Function, 0);
+            ret = ecat_motion.M_SetHomingPrm((short)nAxisNo, method, offset2, vel1, vel2, acc2, function);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_SetHomingPrm({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_SetHomingPrm({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_SetHomingPrm({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_SetHomingPrm({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
 
             //开始执行驱动器回零,参数由文件导入
-            ret = ecat_motion.M_HomingStart((short)nAxisNo, 0);
+            ret = ecat_motion.M_HomingStart((short)nAxisNo);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_HomingStart({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_HomingStart({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_HomingStart({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_HomingStart({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
-          
+
             return true;
         }
 
@@ -680,16 +677,16 @@ namespace MotionIO
             int ret = ecat_motion.M_AbsMove((short)nAxisNo, nPos, nSpeed, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_AbsMove({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_AbsMove({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_AbsMove({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_AbsMove({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -725,16 +722,16 @@ namespace MotionIO
             int ret = ecat_motion.M_GetMove((short)nAxisNo, out cmdPrm, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetMove({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetMove({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetMove({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetMove({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -745,16 +742,16 @@ namespace MotionIO
             ret = ecat_motion.M_SetMove((short)nAxisNo, ref cmdPrm, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_SetMove({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_SetMove({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_SetMove({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_SetMove({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -763,16 +760,16 @@ namespace MotionIO
             ret = ecat_motion.M_AbsMove((short)nAxisNo, (int)fPos, vm, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_AbsMove({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_AbsMove({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_AbsMove({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_AbsMove({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -808,19 +805,19 @@ namespace MotionIO
 
             acc = vm / acc;
 
-            int ret = ecat_motion.M_Line_All((short)axisArray.Length, ref axisArray[0], ref posArray[0], acc, vm, 0);
+            int ret = ecat_motion.M_Line_All((short)axisArray.Length, ref axisArray[0], ref posArray[0], acc, vm);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_Line_All失败! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Line_All error! Result = {0}";
-                    //}
+                    string str1 = "PCIeM60板卡M_Line_All失败! result = {0}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_Line_All error! Result = {0}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs, "AbsLinearMove",
-                    //    string.Format(str1, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, "AbsLinearMove",
+                        string.Format(str1, ret));
                 }
                 return false;
             }
@@ -851,7 +848,7 @@ namespace MotionIO
         /// <param name="nAixsArray"></param>
         /// <param name="fCenterArray"></param>
         /// <param name="fEndArray"></param>
-        /// <param name="Dir"></param>
+        /// <param name="dir"></param>
         /// <param name="vm"></param>
         /// <param name="acc"></param>
         /// <param name="dec"></param>
@@ -859,7 +856,7 @@ namespace MotionIO
         /// <param name="ve"></param>
         /// <param name="sFac"></param>
         /// <returns></returns>
-        public override bool AbsArcMove(ref int[] nAixsArray, ref double[] fCenterArray, ref double[] fEndArray, int Dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
+        public override bool AbsArcMove(ref int[] nAixsArray, ref double[] fCenterArray, ref double[] fEndArray, int dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
         {
             return false;
         }
@@ -870,7 +867,7 @@ namespace MotionIO
         /// <param name="nAixsArray"></param>
         /// <param name="fCenterOffsetArray"></param>
         /// <param name="fEndArray"></param>
-        /// <param name="Dir"></param>
+        /// <param name="dir"></param>
         /// <param name="vm"></param>
         /// <param name="acc"></param>
         /// <param name="dec"></param>
@@ -878,11 +875,11 @@ namespace MotionIO
         /// <param name="ve"></param>
         /// <param name="sFac"></param>
         /// <returns></returns>
-        public override bool RelativeArcMove(ref int[] nAixsArray, ref double[] fCenterOffsetArray, ref double[] fEndArray, int Dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
+        public override bool RelativeArcMove(ref int[] nAixsArray, ref double[] fCenterOffsetArray, ref double[] fEndArray, int dir, double vm, double acc, double dec, double vs = 0, double ve = 0, double sFac = 0)
         {
             return false;
         }
-                
+
         /// <summary>
         /// 相对位置移动
         /// </summary>
@@ -904,16 +901,16 @@ namespace MotionIO
             int ret = ecat_motion.M_RelMove((short)nAxisNo, nPos, nSpeed, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_RelMove({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_RelMove({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_RelMove({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_RelMove({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -938,7 +935,7 @@ namespace MotionIO
 
             if (IsHomeMode(nAxisNo))
             {
-                ecat_motion.M_SetHomingMode((short) (nAxisNo + 1), 8, 0);
+                ecat_motion.M_SetHomingMode((short)(nAxisNo + 1), 8, 0);
             }
 
             //从1开始
@@ -950,16 +947,16 @@ namespace MotionIO
             int ret = ecat_motion.M_GetMove((short)nAxisNo, out cmdPrm, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetMove({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetMove({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetMove({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetMove({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -970,16 +967,16 @@ namespace MotionIO
             ret = ecat_motion.M_SetMove((short)nAxisNo, ref cmdPrm, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_SetMove({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_SetMove({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_SetMove({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_SetMove({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -988,16 +985,16 @@ namespace MotionIO
             ret = ecat_motion.M_RelMove((short)nAxisNo, (int)fOffset, vm, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_RelMove({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_RelMove({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_RelMove({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_RelMove({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -1033,16 +1030,16 @@ namespace MotionIO
             short ret = ecat_motion.M_Jog((short)nAxisNo, vel, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_Jog({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Jog({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_Jog({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_Jog({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Jog, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionJog, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -1063,14 +1060,14 @@ namespace MotionIO
             int ret = ecat_motion.M_Stop(Convert.ToUInt32(1 << (short)(nAxisNo - 1)), 0, 0);
             if (ret != 0)
             {
-                //string str1 = "PCIeM60板卡M_Stop({0})失败! result = {1}";
-                //if (LanguageMgr.GetInstance().LanguageID != 0)
-                //{
-                //    str1 = "PCIeM60 board card M_Stop({0}) error! Result = {1}";
-                //}
+                string str1 = "PCIeM60板卡M_Stop({0})失败! result = {1}";
+                if (LocationServices.GetLangType() == "en-us")
+                {
+                    str1 = "PCIeM60 board card M_Stop({0}) error! Result = {1}";
+                }
 
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, GetSysAxisNo(nAxisNo).ToString(),
-                //    string.Format(str1, nAxisNo, ret));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, GetSysAxisNo(nAxisNo).ToString(),
+                    string.Format(str1, nAxisNo, ret));
 
                 return false;
             }
@@ -1091,14 +1088,14 @@ namespace MotionIO
             int ret = ecat_motion.M_Stop(Convert.ToUInt32(1 << (short)(nAxisNo - 1)), 1, 0);
             if (ret != 0)
             {
-                //string str1 = "PCIeM60板卡M_Stop({0})失败! result = {1}";
-                //if (LanguageMgr.GetInstance().LanguageID != 0)
-                //{
-                //    str1 = "PCIeM60 board card M_Stop({0}) error! Result = {1}";
-                //}
+                string str1 = "PCIeM60板卡M_Stop({0})失败! result = {1}";
+                if (LocationServices.GetLangType() == "en-us")
+                {
+                    str1 = "PCIeM60 board card M_Stop({0}) error! Result = {1}";
+                }
 
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, GetSysAxisNo(nAxisNo).ToString(),
-                //    string.Format(str1, nAxisNo, ret));
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotion, GetSysAxisNo(nAxisNo).ToString(),
+                    string.Format(str1, nAxisNo, ret));
 
                 return false;
             }
@@ -1136,16 +1133,16 @@ namespace MotionIO
 
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetSts({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetSts({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetSts({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetSts({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_State, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionState, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return -1;
             }
@@ -1183,34 +1180,34 @@ namespace MotionIO
 
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetSts({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetSts({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetSts({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetSts({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_State, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionState, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return -1;
             }
 
-            uint digitalInput = 0;
-            ret = ecat_motion.M_GetEcatDigitalInput((short)nAxisNo, out digitalInput,0);
+            uint digitalInput;
+            ret = ecat_motion.M_GetEcatDigitalInput((short)nAxisNo, out digitalInput, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetEcatDigitalInput({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetEcatDigitalInput({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetEcatDigitalInput({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetEcatDigitalInput({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_State, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionState, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return -1;
             }
@@ -1259,7 +1256,7 @@ namespace MotionIO
             //从1开始
             nAxisNo += 1;
 
-            int ret = ecat_motion.M_ClrSts((short)nAxisNo, 1,0);
+            int ret = ecat_motion.M_ClrSts((short)nAxisNo, 1, 0);
             if (ret != 0)
             {
                 return false;
@@ -1278,7 +1275,7 @@ namespace MotionIO
             nAxisNo += 1;
 
             double[] pPrfPos = new double[1];
-            int ret = ecat_motion.M_GetEncPos((short)nAxisNo, out pPrfPos[0], 1,0);
+            int ret = ecat_motion.M_GetEncPos((short)nAxisNo, out pPrfPos[0], 1, 0);
             if (ret != 0)
             {
                 return -1;
@@ -1321,16 +1318,16 @@ namespace MotionIO
 
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetSts({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetSts({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetSts({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetSts({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_State, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionState, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return -1;
             }
@@ -1387,10 +1384,10 @@ namespace MotionIO
 
                 double[] pPrfPos = new double[1];
                 double[] pEncPos = new double[1];
-                int ret = ecat_motion.M_GetCmd((short)nAxisNo, out pPrfPos[0], 1,0);
+                int ret = ecat_motion.M_GetCmd((short)nAxisNo, out pPrfPos[0], 1, 0);
                 if (ret != 0)
                     return -1;
-                ret = ecat_motion.M_GetEncPos((short)nAxisNo,out pEncPos[0], 1,0);
+                ret = ecat_motion.M_GetEncPos((short)nAxisNo, out pEncPos[0], 1, 0);
                 if (ret != 0)
                     return -1;
 
@@ -1410,24 +1407,24 @@ namespace MotionIO
             nAxisNo += 1;
 
             //获取回原点参数
-            short Method = 0;
-            int Offset = 0;
-            uint Vel1 = 5000;
-            uint Vel2 = 1000;
-            uint Acc = 100000;
-            ushort Function = 0;
+            short method = 0;
+            int offset = 0;
+            uint vel1 = 5000;
+            uint vel2 = 1000;
+            uint acc = 100000;
+            ushort function = 0;
 
-            ecat_motion.M_GetHomingPrm((short)nAxisNo, ref Method, ref Offset, ref Vel1, ref Vel2, ref Acc, ref Function, 0);
+            ecat_motion.M_GetHomingPrm((short)nAxisNo, ref method, ref offset, ref vel1, ref vel2, ref acc, ref function);
 
-            Method = 35 ;
+            method = 35;
 
-            int ret = ecat_motion.M_SetHomingPrm((short)nAxisNo, Method, Offset, Vel1, Vel2, Acc, Function, 0);
+            ecat_motion.M_SetHomingPrm((short)nAxisNo, method, offset, vel1, vel2, acc, function);
 
             //将驱动器运行模式设置到6 HOMEMODE
-            ret = ecat_motion.M_SetHomingMode((short)nAxisNo, 6, 0);
+            ecat_motion.M_SetHomingMode((short)nAxisNo, 6, 0);
 
             //开始执行驱动器回零,参数由文件导入
-            ret = ecat_motion.M_HomingStart((short)nAxisNo, 0);
+            ecat_motion.M_HomingStart((short)nAxisNo);
 
             return true;
         }
@@ -1444,7 +1441,7 @@ namespace MotionIO
             short sts = 0;
             ecat_motion.M_EcatGetOperationMode((short)nAxisNo, ref sts, 0);
 
-            return  sts == 6;
+            return sts == 6;
         }
 
         /// <summary>
@@ -1456,7 +1453,7 @@ namespace MotionIO
         /// <returns></returns>
         public override bool SetAxisParam(int nAxisNo, int nParam, int nData)
         {
-           
+
             return true;
         }
 
@@ -1481,16 +1478,16 @@ namespace MotionIO
             short ret = ecat_motion.M_Jog((short)nAxisNo, vel, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_Jog({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Jog({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_Jog({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_Jog({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Vel, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format(str1, nAxisNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionVel, GetSysAxisNo(nAxisNo).ToString(),
+                        string.Format(str1, nAxisNo, ret));
                 }
                 return false;
             }
@@ -1531,7 +1528,7 @@ namespace MotionIO
 
             return nRet;
         }
-        
+
 
         /// <summary>
         /// 配置连续插补运动，最多只支持三轴
@@ -1543,19 +1540,19 @@ namespace MotionIO
         public override bool ConfigPointTable(int crdNo, ref int[] nAixsArray, bool bAbsolute)
         {
             ecat_motion.CrdCfg crdCfg;
-            short ret = ecat_motion.M_GetCrd((short)crdNo,out crdCfg, 0);
+            short ret = ecat_motion.M_GetCrd((short)crdNo, out crdCfg, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetCrd({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetCrd({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetCrd({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetCrd({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo, ret));
                 }
                 return false;
             }
@@ -1580,34 +1577,34 @@ namespace MotionIO
             ret = ecat_motion.M_SetCrd((short)crdNo, ref crdCfg, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_SetCrd({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_SetCrd({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_SetCrd({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_SetCrd({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo, ret));
                 }
                 return false;
             }
 
             //清除FIFO缓存
-            ret = ecat_motion.M_CrdClear((short)crdNo, 1, 0,0);
+            ret = ecat_motion.M_CrdClear((short)crdNo, 1, 0, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_CrdClear({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_CrdClear({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_CrdClear({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_CrdClear({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo, ret));
                 }
                 return false;
             }
@@ -1633,16 +1630,16 @@ namespace MotionIO
             short ret = ecat_motion.M_GetCrd((short)crdNo, out crdCfg, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetCrd({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetCrd({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetCrd({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetCrd({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo, ret));
                 }
                 return false;
             }
@@ -1654,21 +1651,21 @@ namespace MotionIO
             }
 
             acc = vm / acc;
-            dec = vm / dec;
+            //dec = vm / dec;
 
             ret = ecat_motion.M_Line((short)crdNo, crdCfg.dimension, ref crdCfg.axis[0], ref posArray[0], vm, acc, ve);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_Line({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_Line({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_Line({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_Line({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo, ret));
                 }
                 return false;
             }
@@ -1696,16 +1693,16 @@ namespace MotionIO
             short ret = ecat_motion.M_GetCrd((short)crdNo, out crdCfg, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_GetCrd({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_GetCrd({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_GetCrd({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_GetCrd({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo, ret));
                 }
                 return false;
             }
@@ -1717,7 +1714,7 @@ namespace MotionIO
             }
 
             acc = vm / acc;
-            dec = vm / dec;
+            //dec = vm / dec;
 
             if (crdCfg.dimension == 2)
             {
@@ -1725,16 +1722,16 @@ namespace MotionIO
 
                 if (ret != 0)
                 {
-                    if (m_bEnable)
+                    if (BEnable)
                     {
-                        //string str1 = "PCIeM60板卡M_Arc2C({0})失败! result = {1}";
-                        //if (LanguageMgr.GetInstance().LanguageID != 0)
-                        //{
-                        //    str1 = "PCIeM60 board card M_Arc2C({0}) error! Result = {1}";
-                        //}
+                        string str1 = "PCIeM60板卡M_Arc2C({0})失败! result = {1}";
+                        if (LocationServices.GetLangType() == "en-us")
+                        {
+                            str1 = "PCIeM60 board card M_Arc2C({0}) error! Result = {1}";
+                        }
 
-                        //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                        //    string.Format(str1, crdNo, ret));
+                        RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                            string.Format(str1, crdNo, ret));
                     }
                     return false;
                 }
@@ -1745,32 +1742,32 @@ namespace MotionIO
 
                 if (ret != 0)
                 {
-                    if (m_bEnable)
+                    if (BEnable)
                     {
-                        //string str1 = "PCIeM60板卡M_Arc3D({0})失败! result = {1}";
-                        //if (LanguageMgr.GetInstance().LanguageID != 0)
-                        //{
-                        //    str1 = "PCIeM60 board card M_Arc3D({0}) error! Result = {1}";
-                        //}
+                        string str1 = "PCIeM60板卡M_Arc3D({0})失败! result = {1}";
+                        if (LocationServices.GetLangType() == "en-us")
+                        {
+                            str1 = "PCIeM60 board card M_Arc3D({0}) error! Result = {1}";
+                        }
 
-                        //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                        //    string.Format(str1, crdNo, ret));
+                        RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                            string.Format(str1, crdNo, ret));
                     }
                     return false;
                 }
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡PointTable_ArcE_Move({0})失败! 仅支持2D/3D！";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card PointTable_ArcE_Move({0}) error! Only support 2D/3D!";
-                    //}
+                    string str1 = "PCIeM60板卡PointTable_ArcE_Move({0})失败! 仅支持2D/3D！";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card PointTable_ArcE_Move({0}) error! Only support 2D/3D!";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo));
                 }
                 return false;
             }
@@ -1790,16 +1787,16 @@ namespace MotionIO
             short ret = ecat_motion.M_BufIO((short)crdNo, (ushort)nChannel, (ushort)bOn, 0, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_BufIO({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_BufIO({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_BufIO({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_BufIO({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo, ret));
                 }
                 return false;
             }
@@ -1817,16 +1814,16 @@ namespace MotionIO
             short ret = ecat_motion.M_BufDelay((short)crdNo, (uint)nMillsecond, 0, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_BufDelay({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_BufDelay({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_BufDelay({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_BufDelay({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo, ret));
                 }
                 return false;
             }
@@ -1842,19 +1839,19 @@ namespace MotionIO
         {
             short sts, cmdNum;
             int space;
-            short ret = ecat_motion.M_CrdStatus((short)crdNo, out sts,out cmdNum,out space, 0, 0);
+            short ret = ecat_motion.M_CrdStatus((short)crdNo, out sts, out cmdNum, out space, 0, 0);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "PCIeM60板卡M_BufDelay({0})失败! result = {1}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "PCIeM60 board card M_BufDelay({0}) error! Result = {1}";
-                    //}
+                    string str1 = "PCIeM60板卡M_BufDelay({0})失败! result = {1}";
+                    if (LocationServices.GetLangType() == "en-us")
+                    {
+                        str1 = "PCIeM60 board card M_BufDelay({0}) error! Result = {1}";
+                    }
 
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                    //    string.Format(str1, crdNo, ret));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                        string.Format(str1, crdNo, ret));
                 }
                 return false;
             }
@@ -1870,23 +1867,23 @@ namespace MotionIO
         /// <returns></returns>
         public override bool PointTable_Start(int crdNo, bool bStart)
         {
-            short ret = 0;
+            short ret;
             if (bStart)
             {
                 ret = ecat_motion.M_CrdStart((short)(0x01 << crdNo), 1, 0);
 
                 if (ret != 0)
                 {
-                    if (m_bEnable)
+                    if (BEnable)
                     {
-                        //string str1 = "PCIeM60板卡M_CrdStart({0})失败! result = {1}";
-                        //if (LanguageMgr.GetInstance().LanguageID != 0)
-                        //{
-                        //    str1 = "PCIeM60 board card M_CrdStart({0}) error! Result = {1}";
-                        //}
+                        string str1 = "PCIeM60板卡M_CrdStart({0})失败! result = {1}";
+                        if (LocationServices.GetLangType() == "en-us")
+                        {
+                            str1 = "PCIeM60 board card M_CrdStart({0}) error! Result = {1}";
+                        }
 
-                        //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                        //    string.Format(str1, crdNo, ret));
+                        RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                            string.Format(str1, crdNo, ret));
                     }
                     return false;
                 }
@@ -1898,16 +1895,16 @@ namespace MotionIO
 
                 if (ret != 0)
                 {
-                    if (m_bEnable)
+                    if (BEnable)
                     {
-                        //string str1 = "PCIeM60板卡M_CrdStop({0})失败! result = {1}";
-                        //if (LanguageMgr.GetInstance().LanguageID != 0)
-                        //{
-                        //    str1 = "PCIeM60 board card M_CrdStop({0}) error! Result = {1}";
-                        //}
+                        string str1 = "PCIeM60板卡M_CrdStop({0})失败! result = {1}";
+                        if (LocationServices.GetLangType() == "en-us")
+                        {
+                            str1 = "PCIeM60 board card M_CrdStop({0}) error! Result = {1}";
+                        }
 
-                        //WarningMgr.GetInstance().Error(ErrorType.Err_Motion, crdNo.ToString(),
-                        //    string.Format(str1, crdNo, ret));
+                        RunInforManager.GetInstance().Error(ErrorType.ErrMotion, crdNo.ToString(),
+                            string.Format(str1, crdNo, ret));
                     }
                     return false;
                 }
@@ -1915,13 +1912,13 @@ namespace MotionIO
             return true;
         }
 
-        
+        ///<summary>
         /// 启用软件正限位
         /// </summary>
         /// <param name="nAxisNo"></param>
         /// <param name="bEnable"></param>
         /// <returns></returns>
-        public override bool SetSPELEnable(int nAxisNo, bool bEnable)
+        public override bool SetSpelEnable(int nAxisNo, bool bEnable)
         {
             return true;
         }
@@ -1932,7 +1929,7 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="bEnable"></param>
         /// <returns></returns>
-        public override bool SetSMELEnable(int nAxisNo, bool bEnable)
+        public override bool SetSmelEnable(int nAxisNo, bool bEnable)
         {
             return true;
         }
@@ -1943,15 +1940,15 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public override bool SetSPELPos(int nAxisNo, double pos)
+        public override bool SetSpelPos(int nAxisNo, double pos)
         {
             //从1开始
             nAxisNo += 1;
 
-            int nSoftPosLimit = 0, nSoftNegLimit = 0;
-            int ret = ecat_motion.M_GetSoftLimit((short)nAxisNo, out nSoftPosLimit, out nSoftNegLimit,0);
+            int nSoftPosLimit, nSoftNegLimit;
+            ecat_motion.M_GetSoftLimit((short)nAxisNo, out nSoftPosLimit, out nSoftNegLimit, 0);
 
-            ret = ecat_motion.M_SetSoftLimit((short)nAxisNo, (int)pos, nSoftNegLimit,0);
+            int ret = ecat_motion.M_SetSoftLimit((short)nAxisNo, (int)pos, nSoftNegLimit, 0);
 
             return ret == 0;
         }
@@ -1962,15 +1959,15 @@ namespace MotionIO
         /// <param name="nAxisNo"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public override bool SetSMELPos(int nAxisNo, double pos)
+        public override bool SetSmelPos(int nAxisNo, double pos)
         {
             //从1开始
             nAxisNo += 1;
 
-            int nSoftPosLimit = 0, nSoftNegLimit = 0;
-            int ret = ecat_motion.M_GetSoftLimit((short)nAxisNo, out nSoftPosLimit, out nSoftNegLimit, 0);
+            int nSoftPosLimit, nSoftNegLimit;
+            ecat_motion.M_GetSoftLimit((short)nAxisNo, out nSoftPosLimit, out nSoftNegLimit, 0);
 
-            ret = ecat_motion.M_SetSoftLimit((short)nAxisNo, nSoftPosLimit,(int)pos, 0);
+            int ret = ecat_motion.M_SetSoftLimit((short)nAxisNo, nSoftPosLimit, (int)pos, 0);
 
             return ret == 0;
         }

@@ -77,9 +77,6 @@ namespace MotionIO
         /// <returns></returns>
         public override bool ReadIoIn(ref int data)
         {
-            //Random rnd1 = new Random();
-            //InData = data = rnd1.Next();
-            //return true;
             int nInputData = 0;
             int nRet = APS168.APS_read_d_input(CardNo, 0, ref nInputData);
             if ((int)APS_Define.ERR_NoError == nRet)
@@ -99,8 +96,12 @@ namespace MotionIO
             }
             else
             {
-                //if (Enable)
-                //RunInforManager.GetInstance().Error(string.Format("20101,ERR-XYT,第{0}张IO卡8254 ReadIoIn Error,ErrorCode = {1}", CardNo, nRet));
+                if (Enable)
+                {
+                    string str1 = LocationServices.GetLang("IoCardReadIoInError");
+                    RunInforManager.GetInstance().Error(string.Format(str1, CardNo, "8254", data, nRet));
+                }
+
                 return false;
             }
         }
@@ -125,9 +126,9 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io8254ReadIoInBitError");
+                    string str1 = LocationServices.GetLang("IoCardReadIoInBitError");
 
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, $"{CardNo}.{nIndex}", string.Format(str1, CardNo, nIndex, nRet));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, $"{CardNo}.{nIndex}", string.Format(str1, CardNo, "8254", nIndex, nRet));
 
                 }
                 return false;
@@ -141,9 +142,6 @@ namespace MotionIO
         /// <returns></returns>
         public override bool ReadIoOutBit(int nIndex)
         {
-            //   Random rnd1 = new Random();
-            //   return rnd1.Next() % 2 == 0;
-
             int nData = 0;
             int nRet = APS168.APS_read_d_output(CardNo, 0, ref nData);
 
@@ -156,9 +154,9 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io8254ReadIoOutBitError");
+                    string str1 = LocationServices.GetLang("IoCardReadIoOutBitError");
 
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, $"{CardNo}.{nIndex}", string.Format(str1, CardNo, nIndex, nRet));
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, $"{CardNo}.{nIndex}", string.Format(str1, CardNo, "8254", nIndex, nRet));
 
                 }
                 return false;
@@ -184,8 +182,8 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io8254ReadIoOutError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, CardNo.ToString(), string.Format(str1, CardNo, nRet));
+                    string str1 = LocationServices.GetLang("IoCardReadIoOutError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, CardNo.ToString(), string.Format(str1, CardNo, "8254", nData, nRet));
                 }
                 return false;
             }

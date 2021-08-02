@@ -16,7 +16,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!--  全局语言变量  -->
-    <sys:String x:Key="Language">DefaultCH</sys:String>
+    <sys:String x:Key="Language">English</sys:String>
     <sys:String x:Key="Process Exists">Process Exists</sys:String>
     <sys:String x:Key="Menu">M E N U</sys:String>
     <sys:String x:Key="HomePage">HomePage</sys:String>
@@ -27,7 +27,7 @@
     <sys:String x:Key="Vision">Vision</sys:String>
     <sys:String x:Key="Statistics">Statistics</sys:String>
     <sys:String x:Key="Alarm">Alarm</sys:String>
-     <sys:String x:Key="Warning">Warning</sys:String>
+    <sys:String x:Key="Warning">Warning</sys:String>
     <sys:String x:Key="User">User</sys:String>
     <sys:String x:Key="LangType">Language</sys:String>
     <sys:String x:Key="LangTypeIcon">&#xe6ad;</sys:String>
@@ -272,40 +272,29 @@
     <sys:String x:Key="LoadSuccess">Load Success!!</sys:String>
     <sys:String x:Key="FileError">File Error!!</sys:String>
     <!--  Motion提示信息  -->
-    <sys:String x:Key="Io0640AInitError">Initialization failed for IO card 0640A of {0}! Error code = {1}</sys:String>
-    <sys:String x:Key="Io0640AWriteIoBitError">The {0} IO card 0640A WriteIoBit Error,ErrorCode = {1}</sys:String>
-    <sys:String x:Key="Io0640AWriteIoError">The {0} IO card 0640A WriteIo Error,ErrorCode = {1}</sys:String>
-    <sys:String x:Key="Io7230InitError">Initialization failed for IO card 7230 of {0}! Error code = {1}</sys:String>
-    <sys:String x:Key="Io7230ReadIoInError">The {0}IO card 7230 ReadIoIn Error,ErrorCode = {1}</sys:String>
-    <sys:String x:Key="Io7230ReadIoInBitError">The {0} IO card 7230 ReadIoInBit {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="Io7230ReadIoOutError">The {0} IO card 7230 ReadIoOut {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="Io7230ReadIoOutBitError">The {0} IO card 7230 ReadIoOutBit {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="Io7432InitError">Initialization failed for IO card 7432 of {0}! Error code = {1}</sys:String>
-    <sys:String x:Key="Io7432ReadIoInError">The {0} IO card 7432 ReadIoIn Error,ErrorCode = {1}</sys:String>
-    <sys:String x:Key="Io7432ReadIoInBitError">The {0} IO card 7432 ReadIoInBit Error,ErrorCode = {1}</sys:String>
-    <sys:String x:Key="Io7432ReadIoOutError">The {0} IO card 7432 ReadIoOut Error,result is = {1}</sys:String>
-    <sys:String x:Key="Io7432ReadIoOutBitError">The {0} IO card 7432 ReadIoOutBit Error,result is = {1}</sys:String>
-    <sys:String x:Key="Io8254ReadIoInBitError">The {0} IO card 8254 ReadIoInBit {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="Io8254ReadIoOutBitError">The {0} IO card 8254 ReadIoOutBit {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="Io8254ReadIoOutError">The {0} IO card 8254 ReadIoOut {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="Io8254DeltaReadIoInBitError">The {0} IO card Delta ReadIoInBit {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="Io8254DeltaReadIoOutBitError">The {0} IO card Delta ReadIoOutBit {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="Io8254DeltaReadIoOutError">The {0} IO card Delta ReadIoOut {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="IoDmc3400ReadIoBitError">The {0} IO card Dmc3400 WriteIoBit Error,result is {1}</sys:String>
-    <sys:String x:Key="IoDmcCanReadIoBitError">The {0} IO card DmcCan WriteIoBit Error,result is {1}</sys:String>
-    <sys:String x:Key="IoDmc3400ReadIoError">The {0} IO card Dmc3400 WriteIo Error,result is {1}</sys:String>
-    <sys:String x:Key="IoDmcCanReadIoError">The {0} IO card DmcCan WriteIo Error,result is {1}</sys:String>
-    <sys:String x:Key="IoGtsInitError">GTS initialization of the {0} motion control card failed! Result is {1}</sys:String>
-    <sys:String x:Key="IoGtsReadIoInError">The {0} IO card GTS ReadIoIn Error,ErrorCode = {1}</sys:String>
-    <sys:String x:Key="IoGtsReadIoOutError">The {0} IO card GTS ReadIoOut Error,ErrorCode = {1}</sys:String>
-    <sys:String x:Key="IoM2400ReadIoOutError">The {0} IO card M2400 ReadIoOut Error,ErrorCode = {1}</sys:String>
-    <sys:String x:Key="IoM2400WriteIOError">The {0} IO card M2400 WriteIo Error,result is {1}</sys:String>
-    <sys:String x:Key="IoM2400WriteIOBitError">The {0} IO card M2400 WriteIoBit Error,result is {1}</sys:String>
-    <sys:String x:Key="IoM2400ReadIoOutBitError">The {0} IO card M2400 ReadIoOutBit Error,result is {1}</sys:String>
-    <sys:String x:Key="IoM2400ReadIoInBitError">The {0} IO card M2400 Read ReadIoInBit {1} Error,result is {2}</sys:String>
-    <sys:String x:Key="IoM2400ReadIoInError">The {0} IO card M2400 Read IOIn Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="IoCardInitError">Initialization failed for IO card {1} of {0}! Error code = {2}</sys:String>
+    <sys:String x:Key="IoCardReadIoInError">The {0} IO card {1} ReadIoIn {2} Error,result is {3}</sys:String>
+    <sys:String x:Key="IoCardReadIoInBitError">The {0} IO card {1} ReadIoInBit {2} Error,result is {3}</sys:String>
+    <sys:String x:Key="IoCardReadIoOutError">The {0} IO card {1} ReadIoOut {2} Error,result is {3}</sys:String>
+    <sys:String x:Key="IoCardReadIoOutBitError">The {0} IO card {1} ReadIoOutBit {2} Error,result is {3}</sys:String>
+    <sys:String x:Key="IoCardWriteIoBitError">The {0} IO card {2} WriteIoBit Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="IoCardWriteIoError">The {0} IO card {2} WriteIo Error,ErrorCode = {1}</sys:String>
+    <sys:String x:Key="MotionCardGetIdError">Motion control card {0} failed to get hardware ID!</sys:String>
+    <sys:String x:Key="MotionCardLoadConfigError">The motion control card {0} failed to load the configuration file! Result = {1}</sys:String>
+    <sys:String x:Key="MotionCardInitError">Initialization of control card {0} failed</sys:String>
+    <sys:String x:Key="MotionCardDeInitError">{0} board card library file close error! Result = {1}</sys:String>
+    <sys:String x:Key="MotionCardServoOnError">{0} Card Axis {1} servo on Error,result = {2}</sys:String>
+    <sys:String x:Key="MotionCardServoOffError">{0} Card Axis {1} servo on Error,result = {2}</sys:String>
+    <sys:String x:Key="MotionCardHomeError">{0} Axis {1} Home Error,result = {2}</sys:String>
+    <sys:String x:Key="MotionCardSetHomeError">{0} Axis {1} Set Home Profile Error,result = {2}</sys:String>
+    <sys:String x:Key="MotionCardGetHomeError">{0} Axis {1} Get Home Profile Error,result = {2}</sys:String>
+    <sys:String x:Key="MotionCardMoveError">{0} Card Axis {1} Move error,result = {2}</sys:String>
+    <sys:String x:Key="MotionCardGetMoveError">{0} Card Axis {1} Get move profile error,result = {2}</sys:String>
+    <sys:String x:Key="MotionCardSetMoveError">{0} Card Axis {1} Set move profile error,result = {2}</sys:String>
+    <sys:String x:Key="MotionCardAxisStopError">{0} Card Axis  {1} stop error,result = {2}</sys:String>
     <sys:String x:Key="ConfigIOError">Config file IO point config error, card{0}, IO point{1}</sys:String>
     <sys:String x:Key="NotFoundIOCard">IO card {0} can not find the available encapsulation class, please make sure motionio.dll is correct or incorrectly configured!!</sys:String>
+    <sys:String x:Key="NotFoundMotionCard">Motion card {0} can not find the available encapsulation class, please make sure motionio.dll is correct or incorrectly configured!!</sys:String>
     <sys:String x:Key="IoOutError">The IO output point name {0} does not exist, please confirm whether the configuration is correct</sys:String>
     <sys:String x:Key="IoInError">The IO input point name {0} does not exist, please confirm whether the configuration is correct</sys:String>
     <sys:String x:Key="IoSetError">IO set output point status error</sys:String>

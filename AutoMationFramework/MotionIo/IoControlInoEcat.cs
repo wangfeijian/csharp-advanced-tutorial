@@ -11,9 +11,6 @@
 *********************************************************************/
 
 using System;
-using System.Threading;
-using CommonTools.Tools;
-using CommonTools.Manager;
 using Inovance.InoMotionCotrollerShop.InoServiceContract.EtherCATConfigApi;
 
 namespace MotionIO
@@ -27,17 +24,17 @@ namespace MotionIO
         /// <summary>
         /// 控制卡句柄
         /// </summary>
-        private UInt64 m_hCardHandle = ImcApi.ERR_HANDLE;
+        private UInt64 _hCardHandle = ImcApi.ERR_HANDLE;
 
         /// <summary>
         /// DI组的数量，汇川的IO以8个为一组
         /// </summary>
-        private int m_nDiGrpCnt = 0;
+        private int _nDiGrpCnt;
 
         /// <summary>
         /// DO组的数量
         /// </summary>
-        private int m_nDoGrpCnt = 0;
+        private int _nDoGrpCnt;
 
         /// <summary>
         /// 构造函数
@@ -49,13 +46,11 @@ namespace MotionIO
             StrCardName = "InoEcat";
 
             //框架中的每个汇川总线IO卡只支持32个IO，超过32个需要配置多张卡
-            //StrArrayIn = new string[InoEtherCatCard.Instance().m_tResoures.diNum];
-            //StrArrayOut = new string[InoEtherCatCard.Instance().m_tResoures.doNum];
             StrArrayIn = new string[32];
             StrArrayOut = new string[32];
 
-            m_nDiGrpCnt = InoEtherCatCard.Instance().m_tResoures.diNum / 8;
-            m_nDoGrpCnt = InoEtherCatCard.Instance().m_tResoures.doNum / 8;
+            _nDiGrpCnt = InoEtherCatCard.Instance().Resoures.diNum / 8;
+            _nDoGrpCnt = InoEtherCatCard.Instance().Resoures.doNum / 8;
         }
         
         /// <summary>
@@ -67,8 +62,8 @@ namespace MotionIO
             //InoEcat自带IO，无需专门的初始化, 通过函数调用判断是否能初始化成功
             try
             {
-                m_hCardHandle = InoEtherCatCard.Instance().m_hCardHandle;
-                if (m_hCardHandle != ImcApi.ERR_HANDLE)
+                _hCardHandle = InoEtherCatCard.Instance().CardHandle;
+                if (_hCardHandle != ImcApi.ERR_HANDLE)
                 {
                     Enable = true;
                     return true;
@@ -105,13 +100,13 @@ namespace MotionIO
 
             //计算本张卡上的有几组DI，一张卡上最多4组
             int nGrpCnt = 0;
-            if (m_nDiGrpCnt >= (CardNo + 1) * 4)
+            if (_nDiGrpCnt >= (CardNo + 1) * 4)
             {
                 nGrpCnt = 4;
             }
-            else if (m_nDiGrpCnt > CardNo * 4)
+            else if (_nDiGrpCnt > CardNo * 4)
             {
-                nGrpCnt = m_nDiGrpCnt % 4;
+                nGrpCnt = _nDiGrpCnt % 4;
             }
 
             bool bRet = true;
@@ -119,7 +114,7 @@ namespace MotionIO
             {
                 short nGrpDi = 0;
                 short groupNo = (short)(i + CardNo * 4);
-                uint ret = ImcApi.IMC_GetEcatGrpDi(m_hCardHandle, (short)groupNo, ref nGrpDi);
+                uint ret = ImcApi.IMC_GetEcatGrpDi(_hCardHandle, (short)groupNo, ref nGrpDi);
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
                     bRet = false;
@@ -150,7 +145,7 @@ namespace MotionIO
         {
             short diValue = 0;
             short diNo = (short)(CardNo * 32 + nIndex - 1);
-            uint ret = ImcApi.IMC_GetEcatDiBit(m_hCardHandle, diNo, ref diValue);
+            uint ret = ImcApi.IMC_GetEcatDiBit(_hCardHandle, diNo, ref diValue);
             if (ret != ImcApi.EXE_SUCCESS)
                 return false;
 
@@ -166,7 +161,7 @@ namespace MotionIO
         {
             short doValue = 0;
             short doNo = (short)(CardNo * 32 + nIndex - 1);
-            uint ret = ImcApi.IMC_GetEcatDoBit(m_hCardHandle, doNo, ref doValue);
+            uint ret = ImcApi.IMC_GetEcatDoBit(_hCardHandle, doNo, ref doValue);
             if (ret != ImcApi.EXE_SUCCESS)
                 return false;
 
@@ -184,13 +179,13 @@ namespace MotionIO
 
             //计算本张卡上的有几组DO，一张卡上最多4组
             int nGrpCnt = 0;
-            if (m_nDoGrpCnt >= (CardNo + 1) * 4)
+            if (_nDoGrpCnt >= (CardNo + 1) * 4)
             {
                 nGrpCnt = 4;
             }
-            else if (m_nDoGrpCnt > CardNo * 4)
+            else if (_nDoGrpCnt > CardNo * 4)
             {
-                nGrpCnt = m_nDoGrpCnt % 4;
+                nGrpCnt = _nDoGrpCnt % 4;
             }
 
             bool bRet = true;
@@ -199,7 +194,7 @@ namespace MotionIO
                 short nGrpDo = 0;
                 short groupNo = (short)(i + CardNo * 4);
 
-                uint ret = ImcApi.IMC_GetEcatGrpDo(m_hCardHandle, groupNo, ref nGrpDo);
+                uint ret = ImcApi.IMC_GetEcatGrpDo(_hCardHandle, groupNo, ref nGrpDo);
                 if (ret != ImcApi.EXE_SUCCESS)
                 {
                     bRet = false;
@@ -225,7 +220,7 @@ namespace MotionIO
             if (Enable)
             {
                 short doNo = (short)(CardNo * 32 + nIndex - 1);
-                uint ret = ImcApi.IMC_SetEcatDoBit(m_hCardHandle, doNo, (short)(bBit ? 1 : 0));
+                uint ret = ImcApi.IMC_SetEcatDoBit(_hCardHandle, doNo, (short)(bBit ? 1 : 0));
                 if (ret == ImcApi.EXE_SUCCESS)
                     return true;
                 else
@@ -245,13 +240,13 @@ namespace MotionIO
             {
                 //计算本张卡上的有几组DO，一张卡上最多4组
                 int nGrpCnt = 0;
-                if (m_nDoGrpCnt >= (CardNo + 1) * 4)
+                if (_nDoGrpCnt >= (CardNo + 1) * 4)
                 {
                     nGrpCnt = 4;
                 }
-                else if (m_nDoGrpCnt > CardNo * 4)
+                else if (_nDoGrpCnt > CardNo * 4)
                 {
-                    nGrpCnt = m_nDoGrpCnt % 4;
+                    nGrpCnt = _nDoGrpCnt % 4;
                 }
 
                 for (int i = 0; i < nGrpCnt; i++)
@@ -259,7 +254,7 @@ namespace MotionIO
                     short nGrpDo = (short)((nData >> (i * 8)) & 0xFF);
                     short groupNo = (short)(i + CardNo * 4);
 
-                    uint ret = ImcApi.IMC_SetEcatGrpDo(m_hCardHandle, groupNo, nGrpDo);
+                    uint ret = ImcApi.IMC_SetEcatGrpDo(_hCardHandle, groupNo, nGrpDo);
                     if (ret != ImcApi.EXE_SUCCESS)
                         return false;
                 }

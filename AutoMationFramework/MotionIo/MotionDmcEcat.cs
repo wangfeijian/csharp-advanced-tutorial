@@ -1,16 +1,19 @@
-﻿/********************************************************************
-	created:	2018/09/12
-	filename: 	MOTION_DmcEcat
-	file ext:	cs
-	author:		gxf
-	purpose:	雷赛EtherCAT运动控制卡的封装类
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-02                               *
+*                                                                    *
+*           ModifyTime:     2021-08-02                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Motion leadshine card control class      *
 *********************************************************************/
 using System;
-using System.Diagnostics;
-using System.Threading;
-using CommonTools.Tools;
 using csLTDMC;
-
+using CommonTools.Manager;
+using CommonTools.Tools;
+using System.Windows;
 
 namespace MotionIO
 {
@@ -27,22 +30,22 @@ namespace MotionIO
         /// <summary>
         /// 控制卡ID
         /// </summary>
-        public int CardId = 0;
+        public int CardId;
 
         /// <summary>
         /// 轴的数量
         /// </summary>
-        public int AxesCount = 0;
+        public int AxesCount;
 
         /// <summary>
         /// 输入端口数量
         /// </summary>
-        public int InputCount = 0;
+        public int InputCount;
 
         /// <summary>
         /// 输出端口数量
         /// </summary>
-        public int OutputCount = 0;
+        public int OutputCount;
 
         /// <summary>
         /// 构造函数
@@ -94,11 +97,10 @@ namespace MotionIO
             else
             {
                 CardId = -1;
-                return;
             }
         }
 
-        private static DmcEtherCatCard instance = null;
+        private static DmcEtherCatCard _instance;
 
         /// <summary>
         /// 实例
@@ -106,37 +108,37 @@ namespace MotionIO
         /// <returns></returns>
         public static DmcEtherCatCard Instance()
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = new DmcEtherCatCard();
+                _instance = new DmcEtherCatCard();
             }
 
-            return instance;
+            return _instance;
         }
     }
 
     /// <summary>
-    /// 雷赛EtherCAT运动控制卡封装,类名必须以"Motion_"前导，否则加载不到
+    /// 雷赛EtherCAT运动控制卡封装,类名必须以"Motion"前导，否则加载不到
     /// </summary>
-    public class Motion_DmcEcat : Motion
+    public class MotionDmcEcat : Motion
     {
         /// <summary>
         /// 控制卡ID
         /// </summary>
-        private ushort m_nCardId = 0;
+        private ushort _nCardId;
 
         //todo:板卡类应该只初始化一次
         /// <summary>构造函数
         /// 
         /// </summary>
-        /// <param name="nCardIndex"></param>
+        /// <param name="cardIndex"></param>
         /// <param name="strName"></param>
         /// <param name="nMinAxisNo"></param>
         /// <param name="nMaxAxisNo"></param>
-        public Motion_DmcEcat(int nCardIndex, string strName,int nMinAxisNo, int nMaxAxisNo)
-            :base(nCardIndex, strName, nMinAxisNo, nMaxAxisNo)
+        public MotionDmcEcat(int cardIndex, string strName, int nMinAxisNo, int nMaxAxisNo)
+            : base(cardIndex, strName, nMinAxisNo, nMaxAxisNo)
         {
-            m_bEnable = false;
+            BEnable = false;
         }
         /// <summary>
         /// 轴卡初始化
@@ -144,52 +146,43 @@ namespace MotionIO
         /// <returns></returns>
         public override bool Init()
         {
-            //TRACE("init card\r\n");
-            string str1 = "运动控制卡DMC-E3032获取硬件ID失败!";
-            string str2 = "运动控制卡DMC-E3032加载配置文件失败! result = {0}";
-            string str3 = "控制卡DMC-E3032初始化失败";
-            //if (LanguageMgr.GetInstance().LanguageID != 0)
-            //{
-            //    str1 = "Motion control card DMC-E3032 failed to get hardware ID!";
-            //    str2 = "The motion control card DMC-E3032 failed to load the configuration file! Result = {0}";
-            //    str3 = "Initialization of control card DMC-E3032 failed";
-            //}
+            string str1 = LocationServices.GetLang("MotionCardGetIdError");
+            string str2 = LocationServices.GetLang("MotionCardLoadConfigError");
+            string str3 = LocationServices.GetLang("MotionCardInitError");
+
             try
             {
                 int nCardId = DmcEtherCatCard.Instance().CardId;
                 if (nCardId < 0)
                 {
-                    m_bEnable = false;
-                    //WarningMgr.GetInstance().Error(string.Format("30101,ERR-XYT, 运动控制卡DMC-E3032获取硬件ID失败!"));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init,m_nCardIndex.ToString(),
-                    //    string.Format(str1));
+                    BEnable = false;
+
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, CardIndex.ToString(), string.Format(str1, "DMC-E3032"));
 
                     return false;
                 }
-                m_nCardId = (ushort)nCardId;
+                _nCardId = (ushort)nCardId;
 
-                short ret = LTDMC.dmc_download_configfile(m_nCardId, "DMCECAT.ini");
+                short ret = LTDMC.dmc_download_configfile(_nCardId, "DMCECAT.ini");
                 if (ret == 0)
                 {
-                    m_bEnable = true;
+                    BEnable = true;
                     return true;
                 }
                 else
                 {
-                    m_bEnable = false;
-                    ////WarningMgr.GetInstance().Error(string.Format("30102,ERR-XYT, 运动控制卡DMC-E3032加载配置文件失败! result = {0}", ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Init,m_nCardIndex.ToString(),
-                    //    string.Format(str2, ret));
+                    BEnable = false;
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionInit, CardIndex.ToString(), string.Format(str2, "DMC-E3032", ret));
                     return false;
                 }
             }
             catch (Exception e)
             {
-                m_bEnable = false;
-                //System.Windows.Forms.MessageBox.Show(e.Message, str3, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                BEnable = false;
+                MessageBox.Show(e.Message, str3, MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
-            }                        
+            }
         }
 
         /// <summary>
@@ -205,17 +198,11 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //string str1 = "DMC-E3032板卡库文件关闭出错! result = {0}";
-                    //if (LanguageMgr.GetInstance().LanguageID != 0)
-                    //{
-                    //    str1 = "DMC-E3032 board card library file close error! Result = {0}";
-                    //}
-                    ////WarningMgr.GetInstance().Error(string.Format("30103,ERR-XYT,DMC-E3032板卡库文件关闭出错! result = {0}", ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_DeInit,m_nCardIndex.ToString(),
-                    //    string.Format(str1, ret));
+                    string str1 = LocationServices.GetLang("MotionCardDeInitError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionDeInit, CardIndex.ToString(), string.Format(str1, "DMC-E3032", ret));
                 }
                 return false;
             }
@@ -228,25 +215,24 @@ namespace MotionIO
         /// <returns></returns>
         public override bool ServoOn(int nAxisNo)
         {
-            short ret = LTDMC.nmc_clear_axis_errcode(m_nCardId, (ushort)nAxisNo);
-            ret = LTDMC.nmc_set_axis_enable(m_nCardId, (ushort)nAxisNo);
+            LTDMC.nmc_clear_axis_errcode(_nCardId, (ushort)nAxisNo);
+            short ret = LTDMC.nmc_set_axis_enable(_nCardId, (ushort)nAxisNo);
             if (ret == 0)
             {
                 return true;
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30104,ERR-XYT,DMC-E3032 Card Aixs {0} servo on Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_ServoOn,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Card Aixs {0} servo on Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardServoOnError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionServoOn, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
         }
-        
+
         /// <summary>
         /// 断开使能
         /// </summary>
@@ -254,24 +240,23 @@ namespace MotionIO
         /// <returns></returns>
         public override bool ServoOff(int nAxisNo)
         {
-            short ret = LTDMC.nmc_set_axis_disable(m_nCardId, (ushort)nAxisNo);
+            short ret = LTDMC.nmc_set_axis_disable(_nCardId, (ushort)nAxisNo);
             if (ret == 0)
             {
                 return true;
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30105,ERR-XYT,DMC-E3032 Card Axis {0} servo off Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_ServoOff,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Card Axis {0} servo off Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardServoOffError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionServoOff, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
         }
-        
+
         /// <summary>
         /// 读取伺服使能状态
         /// </summary>
@@ -289,7 +274,7 @@ namespace MotionIO
             //6:错误触发状态
             //7:错误状态
             ushort nAxisMachineState = 0;
-            short ret = LTDMC.nmc_get_axis_state_machine(m_nCardId, (ushort)nAxisNo, ref nAxisMachineState);
+            short ret = LTDMC.nmc_get_axis_state_machine(_nCardId, (ushort)nAxisNo, ref nAxisMachineState);
             if (ret != 0)
                 return false;
 
@@ -311,60 +296,57 @@ namespace MotionIO
             double dDecTime = 0;
             double dOffsetPos = 0;
 
-            short ret = LTDMC.nmc_get_home_profile(m_nCardId, (ushort)nAxisNo,
+            short ret = LTDMC.nmc_get_home_profile(_nCardId, (ushort)nAxisNo,
                         ref nHomeMode, ref dVelLow, ref dVelHigh,
                         ref dAccTime, ref dDecTime, ref dOffsetPos);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30106,ERR-XYT,DMC-E3032 Axis {0} Get Home Profile Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} Get Home Profile Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardGetHomeError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             //自定义回原点方式
-            if (nParam > (int)HomeMode.BUS_BASE)
+            if (nParam > (int)HomeMode.BusBase)
             {
-                nHomeMode = (ushort)(nParam - (int)HomeMode.BUS_BASE);
+                nHomeMode = (ushort)(nParam - (int)HomeMode.BusBase);
             }
 
 
             // 设置HOME参数
             //nHomeMode = 11;// (ushort)nParam;
-            ret = LTDMC.nmc_set_home_profile(m_nCardId, (ushort)nAxisNo, nHomeMode, dVelLow, dVelHigh, dAccTime, dDecTime, dOffsetPos);
+            ret = LTDMC.nmc_set_home_profile(_nCardId, (ushort)nAxisNo, nHomeMode, dVelLow, dVelHigh, dAccTime, dDecTime, dOffsetPos);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30107,ERR-XYT,DMC-E3032 Axis {0} Set Home Profile Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} Set Home Profile Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardSetHomeError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
-            
+
             // 开始回原点
-            ret = LTDMC.nmc_home_move(m_nCardId, (ushort)nAxisNo);
+            ret = LTDMC.nmc_home_move(_nCardId, (ushort)nAxisNo);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30108,ERR-XYT,DMC-E3032 Axis {0} Home Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} Home Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardHomeError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             //清除停止原因
-            LTDMC.dmc_clear_stop_reason(m_nCardId, (ushort)nAxisNo);
+            LTDMC.dmc_clear_stop_reason(_nCardId, (ushort)nAxisNo);
 
             return true;
         }
@@ -391,25 +373,24 @@ namespace MotionIO
             double dDecTime = dec;
             double dOffsetPos = offset;
 
-            short ret = LTDMC.nmc_get_home_profile(m_nCardId, (ushort)nAxisNo,
+            short ret = LTDMC.nmc_get_home_profile(_nCardId, (ushort)nAxisNo,
                         ref nHomeMode, ref dVelLow, ref dVelHigh,
                         ref dAccTime, ref dDecTime, ref dOffsetPos);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30106,ERR-XYT,DMC-E3032 Axis {0} Get Home Profile Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} Get Home Profile Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardGetHomeError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             //自定义回原点方式
-            if (nParam > (int)HomeMode.BUS_BASE)
+            if (nParam > (int)HomeMode.BusBase)
             {
-                nHomeMode = (ushort)(nParam - (int)HomeMode.BUS_BASE);
+                nHomeMode = (ushort)(nParam - (int)HomeMode.BusBase);
             }
 
             dVelLow = vo;
@@ -418,35 +399,33 @@ namespace MotionIO
             dDecTime = dec;
             dOffsetPos = offset;
 
-            ret = LTDMC.nmc_set_home_profile(m_nCardId, (ushort)nAxisNo, nHomeMode, dVelLow, dVelHigh, dAccTime, dDecTime, dOffsetPos);
+            ret = LTDMC.nmc_set_home_profile(_nCardId, (ushort)nAxisNo, nHomeMode, dVelLow, dVelHigh, dAccTime, dDecTime, dOffsetPos);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30107,ERR-XYT,DMC-E3032 Axis {0} Set Home Profile Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} Set Home Profile Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardSetHomeError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             // 开始回原点
-            ret = LTDMC.nmc_home_move(m_nCardId, (ushort)nAxisNo);
+            ret = LTDMC.nmc_home_move(_nCardId, (ushort)nAxisNo);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30108,ERR-XYT,DMC-E3032 Axis {0} Home Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Home, GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} Home Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardHomeError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionHome, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             //清除停止原因
-            LTDMC.dmc_clear_stop_reason(m_nCardId, (ushort)nAxisNo);
+            LTDMC.dmc_clear_stop_reason(_nCardId, (ushort)nAxisNo);
 
             return true;
         }
@@ -466,16 +445,15 @@ namespace MotionIO
             double dAccTime = 0;
             double dDecTime = 0;
             double dVelStop = 0;
-            short ret = LTDMC.dmc_get_profile_unit(m_nCardId, (ushort)nAxisNo,
+            short ret = LTDMC.dmc_get_profile_unit(_nCardId, (ushort)nAxisNo,
                 ref dVelMin, ref dVelMax, ref dAccTime, ref dDecTime, ref dVelStop);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30109,ERR-XYT,DMC-E3032 Axis {0} get profile unit Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} get profile unit Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardGetMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
@@ -483,28 +461,28 @@ namespace MotionIO
             // 设置速度
             dVelMin = 0;
             dVelMax = nSpeed;
-            ret = LTDMC.dmc_set_profile_unit(m_nCardId, (ushort)nAxisNo,
+            ret = LTDMC.dmc_set_profile_unit(_nCardId, (ushort)nAxisNo,
                 dVelMin, dVelMax, dAccTime, dDecTime, dVelStop);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30110,ERR-XYT,DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardSetMoveError");
+
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
 
                 }
                 return false;
             }
 
-            
+
 
             // 执行运动
             ushort nPosiMode = 1;//运动模式0：相对坐标模式，1：绝对坐标模式
-            ret = LTDMC.dmc_pmove_unit(m_nCardId, (ushort)nAxisNo, nPos, nPosiMode);
+            ret = LTDMC.dmc_pmove_unit(_nCardId, (ushort)nAxisNo, nPos, nPosiMode);
 
             //清除停止原因
-            LTDMC.dmc_clear_stop_reason(m_nCardId, (ushort)nAxisNo);
+            LTDMC.dmc_clear_stop_reason(_nCardId, (ushort)nAxisNo);
 
             if (ret == 0)
             {
@@ -512,11 +490,11 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30111,ERR-XYT,DMC-E3032 Axis {0} abs move Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} abs move Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardMoveError");
+
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
 
                 }
                 return false;
@@ -544,40 +522,38 @@ namespace MotionIO
             double dDecTime = dec;
             double dVelStop = vm;
 
-            short ret = LTDMC.dmc_set_profile_unit(m_nCardId, (ushort)nAxisNo,
+            short ret = LTDMC.dmc_set_profile_unit(_nCardId, (ushort)nAxisNo,
                 dVelMin, dVelMax, dAccTime, dDecTime, dVelStop);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30110,ERR-XYT,DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardGetMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             //设置单轴速度曲线 S段参数值
-            ret = LTDMC.dmc_set_s_profile(m_nCardId, (ushort)nAxisNo, 0, sFac);
+            ret = LTDMC.dmc_set_s_profile(_nCardId, (ushort)nAxisNo, 0, sFac);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30110,ERR-XYT,DMC-E3032 Axis {0} set s profile Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} set s profile Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardSetMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             // 执行运动
             ushort nPosiMode = 1;//运动模式0：相对坐标模式，1：绝对坐标模式
-            ret = LTDMC.dmc_pmove_unit(m_nCardId, (ushort)nAxisNo, fPos, nPosiMode);
+            ret = LTDMC.dmc_pmove_unit(_nCardId, (ushort)nAxisNo, fPos, nPosiMode);
 
             //清除停止原因
-            LTDMC.dmc_clear_stop_reason(m_nCardId, (ushort)nAxisNo);
+            LTDMC.dmc_clear_stop_reason(_nCardId, (ushort)nAxisNo);
 
             if (ret == 0)
             {
@@ -585,12 +561,11 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30111,ERR-XYT,DMC-E3032 Axis {0} abs move Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Abs,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} abs move Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionAbs, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
@@ -611,16 +586,15 @@ namespace MotionIO
             double dAccTime = 0;
             double dDecTime = 0;
             double dVelStop = 0;
-            short ret = LTDMC.dmc_get_profile_unit(m_nCardId, (ushort)nAxisNo,
+            short ret = LTDMC.dmc_get_profile_unit(_nCardId, (ushort)nAxisNo,
                 ref dVelMin, ref dVelMax, ref dAccTime, ref dDecTime, ref dVelStop);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30112,ERR-XYT,DMC-E3032 Axis {0} get profile unit Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} get profile unit Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardGetMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
@@ -628,37 +602,35 @@ namespace MotionIO
             // 设置速度
             dVelMin = 0;
             dVelMax = nSpeed;
-            ret = LTDMC.dmc_set_profile_unit(m_nCardId, (ushort)nAxisNo,
+            ret = LTDMC.dmc_set_profile_unit(_nCardId, (ushort)nAxisNo,
                 dVelMin, dVelMax, dAccTime, dDecTime, dVelStop);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30113,ERR-XYT,DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardSetMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             // 执行运动
             ushort nPosiMode = 0;//运动模式0：相对坐标模式，1：绝对坐标模式
-            ret = LTDMC.dmc_pmove_unit(m_nCardId, (ushort)nAxisNo, nPos, nPosiMode);
+            ret = LTDMC.dmc_pmove_unit(_nCardId, (ushort)nAxisNo, nPos, nPosiMode);
             //清除停止原因
-            LTDMC.dmc_clear_stop_reason(m_nCardId, (ushort)nAxisNo);
+            LTDMC.dmc_clear_stop_reason(_nCardId, (ushort)nAxisNo);
             if (ret == 0)
             {
                 return true;
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30114,ERR-XYT,DMC-E3032 Axis {0} relative move Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} relative move Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
@@ -685,40 +657,38 @@ namespace MotionIO
             double dDecTime = dec;
             double dVelStop = vm;
 
-            short ret = LTDMC.dmc_set_profile_unit(m_nCardId, (ushort)nAxisNo,
+            short ret = LTDMC.dmc_set_profile_unit(_nCardId, (ushort)nAxisNo,
                 dVelMin, dVelMax, dAccTime, dDecTime, dVelStop);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30110,ERR-XYT,DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardGetMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             //设置单轴速度曲线 S段参数值
-            ret = LTDMC.dmc_set_s_profile(m_nCardId, (ushort)nAxisNo, 0, sFac);
+            ret = LTDMC.dmc_set_s_profile(_nCardId, (ushort)nAxisNo, 0, sFac);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    ////WarningMgr.GetInstance().Error(string.Format("30110,ERR-XYT,DMC-E3032 Axis {0} set s profile Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} set s profile Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardSetMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             // 执行运动
             ushort nPosiMode = 0;//运动模式0：相对坐标模式，1：绝对坐标模式
-            ret = LTDMC.dmc_pmove_unit(m_nCardId, (ushort)nAxisNo, fOffset, nPosiMode);
+            ret = LTDMC.dmc_pmove_unit(_nCardId, (ushort)nAxisNo, fOffset, nPosiMode);
 
             //清除停止原因
-            LTDMC.dmc_clear_stop_reason(m_nCardId, (ushort)nAxisNo);
+            LTDMC.dmc_clear_stop_reason(_nCardId, (ushort)nAxisNo);
 
             if (ret == 0)
             {
@@ -726,12 +696,11 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30111,ERR-XYT,DMC-E3032 Axis {0} abs move Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Rel,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} abs move Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionRel, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
@@ -752,16 +721,15 @@ namespace MotionIO
             double dAccTime = 0;
             double dDecTime = 0;
             double dVelStop = 0;
-            short ret = LTDMC.dmc_get_profile_unit(m_nCardId, (ushort)nAxisNo,
+            short ret = LTDMC.dmc_get_profile_unit(_nCardId, (ushort)nAxisNo,
                 ref dVelMin, ref dVelMax, ref dAccTime, ref dDecTime, ref dVelStop);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30112,ERR-XYT,DMC-E3032 Axis {0} get profile unit Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Jog,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} get profile unit Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardGetMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionJog, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
@@ -769,37 +737,35 @@ namespace MotionIO
             // 设置速度
             dVelMin = 0;
             dVelMax = nSpeed;
-            ret = LTDMC.dmc_set_profile_unit(m_nCardId, (ushort)nAxisNo,
+            ret = LTDMC.dmc_set_profile_unit(_nCardId, (ushort)nAxisNo,
                 dVelMin, dVelMax, dAccTime, dDecTime, dVelStop);
             if (ret != 0)
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30113,ERR-XYT,DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Jog,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardSetMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionJog, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
 
             // 执行运动
             ushort nDir = (ushort)(bPositive ? 1 : 0);//0：负方向，1：正方向
-            ret = LTDMC.dmc_vmove(m_nCardId, (ushort)nAxisNo, nDir);
+            ret = LTDMC.dmc_vmove(_nCardId, (ushort)nAxisNo, nDir);
             //清除停止原因
-            LTDMC.dmc_clear_stop_reason(m_nCardId, (ushort)nAxisNo);
+            LTDMC.dmc_clear_stop_reason(_nCardId, (ushort)nAxisNo);
             if (ret == 0)
             {
                 return true;
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30114,ERR-XYT,DMC-E3032 Axis {0} jog move Error,result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Jog,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Axis {0} jog move Error,result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardMoveError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionJog, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
             }
@@ -813,7 +779,7 @@ namespace MotionIO
         public override bool StopAxis(int nAxisNo)
         {
             ushort nStopMode = 0; //制动方式，0：减速停止，1：紧急停止
-            short ret = LTDMC.dmc_stop(m_nCardId, (ushort)nAxisNo, nStopMode);
+            short ret = LTDMC.dmc_stop(_nCardId, (ushort)nAxisNo, nStopMode);
             if (ret == 0)
             {
                 return true;
@@ -821,17 +787,16 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30115,ERR-XYT,DMC-E3032 Card normal stop axis {0} Error, result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_Stop,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Card normal stop axis {0} Error, result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardAxisStopError");
 
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionStop, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
                 }
                 return false;
-            }               
+            }
         }
-        
+
         /// <summary>
         /// 急停
         /// </summary>
@@ -840,7 +805,7 @@ namespace MotionIO
         public override bool StopEmg(int nAxisNo)
         {
             ushort nStopMode = 1; //制动方式，0：减速停止，1：紧急停止
-            short ret = LTDMC.dmc_stop(m_nCardId, (ushort)nAxisNo, nStopMode);
+            short ret = LTDMC.dmc_stop(_nCardId, (ushort)nAxisNo, nStopMode);
             if (ret == 0)
             {
                 return true;
@@ -848,17 +813,17 @@ namespace MotionIO
             }
             else
             {
-                if (m_bEnable)
+                if (BEnable)
                 {
-                    //WarningMgr.GetInstance().Error(string.Format("30116,ERR-XYT,DMC-E3032 Card Emergency stop axis {0} Error, result = {1}", nAxisNo, ret));
-                    //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_EmgStop,GetSysAxisNo(nAxisNo).ToString(),
-                    //    string.Format("DMC-E3032 Card Emergency stop axis {0} Error, result = {1}", nAxisNo, ret));
+                    string str1 = LocationServices.GetLang("MotionCardAxisStopError");
+
+                    RunInforManager.GetInstance().Error(ErrorType.ErrMotionEmgStop, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
 
                 }
                 return false;
             }
         }
-        
+
         /// <summary>
         /// 获取轴卡运动状态
         /// </summary>
@@ -867,10 +832,10 @@ namespace MotionIO
         public override long GetMotionState(int nAxisNo)
         {
             // 0:轴正在运行，1：轴已停止
-            short ret = LTDMC.dmc_check_done(m_nCardId, (ushort)nAxisNo);
+            short ret = LTDMC.dmc_check_done(_nCardId, (ushort)nAxisNo);
             return ret == 0 ? 1 : 0;
         }
-        
+
         /// <summary>
         /// 获取轴卡运动IO信号
         /// </summary>
@@ -886,7 +851,7 @@ namespace MotionIO
             // 4:ORG
             // 6:SL+
             // 7:SL-
-            uint nIoStatus = LTDMC.dmc_axis_io_status(m_nCardId, (ushort)nAxisNo);
+            uint nIoStatus = LTDMC.dmc_axis_io_status(_nCardId, (ushort)nAxisNo);
 
             // 8254 motion io table
             // |-bit0-|--1--|--2--|--3--|--4--|--5--|--6--|--7--|--8--|...|--11--|--12--|
@@ -911,7 +876,7 @@ namespace MotionIO
                 nStdIo |= (0x01 << 7);
 
             // 0:轴正在运行，1：轴已停止
-            short nMoveDone = LTDMC.dmc_check_done(m_nCardId, (ushort)nAxisNo);
+            short nMoveDone = LTDMC.dmc_check_done(_nCardId, (ushort)nAxisNo);
             if (nMoveDone == 1)
             {
                 nStdIo |= (0x01 << 6);
@@ -919,7 +884,7 @@ namespace MotionIO
 
             return nStdIo;
         }
-        
+
         /// <summary>
         /// 获取轴的当前位置
         /// </summary>
@@ -928,8 +893,8 @@ namespace MotionIO
         public override double GetAixsPos(int nAxisNo)
         {
             double dPos = 0;
-            //short ret = LTDMC.dmc_get_position_unit(m_nCardId, (ushort)nAxisNo, ref dPos);
-            short ret = LTDMC.dmc_get_encoder_unit(m_nCardId, (ushort)nAxisNo, ref dPos);
+            //short ret = LTDMC.dmc_get_position_unit(_nCardId, (ushort)nAxisNo, ref dPos);
+            short ret = LTDMC.dmc_get_encoder_unit(_nCardId, (ushort)nAxisNo, ref dPos);
             if (ret != 0)
             {
                 return -1;
@@ -946,7 +911,7 @@ namespace MotionIO
         public override int IsAxisNormalStop(int nAxisNo)
         {
             // 0:轴正在运行，1：轴已停止
-            short nMoveDone = LTDMC.dmc_check_done(m_nCardId, (ushort)nAxisNo);
+            short nMoveDone = LTDMC.dmc_check_done(_nCardId, (ushort)nAxisNo);
             if (nMoveDone == 0)
                 return -1;
 
@@ -972,16 +937,16 @@ namespace MotionIO
             // 18:未知原因，减速停止
             // 19:保留
             int nStopReason = 0;
-            short ret = LTDMC.dmc_get_stop_reason(m_nCardId, (ushort)nAxisNo, ref nStopReason);
+            short ret = LTDMC.dmc_get_stop_reason(_nCardId, (ushort)nAxisNo, ref nStopReason);
             if (ret != 0)
                 return -1;
-            
+
             if (nStopReason == 0
                 || nStopReason == 13
                 || nStopReason == 14)//正常停止
                 return 0;
 
-            int nStopCode = 0;
+            int nStopCode;
             if (!GetServoState(nAxisNo))// servo off
             {
                 nStopCode = 3;
@@ -1004,12 +969,12 @@ namespace MotionIO
                 {
                     nStopCode = 2;// 其他原因
                 }
-                    
+
             }
 
             return (nStopCode + 10);
         }
-          
+
         /// <summary>
         /// 判断轴是否到位
         /// </summary>
@@ -1023,10 +988,10 @@ namespace MotionIO
             //{
             //    double dEncoderPosition = 0;
             //    double dPosition = 0;
-            //    short ret = LTDMC.dmc_get_encoder_unit(m_nCardId, (ushort)nAxisNo, ref dEncoderPosition);
+            //    short ret = LTDMC.dmc_get_encoder_unit(_nCardId, (ushort)nAxisNo, ref dEncoderPosition);
             //    if (ret != 0)
             //        return -1;
-            //    ret = LTDMC.dmc_get_position_unit(m_nCardId, (ushort)nAxisNo, ref dPosition);
+            //    ret = LTDMC.dmc_get_position_unit(_nCardId, (ushort)nAxisNo, ref dPosition);
             //    if (ret != 0)
             //        return -1;
 
@@ -1043,11 +1008,11 @@ namespace MotionIO
         /// <returns></returns>
         public override bool SetPosZero(int nAxisNo)
         {
-            short ret = LTDMC.dmc_set_position_unit(m_nCardId, (ushort)nAxisNo, 0);
+            short ret = LTDMC.dmc_set_position_unit(_nCardId, (ushort)nAxisNo, 0);
             if (ret != 0)
                 return false;
 
-            ret = LTDMC.dmc_set_encoder_unit(m_nCardId, (ushort)nAxisNo, 0);
+            ret = LTDMC.dmc_set_encoder_unit(_nCardId, (ushort)nAxisNo, 0);
             if (ret != 0)
                 return false;
 
@@ -1070,13 +1035,13 @@ namespace MotionIO
             double dAccTime = 0;
             double dDecTime = 0;
             double dVelStop = 0;
-            short ret = LTDMC.dmc_get_profile_unit(m_nCardId, (ushort)nAxisNo,
+            short ret = LTDMC.dmc_get_profile_unit(_nCardId, (ushort)nAxisNo,
                 ref dVelMin, ref dVelMax, ref dAccTime, ref dDecTime, ref dVelStop);
             if (ret != 0)
             {
-                //WarningMgr.GetInstance().Error(string.Format("30117,ERR-XYT,DMC-E3032 Axis {0} get profile unit Error,result = {1}", nAxisNo, ret));
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_SetParam,GetSysAxisNo(nAxisNo).ToString(),
-                //    string.Format("DMC-E3032 Axis {0} get profile unit Error,result = {1}", nAxisNo, ret));
+                string str1 = LocationServices.GetLang("MotionCardGetMoveError");
+
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotionSetParam, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
 
                 return false;
             }
@@ -1089,7 +1054,7 @@ namespace MotionIO
                 case 2:
                     dDecTime = nData;
                     break;
-  
+
                 case 3:
                     dVelMin = nData;
                     break;
@@ -1102,12 +1067,12 @@ namespace MotionIO
                     return false;
             }
 
-            ret = LTDMC.dmc_set_profile_unit(m_nCardId, (ushort)nAxisNo, dVelMin, dVelMax, dAccTime, dDecTime, dVelStop);
+            ret = LTDMC.dmc_set_profile_unit(_nCardId, (ushort)nAxisNo, dVelMin, dVelMax, dAccTime, dDecTime, dVelStop);
             if (ret != 0)
             {
-                //WarningMgr.GetInstance().Error(string.Format("30118,ERR-XYT,DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
-                //WarningMgr.GetInstance().Error(ErrorType.Err_Motion_SetParam,GetSysAxisNo(nAxisNo).ToString(),
-                //    string.Format("DMC-E3032 Axis {0} set profile unit Error,result = {1}", nAxisNo, ret));
+                string str1 = LocationServices.GetLang("MotionCardSetMoveError");
+
+                RunInforManager.GetInstance().Error(ErrorType.ErrMotionSetParam, CardIndex.ToString(), string.Format(str1, "DMC-E3032", nAxisNo, ret));
 
                 return false;
             }
@@ -1123,8 +1088,8 @@ namespace MotionIO
         /// <returns></returns>
         public override bool VelocityMove(int nAxisNo, int nSpeed)
         {
-            bool bDir = nSpeed >= 0 ? true : false;
-            return JogMove(m_nCardId, bDir, 0, Math.Abs(nSpeed));
+            bool bDir = nSpeed >= 0;
+            return JogMove(_nCardId, bDir, 0, Math.Abs(nSpeed));
         }
 
         /// <summary>
@@ -1146,21 +1111,21 @@ namespace MotionIO
         {
             ushort errorcode = 0;
 
-            LTDMC.nmc_get_axis_errcode(m_nCardId, (ushort)nAxisNo, ref errorcode);
+            LTDMC.nmc_get_axis_errcode(_nCardId, (ushort)nAxisNo, ref errorcode);
 
             if (errorcode != 0)
             {
-                LTDMC.nmc_clear_axis_errcode(m_nCardId, (ushort)nAxisNo);
+                LTDMC.nmc_clear_axis_errcode(_nCardId, (ushort)nAxisNo);
             }
 
             errorcode = 0;
-            LTDMC.nmc_get_errcode(m_nCardId, 2, ref errorcode);
+            LTDMC.nmc_get_errcode(_nCardId, 2, ref errorcode);
 
             if (errorcode != 0)
             {
-                LTDMC.nmc_clear_errcode(m_nCardId, 2);
+                LTDMC.nmc_clear_errcode(_nCardId, 2);
             }
-            
+
             return true;
         }
     }

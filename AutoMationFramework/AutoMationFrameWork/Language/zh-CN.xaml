@@ -272,39 +272,28 @@
     <sys:String x:Key="LoadSuccess">加载成功！</sys:String>
     <sys:String x:Key="FileError">文件错误！</sys:String>
     <!--  Motion提示信息  -->
-    <sys:String x:Key="Io0640AInitError">第{0}张IO卡0640A初始化失败!错误码 ={1}！</sys:String>
-    <sys:String x:Key="Io0640AWriteIoBitError">第{0}张IO卡0640A WriteIoBit 错误,错误码 = {1}</sys:String>
-    <sys:String x:Key="Io0640AWriteIoError">第{0}张IO卡0640A WriteIo 错误,错误码 = {1}</sys:String>
-    <sys:String x:Key="Io7230InitError">第{0}张IO卡7230初始化失败!错误码 ={1}</sys:String>
-    <sys:String x:Key="Io7230ReadIoInError">第{0}IO卡7230 ReadIoIn 错误,错误码 = {1}</sys:String>
-    <sys:String x:Key="Io7230ReadIoInBitError">第{0}张IO卡7230 ReadIoInBit {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="Io7230ReadIoOutError">第{0}张IO卡7230 ReadIoOut {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="Io7230ReadIoOutBitError">第{0}张IO卡7230 ReadIoOutBit {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="Io7432InitError">第{0}张IO卡7432初始化失败!错误码 ={1}</sys:String>
-    <sys:String x:Key="Io7432ReadIoInError">第{0}IO卡7432 ReadIoIn 错误,错误码 = {1}</sys:String>
-    <sys:String x:Key="Io7432ReadIoInBitError">第{0}IO卡7432 ReadIoInBit 错误,错误码 = {1}</sys:String>
-    <sys:String x:Key="Io7432ReadIoOutError">第{0}IO卡7432 ReadIoOut 错误,结果是 = {1}</sys:String>
-    <sys:String x:Key="Io7432ReadIoOutBitError">第{0}IO卡7432 ReadIoOutBit 错误,结果是 = {1}</sys:String>
-    <sys:String x:Key="Io8254ReadIoInBitError">第{0}张IO卡8254 ReadIoInBit {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="Io8254ReadIoOutBitError">第{0}张IO卡8254 ReadIoOutBit {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="Io8254ReadIoOutError">第{0}张IO卡8254 ReadIoOut {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="Io8254DeltaReadIoInBitError">第{0}张IO卡Delta ReadIoInBit {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="Io8254DeltaReadIoOutBitError">第{0}张IO卡Delta ReadIoOutBit {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="Io8254DeltaReadIoOutError">第{0}张IO卡Delta ReadIoOut {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="IoDmc3400ReadIoBitError">第{0}张IO卡Dmc3400 WriteIoBit 错误,结果是 {1}</sys:String>
-    <sys:String x:Key="IoDmcCanReadIoBitError">第{0}张IO卡DmcCan WriteIoBit 错误,结果是 {1}</sys:String>
-    <sys:String x:Key="IoDmc3400ReadIoError">第{0}张IO卡Dmc3400 WriteIo 错误,结果是 {1}</sys:String>
-    <sys:String x:Key="IoDmcCanReadIoError">第{0}张IO卡DmcCan WriteIo 错误,结果是 {1}</sys:String>
-    <sys:String x:Key="IoGtsInitError">第{0}张运动控制卡GTS初始化失败! 结果是 {1}</sys:String>
-    <sys:String x:Key="IoGtsReadIoInError">第{0}张IO卡GTS ReadIoIn 错误,错误码 = {1}</sys:String>
-    <sys:String x:Key="IoGtsReadIoOutError">第{0}张IO卡GTS ReadIoOut 错误,错误码 = {1}</sys:String>
-    <sys:String x:Key="IoM2400ReadIoOutError">第{0}张IO卡M2400 ReadIoOut 错误,错误码 = {1}</sys:String>
-    <sys:String x:Key="IoM2400WriteIOError">第{0}张IO卡M2400 WriteIo 错误,错误码 = {1}</sys:String>
-    <sys:String x:Key="IoM2400WriteIOBitError">第{0}张IO卡M2400 WriteIoBit {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="IoM2400ReadIoOutBitError">第{0}张IO卡M2400 ReadIoOutBit {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="IoM2400ReadIoInBitError">第{0}张IO卡M2400 Read ReadIoInBit {1} 错误,结果是 {2}</sys:String>
-    <sys:String x:Key="IoM2400ReadIoInError">第{0}张IO卡M2400 Read IOIn 错误,错误码 = {1}</sys:String>
+    <sys:String x:Key="IoCardInitError">第{0}张IO卡{1}初始化失败!错误码 ={2}！</sys:String>
+    <sys:String x:Key="IoCardReadIoInError">第{0}张IO卡{1} ReadIoIn {2} 错误,结果是 {3}</sys:String>
+    <sys:String x:Key="IoCardReadIoInBitError">第{0}张IO卡{1} ReadIoInBit {2} 错误,结果是 {3}</sys:String>
+    <sys:String x:Key="IoCardReadIoOutError">第{0}张IO卡{1} ReadIoOut {2} 错误,结果是 {3}</sys:String>
+    <sys:String x:Key="IoCardReadIoOutBitError">第{0}张IO卡{1} ReadIoOutBit {2} 错误,结果是 {3}</sys:String>
+    <sys:String x:Key="IoCardWriteIoBitError">第{0}张IO卡{2} WriteIoBit 错误,错误码 = {1}</sys:String>
+    <sys:String x:Key="IoCardWriteIoError">第{0}张IO卡{2} WriteIo 错误,错误码 = {1}</sys:String>
+    <sys:String x:Key="MotionCardGetIdError">运动控制卡{0}获取硬件ID失败!</sys:String>
+    <sys:String x:Key="MotionCardLoadConfigError">运动控制卡{0}加载配置文件失败! 结果是{1}</sys:String>
+    <sys:String x:Key="MotionCardInitError">运动控制卡{0}初始化失败!</sys:String>
+    <sys:String x:Key="MotionCardDeInitError">运动控制卡{0}库文件关闭错误! 结果是{1}</sys:String>
+    <sys:String x:Key="MotionCardServoOnError">运动控制卡{0}轴{1}使能错误！结果是{2}</sys:String>
+    <sys:String x:Key="MotionCardServoOffError">运动控制卡{0}轴{1}去使能错误！结果是{2}</sys:String>
+    <sys:String x:Key="MotionCardHomeError">运动控制卡{0} 轴 {1} 回零错误,结果是 {2}</sys:String>
+    <sys:String x:Key="MotionCardSetHomeError">运动控制卡{0} 轴 {1} 设置回零参数错误,结果是 {2}</sys:String>
+    <sys:String x:Key="MotionCardGetHomeError">运动控制卡{0} 轴 {1} 获取回零参数错误,结果是 {2}</sys:String>
+    <sys:String x:Key="MotionCardMoveError">运动控制卡{0} 轴 {1} 运动错误,结果是 {2}</sys:String>
+    <sys:String x:Key="MotionCardGetMoveError">运动控制卡{0} 轴 {1} 获取运动参数错误,结果是 {2}</sys:String>
+    <sys:String x:Key="MotionCardSetMoveError">运动控制卡{0} 轴 {1} 设置运动参数错误,结果是 {2}</sys:String>
+    <sys:String x:Key="MotionCardAxisStopError">运动控制卡{0} 轴 {1} 停止错误,结果是 {2}</sys:String>
     <sys:String x:Key="NotFoundIOCard">IO卡{0}找不到可用的封装类，请确认motionio.dll是否正确或配置错误!!</sys:String>
+    <sys:String x:Key="NotFoundMotionCard">运动控制卡{0}找不到可用的封装类，请确认motionio.dll是否正确或配置错误!!</sys:String>
     <sys:String x:Key="ConfigIOError">配置文件Io点配置出错,卡号{0}, IO点{1}</sys:String>
     <sys:String x:Key="IoOutError">不存在的IO输出点名称 {0}， 请确认配置是否正确</sys:String>
     <sys:String x:Key="IoInError">不存在的IO输入点名称 {0}， 请确认配置是否正确</sys:String>

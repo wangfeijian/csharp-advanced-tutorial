@@ -9,10 +9,7 @@
 *                                                                    *
 *           Description:    DMCEcat IO card class                    *
 *********************************************************************/
-using System;
-using System.Threading;
-using CommonTools.Tools;
-using CommonTools.Manager;
+
 using csLTDMC;
 
 namespace MotionIO
@@ -25,7 +22,7 @@ namespace MotionIO
         /// <summary>
         /// 控制卡ID
         /// </summary>
-        private ushort m_nCardId = 0;
+        private ushort _nCardId;
 
         /// <summary>
         /// 板卡的系统IO数量
@@ -54,8 +51,6 @@ namespace MotionIO
                 StrArrayIn = new string[32];
                 StrArrayOut = new string[32];
             }
-            //StrArrayIn = new string[DmcEtherCatCard.Instance().InputCount];
-            //StrArrayOut = new string[DmcEtherCatCard.Instance().OutputCount];
         }
         
         /// <summary>
@@ -70,7 +65,7 @@ namespace MotionIO
                 int nCardId = DmcEtherCatCard.Instance().CardId;
                 if (nCardId >= 0)
                 {
-                    m_nCardId = (ushort)nCardId;
+                    _nCardId = (ushort)nCardId;
                     Enable = true;
                     return true;
                 }
@@ -102,7 +97,7 @@ namespace MotionIO
         public override bool  ReadIoIn(ref int data)
         {
             // 总线卡可以扩展多个IO模块，当I/O数量超过32个的时候，此函数只能读取前面32个I/O数据
-            int nInputData = (int)LTDMC.dmc_read_inport(m_nCardId, (ushort)CardNo);
+            int nInputData = (int)LTDMC.dmc_read_inport(_nCardId, (ushort)CardNo);
 
             if (CardNo == 0)
             {
@@ -144,7 +139,7 @@ namespace MotionIO
                 nIndex += 32 * CardNo;
             }
 
-            int nBitValue = LTDMC.dmc_read_inbit(m_nCardId, (ushort)(nIndex - 1));
+            int nBitValue = LTDMC.dmc_read_inbit(_nCardId, (ushort)(nIndex - 1));
 
             //雷赛总线板卡的IO是反的，0表示有效，1表示无效
             return (nBitValue == 0);
@@ -167,7 +162,7 @@ namespace MotionIO
                 nIndex += 32 * CardNo;
             }
 
-            int nBitValue = LTDMC.dmc_read_outbit(m_nCardId, (ushort)(nIndex - 1));
+            int nBitValue = LTDMC.dmc_read_outbit(_nCardId, (ushort)(nIndex - 1));
 
             //雷赛总线板卡的IO是反的，0表示有效，1表示无效
             return (nBitValue == 0);
@@ -180,7 +175,7 @@ namespace MotionIO
         /// <returns></returns>
         public override bool  ReadIoOut(ref int nData)
         {
-            nData = (int)LTDMC.dmc_read_outport(m_nCardId, (ushort)CardNo);
+            nData = (int)LTDMC.dmc_read_outport(_nCardId, (ushort)CardNo);
 
             if (CardNo == 0)
             {
@@ -216,7 +211,7 @@ namespace MotionIO
                 }
 
                 //雷赛总线板卡的IO是反的，0表示有效，1表示无效
-                short ret = LTDMC.dmc_write_outbit(m_nCardId, (ushort)(nIndex - 1), (ushort)(bBit ? 0: 1));
+                short ret = LTDMC.dmc_write_outbit(_nCardId, (ushort)(nIndex - 1), (ushort)(bBit ? 0: 1));
                 if (ret == 0)
                     return true;
                 else
@@ -235,7 +230,7 @@ namespace MotionIO
             if (Enable)
             {
                 //前8个位系统IO板卡内部使用
-                int nOutputData = (int)LTDMC.dmc_read_outport(m_nCardId, (ushort)CardNo);
+                int nOutputData = (int)LTDMC.dmc_read_outport(_nCardId, (ushort)CardNo);
 
                 if (CardNo == 0)
                 {
@@ -246,7 +241,7 @@ namespace MotionIO
                 //雷赛总线板卡的IO是反的，0表示有效，1表示无效
                 nData = ~nData;
 
-                short ret = LTDMC.dmc_write_outport(m_nCardId, (ushort)CardNo, (uint)nData);
+                short ret = LTDMC.dmc_write_outport(_nCardId, (ushort)CardNo, (uint)nData);
                 if (ret == 0)
                     return true;
                 else

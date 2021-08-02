@@ -10,8 +10,6 @@
 *           Description:    8254 IO delta card class                 *
 *********************************************************************/
 
-using System;
-using System.Threading;
 using CommonTools.Manager;
 using CommonTools.Tools;
 using PCI_DMC;
@@ -33,55 +31,55 @@ namespace MotionIO
             /// <summary>
             /// 
             /// </summary>
-            public uint nType;
+            public uint Type;
             /// <summary>
             /// 
             /// </summary>
-            public ushort nCardID;
+            public ushort CardId;
             /// <summary>
             /// 
             /// </summary>
-            public ushort nNodeID;
+            public ushort NodeId;
             /// <summary>
             /// 
             /// </summary>
-            public ushort nSlotID;
+            public ushort SlotId;
             /// <summary>
             /// 
             /// </summary>
-            public ushort nPortID;
+            public ushort PortId;
             /// <summary>
             /// 
             /// </summary>
-            public ushort nIndex;
+            public ushort Index;
 
             /// <summary>
             /// 
             /// </summary>
-            /// <param name="nCardID"></param>
-            /// <param name="nNodeID"></param>
-            /// <param name="nPortID"></param>
-            /// <param name="nSlotID"></param>
-            /// <param name="nIndex"></param>
-            /// <param name="nType"></param>
-            public DeltaAddr(ushort nCardID, ushort nNodeID, ushort nPortID = 0, ushort nSlotID = 0, ushort nIndex = 0, uint nType = 0)
+            /// <param name="cardId"></param>
+            /// <param name="nodeId"></param>
+            /// <param name="portId"></param>
+            /// <param name="slotId"></param>
+            /// <param name="index"></param>
+            /// <param name="type"></param>
+            public DeltaAddr(ushort cardId, ushort nodeId, ushort portId = 0, ushort slotId = 0, ushort index = 0, uint type = 0)
             {
-                this.nCardID = nCardID;
-                this.nNodeID = nNodeID;
-                this.nSlotID = nSlotID;
-                this.nPortID = nPortID;
-                this.nIndex = nIndex;
-                this.nType = nType;
+                CardId = cardId;
+                NodeId = nodeId;
+                SlotId = slotId;
+                PortId = portId;
+                Index = index;
+                Type = type;
             }
         }
         /// <summary>
         /// 
         /// </summary>
-        public DeltaAddr addrDI;
+        public DeltaAddr AddrDi;
         /// <summary>
         /// 
         /// </summary>
-        public DeltaAddr addrDO;
+        public DeltaAddr AddrDo;
 
         /// <summary>
         /// 构造函数
@@ -94,10 +92,10 @@ namespace MotionIO
             StrArrayIn = new string[16];
             StrArrayOut = new string[16];
 
-            this.addrDI = new DeltaAddr((ushort)(nCardNo / 10000 / 1000),
+            AddrDi = new DeltaAddr((ushort)(nCardNo / 10000 / 1000),
                 (ushort)(nCardNo / 10000 % 1000 / 10),
                 (ushort)(nCardNo / 10000 % 10));
-            this.addrDO = new DeltaAddr((ushort)(nCardNo % 10000 / 1000),
+            AddrDo = new DeltaAddr((ushort)(nCardNo % 10000 / 1000),
                 (ushort)(nCardNo % 10000 % 1000 / 10),
                 (ushort)(nCardNo % 10000 % 10));
         }
@@ -112,10 +110,10 @@ namespace MotionIO
             try
             {
                 uint nIdentity = 0;
-                short rc = CPCI_DMC.CS_DMC_01_get_devicetype((short)this.addrDI.nCardID, this.addrDI.nNodeID, this.addrDI.nSlotID, ref this.addrDI.nType, ref nIdentity);
-                rc = CPCI_DMC.CS_DMC_01_get_devicetype((short)this.addrDO.nCardID, this.addrDO.nNodeID, this.addrDO.nSlotID, ref this.addrDO.nType, ref nIdentity);
+                short rc = CPCI_DMC.CS_DMC_01_get_devicetype((short)AddrDi.CardId, AddrDi.NodeId, AddrDi.SlotId, ref AddrDi.Type, ref nIdentity);
+                rc = CPCI_DMC.CS_DMC_01_get_devicetype((short)AddrDo.CardId, AddrDo.NodeId, AddrDo.SlotId, ref AddrDo.Type, ref nIdentity);
                 //Enable
-                rc = CPCI_DMC.CS_DMC_01_set_rm_output_active(this.addrDO.nCardID, this.addrDO.nNodeID, this.addrDO.nSlotID, 1);
+                rc = CPCI_DMC.CS_DMC_01_set_rm_output_active(AddrDo.CardId, AddrDo.NodeId, AddrDo.SlotId, 1);
 
                 if (CPCI_DMC_ERR.ERR_NoError == rc)
                 {
@@ -152,10 +150,9 @@ namespace MotionIO
         {
             ushort nInputData = 0;
 
-            short nRtn = CPCI_DMC.CS_DMC_01_get_rm_input_value(this.addrDI.nCardID, this.addrDI.nNodeID, this.addrDI.nSlotID, this.addrDI.nPortID, ref nInputData);
+            short nRtn = CPCI_DMC.CS_DMC_01_get_rm_input_value(AddrDi.CardId, AddrDi.NodeId, AddrDi.SlotId, AddrDi.PortId, ref nInputData);
             if (CPCI_DMC_ERR.ERR_NoError == nRtn)
             {
-                //nInputData = (nInputData | (nInputData << 24)) >> 8;
                 if (InData != (int)nInputData)
                 {
                     DataChange = true;
@@ -170,8 +167,13 @@ namespace MotionIO
             }
             else
             {
-                //if (Enable)
-                //RunInforManager.GetInstance().Error(string.Format("20101,ERR-XYT,第{0}张IO卡8254 ReadIoIn Error,ErrorCode = {1}", CardNo, nRet));
+                if (Enable)
+                {
+                    string str1 = LocationServices.GetLang("IoCardReadIoInError");
+
+                    RunInforManager.GetInstance().Error(string.Format(str1, AddrDi.CardId, "8254", data, nRtn));
+                }
+
                 return false;
             }
         }
@@ -183,21 +185,19 @@ namespace MotionIO
         /// <returns></returns>
         public override bool ReadIoInBit(int nIndex)
         {
-            //    Random rnd1 = new Random();
-            //    return rnd1.Next() % 2   == 0 ;
             ushort nData = 0;
 
-            short nRtn = CPCI_DMC.CS_DMC_01_get_rm_input_single_value(this.addrDI.nCardID, this.addrDI.nNodeID, this.addrDI.nSlotID, this.addrDI.nPortID, (ushort)(nIndex - 1), ref nData);
+            short nRtn = CPCI_DMC.CS_DMC_01_get_rm_input_single_value(AddrDi.CardId, AddrDi.NodeId, AddrDi.SlotId, AddrDi.PortId, (ushort)(nIndex - 1), ref nData);
             if (CPCI_DMC_ERR.ERR_NoError == nRtn)
             {
-                return nData == 0 ? false : true;
+                return nData != 0;
             }
             else
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io8254DeltaReadIoInBitError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, $"{addrDI.nCardID}.{nIndex}", string.Format(str1, addrDI.nCardID, nIndex, nRtn));
+                    string str1 = LocationServices.GetLang("IoCardReadIoInBitError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadIn, $"{AddrDi.CardId}.{nIndex}", string.Format(str1, AddrDi.CardId,"8254", nIndex, nRtn));
                 }
                 return false;
             }
@@ -214,18 +214,18 @@ namespace MotionIO
             //   return rnd1.Next() % 2 == 0;
 
             ushort nData = 0;
-            short nRtn = CPCI_DMC.CS_DMC_01_get_rm_output_single_value(this.addrDO.nCardID, this.addrDO.nNodeID, this.addrDO.nSlotID, this.addrDO.nPortID, (ushort)(nIndex - 1), ref nData);
+            short nRtn = CPCI_DMC.CS_DMC_01_get_rm_output_single_value(AddrDo.CardId, AddrDo.NodeId, AddrDo.SlotId, AddrDo.PortId, (ushort)(nIndex - 1), ref nData);
 
             if (CPCI_DMC_ERR.ERR_NoError == nRtn)
             {
-                return nData == 0 ? false : true;
+                return nData != 0;
             }
             else
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io8254DeltaReadIoOutBitError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, $"{addrDO.nCardID}.{nIndex}",string.Format(str1, addrDO.nCardID, nIndex, nRtn));
+                    string str1 = LocationServices.GetLang("IoCardReadIoOutBitError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, $"{AddrDo.CardId}.{nIndex}", string.Format(str1, AddrDo.CardId,"8254", nIndex, nRtn));
 
                 }
                 return false;
@@ -240,7 +240,7 @@ namespace MotionIO
         public override bool ReadIoOut(ref int nData)
         {
             ushort nValue = 0;
-            short nRtn = CPCI_DMC.CS_DMC_01_get_rm_output_value(this.addrDO.nCardID, this.addrDO.nNodeID, this.addrDO.nSlotID, this.addrDO.nPortID, ref nValue);
+            short nRtn = CPCI_DMC.CS_DMC_01_get_rm_output_value(AddrDo.CardId, AddrDo.NodeId, AddrDo.SlotId, AddrDo.PortId, ref nValue);
 
             if (CPCI_DMC_ERR.ERR_NoError == nRtn)
             {
@@ -251,8 +251,8 @@ namespace MotionIO
             {
                 if (Enable)
                 {
-                    string str1 = LocationServices.GetLang("Io8254DeltaReadIoOutError");
-                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, addrDO.nCardID.ToString(),string.Format(str1, addrDO.nCardID, nRtn));
+                    string str1 = LocationServices.GetLang("IoCardReadIoOutError");
+                    RunInforManager.GetInstance().Error(ErrorType.ErrIoReadOut, AddrDo.CardId.ToString(), string.Format(str1, AddrDo.CardId,"8254",nData, nRtn));
 
                 }
                 return false;
@@ -269,7 +269,7 @@ namespace MotionIO
         {
             if (Enable)
             {
-                short nRtn = CPCI_DMC.CS_DMC_01_set_rm_output_single_value(this.addrDO.nCardID, this.addrDO.nNodeID, this.addrDO.nSlotID, this.addrDO.nPortID, (ushort)(nIndex - 1), (ushort)(bBit ? 1 : 0));
+                short nRtn = CPCI_DMC.CS_DMC_01_set_rm_output_single_value(AddrDo.CardId, AddrDo.NodeId, AddrDo.SlotId, AddrDo.PortId, (ushort)(nIndex - 1), (ushort)(bBit ? 1 : 0));
                 if (CPCI_DMC_ERR.ERR_NoError == nRtn)
                     return true;
             }
@@ -285,7 +285,7 @@ namespace MotionIO
         {
             if (Enable)
             {
-                short nRtn = CPCI_DMC.CS_DMC_01_set_rm_output_value(this.addrDO.nCardID, this.addrDO.nNodeID, this.addrDO.nSlotID, this.addrDO.nPortID, (ushort)nData);
+                short nRtn = CPCI_DMC.CS_DMC_01_set_rm_output_value(AddrDo.CardId, AddrDo.NodeId, AddrDo.SlotId, AddrDo.PortId, (ushort)nData);
                 if (CPCI_DMC_ERR.ERR_NoError == nRtn)
                     return true;
             }
