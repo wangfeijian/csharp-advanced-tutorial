@@ -137,18 +137,18 @@
         1, Gear Ratio:
         Pulse per millimeter, or pulse each degree, according to the driver, the driver is calculated, the motor is calculated, the method of the pulse number / motor guide, such as the motor transfer, 10000 pls, the motor is 5mm, then the gear Compared to 10000/5 = 2000.
         2, Back Zero:
-        0 - With the origin signal as the origin, zero in the positive direction, without EZ signal
-        1 - With the origin signal as the origin, negative direction, no EZ signal
-        2 - With the positive limit signal as the origin, zero in the positive direction, without EZ signal
-        3 - With the negative limit signal as the origin, negative direction, no EZ signal
-        4 - With EZ signal as the origin, positive direction
-        5 - With EZ signal as the origin, negative direction
-        6 - With the origin signal as the origin, positive direction, zero, with EZ signal
-        7 - With the origin signal as the origin, negative direction, with EZ signal
-        8 - With the positive limit signal as the origin, zero in the positive direction, with EZ signal
-        9 - With the negative limit signal as the origin, negative direction, zero, with EZ signal
-        999 - Other modes, read back from the card to the original point mode, no specified parameters
-        1000 - Other bus type, cannot read back to the original point in the card, the bus type is determined by the drive, and needs to be manually fill in according to the drive of the retrieval. The fillover value is based on this value, such as Huichuan bus type. , Select the drive backhaul point method 1, the actual filled parameter is 1000 + 1 = 1001;
+        0 - OrgP: With the origin signal as the origin, zero in the positive direction, without EZ signal
+        1 - OrgN: With the origin signal as the origin, negative direction, no EZ signal
+        2 - Pel: With the positive limit signal as the origin, zero in the positive direction, without EZ signal
+        3 - Mel: With the negative limit signal as the origin, negative direction, no EZ signal
+        4 - EzPel: With EZ signal as the origin, positive direction
+        5 - EzMel: With EZ signal as the origin, negative direction
+        6 - OrgPEz: With the origin signal as the origin, positive direction, zero, with EZ signal
+        7 - OrgNEz: With the origin signal as the origin, negative direction, with EZ signal
+        8 - PelEz: With the positive limit signal as the origin, zero in the positive direction, with EZ signal
+        9 - MelEz: With the negative limit signal as the origin, negative direction, zero, with EZ signal
+        999 - Card: Other modes, read back from the card to the original point mode, no specified parameters
+        1000 - BusBase: Other bus type, cannot read back to the original point in the card, the bus type is determined by the drive, and needs to be manually fill in according to the drive of the retrieval. The fillover value is based on this value, such as Huichuan bus type. , Select the drive backhaul point method 1, the actual filled parameter is 1000 + 1 = 1001;
         3, Zero Minimum Speed:
         Crawling speed after the origin signal, unit PLS
         4, Zero The Maximum Speed:
@@ -169,7 +169,18 @@
         After the axis is in place, the difference between the pulse and the returns of the pulse will be transmitted, and this difference will be reported, the unit PLS
     </sys:String>
     <!--  HomeType变量  -->
-    <sys:String x:Key="NegativeAndHome">Negative And Home</sys:String>
+    <sys:String x:Key="OrgP">With the origin signal as the origin, zero in the positive direction, without EZ signal</sys:String>
+    <sys:String x:Key="OrgN">With the origin signal as the origin, negative direction, no EZ signal</sys:String>
+    <sys:String x:Key="Mel">With the positive limit signal as the origin, zero in the positive direction, without EZ signal</sys:String>
+    <sys:String x:Key="Pel">With the negative limit signal as the origin, negative direction, no EZ signal</sys:String>
+    <sys:String x:Key="EzPel">With EZ signal as the origin, positive direction</sys:String>
+    <sys:String x:Key="EzMel">With EZ signal as the origin, negative direction</sys:String>
+    <sys:String x:Key="OrgPEz">With the origin signal as the origin, positive direction, zero, with EZ signal</sys:String>
+    <sys:String x:Key="OrgNEz">With the origin signal as the origin, negative direction, with EZ signal</sys:String>
+    <sys:String x:Key="PelEz">With the positive limit signal as the origin, zero in the positive direction, with EZ signal</sys:String>
+    <sys:String x:Key="MelEz">With the negative limit signal as the origin, negative direction, zero, with EZ signal</sys:String>
+    <sys:String x:Key="Card">Other modes, read back from the card to the original point mode, no specified parameters</sys:String>
+    <sys:String x:Key="BusBase">Other bus type</sys:String>
     <!--  Button Content  -->
     <sys:String x:Key="Apply">Apply</sys:String>
     <sys:String x:Key="Save">Save</sys:String>

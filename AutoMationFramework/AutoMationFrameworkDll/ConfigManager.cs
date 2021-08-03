@@ -28,10 +28,10 @@ namespace AutoMationFrameworkDll
         /// 加载系统配置
         /// </summary>
         /// <returns></returns>
-        public bool LoadConfigFile(string fileName, IBuildConfig buildConfig)
+        public bool LoadConfigFile(string fileName)
         {
             bool runBool = RunInforManager.GetInstance().ReadXmlConfig(fileName);
-            IoManager.GetInstance().ReadCfgFromFile(fileName, buildConfig);
+            IoManager.GetInstance().ReadCfgFromFile();
             MotionManager.GetInstance().ReadCardFromCfg();
             return runBool;
         }

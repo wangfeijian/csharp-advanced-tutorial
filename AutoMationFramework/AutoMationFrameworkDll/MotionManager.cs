@@ -15,6 +15,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 using CommonTools.Manager;
+using CommonTools.Model;
 using CommonTools.Tools;
 using MotionIO;
 
@@ -195,12 +196,68 @@ namespace AutoMationFrameworkDll
                     string minAxis = motionCard.MinAxisNum;
                     string maxAxis = motionCard.MaxAxisNum;
 
-                    AddCard(type,Convert.ToInt32(index),Convert.ToInt32(minAxis),Convert.ToInt32(maxAxis));
+                    AddCard(type, Convert.ToInt32(index), Convert.ToInt32(minAxis), Convert.ToInt32(maxAxis));
                 }
+            }
+
+            if (axisList == null)
+            {
+                IoManager.GetInstance().SystemConfig.AxisConfigList = new List<AxisCfg>();
+                axisList = IoManager.GetInstance().SystemConfig.AxisConfigList;
             }
 
             if (axisList.Count <= 0)
             {
+                foreach (MotionCard motionCard in motionList)
+                {
+                    int min = Convert.ToInt32(motionCard.MinAxisNum);
+                    int max = Convert.ToInt32(motionCard.MaxAxisNum);
+
+                    for (int i = min; i <= max; i++)
+                    {
+                        AxisConfig cfg;
+                        if (!GetAxisCfg(i, out cfg))
+                        {
+                            cfg.GearRatio = 1.0;
+                            cfg.HomeMode = 1;
+                            cfg.HomeSpeedMin = 1000;
+                            cfg.HomeSpeedMax = 5000;
+                            cfg.HomeAcc = 0.1;
+                            cfg.HomeDec = 0.1;
+                            cfg.SpeedMax = 200000;
+                            cfg.Acc = 0.1;
+                            cfg.Dec = 0.1;
+                            cfg.SFac = 0.0;
+                            cfg.InPosError = 1;
+                            cfg.EnableSpel = false;
+                            cfg.SpelPos = 10000000.0;
+                            cfg.EnableSmel = false;
+                            cfg.SmelPos = -10000000.0;
+                        }
+
+                        _dictAxisCfg.Add(i, cfg);
+
+                        axisList.Add(new AxisCfg
+                        {
+                            AxisNum = i.ToString(),
+                            GearRatio = "1.0",
+                            HomeMode = 1,
+                            HomeSpeedMin = "1000",
+                            HomeSpeedMax = "5000",
+                            HomeAcc = "0.1",
+                            HomeDec = "0.1",
+                            SpeedMax = "200000",
+                            Acc = "0.1",
+                            Dec = "0.1",
+                            SFac = "0.0",
+                            InPosError = "1",
+                            EnableSpel = "False",
+                            SpelPos = "10000000.0",
+                            EnableSmel = "False",
+                            SmelPos = "-10000000.0",
+                        });
+                    }
+                }
                 return;
             }
 
@@ -209,11 +266,12 @@ namespace AutoMationFrameworkDll
                 int axisNum;
                 if (int.TryParse(axisCfg.AxisNum, out axisNum))
                 {
-                    double gearRatio,homeMinSpeed,homeMaxSpeed,homeAcc,homeDec,speedMax,acc,dec,sFac,smelPos,spelPos;
-                    int homeMode,inPosError;
+                    double gearRatio, homeMinSpeed, homeMaxSpeed, homeAcc, homeDec, speedMax, acc, dec, sFac, smelPos, spelPos;
+                    int inPosError;
                     bool enableSpel, enableSmel;
+                    int homeMode = axisCfg.HomeMode;
                     if (!double.TryParse(axisCfg.GearRatio, out gearRatio)) gearRatio = 1.0;
-                    if (!int.TryParse(axisCfg.HomeMode, out homeMode)) homeMode = 1;
+                    //if (!int.TryParse(axisCfg.HomeMode, out homeMode)) homeMode = 1;
                     if (!double.TryParse(axisCfg.HomeSpeedMin, out homeMinSpeed)) homeMinSpeed = 1000.0;
                     if (!double.TryParse(axisCfg.HomeSpeedMax, out homeMaxSpeed)) homeMaxSpeed = 5000.0;
                     if (!double.TryParse(axisCfg.HomeAcc, out homeAcc)) homeAcc = 0.1;
@@ -225,10 +283,10 @@ namespace AutoMationFrameworkDll
                     if (!int.TryParse(axisCfg.InPosError, out inPosError)) inPosError = 1;
                     if (!bool.TryParse(axisCfg.EnableSpel, out enableSpel)) enableSpel = false;
                     if (!bool.TryParse(axisCfg.EnableSmel, out enableSmel)) enableSmel = false;
-                    if (!double.TryParse(axisCfg.SpelPos, out spelPos)) spelPos = -10000000.0;
-                    if (!double.TryParse(axisCfg.SmelPos, out smelPos)) smelPos = 10000000.0;
+                    if (!double.TryParse(axisCfg.SpelPos, out spelPos)) spelPos = 10000000.0;
+                    if (!double.TryParse(axisCfg.SmelPos, out smelPos)) smelPos = -10000000.0;
 
-                    _dictAxisCfg.Add(axisNum,new AxisConfig
+                    _dictAxisCfg.Add(axisNum, new AxisConfig
                     {
                         GearRatio = gearRatio,
                         HomeMode = homeMode,
@@ -248,6 +306,23 @@ namespace AutoMationFrameworkDll
                     });
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取轴配置
+        /// </summary>
+        /// <param name="nAxis"></param>
+        /// <param name="cfg"></param>
+        /// <returns></returns>
+        public bool GetAxisCfg(int nAxis, out AxisConfig cfg)
+        {
+            if (_dictAxisCfg.ContainsKey(nAxis))
+            {
+                cfg = _dictAxisCfg[nAxis];
+                return true;
+            }
+            cfg = new AxisConfig();
+            return false;
         }
     }
 }

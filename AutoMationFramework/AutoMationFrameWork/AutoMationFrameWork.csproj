@@ -180,6 +180,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\HomeModeConverter.cs" />
     <Compile Include="View\AlarmControl.xaml.cs">
       <DependentUpon>AlarmControl.xaml</DependentUpon>
     </Compile>
@@ -366,20 +367,44 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\AxisHome\0.png" />
-    <Resource Include="Resources\AxisHome\1.png" />
-    <Resource Include="Resources\AxisHome\2.png" />
-    <Resource Include="Resources\AxisHome\3.png" />
-    <Resource Include="Resources\AxisHome\4.png" />
-    <Resource Include="Resources\AxisHome\5.png" />
-    <Resource Include="Resources\AxisHome\6.png" />
-    <Resource Include="Resources\AxisHome\7.png" />
-    <Resource Include="Resources\AxisHome\8.png" />
-    <Resource Include="Resources\AxisHome\9.png" />
+    <Content Include="Resources\AxisHome\0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AxisHome\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AxisHome\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AxisHome\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AxisHome\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AxisHome\5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AxisHome\6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AxisHome\7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AxisHome\8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AxisHome\9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Image\tgBtn_default.png" />
-    <Resource Include="Resources\Image\tgBtn_MouseOver.png" />
+    <Content Include="Resources\Image\tgBtn_default.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\tgBtn_MouseOver.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutoMationFrameworkDll\AutoMationFrameworkDll.csproj">
@@ -390,6 +415,11 @@
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">
       <Project>{b11174c1-280b-4e41-9856-7da214a6f6c3}</Project>
       <Name>CommonTools</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\MotionIo\MotionIo.csproj">
+      <Project>{72ab7783-800d-4efa-871b-18b9d975107e}</Project>
+      <Name>MotionIo</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

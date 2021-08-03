@@ -158,4 +158,32 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style
+        x:Key="MaterialDesignDataGridHead"
+        BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
+        TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock
+                        Text="{Binding}"
+                        TextAlignment="Center"
+                        TextWrapping="WrapWithOverflow" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="MaterialDataGridComboBox"
+        BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type ComboBox},
+                                                       ResourceId=MaterialDataGridComboBoxColumnEditingStyle}}"
+        TargetType="ComboBox">
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+    </Style>
+    <Style x:Key="MaterialDataGridText" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
 </ResourceDictionary>

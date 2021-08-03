@@ -317,9 +317,7 @@ namespace AutoMationFrameworkDll
         /// <summary>
         /// 读取系统配置文件里的IO板卡信息
         /// </summary>
-        /// <param name="fileDir">文件目录</param>
-        /// <param name="bulidConfig">配置的读取文件对象</param>
-        public void ReadCfgFromFile(string fileDir, IBuildConfig bulidConfig)
+        public void ReadCfgFromFile()
         {
             ListCard.Clear();
 

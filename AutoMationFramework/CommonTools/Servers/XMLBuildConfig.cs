@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 using CommonTools.Model;
@@ -495,7 +496,7 @@ namespace CommonTools.Servers
                            {
                                AxisNum = item.Attribute("轴号")?.Value,
                                GearRatio = item.Attribute("齿轮比")?.Value,
-                               HomeMode = item.Attribute("回零方式")?.Value,
+                               HomeMode = Convert.ToInt32(item.Attribute("回零方式")?.Value),
                                HomeSpeedMin = item.Attribute("回零最小速度")?.Value,
                                HomeSpeedMax = item.Attribute("回零最大速度")?.Value,
                                HomeAcc = item.Attribute("回零加速时间")?.Value,
@@ -561,7 +562,7 @@ namespace CommonTools.Servers
             switch (file)
             {
                 case "systemCfg":
-                    //SaveSystemCfg(tCfg, fileName);
+                    SaveSystemCfg(tCfg, fileName);
                     break;
                 case "systemCfgEx":
                 case "dataType":
@@ -872,8 +873,7 @@ namespace CommonTools.Servers
 
         private void SaveSystemCfg<T>(T tCfg, string fileName)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            string fileFullName = path + fileName + ".xml";
+            string fileFullName = fileName + ".xml";
 
             SystemCfg systemCfg = null;
             if (tCfg is SystemCfg)
@@ -932,6 +932,26 @@ namespace CommonTools.Servers
                                 new XAttribute("卡类型", item.CardType),
                                 new XAttribute("最小轴号", item.MinAxisNum),
                                 new XAttribute("最大轴号", item.MaxAxisNum))),
+                    new XElement("Axis",
+                        from item in systemCfg.AxisConfigList
+                        select
+                            new XElement("Axis",
+                                new XAttribute("轴号", item.AxisNum),
+                                new XAttribute("齿轮比", item.GearRatio),
+                                new XAttribute("回零方式", item.HomeMode.ToString()),
+                                new XAttribute("回零最小速度", item.HomeSpeedMin),
+                                new XAttribute("回零最大速度", item.HomeSpeedMax),
+                                new XAttribute("回零加速时间", item.HomeAcc),
+                                new XAttribute("回零减速时间", item.HomeDec),
+                                new XAttribute("最大运行速度", item.SpeedMax),
+                                new XAttribute("加速时间", item.Acc),
+                                new XAttribute("减速时间", item.Dec),
+                                new XAttribute("平滑系数", item.SFac),
+                                new XAttribute("到位误差", item.InPosError),
+                                new XAttribute("软正限位启用", item.EnableSpel),
+                                new XAttribute("软正限位", item.SmelPos),
+                                new XAttribute("软负限位启用", item.EnableSmel),
+                                new XAttribute("软负限位", item.SpelPos))),
                     new XElement("Station",
                         from item in systemCfg.StationInfos
                         select
@@ -957,7 +977,6 @@ namespace CommonTools.Servers
                                 new XAttribute("超时时间", item.TimeOut),
                                 new XAttribute("命令分隔", item.Command)))
             ));
-
             doc.Save(fileFullName);
         }
 

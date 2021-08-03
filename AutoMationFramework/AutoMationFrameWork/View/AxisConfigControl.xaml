@@ -15,12 +15,28 @@
     x:Class="AutoMationFrameWork.View.AxisConfigControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Motion="clr-namespace:MotionIO;assembly=MotionIO"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
+    xmlns:core="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:AutoMationFrameWork.ViewModel"
     d:DesignHeight="610"
     d:DesignWidth="950"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <viewModel:HomeModeConverter x:Key="HomeConverter" />
+        <ObjectDataProvider
+            x:Key="HomeEnumKey"
+            MethodName="GetValues"
+            ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="Motion:HomeMode" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -31,9 +47,11 @@
             Margin="5,10,5,5"
             Padding="5"
             Background="#50bc93"
-            DataContext="{Binding Source={StaticResource Locator}, Path=SysConfig}"
             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
             UniformCornerRadius="6">
+            <materialDesign:Card.DataContext>
+                <Binding Path="SysConfig" Source="{StaticResource Locator}" />
+            </materialDesign:Card.DataContext>
             <DataGrid
                 Margin="5"
                 AutoGenerateColumns="False"
@@ -44,280 +62,93 @@
                 CanUserResizeRows="False"
                 CanUserSortColumns="False"
                 ColumnWidth="*"
-                ItemsSource="{Binding SystemConfig.AxisConfigList}">
+                ItemsSource="{Binding SystemConfig.AxisConfigList}"
+                SelectionChanged="Selector_OnSelectionChanged">
                 <DataGrid.Columns>
-                    <materialDesign:DataGridTextColumn Binding="{Binding AxisNum}" Header="{StaticResource AxisNum}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding GearRatio}" Header="{StaticResource GearRatio}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding HomeMode}" Header="{StaticResource HomeType}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding HomeSpeedMin}" Header="{StaticResource HomeMinSpeed}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding HomeSpeedMax}" Header="{StaticResource HomeMaxSpeed}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding HomeAcc}" Header="{StaticResource HomeAcc}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding HomeDec}" Header="{StaticResource HomeDec}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding SpeedMax}" Header="{StaticResource MaxRunSpeed}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding Acc}" Header="{StaticResource AccTime}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding Dec}" Header="{StaticResource DecTime}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding SFac}" Header="{StaticResource Smooth}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding InPosError}" Header="{StaticResource InPlaceError}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding EnableSpel}" Header="{StaticResource SoftLimitEnable}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding SpelPos}" Header="{StaticResource SoftLimit}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding EnableSmel}" Header="{StaticResource SoftNegativeLimitEnable}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
-                    <materialDesign:DataGridTextColumn Binding="{Binding SmelPos}" Header="{StaticResource SoftNegativeLimit}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding}"
-                                                TextAlignment="Right"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn
+                        Width="60"
+                        Binding="{Binding AxisNum}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource AxisNum}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding GearRatio}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource GearRatio}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridComboBoxColumn
+                        EditingElementStyle="{StaticResource MaterialDataGridComboBox}"
+                        Header="{StaticResource HomeType}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}"
+                        ItemsSource="{Binding Source={StaticResource HomeEnumKey}}"
+                        SelectedItemBinding="{Binding HomeMode, Converter={StaticResource HomeConverter}}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding HomeSpeedMin}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource HomeMinSpeed}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding HomeSpeedMax}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource HomeMaxSpeed}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding HomeAcc}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource HomeAcc}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding HomeDec}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource HomeDec}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding SpeedMax}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource MaxRunSpeed}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding Acc}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource AccTime}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding Dec}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource DecTime}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding SFac}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource Smooth}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding InPosError}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource InPlaceError}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridComboBoxColumn
+                        x:Name="SpelBox"
+                        EditingElementStyle="{StaticResource MaterialDataGridComboBox}"
+                        Header="{StaticResource SoftLimitEnable}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}"
+                        SelectedItemBinding="{Binding EnableSpel}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding SpelPos}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource SoftLimit}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
+                    <materialDesign:DataGridComboBoxColumn
+                        x:Name="SmelBox"
+                        EditingElementStyle="{StaticResource MaterialDataGridComboBox}"
+                        Header="{StaticResource SoftNegativeLimitEnable}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}"
+                        SelectedItemBinding="{Binding EnableSmel}" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding SmelPos}"
+                        ElementStyle="{StaticResource MaterialDataGridText}"
+                        Header="{StaticResource SoftNegativeLimit}"
+                        HeaderStyle="{StaticResource MaterialDesignDataGridHead}" />
                 </DataGrid.Columns>
             </DataGrid>
         </materialDesign:Card>
@@ -340,12 +171,17 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock
+                        x:Name="HomeTextBlock"
                         Grid.Row="0"
                         Margin="16,16,16,4"
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="{StaticResource NegativeAndHome}" />
+                        Text="{StaticResource OrgP}"
+                        TextWrapping="WrapWithOverflow" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                    <Image Grid.Row="2" Source="../Resources/AxisHome/0.png" />
+                    <Image
+                        x:Name="ImageAxis"
+                        Grid.Row="2"
+                        Source="../Resources/AxisHome/0.png" />
                 </Grid>
             </materialDesign:Card>
             <materialDesign:Card
@@ -355,6 +191,9 @@
                 Background="#50bc93"
                 Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                 UniformCornerRadius="6">
+                <materialDesign:Card.DataContext>
+                    <Binding Path="SysConfig" Source="{StaticResource Locator}" />
+                </materialDesign:Card.DataContext>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -399,7 +238,13 @@
                         Margin="2.5,5,5,2.5"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Background="#899DC0"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        Style="{StaticResource MaterialDesignRaisedButton}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <command:EventToCommand Command="{Binding SaveConfigCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                     <Button
                         Content="{StaticResource Save}"
                         Grid.Row="4"
@@ -407,7 +252,13 @@
                         Margin="2.5,5,5,2.5"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Background="#899DC0"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        Style="{StaticResource MaterialDesignRaisedButton}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <command:EventToCommand Command="{Binding SaveConfigCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                     <Separator
                         Grid.Row="3"
                         Grid.Column="0"

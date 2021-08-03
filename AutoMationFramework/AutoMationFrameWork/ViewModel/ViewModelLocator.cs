@@ -99,7 +99,7 @@ namespace AutoMationFrameWork.ViewModel
                 //ErrorCodeMgr.GetInstance();
                 RunInforManager.GetInstance();
 
-                if (ConfigManager.GetInstance().LoadConfigFile(ConfigDir, ServiceLocator.Current.GetInstance<IBuildConfig>()))
+                if (ConfigManager.GetInstance().LoadConfigFile(ConfigDir))
                 {
 
                     return true;

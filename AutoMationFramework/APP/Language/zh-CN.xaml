@@ -137,18 +137,18 @@
         1、齿轮比：
         脉冲每毫米，或者脉冲每度，根据驱动器一圈多少脉冲以及电机导程计算，计算方式：一圈脉冲数 / 电机导程，例如电机转一圈需要 10000 pls，电机的导程为 5mm，则齿轮比配置为 10000 / 5 = 2000。
         2、回零方式：
-        0 – 以原点信号为原点，正方向回零，不带 EZ 信号
-        1 – 以原点信号为原点，负方向回零，不带 EZ 信号
-        2 – 以正极限信号为原点，正方向回零，不带 EZ 信号
-        3 – 以负限位信号为原点，负方向回零，不带 EZ 信号
-        4 – 以 EZ 信号为原点，正方向回零
-        5 – 以 EZ 信号为原点，负方向回零
-        6 – 以原点信号为原点，正方向回零，带 EZ 信号
-        7 – 以原点信号为原点，负方向回零，带 EZ 信号
-        8 – 以正极限信号为原点，正方向回零，带 EZ 信号
-        9 – 以负限位信号为原点，负方向回零，带 EZ 信号
-        999 – 其他模式，直接从卡中读取回原点模式，无需指定参数
-        1000 – 其他总线型，不能从卡中读取回原点方式，总线型回零方式是由驱动器决定的，需要按照驱动器的回零方式自己手动填写，填写值基于此值累加，例如汇川总线型，选择驱动器回原点方式 1，则实际填入的参数为 1000 + 1 = 1001；
+        0 – OrgP: 以原点信号为原点，正方向回零，不带 EZ 信号
+        1 – OrgN: 以原点信号为原点，负方向回零，不带 EZ 信号
+        2 – Pel: 以正极限信号为原点，正方向回零，不带 EZ 信号
+        3 – Mel: 以负限位信号为原点，负方向回零，不带 EZ 信号
+        4 – EzPel: 以 EZ 信号为原点，正方向回零
+        5 – EzMel: 以 EZ 信号为原点，负方向回零
+        6 – OrgPEz: 以原点信号为原点，正方向回零，带 EZ 信号
+        7 – OrgNEz: 以原点信号为原点，负方向回零，带 EZ 信号
+        8 – PelEz: 以正极限信号为原点，正方向回零，带 EZ 信号
+        9 – MelEz: 以负限位信号为原点，负方向回零，带 EZ 信号
+        999 – Card: 其他模式，直接从卡中读取回原点模式，无需指定参数
+        1000 – BusBase: 其他总线型，不能从卡中读取回原点方式，总线型回零方式是由驱动器决定的，需要按照驱动器的回零方式自己手动填写，填写值基于此值累加，例如汇川总线型，选择驱动器回原点方式 1，则实际填入的参数为 1000 + 1 = 1001；
         3、回零最小速度：
         碰到原点信号后的爬行速度，单位 pls
         4、回零最大速度：
@@ -169,7 +169,18 @@
         轴到位之后，发送脉冲和返回脉冲的差值，超过此差值会报错，单位 pls
     </sys:String>
     <!--  HomeType变量  -->
-    <sys:String x:Key="NegativeAndHome">负方向加原点回零</sys:String>
+    <sys:String x:Key="OrgP">以原点信号为原点，正方向回零，不带 EZ 信号</sys:String>
+    <sys:String x:Key="OrgN">以原点信号为原点，负方向回零，不带 EZ 信号</sys:String>
+    <sys:String x:Key="Mel">以正极限信号为原点，正方向回零，不带 EZ 信号</sys:String>
+    <sys:String x:Key="Pel">以负限位信号为原点，负方向回零，不带 EZ 信号</sys:String>
+    <sys:String x:Key="EzPel">以 EZ 信号为原点，正方向回零</sys:String>
+    <sys:String x:Key="EzMel">以 EZ 信号为原点，负方向回零</sys:String>
+    <sys:String x:Key="OrgPEz">以原点信号为原点，正方向回零，带 EZ 信号</sys:String>
+    <sys:String x:Key="OrgNEz">以原点信号为原点，负方向回零，带 EZ 信号</sys:String>
+    <sys:String x:Key="PelEz">以正极限信号为原点，正方向回零，带 EZ 信号</sys:String>
+    <sys:String x:Key="MelEz">以负限位信号为原点，负方向回零，带 EZ 信号</sys:String>
+    <sys:String x:Key="Card">其他模式，直接从卡中读取回原点模式，无需指定参数</sys:String>
+    <sys:String x:Key="BusBase">其他总线型</sys:String>
     <!--  Button Content  -->
     <sys:String x:Key="Apply">应用</sys:String>
     <sys:String x:Key="Save">保存</sys:String>
