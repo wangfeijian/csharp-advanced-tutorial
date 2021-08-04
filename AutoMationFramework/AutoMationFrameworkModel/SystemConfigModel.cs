@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 
-namespace CommonTools.Model
+namespace AutoMationFrameworkModel
 {
     public class IoInputPoint
     {

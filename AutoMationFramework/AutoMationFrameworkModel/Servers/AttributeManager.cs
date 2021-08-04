@@ -16,10 +16,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using CommonTools.Model;
 using CommonTools.Tools;
 
-namespace CommonTools.Servers
+namespace AutoMationFrameworkModel.Servers
 {
     public class AttributeManager
     {

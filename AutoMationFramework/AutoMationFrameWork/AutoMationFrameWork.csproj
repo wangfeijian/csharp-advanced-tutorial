@@ -412,9 +412,29 @@
       <Name>AutoMationFrameworkDll</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\AutoMationFrameworkModel\AutoMationFrameworkModel.csproj">
+      <Project>{43fb611a-75d5-46ca-aa75-94f8c61a3782}</Project>
+      <Name>AutoMationFrameworkModel</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoMationFrameworkSystemDll\AutoMationFrameworkSystemDll.csproj">
+      <Project>{3424def9-ef07-4095-8f98-7e71aee36c69}</Project>
+      <Name>AutoMationFrameworkSystemDll</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoMationFrameworkViewModel\AutoMationFrameworkViewModel.csproj">
+      <Project>{8288d1c9-3ec9-4e54-a814-632ec6d20259}</Project>
+      <Name>AutoMationFrameworkViewModel</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">
       <Project>{b11174c1-280b-4e41-9856-7da214a6f6c3}</Project>
       <Name>CommonTools</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ConfigTools\ConfigTools.csproj">
+      <Project>{7d153995-1823-45f5-8a06-405f8606a9c7}</Project>
+      <Name>ConfigTools</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\MotionIo\MotionIo.csproj">

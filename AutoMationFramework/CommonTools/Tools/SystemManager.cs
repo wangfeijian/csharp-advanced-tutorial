@@ -19,11 +19,11 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using GalaSoft.MvvmLight.Ioc;
 using System.Windows;
-using CommonTools.Model;
+using AutoMationFrameworkViewModel.Model;
 using CommonTools.Tools;
-using CommonTools.ViewModel;
+using AutoMationFrameworkViewModel.ViewModel;
 
-namespace CommonTools.Manager
+namespace CommonTools.Tools
 {
     /// <summary>
     /// 系统运行模式设置，自动运行模式，空跑模式，标定模式，其它自定义模式，

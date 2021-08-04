@@ -15,11 +15,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using CommonTools.Manager;
-using CommonTools.Model;
-using CommonTools.Servers;
+using AutoMationFrameworkModel;
+using AutoMationFrameworkSystemDll;
+using AutoMationFrameworkViewModel;
 using CommonTools.Tools;
-using CommonTools.ViewModel;
 using GalaSoft.MvvmLight.Ioc;
 using MotionIO;
 

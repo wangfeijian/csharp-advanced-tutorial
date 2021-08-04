@@ -12,7 +12,7 @@
 
 using CommonTools.Tools;
 using Adlink;
-using CommonTools.Manager;
+using AutoMationFrameworkSystemDll;
 
 
 namespace MotionIO

@@ -5,17 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using CommonTools.Model;
-using CommonTools.Servers;
+using AutoMationFrameworkModel;
 using CommonTools.Tools;
+using ConfigTools;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 
-namespace CommonTools.ViewModel
+namespace AutoMationFrameworkViewModel
 {
     public class SystemConfigViewModel : ViewModelBase
     {
+
         public ICommand SaveConfigCommand { get; private set; }
+        public ICommand UpdateConfigCommand { get; private set; }
 
         private readonly IBuildConfig _bulidConfig;
 
@@ -41,6 +44,7 @@ namespace CommonTools.ViewModel
         private void InitCommand()
         {
             SaveConfigCommand = new RelayCommand(SaveConfig);
+            UpdateConfigCommand = new RelayCommand(UpdateConfig);
         }
 
         private void SaveConfig()
@@ -49,5 +53,11 @@ namespace CommonTools.ViewModel
             _bulidConfig.SaveConfig(SystemConfig, file);
             MessageBox.Show(LocationServices.GetLang("SaveSuccess"));
         }
+
+        private void UpdateConfig()
+        {
+            Messenger.Default.Send(SystemConfig, "axisCfg");
+        }
+
     }
 }

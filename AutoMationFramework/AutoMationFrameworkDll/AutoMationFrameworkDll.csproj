@@ -63,6 +63,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoMationFrameworkModel\AutoMationFrameworkModel.csproj">
+      <Project>{43fb611a-75d5-46ca-aa75-94f8c61a3782}</Project>
+      <Name>AutoMationFrameworkModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoMationFrameworkSystemDll\AutoMationFrameworkSystemDll.csproj">
+      <Project>{3424def9-ef07-4095-8f98-7e71aee36c69}</Project>
+      <Name>AutoMationFrameworkSystemDll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoMationFrameworkViewModel\AutoMationFrameworkViewModel.csproj">
+      <Project>{8288d1c9-3ec9-4e54-a814-632ec6d20259}</Project>
+      <Name>AutoMationFrameworkViewModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">
       <Project>{b11174c1-280b-4e41-9856-7da214a6f6c3}</Project>
       <Name>CommonTools</Name>

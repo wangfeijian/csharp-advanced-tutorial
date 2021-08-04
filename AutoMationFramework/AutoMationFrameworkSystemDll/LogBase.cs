@@ -13,7 +13,7 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 
-namespace CommonTools.Manager
+namespace AutoMationFrameworkSystemDll
 {
     /// <summary>
     /// 日志信息显示委托函数

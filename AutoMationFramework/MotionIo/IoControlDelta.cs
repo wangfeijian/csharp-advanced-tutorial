@@ -10,7 +10,7 @@
 *           Description:    8254 IO delta card class                 *
 *********************************************************************/
 
-using CommonTools.Manager;
+using AutoMationFrameworkSystemDll;
 using CommonTools.Tools;
 using PCI_DMC;
 using PCI_DMC_ERR;

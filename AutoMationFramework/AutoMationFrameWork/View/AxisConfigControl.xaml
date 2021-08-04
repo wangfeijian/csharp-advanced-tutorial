@@ -241,7 +241,7 @@
                         Style="{StaticResource MaterialDesignRaisedButton}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <command:EventToCommand Command="{Binding SaveConfigCommand}" />
+                                <command:EventToCommand Command="{Binding UpdateConfigCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>

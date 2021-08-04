@@ -282,6 +282,7 @@
     <sys:String x:Key="SaveSuccess">Save Success!!</sys:String>
     <sys:String x:Key="LoadSuccess">Load Success!!</sys:String>
     <sys:String x:Key="FileError">File Error!!</sys:String>
+    <sys:String x:Key="ApplySucceed">Apply Succeed！</sys:String>
     <!--  Motion提示信息  -->
     <sys:String x:Key="IoCardInitError">Initialization failed for IO card {1} of {0}! Error code = {2}</sys:String>
     <sys:String x:Key="IoCardReadIoInError">The {0} IO card {1} ReadIoIn {2} Error,result is {3}</sys:String>

@@ -11,8 +11,8 @@
 *********************************************************************/
 
 using CommonTools.Tools;
-using CommonTools.Manager;
 using Adlink;
+using AutoMationFrameworkSystemDll;
 
 namespace MotionIO
 {

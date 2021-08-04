@@ -14,14 +14,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using CommonTools.Model;
-using CommonTools.Servers;
+using AutoMationFrameworkModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using CommonTools.Tools;
-using GalaSoft.MvvmLight.Messaging;
+using ConfigTools;
 
-namespace CommonTools.ViewModel
+namespace AutoMationFrameworkViewModel
 {
     public class SysParamControlViewModel : ViewModelBase
     {

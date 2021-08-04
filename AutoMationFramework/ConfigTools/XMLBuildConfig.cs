@@ -13,13 +13,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
-using CommonTools.Model;
+using AutoMationFrameworkModel;
 using Microsoft.Win32;
 
-namespace CommonTools.Servers
+namespace ConfigTools
 {
     public class XmlBuildConfig : IBuildConfig
     {

@@ -25,7 +25,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.Linq;
 
-namespace CommonTools.Manager
+namespace AutoMationFrameworkSystemDll
 {
     /// <summary>
     /// 错误类型

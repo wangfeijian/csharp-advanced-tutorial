@@ -10,9 +10,8 @@
 *           Description:    0640A IO card class                      *
 *********************************************************************/
 using System;
-
+using AutoMationFrameworkSystemDll;
 using csIOC0640;
-using CommonTools.Manager;
 using CommonTools.Tools;
 
 

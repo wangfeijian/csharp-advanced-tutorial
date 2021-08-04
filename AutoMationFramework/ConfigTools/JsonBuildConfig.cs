@@ -13,12 +13,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using CommonTools.Model;
+using AutoMationFrameworkModel;
+using CommonTools.Tools;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using CommonTools.Tools;
 
-namespace CommonTools.Servers
+namespace ConfigTools
 {
     public class JsonBuildConfig : IBuildConfig
     {

@@ -10,8 +10,8 @@
 *           Description:    GTS IO card class                        *
 *********************************************************************/
 
+using AutoMationFrameworkSystemDll;
 using CommonTools.Tools;
-using CommonTools.Manager;
 using gts;
 
 

@@ -10,8 +10,8 @@
 *           Description:    DMC3400 IO card class                    *
 *********************************************************************/
 
+using AutoMationFrameworkSystemDll;
 using CommonTools.Tools;
-using CommonTools.Manager;
 using csLTDMC;
 
 namespace MotionIO

@@ -12,8 +12,8 @@
 
 using System;
 using System.Threading;
+using AutoMationFrameworkSystemDll;
 using CommonTools.Tools;
-using CommonTools.Manager;
 using lctdevice;
 
 namespace MotionIO

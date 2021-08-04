@@ -11,9 +11,8 @@
 *********************************************************************/
 
 using System.Runtime.InteropServices;
-using CommonTools.Manager;
 
-namespace CommonTools.Tools
+namespace AutoMationFrameworkSystemDll
 {
     /// <summary>
     /// 程序登陆用户模式

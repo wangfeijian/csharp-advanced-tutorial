@@ -14,9 +14,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
-using CommonTools.Manager;
-using CommonTools.Model;
+using System.Windows;
+using AutoMationFrameworkModel;
+using AutoMationFrameworkSystemDll;
 using CommonTools.Tools;
+using GalaSoft.MvvmLight.Messaging;
 using MotionIO;
 
 namespace AutoMationFrameworkDll
@@ -157,6 +159,61 @@ namespace AutoMationFrameworkDll
         {
             _dictTargetPos.Clear();
             _dictPauseAxis.Clear();
+            Messenger.Default.Register<SystemCfg>(this, "axisCfg", UpdateAxisCfg);
+        }
+
+        private void UpdateAxisCfg(SystemCfg systemCfg)
+        {
+            _dictAxisCfg.Clear();
+            var axisList = systemCfg.AxisConfigList;
+
+            foreach (var axisCfg in axisList)
+            {
+                int axisNum;
+                if (int.TryParse(axisCfg.AxisNum, out axisNum))
+                {
+                    double gearRatio, homeMinSpeed, homeMaxSpeed, homeAcc, homeDec, speedMax, acc, dec, sFac, smelPos, spelPos;
+                    int inPosError;
+                    bool enableSpel, enableSmel;
+                    int homeMode = axisCfg.HomeMode;
+                    if (!double.TryParse(axisCfg.GearRatio, out gearRatio)) gearRatio = 1.0;
+                    //if (!int.TryParse(axisCfg.HomeMode, out homeMode)) homeMode = 1;
+                    if (!double.TryParse(axisCfg.HomeSpeedMin, out homeMinSpeed)) homeMinSpeed = 1000.0;
+                    if (!double.TryParse(axisCfg.HomeSpeedMax, out homeMaxSpeed)) homeMaxSpeed = 5000.0;
+                    if (!double.TryParse(axisCfg.HomeAcc, out homeAcc)) homeAcc = 0.1;
+                    if (!double.TryParse(axisCfg.HomeDec, out homeDec)) homeDec = 0.1;
+                    if (!double.TryParse(axisCfg.SpeedMax, out speedMax)) speedMax = 200000;
+                    if (!double.TryParse(axisCfg.Acc, out acc)) acc = 0.1;
+                    if (!double.TryParse(axisCfg.Dec, out dec)) dec = 0.1;
+                    if (!double.TryParse(axisCfg.SFac, out sFac)) sFac = 0.0;
+                    if (!int.TryParse(axisCfg.InPosError, out inPosError)) inPosError = 1;
+                    if (!bool.TryParse(axisCfg.EnableSpel, out enableSpel)) enableSpel = false;
+                    if (!bool.TryParse(axisCfg.EnableSmel, out enableSmel)) enableSmel = false;
+                    if (!double.TryParse(axisCfg.SpelPos, out spelPos)) spelPos = 10000000.0;
+                    if (!double.TryParse(axisCfg.SmelPos, out smelPos)) smelPos = -10000000.0;
+
+                    _dictAxisCfg.Add(axisNum, new AxisConfig
+                    {
+                        GearRatio = gearRatio,
+                        HomeMode = homeMode,
+                        HomeSpeedMin = homeMinSpeed,
+                        HomeSpeedMax = homeMaxSpeed,
+                        HomeAcc = homeAcc,
+                        HomeDec = homeDec,
+                        SpeedMax = speedMax,
+                        Acc = acc,
+                        Dec = dec,
+                        SFac = sFac,
+                        InPosError = inPosError,
+                        EnableSpel = enableSpel,
+                        SpelPos = spelPos,
+                        EnableSmel = enableSmel,
+                        SmelPos = smelPos
+                    });
+                }
+            }
+
+            MessageBox.Show(LocationServices.GetLang("ApplySucceed"));
         }
 
         private void AddCard(string strName, int nCardNo, int nAxisMin, int nAxisMax)

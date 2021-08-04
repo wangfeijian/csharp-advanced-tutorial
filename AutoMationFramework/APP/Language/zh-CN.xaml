@@ -282,6 +282,7 @@
     <sys:String x:Key="SaveSuccess">保存成功！</sys:String>
     <sys:String x:Key="LoadSuccess">加载成功！</sys:String>
     <sys:String x:Key="FileError">文件错误！</sys:String>
+    <sys:String x:Key="ApplySucceed">更新成功！</sys:String>
     <!--  Motion提示信息  -->
     <sys:String x:Key="IoCardInitError">第{0}张IO卡{1}初始化失败!错误码 ={2}！</sys:String>
     <sys:String x:Key="IoCardReadIoInError">第{0}张IO卡{1} ReadIoIn {2} 错误,结果是 {3}</sys:String>

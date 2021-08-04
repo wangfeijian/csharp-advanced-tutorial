@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using lctdevice;
 using System.IO;
 using System.Windows;
-using CommonTools.Manager;
+using AutoMationFrameworkSystemDll;
 using CommonTools.Tools;
 
 namespace MotionIO

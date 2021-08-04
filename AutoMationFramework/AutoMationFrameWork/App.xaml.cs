@@ -18,7 +18,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using AutoMationFrameWork.ViewModel;
-using CommonTools.Manager;
 using CommonTools.Tools;
 using Newtonsoft.Json;
 

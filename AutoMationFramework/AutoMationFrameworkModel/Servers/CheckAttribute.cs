@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommonTools.Servers
+namespace AutoMationFrameworkModel.Servers
 {
     public abstract class CheckAttribute : Attribute
     {

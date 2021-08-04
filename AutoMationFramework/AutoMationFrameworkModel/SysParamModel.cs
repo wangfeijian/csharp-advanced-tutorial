@@ -11,10 +11,10 @@
 *********************************************************************/
 using System.Collections.Generic;
 using System.Windows;
-using CommonTools.Servers;
+using AutoMationFrameworkModel.Servers;
 using CommonTools.Tools;
 
-namespace CommonTools.Model
+namespace AutoMationFrameworkModel
 {
     /// <summary>
     /// 系统参数类型

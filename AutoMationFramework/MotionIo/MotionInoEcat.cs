@@ -16,7 +16,7 @@ using System.Threading;
 using Inovance.InoMotionCotrollerShop.InoServiceContract.EtherCATConfigApi;
 using System.Collections.Generic;
 using System.Windows;
-using CommonTools.Manager;
+using AutoMationFrameworkSystemDll;
 using CommonTools.Tools;
 
 namespace MotionIO

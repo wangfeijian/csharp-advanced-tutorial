@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMationFrameworkDll", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionIo", "MotionIo\MotionIo.csproj", "{72AB7783-800D-4EFA-871B-18B9D975107E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigTools", "ConfigTools\ConfigTools.csproj", "{7D153995-1823-45F5-8A06-405F8606A9C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMationFrameworkModel", "AutoMationFrameworkModel\AutoMationFrameworkModel.csproj", "{43FB611A-75D5-46CA-AA75-94F8C61A3782}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMationFrameworkViewModel", "AutoMationFrameworkViewModel\AutoMationFrameworkViewModel.csproj", "{8288D1C9-3EC9-4E54-A814-632EC6D20259}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMationFrameworkSystemDll", "AutoMationFrameworkSystemDll\AutoMationFrameworkSystemDll.csproj", "{3424DEF9-EF07-4095-8F98-7E71AEE36C69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +59,38 @@ Global
 		{72AB7783-800D-4EFA-871B-18B9D975107E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72AB7783-800D-4EFA-871B-18B9D975107E}.Release|x64.ActiveCfg = Release|Any CPU
 		{72AB7783-800D-4EFA-871B-18B9D975107E}.Release|x64.Build.0 = Release|Any CPU
+		{7D153995-1823-45F5-8A06-405F8606A9C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D153995-1823-45F5-8A06-405F8606A9C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D153995-1823-45F5-8A06-405F8606A9C7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7D153995-1823-45F5-8A06-405F8606A9C7}.Debug|x64.Build.0 = Debug|Any CPU
+		{7D153995-1823-45F5-8A06-405F8606A9C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D153995-1823-45F5-8A06-405F8606A9C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D153995-1823-45F5-8A06-405F8606A9C7}.Release|x64.ActiveCfg = Release|Any CPU
+		{7D153995-1823-45F5-8A06-405F8606A9C7}.Release|x64.Build.0 = Release|Any CPU
+		{43FB611A-75D5-46CA-AA75-94F8C61A3782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43FB611A-75D5-46CA-AA75-94F8C61A3782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43FB611A-75D5-46CA-AA75-94F8C61A3782}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{43FB611A-75D5-46CA-AA75-94F8C61A3782}.Debug|x64.Build.0 = Debug|Any CPU
+		{43FB611A-75D5-46CA-AA75-94F8C61A3782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43FB611A-75D5-46CA-AA75-94F8C61A3782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43FB611A-75D5-46CA-AA75-94F8C61A3782}.Release|x64.ActiveCfg = Release|Any CPU
+		{43FB611A-75D5-46CA-AA75-94F8C61A3782}.Release|x64.Build.0 = Release|Any CPU
+		{8288D1C9-3EC9-4E54-A814-632EC6D20259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8288D1C9-3EC9-4E54-A814-632EC6D20259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8288D1C9-3EC9-4E54-A814-632EC6D20259}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8288D1C9-3EC9-4E54-A814-632EC6D20259}.Debug|x64.Build.0 = Debug|Any CPU
+		{8288D1C9-3EC9-4E54-A814-632EC6D20259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8288D1C9-3EC9-4E54-A814-632EC6D20259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8288D1C9-3EC9-4E54-A814-632EC6D20259}.Release|x64.ActiveCfg = Release|Any CPU
+		{8288D1C9-3EC9-4E54-A814-632EC6D20259}.Release|x64.Build.0 = Release|Any CPU
+		{3424DEF9-EF07-4095-8F98-7E71AEE36C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3424DEF9-EF07-4095-8F98-7E71AEE36C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3424DEF9-EF07-4095-8F98-7E71AEE36C69}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3424DEF9-EF07-4095-8F98-7E71AEE36C69}.Debug|x64.Build.0 = Debug|Any CPU
+		{3424DEF9-EF07-4095-8F98-7E71AEE36C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3424DEF9-EF07-4095-8F98-7E71AEE36C69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3424DEF9-EF07-4095-8F98-7E71AEE36C69}.Release|x64.ActiveCfg = Release|Any CPU
+		{3424DEF9-EF07-4095-8F98-7E71AEE36C69}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

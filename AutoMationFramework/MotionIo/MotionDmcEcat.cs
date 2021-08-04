@@ -11,9 +11,9 @@
 *********************************************************************/
 using System;
 using csLTDMC;
-using CommonTools.Manager;
 using CommonTools.Tools;
 using System.Windows;
+using AutoMationFrameworkSystemDll;
 
 namespace MotionIO
 {

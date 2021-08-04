@@ -12,17 +12,17 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using CommonTools.Servers;
 using CommonServiceLocator;
-using CommonTools.ViewModel;
 using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Configuration;
 using System.Reflection;
-using CommonTools.Manager;
 using System.Windows;
 using CommonTools.Tools;
 using AutoMationFrameworkDll;
+using AutoMationFrameworkViewModel;
+using AutoMationFrameworkSystemDll;
+using ConfigTools;
 
 namespace AutoMationFrameWork.ViewModel
 {

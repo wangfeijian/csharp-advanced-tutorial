@@ -20,10 +20,8 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
-using CommonTools.Model;
 using HalconDotNet;
 using CommonTools.Tools;
-using CommonTools.ViewModel;
 using GalaSoft.MvvmLight.Ioc;
 using MotionIO;
 

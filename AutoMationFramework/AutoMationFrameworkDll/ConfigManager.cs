@@ -14,8 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CommonTools.Manager;
-using CommonTools.Servers;
+using AutoMationFrameworkSystemDll;
 
 namespace AutoMationFrameworkDll
 {
