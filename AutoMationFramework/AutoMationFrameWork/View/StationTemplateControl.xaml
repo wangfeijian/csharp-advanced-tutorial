@@ -24,7 +24,7 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="1.5*" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <materialDesign:Card
@@ -59,7 +59,6 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox
                         Grid.RowSpan="2"
-                        Width="200"
                         materialDesign:ColorZoneAssist.Background="#50bc93"
                         materialDesign:ColorZoneAssist.Foreground="White"
                         materialDesign:ColorZoneAssist.Mode="Custom"
@@ -709,10 +708,10 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                                 <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock
@@ -994,7 +993,12 @@
                             FontSize="20"
                             FontWeight="Bold"
                             Style="{StaticResource TabControlStyle}">
-                            <TabItem Header="{StaticResource Point}" Style="{StaticResource TabItemStyle}">点位</TabItem>
+                            <TabItem
+                                x:Name="PointManageItem"
+                                Header="{StaticResource Point}"
+                                Style="{StaticResource TabItemStyle}">
+                                点位
+                            </TabItem>
                             <TabItem Header="IO" Style="{StaticResource TabItemStyle}">IO</TabItem>
                             <TabItem Header="{StaticResource Cylinder}" Style="{StaticResource TabItemStyle}">气缸</TabItem>
                         </TabControl>
@@ -1005,6 +1009,7 @@
                             Margin="2.5,2.5,2.5,2.5"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Background="#899DC0"
+                            IsEnabled="{Binding Path=IsSelected, ElementName=PointManageItem}"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                         <Button
                             Content="{StaticResource AllMove}"
@@ -1013,6 +1018,7 @@
                             Margin="2.5,2.5,2.5,2.5"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Background="#899DC0"
+                            IsEnabled="{Binding Path=IsSelected, ElementName=PointManageItem}"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                         <Button
                             Content="{StaticResource UpdateThisAxis}"
@@ -1021,6 +1027,7 @@
                             Margin="2.5,2.5,2.5,2.5"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Background="#899DC0"
+                            IsEnabled="{Binding Path=IsSelected, ElementName=PointManageItem}"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                         <Button
                             Content="{StaticResource UpdateThisPoint}"
@@ -1029,6 +1036,7 @@
                             Margin="2.5,2.5,2.5,2.5"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Background="#899DC0"
+                            IsEnabled="{Binding Path=IsSelected, ElementName=PointManageItem}"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                         <Button
                             Content="{StaticResource SavePoint}"
@@ -1037,6 +1045,7 @@
                             Margin="2.5,2.5,2.5,2.5"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Background="#899DC0"
+                            IsEnabled="{Binding Path=IsSelected, ElementName=PointManageItem}"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                     </Grid>
                 </Grid>

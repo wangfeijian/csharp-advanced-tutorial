@@ -157,6 +157,7 @@ namespace AutoMationFrameworkModel
     {
         public string StationIndex { get; set; }
         public string StationName { get; set; }
+        public string StationEngName { get; set; }
         public string AxisX { get; set; }
         public string AxisY { get; set; }
         public string AxisZ { get; set; }

@@ -517,6 +517,7 @@ namespace ConfigTools
                               {
                                   StationIndex = item.Attribute("站序号")?.Value,
                                   StationName = item.Attribute("站名定义")?.Value,
+                                  StationEngName = item.Attribute("站名翻译")?.Value,
                                   AxisX = item.Attribute("X轴号")?.Value,
                                   AxisY = item.Attribute("Y轴号")?.Value,
                                   AxisZ = item.Attribute("Z轴号")?.Value,
@@ -957,6 +958,7 @@ namespace ConfigTools
                             new XElement("Station",
                                 new XAttribute("站序号", item.StationIndex),
                                 new XAttribute("站名定义", item.StationName),
+                                new XAttribute("站名翻译", item.StationEngName),
                                 new XAttribute("X轴号", item.AxisX ?? ""),
                                 new XAttribute("Y轴号", item.AxisY ?? ""),
                                 new XAttribute("Z轴号", item.AxisZ ?? ""),

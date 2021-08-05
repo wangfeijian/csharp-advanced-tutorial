@@ -30,18 +30,12 @@
             <TabItem Header="{StaticResource StaDebug}" Style="{StaticResource TabItemStyle}">
                 <Grid Background="#50bc93">
                     <TabControl
+                        x:Name="StationTabControl"
                         FontFamily="华文仿宋"
                         FontSize="25"
                         FontWeight="Bold"
                         Style="{StaticResource TabControlStyle}"
-                        TabStripPlacement="Bottom">
-                        <TabItem Header="{StaticResource TestStationOne}" Style="{StaticResource TabItemStyle}">
-                            <view:StationTemplateControl />
-                        </TabItem>
-                        <TabItem Header="{StaticResource TestStationTwo}" Style="{StaticResource TabItemStyle}">
-                            <view:StationTemplateControl />
-                        </TabItem>
-                    </TabControl>
+                        TabStripPlacement="Bottom"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{StaticResource IOInputOutPut}" Style="{StaticResource TabItemStyle}">
