@@ -10,6 +10,7 @@
 *           Description:    UserControl for image back code          *
 *********************************************************************/
 using System;
+using System.Windows;
 using HalconDotNet;
 
 namespace AutoMationFrameWork.View
@@ -19,6 +20,19 @@ namespace AutoMationFrameWork.View
     /// </summary>
     public partial class ImageControl 
     {
+
+
+        public string CameraColor
+        {
+            get { return (string)GetValue(CameraColorProperty); }
+            set { SetValue(CameraColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CameraColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CameraColorProperty =
+            DependencyProperty.Register("CameraColor", typeof(string), typeof(ImageControl), new PropertyMetadata("#E5B881"));
+
+
         public ImageControl()
         {
             InitializeComponent();
@@ -29,7 +43,7 @@ namespace AutoMationFrameWork.View
             HWindow h = HSmartWindow.HalconWindow;
             if (h != null)
             {
-                HOperatorSet.SetWindowParam(h,"background_color", "#E5B881");
+                HOperatorSet.SetWindowParam(h,"background_color", CameraColor);
                 HOperatorSet.ClearWindow(h);
             }
         }
@@ -38,6 +52,5 @@ namespace AutoMationFrameWork.View
         {
             SetHalconWindow();
         }
-
     }
 }

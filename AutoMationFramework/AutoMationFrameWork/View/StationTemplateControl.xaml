@@ -104,6 +104,7 @@
                                     Content="{StaticResource Relative}"
                                     Grid.Column="1"
                                     HorizontalAlignment="Center"
+                                    IsChecked="True"
                                     Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}" />
                                 <RadioButton
                                     Content="JOG"
@@ -1051,60 +1052,78 @@
                 </Grid>
             </Grid>
         </materialDesign:Card>
-        <materialDesign:Card
-            Grid.Column="1"
-            Margin="5,10,5,5"
-            Padding="5"
-            Foreground="{DynamicResource PrimaryHueDarkBrush}"
-            UniformCornerRadius="6">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Margin="16,16,16,4"
-                    FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    Text="{StaticResource StationProcessEdit}" />
-                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" />
-                <Grid Grid.Row="2">
-                    <TreeView MinWidth="220" FontSize="12">
-                        <TreeViewItem Header="初始化">
-                            <TreeViewItem Header="1" />
-                            <TreeViewItem Header="2" />
-                            <TreeViewItem Header="3" />
-                        </TreeViewItem>
-                        <TreeViewItem Header="设置">
-                            <TreeViewItem Header="1" />
-                            <TreeViewItem Header="2" />
-                            <TreeViewItem Header="3" />
-                        </TreeViewItem>
-                        <TreeViewItem Header="系统 ">
-                            <TreeViewItem Header="1" />
-                            <TreeViewItem Header="2" />
-                            <TreeViewItem Header="3" />
-                        </TreeViewItem>
-                        <TreeViewItem Header="系统 ">
-                            <TreeViewItem Header="1" />
-                            <TreeViewItem Header="2" />
-                            <TreeViewItem Header="3" />
-                        </TreeViewItem>
-                        <TreeViewItem Header="系统 ">
-                            <TreeViewItem Header="1" />
-                            <TreeViewItem Header="2" />
-                            <TreeViewItem Header="3" />
-                        </TreeViewItem>
-                        <TreeViewItem Header="系统 ">
-                            <TreeViewItem Header="1" />
-                            <TreeViewItem Header="2" />
-                            <TreeViewItem Header="3" />
-                        </TreeViewItem>
-                    </TreeView>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <materialDesign:Card
+                Grid.Row="0"
+                Margin="5,10,5,5"
+                Padding="5"
+                Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                IsEnabled="True"
+                UniformCornerRadius="6">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="16,16,16,4"
+                        FontWeight="Bold"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="{StaticResource StationVisionProcessEdit}" />
+                    <Button
+                        Grid.Row="0"
+                        Margin="0,0,16,-10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Style="{StaticResource MaterialDesignIconButton}">
+                        <materialDesign:PackIcon Kind="Tools" />
+                    </Button>
                 </Grid>
-            </Grid>
-        </materialDesign:Card>
+            </materialDesign:Card>
+            <local:ImageControl
+                Grid.Row="1"
+                Margin="5"
+                CameraColor="#50bc93" />
+            <materialDesign:Card
+                Grid.Row="2"
+                Margin="5"
+                Padding="5"
+                Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                IsEnabled="True"
+                UniformCornerRadius="6">
+                <TreeView MinWidth="220" FontSize="20">
+                    <TreeViewItem Header="{StaticResource Initial}">
+                        <TreeViewItem Header="1" />
+                        <TreeViewItem Header="2" />
+                        <TreeViewItem Header="3" />
+                    </TreeViewItem>
+                    <TreeViewItem Header="{StaticResource AutoRun}">
+                        <TreeViewItem Header="1" />
+                        <TreeViewItem Header="2" />
+                        <TreeViewItem Header="3" />
+                    </TreeViewItem>
+                    <TreeViewItem Header="{StaticResource DryRun}">
+                        <TreeViewItem Header="1" />
+                        <TreeViewItem Header="2" />
+                        <TreeViewItem Header="3" />
+                    </TreeViewItem>
+                    <TreeViewItem Header="{StaticResource Calibration}">
+                        <TreeViewItem Header="1" />
+                        <TreeViewItem Header="2" />
+                        <TreeViewItem Header="3" />
+                    </TreeViewItem>
+                    <TreeViewItem Header="{StaticResource DeInitial}">
+                        <TreeViewItem Header="1" />
+                        <TreeViewItem Header="2" />
+                        <TreeViewItem Header="3" />
+                    </TreeViewItem>
+                </TreeView>
+            </materialDesign:Card>
+        </Grid>
     </Grid>
 </UserControl>

@@ -38,15 +38,51 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <view:ImageControl Grid.Row="0" Grid.Column="0" />
-            <view:ImageControl Grid.Row="0" Grid.Column="1" />
-            <view:ImageControl Grid.Row="0" Grid.Column="2" />
-            <view:ImageControl Grid.Row="1" Grid.Column="0" />
-            <view:ImageControl Grid.Row="1" Grid.Column="1" />
-            <view:ImageControl Grid.Row="1" Grid.Column="2" />
-            <view:ImageControl Grid.Row="2" Grid.Column="0" />
-            <view:ImageControl Grid.Row="2" Grid.Column="1" />
-            <view:ImageControl Grid.Row="2" Grid.Column="2" />
+            <view:ImageControl
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10,10,5,5"
+                CameraColor="#E5B881" />
+            <view:ImageControl
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="5,10,5,5"
+                CameraColor="#E5B881" />
+            <view:ImageControl
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="5,10,5,5"
+                CameraColor="#E5B881" />
+            <view:ImageControl
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="10,5,5,5"
+                CameraColor="#E5B881" />
+            <view:ImageControl
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="5"
+                CameraColor="#E5B881" />
+            <view:ImageControl
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="5"
+                CameraColor="#E5B881" />
+            <view:ImageControl
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="10,5,5,10"
+                CameraColor="#E5B881" />
+            <view:ImageControl
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="5,5,5,10"
+                CameraColor="#E5B881" />
+            <view:ImageControl
+                Grid.Row="2"
+                Grid.Column="2"
+                Margin="5,5,5,10"
+                CameraColor="#E5B881" />
         </Grid>
         <Border
             Name="HideBorder"
@@ -54,7 +90,7 @@
             Width="300"
             BorderThickness="0">
             <materialDesign:Card
-                Margin="5,10,10,5"
+                Margin="5,10,10,10"
                 Padding="5"
                 Background="#E5B881"
                 Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
@@ -93,6 +129,7 @@
                                 Content="{StaticResource File}"
                                 Grid.Column="1"
                                 HorizontalAlignment="Center"
+                                IsChecked="True"
                                 Style="{StaticResource MaterialDesignChoiceChipAccentOutlineRadioButton}" />
                             <RadioButton
                                 Content="{StaticResource Folder}"

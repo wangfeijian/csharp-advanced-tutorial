@@ -88,6 +88,7 @@
     <sys:String x:Key="Point">点位</sys:String>
     <sys:String x:Key="Cylinder">气缸</sys:String>
     <sys:String x:Key="StationProcessEdit">站位流程编写</sys:String>
+    <sys:String x:Key="StationVisionProcessEdit">站位视觉流程编写</sys:String>
     <sys:String x:Key="KeyValue">键值</sys:String>
     <sys:String x:Key="CurrentValue">当前值</sys:String>
     <sys:String x:Key="ParamDes">参数描述</sys:String>
@@ -105,6 +106,11 @@
     <sys:String x:Key="FileChangeEventLogic">文件改变事件处理逻辑 {0} {1} {2}!!</sys:String>
     <sys:String x:Key="FileDeleteEventLogic">文件删除事件处理逻辑 {0} {1} {2}!!</sys:String>
     <sys:String x:Key="FileRenameEventLogic">文件重命名事件处理逻辑 {0} {1} {2}!!</sys:String>
+    <sys:String x:Key="Initial">初始化</sys:String>
+    <sys:String x:Key="AutoRun">自动运行</sys:String>
+    <sys:String x:Key="DryRun">空跑</sys:String>
+    <sys:String x:Key="Calibration">标定</sys:String>
+    <sys:String x:Key="DeInitial">反初始化</sys:String>
     <!--  MessageBox变量  -->
     <sys:String x:Key="OK">确定</sys:String>
     <sys:String x:Key="Cancel">取消</sys:String>

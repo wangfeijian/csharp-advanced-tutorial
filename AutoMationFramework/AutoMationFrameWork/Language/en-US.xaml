@@ -88,6 +88,7 @@
     <sys:String x:Key="Point">Point</sys:String>
     <sys:String x:Key="Cylinder">Cylinder</sys:String>
     <sys:String x:Key="StationProcessEdit">StationProcessEdit</sys:String>
+    <sys:String x:Key="StationVisionProcessEdit">StationVisionProcessEdit</sys:String>
     <sys:String x:Key="KeyValue">KeyValue</sys:String>
     <sys:String x:Key="CurrentValue">CurrentValue</sys:String>
     <sys:String x:Key="ParamDes">ParamDes</sys:String>
@@ -105,6 +106,11 @@
     <sys:String x:Key="FileChangeEventLogic">File change event processing logic {0} {1} {2}!!</sys:String>
     <sys:String x:Key="FileDeleteEventLogic">File delete event processing logic {0} {1} {2}!!</sys:String>
     <sys:String x:Key="FileRenameEventLogic">File rename event processing logic {0} {1} {2}!!</sys:String>
+    <sys:String x:Key="Initial">Initialization</sys:String>
+    <sys:String x:Key="AutoRun">AutomaticOperation</sys:String>
+    <sys:String x:Key="DryRun">DryRun</sys:String>
+    <sys:String x:Key="Calibration">Calibration</sys:String>
+    <sys:String x:Key="DeInitial">Deinitialization</sys:String>
     <!--  MessageBox变量  -->
     <sys:String x:Key="OK">OK</sys:String>
     <sys:String x:Key="Cancel">Cancel</sys:String>

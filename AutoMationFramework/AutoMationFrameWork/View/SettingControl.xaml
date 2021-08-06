@@ -35,7 +35,7 @@
                         FontSize="25"
                         FontWeight="Bold"
                         Style="{StaticResource TabControlStyle}"
-                        TabStripPlacement="Bottom"/>
+                        TabStripPlacement="Bottom" />
                 </Grid>
             </TabItem>
             <TabItem Header="{StaticResource IOInputOutPut}" Style="{StaticResource TabItemStyle}">

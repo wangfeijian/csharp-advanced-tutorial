@@ -24,9 +24,7 @@
     d:DesignWidth="300"
     mc:Ignorable="d">
     <materialDesign:Card
-        Margin="10,10,5,5"
         Padding="5"
-        Background="#F0F0F0"
         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
         UniformCornerRadius="6">
         <Grid>
