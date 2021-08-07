@@ -139,73 +139,78 @@ namespace AutoMationFrameworkDll
         /// </summary>
         public delegate void delegateFunc();
 
+        #region 字段、属性
+
         /// <summary>
         /// 记录最近的log
         /// </summary>
-        protected ConcurrentQueue<LastLog> QueLastLog = new ConcurrentQueue<LastLog>();
+        private ConcurrentQueue<LastLog> queLastLog = new ConcurrentQueue<LastLog>();
 
         /// <summary>
         /// 输入io数组
         /// </summary>
-        public string[] IoIn = new string[0];
+        private string[] ioIn = new string[0];
 
         /// <summary>
         /// 输出io数组
         /// </summary>
-        public string[] IoOut = new string[0];
+        private string[] ioOut = new string[0];
 
         /// <summary>
         /// 每个轴运动方向,true-正，false-负
         /// </summary>
-        public readonly bool[] PositiveMove = {
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true};
+        private readonly bool[] positiveMove = {
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true};
 
         /// <summary>
         /// 轴名字
         /// </summary>
-        public readonly string[] StrAxisName = {
-          "X",
-          "Y",
-          "Z",
-          "U",
-          "A",
-          "B",
-          "C",
-          "D"};
+        private readonly string[] strAxisName = {
+            "X",
+            "Y",
+            "Z",
+            "U",
+            "A",
+            "B",
+            "C",
+            "D"};
 
         /// <summary>
         /// 轴号数组
         /// </summary>
-        public int[] AxisNumArray = new int[8];
+        private int[] axisNumArray = new int[8];
 
         /// <summary>
         /// 点位集合
         /// </summary>
-        public Dictionary<int, PointInfo> DicPoint = new Dictionary<int, PointInfo>();
+        private Dictionary<int, PointInfo> dicPoint = new Dictionary<int, PointInfo>();
 
         /// <summary>
         /// 自动线程的ID
         /// </summary>
-        public Thread AutoThread = null;
+        private Thread autoThread = null;
 
         /// <summary>
         /// 手动线程的ID
         /// </summary>
-        public Thread ManualThread = null;
+        private Thread manualThread = null;
 
+        /// <summary>
+        /// 手动运行状态
+        /// </summary>
         private ManualState _manaulState = ManualState.StateManualStop;
 
         /// <summary>
         /// 站位类绑定的手动自定义页面
         /// </summary>
-        public Control ControlManual = null;
+        private Control controlManual = null;
 
         /// <summary>
         /// 站位当前是否全自动运行
@@ -241,7 +246,7 @@ namespace AutoMationFrameworkDll
         /// <summary>
         /// 当前站位状态
         /// </summary>
-        public StationState CurState => _nCurState;
+        public StationState CurState => NCurState;
 
         /// <summary>
         /// 定义一个站位状态变化事件
@@ -254,33 +259,24 @@ namespace AutoMationFrameworkDll
         public bool IsDeinit { get; set; }
 
         /// <summary>
-        /// 工站基类构造函数
-        /// </summary>
-        /// <param name="strName">站位名称</param>
-        public StationBase(string strName)
-        {
-            _strName = strName;
-        }
-
-        /// <summary>
         /// 是否全自动运行属性
         /// </summary>
         public bool BeginCycle
         {
             set
             {
-                _beginCycle = value;
+                BeginCycle1 = value;
             }
             get
             {
-                return _beginCycle;
+                return BeginCycle1;
             }
         }
 
         /// <summary>
         /// 站位名属性
         /// </summary>
-        public string Name => _strName;
+        public string Name => StrName;
 
         /// <summary>
         /// 站位序号属性
@@ -289,11 +285,11 @@ namespace AutoMationFrameworkDll
         {
             set
             {
-                _index = value;
+                Index1 = value;
             }
             get
             {
-                return _index;
+                return Index1;
             }
         }
 
@@ -304,11 +300,11 @@ namespace AutoMationFrameworkDll
         {
             get
             {
-                return _stationEnable;
+                return StationEnable1;
             }
             set
             {
-                _stationEnable = value;
+                StationEnable1 = value;
             }
         }
 
@@ -317,45 +313,7 @@ namespace AutoMationFrameworkDll
         /// </summary>
         public int AxisCount => AxisNumArray.Length;
 
-        /// <summary>
-        /// 设置轴号
-        /// </summary>
-        /// <param name="index">轴序号</param>
-        /// <param name="nAxisNo">轴号</param>
-        public void SetAxisNo(int index, int nAxisNo)
-        {
-            AxisNumArray[index] = nAxisNo;
-        }
-
-        /// <summary>
-        /// 得到轴号
-        /// </summary>
-        /// <param name="index">轴序号</param>
-        /// <returns></returns>
-        public int GetAxisNo(int index)
-        {
-            return AxisNumArray[index];
-        }
-
-        /// <summary>
-        /// 当前站位是否处于急停状态
-        /// </summary>
-        /// <returns></returns>
-        public bool IsEmg()
-        {
-            return _nCurState == StationState.StateEmg;
-        }
-
-        /// <summary>
-        /// 当前站位是否处于停止状态
-        /// </summary>
-        /// <returns></returns>
-        public bool IsManual()
-        {
-            return ManualThread != null;
-        }
-
-        /// <summary>
+         /// <summary>
         /// 得到X轴号
         /// </summary>
         public int AxisX => AxisNumArray[0];
@@ -395,6 +353,489 @@ namespace AutoMationFrameworkDll
         /// </summary>
         public int AxisD => AxisNumArray[7];
 
+        protected ConcurrentQueue<LastLog> QueLastLog
+        {
+            get
+            {
+                return queLastLog;
+            }
+
+            set
+            {
+                queLastLog = value;
+            }
+        }
+
+        public string[] IoIn
+        {
+            get
+            {
+                return ioIn;
+            }
+
+            set
+            {
+                ioIn = value;
+            }
+        }
+
+        public string[] IoOut
+        {
+            get
+            {
+                return ioOut;
+            }
+
+            set
+            {
+                ioOut = value;
+            }
+        }
+
+        public bool[] PositiveMove
+        {
+            get
+            {
+                return positiveMove;
+            }
+        }
+
+        public string[] StrAxisName
+        {
+            get
+            {
+                return strAxisName;
+            }
+        }
+
+        public int[] AxisNumArray
+        {
+            get
+            {
+                return axisNumArray;
+            }
+
+            set
+            {
+                axisNumArray = value;
+            }
+        }
+
+        public Dictionary<int, PointInfo> DicPoint
+        {
+            get
+            {
+                return dicPoint;
+            }
+
+            set
+            {
+                dicPoint = value;
+            }
+        }
+
+        public Thread AutoThread
+        {
+            get
+            {
+                return autoThread;
+            }
+
+            set
+            {
+                autoThread = value;
+            }
+        }
+
+        public Thread ManualThread
+        {
+            get
+            {
+                return manualThread;
+            }
+
+            set
+            {
+                manualThread = value;
+            }
+        }
+
+        public ManualState ManaulState
+        {
+            get
+            {
+                return _manaulState;
+            }
+
+            set
+            {
+                _manaulState = value;
+            }
+        }
+
+        public Control ControlManual
+        {
+            get
+            {
+                return controlManual;
+            }
+
+            set
+            {
+                controlManual = value;
+            }
+        }
+
+        public bool BeginCycle1
+        {
+            get
+            {
+                return _beginCycle;
+            }
+
+            set
+            {
+                _beginCycle = value;
+            }
+        }
+
+        public string StrName
+        {
+            get
+            {
+                return _strName;
+            }
+
+            set
+            {
+                _strName = value;
+            }
+        }
+
+        public int Index1
+        {
+            get
+            {
+                return _index;
+            }
+
+            set
+            {
+                _index = value;
+            }
+        }
+
+        public bool StationEnable1
+        {
+            get
+            {
+                return _stationEnable;
+            }
+
+            set
+            {
+                _stationEnable = value;
+            }
+        }
+
+        public List<delegateFunc> ManualFuncList
+        {
+            get
+            {
+                return _manualFuncList;
+            }
+
+            set
+            {
+                _manualFuncList = value;
+            }
+        }
+
+        public static int MaxLastLogCount1
+        {
+            get
+            {
+                return MaxLastLogCount;
+            }
+        }
+
+        public StationState NCurState
+        {
+            get
+            {
+                return _nCurState;
+            }
+
+            set
+            {
+                _nCurState = value;
+            }
+        }
+
+        public bool BRunThread
+        {
+            get
+            {
+                return _bRunThread;
+            }
+
+            set
+            {
+                _bRunThread = value;
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 工站基类构造函数
+        /// </summary>
+        /// <param name="strName">站位名称</param>
+        public StationBase(string strName)
+        {
+            StrName = strName;
+        }
+
+        #region 站位信息获取、设置方法
+
+        /// <summary>
+        /// 设置轴号
+        /// </summary>
+        /// <param name="index">轴序号</param>
+        /// <param name="nAxisNo">轴号</param>
+        public void SetAxisNo(int index, int nAxisNo)
+        {
+            AxisNumArray[index] = nAxisNo;
+        }
+
+        /// <summary>
+        /// 得到轴号
+        /// </summary>
+        /// <param name="index">轴序号</param>
+        /// <returns></returns>
+        public int GetAxisNo(int index)
+        {
+            return AxisNumArray[index];
+        }
+
+        /// <summary>
+        /// 当前站位是否处于急停状态
+        /// </summary>
+        /// <returns></returns>
+        public bool IsEmg()
+        {
+            return NCurState == StationState.StateEmg;
+        }
+
+        /// <summary>
+        /// 当前站位是否处于停止状态
+        /// </summary>
+        /// <returns></returns>
+        public bool IsManual()
+        {
+            return ManualThread != null;
+        }
+
+        /// <summary>
+        /// 站位运行状态切换
+        /// </summary>
+        /// <param name="nState">将要切换到的站位状态</param>
+        public void SwitchState(StationState nState)
+        {
+            if (NCurState == nState)
+                return;
+
+            NCurState = nState;
+            if (LocationServices.GetLangType() == "en-us")
+                ShowLog("State switch to " + nState);
+            else
+                ShowLog("状态切换至" + nState);
+        }
+
+        /// <summary>
+        /// 是否允许显示日志，如果不做判断在子类里重写此方法return true
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        protected virtual bool IsAllowLog(LastLog log)
+        {
+            bool flag = true;
+            lock (QueLastLog)
+            {
+                foreach (LastLog lastLog in QueLastLog)
+                {
+                    if ((log.Time - lastLog.Time).TotalSeconds < 3.0 && log.StrLog == lastLog.StrLog)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (QueLastLog.Count >= 2)
+                {
+                    LastLog result;
+                    QueLastLog.TryDequeue(out result);
+                }
+                QueLastLog.Enqueue(log);
+            }
+            return flag;
+        }
+
+        /// <summary>
+        /// 获取运动超时时间设置值
+        /// </summary>
+        /// <returns>超时时间</returns>
+        public static int GetMotionTimeOut()
+        {
+            int paramInt = SingletonPattern<SystemManager>.GetInstance().GetParamInt("MotionTimeOut");
+            if (paramInt == 0)
+                return 600;
+            return paramInt;
+        }
+
+        /// <summary>
+        /// 获取IO超时时间设置
+        /// </summary>
+        /// <returns>超时时间</returns>
+        public static int GetIoTimeOut()
+        {
+
+            int paramInt = SingletonPattern<SystemManager>.GetInstance().GetParamInt("IoTimeOut");
+            if (paramInt == 0)
+                return 100;
+            return paramInt;
+        }
+
+        /// <summary>
+        /// 获取寄存器等待超时时间
+        /// </summary>
+        /// <returns>超时时间</returns>
+        public static int GetRegTimeOut()
+        {
+            int paramInt = SingletonPattern<SystemManager>.GetInstance().GetParamInt("RegTimeOut");
+            if (paramInt == 0)
+                return 600;
+            return paramInt;
+        }
+
+        /// <summary>
+        /// 判定串口数据通讯是否超时报警
+        /// </summary>
+        /// <param name="comLink"></param>
+        /// <param name="bShowDialog">超时时是否显示提示对话框卡住流程 </param>
+        /// <returns>0:未超时  1:超时  </returns>
+        public int CheckCommTimeOut(ComLink comLink, bool bShowDialog = false)
+        {
+            if (comLink.IsTimeOut())
+            {
+                string str = Name + comLink.StrName + "读取超时";
+                if (LocationServices.GetLangType() == "en-us")
+                    str = Name + comLink.StrName + " timeout";
+                ShowLog(str, LogLevel.Error);
+                if (bShowDialog)
+                {
+                    ShowMessage(str, true, new[] { "复位" });
+                }
+                return 1;
+            }
+            CheckContinue();
+            return 0;
+        }
+
+        /// <summary>
+        /// 判定网口数据通讯是否超时报警
+        /// </summary>
+        /// <param name="tcpLink"></param>
+        /// <param name="bShowDialog">超时后是否显示提示对话框卡住当前流程, true :显示对话框,  false:不显示 </param>
+        /// <returns>0:未超时  1:超时  </returns>
+        public int CheckCommTimeOut(TcpLink tcpLink, bool bShowDialog = false)
+        {
+            if (tcpLink.IsTimeOut())
+            {
+                string str = Name + tcpLink.m_strName + "读取超时";
+                if (LocationServices.GetLangType() == "en-us")
+                    str = Name + tcpLink.m_strName + " timeout";
+                ShowLog(str, LogLevel.Error);
+                if (bShowDialog)
+                {
+                    ShowMessage(str, true, new[] { "复位" });
+                }
+                return 1;
+            }
+            CheckContinue();
+            return 0;
+        }
+
+        /// <summary>
+        /// 获取通讯命令超时时间设置
+        /// </summary>
+        /// <returns>超时时间</returns>
+        public static int GetCommTimeOut()
+        {
+            int paramInt = SingletonPattern<SystemManager>.GetInstance().GetParamInt("CommunicationTimeOut");
+            if (paramInt == 0)
+                return 600;
+            return paramInt;
+        }
+
+        /// <summary>
+        /// 根据轴号获取轴的方向
+        /// </summary>
+        /// <param name="nAxisNo">轴号，AxisX/AxisY/AxisZ/AxisU</param>
+        /// <returns></returns>
+        public bool GetAxisPositiveByAxisNo(int nAxisNo)
+        {
+            return PositiveMove[Array.IndexOf(AxisNumArray, nAxisNo)];
+        }
+
+        /// <summary>
+        /// 根据轴的索引号获取轴的方向
+        /// </summary>
+        /// <param name="index">索引号，从0开始</param>
+        /// <returns></returns>
+        public bool GetAxisPositiveByIndex(int index)
+        {
+            return PositiveMove[index];
+        }
+
+        /// <summary>
+        /// 根据轴号取反轴的方向，当发现UI界面上方向和实际方向不一致时取反
+        /// </summary>
+        /// <param name="nAxisNo">索引号，从0开始</param>
+        public void InverseAxisPositiveByAxisNo(int nAxisNo)
+        {
+            int index = Array.IndexOf(AxisNumArray, nAxisNo);
+            PositiveMove[index] = !PositiveMove[index];
+        }
+
+        /// <summary>
+        /// 根据轴的索引号取反轴的方向，当发现UI界面上方向和实际方向不一致时取反
+        /// </summary>
+        /// <param name="index">索引号，从0开始</param>
+        public void InverseAxisPositiveByIndex(int index)
+        {
+            PositiveMove[index] = !PositiveMove[index];
+        }
+
+        /// <summary>重命名轴名称</summary>
+        /// <param name="index">轴号索引</param>
+        /// <param name="strNewName">新名称</param>
+        public void RenameAxisName(int index, string strNewName)
+        {
+            StrAxisName[index] = strNewName;
+        }
+
+        /// <summary>获取轴的名称</summary>
+        /// <param name="index">索引号</param>
+        /// <returns></returns>
+        public string GetAxisName(int index)
+        {
+            return StrAxisName[index];
+        }
+
+        #endregion
+
+        #region 站位运行
+
         /// <summary>
         /// 开始自动运行
         /// </summary>
@@ -414,7 +855,7 @@ namespace AutoMationFrameworkDll
 
             if ((uint)AutoThread.ThreadState > 0U)
             {
-                _bRunThread = true;
+                BRunThread = true;
                 AutoThread.Start();
             }
 
@@ -442,9 +883,9 @@ namespace AutoMationFrameworkDll
             }
             if (AutoThread == null)
                 return;
-            _bRunThread = false;
+            BRunThread = false;
 
-            _nCurState = StationState.StateManual;
+            NCurState = StationState.StateManual;
             if (!AutoThread.Join(5000))
                 AutoThread.Abort();
 
@@ -460,20 +901,363 @@ namespace AutoMationFrameworkDll
         }
 
         /// <summary>
-        /// 站位运行状态切换
+        /// 站位公共处理步骤
         /// </summary>
-        /// <param name="nState">将要切换到的站位状态</param>
-        public void SwitchState(StationState nState)
+        public void ThreadProc()
         {
-            if (_nCurState == nState)
-                return;
+            IsDeinit = false;
 
-            _nCurState = nState;
-            if (LocationServices.GetLangType() == "en-us")
-                ShowLog("State switch to " + nState);
-            else
-                ShowLog("状态切换至" + nState);
+            while (BRunThread)
+            {
+                string strLog1 = "手动停止运行";
+                string strLog2 = "本站位出现异常,停止运行";
+                if (LocationServices.GetLangType() == "en-us")
+                {
+                    strLog1 = "Manual stop";
+                    strLog2 = "The station is abnormal and stops operation";
+                }
+                if (NCurState == StationState.StateAuto)
+                {
+                    try
+                    {
+                        if (StationEnable)
+                            StationInit();
+                        if (NCurState == StationState.StateManual)
+                        {
+                            ShowLog(strLog1, LogLevel.Error);
+                            break;
+                        }
+                        if (NCurState == StationState.StateEmg)
+                        {
+                            SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
+                            ShowLog(strLog2, LogLevel.Error);
+                            continue;
+                        }
+                        do
+                        {
+                            if (StationEnable)
+                                StationProcess();
+                            else
+                                DisableRun();
+                        }
+                        while (NCurState != StationState.StateManual);
+
+                        ShowLog(strLog1, LogLevel.Error);
+                    }
+                    catch (StationException ex)
+                    {
+                        if (NCurState != StationState.StateEmg)
+                        {
+                            NCurState = StationState.StateEmg;
+                            if (!SingletonPattern<StationManager>.GetInstance().IsEmg())
+                            {
+                                SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
+                                SingletonPattern<RunInforManager>.GetInstance().Error(ErrorType.ErrSystem, Name, ex.Message);
+                                ShowLog(ex.Message, LogLevel.Error);
+                                ShowLog(strLog2, LogLevel.Error);
+                            }
+                            Debug.WriteLine(ex.Message);
+                        }
+                        else
+                        {
+                            ShowLog(ex.Message, LogLevel.Error);
+                            Debug.WriteLine(ex.Message);
+                        }
+                    }
+                    catch (SafeException ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                        ShowLog(strLog1, LogLevel.Error);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        NCurState = StationState.StateEmg;
+                        SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
+                        ShowLog(ex.Message, LogLevel.Error);
+                        ShowLog(strLog2, LogLevel.Error);
+                    }
+                }
+                Thread.Sleep(50);
+            }
+
+            IsDeinit = true;
+
+            if (!StationEnable)
+                return;
+            StationDeinit();
         }
+
+        /// <summary>
+        /// 站位被禁用时空运行
+        /// </summary>
+        public void DisableRun()
+        {
+            WaitBegin();
+            if (LocationServices.GetLangType() == "en-us")
+                ShowLog("This station is disabled, ready to wait", LogLevel.Warn);
+            else
+                ShowLog("此站已禁用，就绪等待中", LogLevel.Warn);
+
+            WaitTimeDelay(1000);
+        }
+
+        /// <summary>
+        /// 站位初始化,虚函数，重写需要子类继承
+        /// </summary>
+        public virtual void StationInit()
+        {
+        }
+
+        /// <summary>
+        /// 站位结束处理过程,虚函数，重写需要子类继承
+        /// </summary>
+        public virtual void StationDeinit()
+        {
+        }
+
+        /// <summary>
+        /// 站位初始化为安全状态,虚函数，重写需要子类继承
+        /// </summary>
+        public virtual void InitSecurityState()
+        {
+        }
+
+         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsStop()
+        {
+            return NCurState == StationState.StateManual;
+        }
+
+        /// <summary>
+        /// 响应流程暂停的处理，比如流水线在暂停时需要停止
+        /// </summary>
+        public virtual void OnPause()
+        {
+        }
+
+        /// <summary>
+        /// 响应流程恢复的处理，比如流水线在恢复时需要继续运行
+        /// </summary>
+        public virtual void OnResume()
+        {
+        }
+
+        /// <summary>
+        /// 站位急停,虚函数，重写需要子类继承
+        /// </summary>
+        public virtual void EmgStop()
+        {
+            for (int index = 0; index < 4; ++index)
+            {
+                if (AxisNumArray[index] > 0)
+                    SingletonPattern<MotionManager>.GetInstance().StopEmg(AxisNumArray[index]);
+            }
+        }
+
+        /// <summary>
+        /// 手动运行一个函数
+        /// </summary>
+        /// <param name="func"></param>
+        public void ManualRun(delegateFunc func)
+        {
+            string text1 = "当前正在自动运行中，是否要继续手动运行?";
+            string caption = "提示";
+            string text2 = "当前正在手动运行中，是否要继续加入手动运行动作队列?";
+            if (LocationServices.GetLangType() == "en-us")
+            {
+                text1 = "Currently running automatically, do you want to continue running manually?";
+                caption = "Tips";
+                text2 = "You are currently running manually. Do you want to continue to join the manual operation action queue?";
+            }
+            if (SingletonPattern<StationManager>.GetInstance().IsAutoRunning() && MessageBox.Show(text1, caption, MessageBoxButton.OKCancel) == MessageBoxResult.Cancel || ManualFuncList.Count > 0 && MessageBox.Show(text2, caption, MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
+                return;
+            lock (this)
+                ManualFuncList.Add(func);
+            StartManualRun();
+        }
+
+        /// <summary>
+        /// 开始手动运行
+        /// </summary>
+        public void StartManualRun()
+        {
+            string strLog1 = "当前站位开始手动运行";
+            string strLog2 = "当前站位处于模拟运行模式";
+            if (LocationServices.GetLangType() == "en-us")
+            {
+                strLog1 = "Current station starts manual operation";
+                strLog2 = "Current station is in simulated operation mode";
+            }
+            if (ManualThread == null)
+                ManualThread = new Thread(ManualRunThread);
+            if (ManualThread.ThreadState != System.Threading.ThreadState.Unstarted)
+                return;
+            ManaulState = ManualState.StateManualRun;
+            ManualThread.Start();
+
+            ManualStateChangedEvent?.Invoke(ManaulState);
+            ShowLog(strLog1);
+            if (SingletonPattern<SystemManager>.GetInstance().IsSimulateRunMode())
+                ShowLog(strLog2);
+        }
+
+        /// <summary>
+        /// 停止手动运行
+        /// </summary>
+        public void StopManualRun()
+        {
+            if (ManualThread == null)
+                return;
+            ManaulState = ManualState.StateManualStop;
+            EmgStop();
+            if (!ManualThread.Join(5000))
+                ManualThread.Abort();
+            ManualThread = null;
+            ManualFuncList.Clear();
+
+            ManualStateChangedEvent?.Invoke(ManaulState);
+            if (LocationServices.GetLangType() == "en-us")
+                ShowLog("Current station stops manual operation");
+            else
+                ShowLog("当前站位停止手动运行");
+        }
+
+        /// <summary>
+        /// 暂停手动运行流程
+        /// </summary>
+        public void PauseManualRun()
+        {
+            if (ManualThread == null || ManaulState != ManualState.StateManualRun)
+                return;
+            ManaulState = ManualState.StateManualPause;
+            OnPause();
+            ManualStateChangedEvent?.Invoke(ManaulState);
+            if (LocationServices.GetLangType() == "en-us")
+                ShowLog("Manual operation is suspended at current station");
+            else
+                ShowLog("当前站位暂停手动运行");
+        }
+
+        /// <summary>
+        /// 恢复手动运行流程
+        /// </summary>
+        public void ResumeManualRun()
+        {
+            if (ManualThread == null || ManaulState != ManualState.StateManualPause)
+                return;
+            ManaulState = ManualState.StateManualRun;
+            OnResume();
+            ManualStateChangedEvent?.Invoke(ManaulState);
+            if (LocationServices.GetLangType() == "en-us")
+                ShowLog("Continue manual operation at current station");
+            else
+                ShowLog("当前站位继续手动运行");
+        }
+
+        /// <summary>
+        /// 手动运行的线程函数
+        /// </summary>
+        public void ManualRunThread()
+        {
+            string strLog1 = "本站位出现异常,停止运行";
+            string strLog2 = "手动运行停止";
+            string str1 = "出现异常";
+            string strLog3 = "本站位出现异常,停止手动运行";
+            string str2 = "手动运行已结束";
+            if (LocationServices.GetLangType() == "en-us")
+            {
+                strLog1 = "The station is abnormal and stops operation";
+                strLog2 = "Manual operation stop";
+                str1 = " abnormal ";
+                strLog3 = "The station is abnormal, stop manual operation";
+                str2 = "Manual operation ended";
+            }
+            try
+            {
+                IsDeinit = false;
+                while (ManualFuncList.Count > 0)
+                {
+                    ManualFuncList.ElementAt(0)();
+                    lock (this)
+                        ManualFuncList.RemoveAt(0);
+                }
+            }
+            catch (StationException ex)
+            {
+                if (ManaulState != ManualState.StateManualEmg)
+                {
+                    ManaulState = ManualState.StateManualEmg;
+                    if (!SingletonPattern<StationManager>.GetInstance().IsEmg())
+                    {
+                        SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
+                        SingletonPattern<RunInforManager>.GetInstance().Error(ErrorType.ErrSystem, Name, ex.Message);
+                        ShowLog(ex.Message, LogLevel.Error);
+                        ShowLog(strLog1, LogLevel.Error);
+                    }
+                    Debug.WriteLine(ex.Message);
+                }
+                else
+                {
+                    ShowLog(ex.Message, LogLevel.Error);
+                    Debug.WriteLine(ex.Message, LogLevel.Error);
+                }
+            }
+            catch (SafeException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                ShowLog(strLog2, LogLevel.Error);
+                ManaulState = ManualState.StateManualStop;
+            }
+            catch (Exception ex)
+            {
+                ManaulState = ManualState.StateManualEmg;
+                SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
+                MessageBox.Show(ex.ToString(), Name + str1, MessageBoxButton.OK, MessageBoxImage.Hand);
+                ShowLog(ex.Message, LogLevel.Error);
+                ShowLog(strLog3, LogLevel.Error);
+            }
+            finally
+            {
+                ManualThread = null;
+                ManualFuncList.Clear();
+
+                ManualStateChangedEvent?.Invoke(ManaulState);
+                ShowLog(str2);
+                Debug.WriteLine(str2);
+            }
+        }
+
+        /// <summary>
+        /// 站位处理流程,虚函数，重写需要子类继承
+        /// </summary>
+        public virtual void StationProcess()
+        {
+            WaitBegin();
+
+            if (LocationServices.GetLangType() == "en-us")
+                ShowLog("Process not written, default ready waiting", LogLevel.Warn);
+            else
+                ShowLog("流程未编写，默认就绪等待中", LogLevel.Warn);
+
+            WaitTimeDelay(1000);
+        }
+
+        /// <summary>
+        /// 站位是否已经等待开始
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsReady()
+        {
+            return NCurState == StationState.StateReady;
+        }
+
+        #endregion
+
+        #region 站位提示信息
 
         /// <summary>
         /// 超时提示, 工程师模式时可以忽略超时错误继续运行，其它模式只支持继续等待或停止站位运行
@@ -486,9 +1270,9 @@ namespace AutoMationFrameworkDll
         public bool? ShowMessage(string strText, bool bOnlyNotify = true, string[] strBindIo = null, int nKeepTimeS = 3)
         {
             MessageWindow messageWindow = new MessageWindow(this);
-            messageWindow.BindIo = strBindIo;
+            messageWindow.BindIo      = strBindIo;
             messageWindow.IoKeepTimeS = nKeepTimeS;
-            messageWindow.NotifyMode = bOnlyNotify;
+            messageWindow.NotifyMode  = bOnlyNotify;
 
             string title = "消息提示";
             if (LocationServices.GetLangType() == "en-us")
@@ -520,9 +1304,9 @@ namespace AutoMationFrameworkDll
         public bool? ShowMessage(string strText, string[] strButtonText, string[] strBindIo = null, int nKeepTimeS = 3)
         {
             MessageWindow messageWindow = new MessageWindow(this);
-            messageWindow.BindIo = strBindIo;
+            messageWindow.BindIo      = strBindIo;
             messageWindow.IoKeepTimeS = nKeepTimeS;
-            messageWindow.NotifyMode = true;
+            messageWindow.NotifyMode  = true;
             string title = "消息提示";
             if (LocationServices.GetLangType() == "en-us")
                 title = "Message Tips";
@@ -566,55 +1350,15 @@ namespace AutoMationFrameworkDll
         /// <param name="level"></param>
         public new void ShowLog(string strLog, LogLevel level = LogLevel.Info)
         {
-            string strLog1 = Name + " - " + strLog;
-            DateTime now = DateTime.Now;
+            string   strLog1 = Name + " - " + strLog;
+            DateTime now     = DateTime.Now;
             if (!IsAllowLog(new LastLog
             {
-                Time = now,
+                Time   = now,
                 StrLog = strLog1
             }))
                 return;
             base.ShowLog(strLog1, level);
-        }
-
-        /// <summary>
-        /// 是否允许显示日志，如果不做判断在子类里重写此方法return true
-        /// </summary>
-        /// <param name="log"></param>
-        /// <returns></returns>
-        protected virtual bool IsAllowLog(LastLog log)
-        {
-            bool flag = true;
-            lock (QueLastLog)
-            {
-                foreach (LastLog lastLog in QueLastLog)
-                {
-                    if ((log.Time - lastLog.Time).TotalSeconds < 3.0 && log.StrLog == lastLog.StrLog)
-                    {
-                        flag = false;
-                        break;
-                    }
-                }
-                if (QueLastLog.Count >= 2)
-                {
-                    LastLog result;
-                    QueLastLog.TryDequeue(out result);
-                }
-                QueLastLog.Enqueue(log);
-            }
-            return flag;
-        }
-
-        /// <summary>
-        /// 获取运动超时时间设置值
-        /// </summary>
-        /// <returns>超时时间</returns>
-        public static int GetMotionTimeOut()
-        {
-            int paramInt = SingletonPattern<SystemManager>.GetInstance().GetParamInt("MotionTimeOut");
-            if (paramInt == 0)
-                return 600;
-            return paramInt;
         }
 
         /// <summary>
@@ -699,6 +1443,10 @@ namespace AutoMationFrameworkDll
             return 1;
         }
 
+        #endregion
+
+        #region 站位信号等待
+
         /// <summary>
         /// 等待回原点
         /// </summary>
@@ -709,8 +1457,8 @@ namespace AutoMationFrameworkDll
         /// <returns>0:未超时  1:超时  </returns>
         public int WaitHome(int nAxisNo, int nTimeOutS = 0, bool bShowDialog = true, bool bPause = true)
         {
-            int index = Array.IndexOf(AxisNumArray, nAxisNo);
-            string str1 = "轴";
+            int    index   = Array.IndexOf(AxisNumArray, nAxisNo);
+            string str1    = "轴";
             string format1 = "等待{0}回原点";
             string format2 = "{0}等待{1}回原点{2}秒超时";
             string[] strArray = {
@@ -727,17 +1475,17 @@ namespace AutoMationFrameworkDll
             string format5 = "等待{0}回原点,超过{1}秒，继续等待";
             if (LocationServices.GetLangType() == "en-us")
             {
-                str1 = "Axis ";
+                str1    = "Axis ";
                 format1 = "Waiting for {0} to go home";
                 format2 = "{0} waiting for {1} to go home for {2} seconds timeout";
                 strArray = new[]
                 {
-                  "EStop",
-                  "Alarm",
-                  "Servo-Off",
-                  "PEL",
-                  "MEL",
-                  "Stop Out-Of-Limit"
+                    "EStop",
+                    "Alarm",
+                    "Servo-Off",
+                    "PEL",
+                    "MEL",
+                    "Stop Out-Of-Limit"
                 };
                 format3 = "{0} occur {1} {2} exception";
                 format4 = "{0} occur {1} exception, error code:{2}";
@@ -756,11 +1504,11 @@ namespace AutoMationFrameworkDll
             if (nTimeOutS == 0)
                 nTimeOutS = GetMotionTimeOut();
             bool flag = false;
-            int num2;
+            int  num2;
             while (true)
             {
                 num2 = -1;
-                if (_nCurState == StationState.StateAuto || !SingletonPattern<MotionManager>.GetInstance().IsEnbaleAxisPause(nAxisNo))
+                if (NCurState == StationState.StateAuto || !SingletonPattern<MotionManager>.GetInstance().IsEnbaleAxisPause(nAxisNo))
                     num2 = SingletonPattern<MotionManager>.GetInstance().IsHomeNormalStop(nAxisNo);
                 switch (num2)
                 {
@@ -804,7 +1552,7 @@ namespace AutoMationFrameworkDll
                         ShowLog(str2 + " Home finished");
                         return 0;
                     default:
-                        string str4 = num2 >= 7 ? string.Format(format4, Name, str2, num2 - 10) : string.Format(format3, Name, str2, strArray[num2 - 1]);
+                        string        str4          = num2 >= 7 ? string.Format(format4, Name, str2, num2 - 10) : string.Format(format3, Name, str2, strArray[num2 - 1]);
                         StringBuilder stringBuilder = new StringBuilder();
                         stringBuilder.Append(1005);
                         stringBuilder.Append(",");
@@ -829,8 +1577,8 @@ namespace AutoMationFrameworkDll
         /// <returns>0:未超时  1:超时  </returns>
         public int WaitMotion(int nAxisNo, int nTimeOutS = 0, bool bShowDialog = true, bool bPause = true, bool bShowLog = true)
         {
-            int index = Array.IndexOf(AxisNumArray, nAxisNo);
-            string str1 = "轴";
+            int    index   = Array.IndexOf(AxisNumArray, nAxisNo);
+            string str1    = "轴";
             string format1 = "等待{0}轴运动到位";
             string format2 = "{0}等待{1}到位{2}秒超时";
             string[] strArray = {
@@ -846,17 +1594,17 @@ namespace AutoMationFrameworkDll
             string format5 = "等待{0}轴运动未到位,超过{1}秒,继续等待";
             if (LocationServices.GetLangType() == "en-us")
             {
-                str1 = "Axis ";
+                str1    = "Axis ";
                 format1 = "Waiting for {0} motion done";
                 format2 = "{0} Waiting for {1} motion done for {2} seconds timeout";
                 strArray = new[]
                 {
-                  "EStop",
-                  "Alarm",
-                  "Servo-Off",
-                  "PEL",
-                  "MEL",
-                  "Stop Out-Of-Limit"
+                    "EStop",
+                    "Alarm",
+                    "Servo-Off",
+                    "PEL",
+                    "MEL",
+                    "Stop Out-Of-Limit"
                 };
                 format3 = "{0} occur {1} {2} exception";
                 format4 = "{0} occur {1} exception, error code:{2}";
@@ -879,11 +1627,11 @@ namespace AutoMationFrameworkDll
             if (nTimeOutS == 0)
                 nTimeOutS = GetMotionTimeOut();
             bool flag = false;
-            int num2;
+            int  num2;
             while (true)
             {
                 num2 = -1;
-                if (_nCurState == StationState.StateAuto || !SingletonPattern<MotionManager>.GetInstance().IsEnbaleAxisPause(nAxisNo))
+                if (NCurState == StationState.StateAuto || !SingletonPattern<MotionManager>.GetInstance().IsEnbaleAxisPause(nAxisNo))
                     num2 = SingletonPattern<MotionManager>.GetInstance().IsAxisInPos(nAxisNo, cfg.InPosError);
                 switch (num2)
                 {
@@ -928,7 +1676,7 @@ namespace AutoMationFrameworkDll
                             ShowLog(str2 + " Motion done");
                         return 0;
                     default:
-                        string str4 = num2 >= 7 ? string.Format(format4, Name, str2, (num2 - 10)) : string.Format(format3, Name, str2, strArray[num2 - 1]);
+                        string        str4          = num2 >= 7 ? string.Format(format4, Name, str2, (num2 - 10)) : string.Format(format3, Name, str2, strArray[num2 - 1]);
                         StringBuilder stringBuilder = new StringBuilder();
                         stringBuilder.Append(1015);
                         stringBuilder.Append(",");
@@ -942,20 +1690,7 @@ namespace AutoMationFrameworkDll
             }
         }
 
-        /// <summary>
-        /// 获取IO超时时间设置
-        /// </summary>
-        /// <returns>超时时间</returns>
-        public static int GetIoTimeOut()
-        {
-
-            int paramInt = SingletonPattern<SystemManager>.GetInstance().GetParamInt("IoTimeOut");
-            if (paramInt == 0)
-                return 100;
-            return paramInt;
-        }
-
-        /// <summary>
+         /// <summary>
         /// 等待IO输入点有效
         /// </summary>
         /// <param name="nCardNo">卡号</param>
@@ -1182,19 +1917,7 @@ namespace AutoMationFrameworkDll
             return 1;
         }
 
-        /// <summary>
-        /// 获取寄存器等待超时时间
-        /// </summary>
-        /// <returns>超时时间</returns>
-        public static int GetRegTimeOut()
-        {
-            int paramInt = SingletonPattern<SystemManager>.GetInstance().GetParamInt("RegTimeOut");
-            if (paramInt == 0)
-                return 600;
-            return paramInt;
-        }
-
-        /// <summary>
+         /// <summary>
         /// 等待系统寄存器是否有效
         /// </summary>
         /// <param name="nIndex"></param>
@@ -1436,67 +2159,7 @@ namespace AutoMationFrameworkDll
             return 1;
         }
 
-        /// <summary>
-        /// 判定串口数据通讯是否超时报警
-        /// </summary>
-        /// <param name="comLink"></param>
-        /// <param name="bShowDialog">超时时是否显示提示对话框卡住流程 </param>
-        /// <returns>0:未超时  1:超时  </returns>
-        public int CheckCommTimeOut(ComLink comLink, bool bShowDialog = false)
-        {
-            if (comLink.IsTimeOut())
-            {
-                string str = Name + comLink.m_strName + "读取超时";
-                if (LocationServices.GetLangType() == "en-us")
-                    str = Name + comLink.m_strName + " timeout";
-                ShowLog(str, LogLevel.Error);
-                if (bShowDialog)
-                {
-                    ShowMessage(str, true, new[] { "复位" });
-                }
-                return 1;
-            }
-            CheckContinue();
-            return 0;
-        }
-
-        /// <summary>
-        /// 判定网口数据通讯是否超时报警
-        /// </summary>
-        /// <param name="tcpLink"></param>
-        /// <param name="bShowDialog">超时后是否显示提示对话框卡住当前流程, true :显示对话框,  false:不显示 </param>
-        /// <returns>0:未超时  1:超时  </returns>
-        public int CheckCommTimeOut(TcpLink tcpLink, bool bShowDialog = false)
-        {
-            if (tcpLink.IsTimeOut())
-            {
-                string str = Name + tcpLink.m_strName + "读取超时";
-                if (LocationServices.GetLangType() == "en-us")
-                    str = Name + tcpLink.m_strName + " timeout";
-                ShowLog(str, LogLevel.Error);
-                if (bShowDialog)
-                {
-                    ShowMessage(str, true, new[] { "复位" });
-                }
-                return 1;
-            }
-            CheckContinue();
-            return 0;
-        }
-
-        /// <summary>
-        /// 获取通讯命令超时时间设置
-        /// </summary>
-        /// <returns>超时时间</returns>
-        public static int GetCommTimeOut()
-        {
-            int paramInt = SingletonPattern<SystemManager>.GetInstance().GetParamInt("CommunicationTimeOut");
-            if (paramInt == 0)
-                return 600;
-            return paramInt;
-        }
-
-        /// <summary>
+         /// <summary>
         /// 通过标签名称等待结果
         /// </summary>
         /// <param name="sTagName">标签名称</param>
@@ -1517,7 +2180,7 @@ namespace AutoMationFrameworkDll
                 format3 = "Wait for OPC {0}:{1} = {2} more than {3} seconds,continue to wait";
             }
 
-            string opcTagDesc = SingletonPattern<OpcMgr>.GetInstance().GetOpcTagDesc(sTagName);
+            string opcTagDesc = SingletonPattern<OpcManager>.GetInstance().GetOpcTagDesc(sTagName);
             ShowLog(string.Format(format1, sTagName, opcTagDesc, sValue));
             if (SingletonPattern<SystemManager>.GetInstance().IsSimulateRunMode())
             {
@@ -1531,7 +2194,7 @@ namespace AutoMationFrameworkDll
             bool flag = false;
             while (true)
             {
-                if (SingletonPattern<OpcMgr>.GetInstance().ReadDataByTag(sTagName) != sValue)
+                if (SingletonPattern<OpcManager>.GetInstance().ReadDataByTag(sTagName) != sValue)
                 {
                     Thread.Sleep(SingletonPattern<SystemManager>.GetInstance().ScanTime);
                     TimeSpan timeSpan = DateTime.Now - now;
@@ -1584,7 +2247,7 @@ namespace AutoMationFrameworkDll
         /// <returns>0:未超时  1:超时</returns>
         public int WaitOpcByDesc(string sDesc, string sValue, int nTimeOutS = -1, bool bShowDialog = true, bool bPause = true)
         {
-            return WaitOpcByTag(SingletonPattern<OpcMgr>.GetInstance().GetOpcTagName(sDesc), sValue, nTimeOutS, bShowDialog, bPause);
+            return WaitOpcByTag(SingletonPattern<OpcManager>.GetInstance().GetOpcTagName(sDesc), sValue, nTimeOutS, bShowDialog, bPause);
         }
 
         /// <summary>
@@ -1773,7 +2436,7 @@ namespace AutoMationFrameworkDll
                 format2 = "{0} Waiting for receive cmd:{1} timeout";
                 format3 = "Wait for receive cmd:{0} more than {1} seconds,continue to wait";
             }
-            ShowLog(string.Format(format1, comLink.m_strName, strCmd));
+            ShowLog(string.Format(format1, comLink.StrName, strCmd));
             if (SingletonPattern<SystemManager>.GetInstance().IsSimulateRunMode())
             {
                 WaitTimeDelay(500);
@@ -1794,7 +2457,7 @@ namespace AutoMationFrameworkDll
                     if (strData.Length > 0)
                         ShowLog(str1 + str3 + str2, LogLevel.Warn);
                     Thread.Sleep(SingletonPattern<SystemManager>.GetInstance().ScanTime);
-                    num += SingletonPattern<SystemManager>.GetInstance().ScanTime + comLink.m_nTime;
+                    num += SingletonPattern<SystemManager>.GetInstance().ScanTime + comLink.Time;
                     if (nTimeOutS != -1 && num > nTimeOutS * 1000)
                     {
                         string str4 = string.Format(format2, Name, strCmd);
@@ -1802,7 +2465,7 @@ namespace AutoMationFrameworkDll
                         if (bShowDialog)
                         {
                             CheckContinue(bPause);
-                            if (ShowTimeOutDlg(str4, ErrorType.ErrComTimeOut, comLink.m_strName) == 0)
+                            if (ShowTimeOutDlg(str4, ErrorType.ErrComTimeOut, comLink.StrName) == 0)
                                 num = 0;
                             else
                             {
@@ -1854,7 +2517,7 @@ namespace AutoMationFrameworkDll
                 format2 = "{0} Waiting for receive data timeout";
                 format3 = "Wait for receive data more than {0} seconds,continue to wait";
             }
-            ShowLog(string.Format(format1, comLink.m_strName));
+            ShowLog(string.Format(format1, comLink.StrName));
             strData = "";
             if (SingletonPattern<SystemManager>.GetInstance().IsSimulateRunMode())
             {
@@ -1871,7 +2534,7 @@ namespace AutoMationFrameworkDll
                 if (strData.Length <= 0)
                 {
                     Thread.Sleep(SingletonPattern<SystemManager>.GetInstance().ScanTime);
-                    num += SingletonPattern<SystemManager>.GetInstance().ScanTime + comLink.m_nTime;
+                    num += SingletonPattern<SystemManager>.GetInstance().ScanTime + comLink.Time;
                     if (nTimeOutS != -1 && num > nTimeOutS * 1000)
                     {
                         string str = string.Format(format2, Name);
@@ -1879,7 +2542,7 @@ namespace AutoMationFrameworkDll
                         if (bShowDialog)
                         {
                             CheckContinue(bPause);
-                            if (ShowTimeOutDlg(str, ErrorType.ErrComTimeOut, comLink.m_strName) == 0)
+                            if (ShowTimeOutDlg(str, ErrorType.ErrComTimeOut, comLink.StrName) == 0)
                                 num = 0;
                             else
                             {
@@ -1912,416 +2575,6 @@ namespace AutoMationFrameworkDll
         }
 
         /// <summary>
-        /// 站位公共处理步骤
-        /// </summary>
-        public void ThreadProc()
-        {
-            IsDeinit = false;
-
-            while (_bRunThread)
-            {
-                string strLog1 = "手动停止运行";
-                string strLog2 = "本站位出现异常,停止运行";
-                if (LocationServices.GetLangType() == "en-us")
-                {
-                    strLog1 = "Manual stop";
-                    strLog2 = "The station is abnormal and stops operation";
-                }
-                if (_nCurState == StationState.StateAuto)
-                {
-                    try
-                    {
-                        if (StationEnable)
-                            StationInit();
-                        if (_nCurState == StationState.StateManual)
-                        {
-                            ShowLog(strLog1, LogLevel.Error);
-                            break;
-                        }
-                        if (_nCurState == StationState.StateEmg)
-                        {
-                            SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
-                            ShowLog(strLog2, LogLevel.Error);
-                            continue;
-                        }
-                        do
-                        {
-                            if (StationEnable)
-                                StationProcess();
-                            else
-                                DisableRun();
-                        }
-                        while (_nCurState != StationState.StateManual);
-
-                        ShowLog(strLog1, LogLevel.Error);
-                    }
-                    catch (StationException ex)
-                    {
-                        if (_nCurState != StationState.StateEmg)
-                        {
-                            _nCurState = StationState.StateEmg;
-                            if (!SingletonPattern<StationManager>.GetInstance().IsEmg())
-                            {
-                                SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
-                                SingletonPattern<RunInforManager>.GetInstance().Error(ErrorType.ErrSystem, Name, ex.Message);
-                                ShowLog(ex.Message, LogLevel.Error);
-                                ShowLog(strLog2, LogLevel.Error);
-                            }
-                            Debug.WriteLine(ex.Message);
-                        }
-                        else
-                        {
-                            ShowLog(ex.Message, LogLevel.Error);
-                            Debug.WriteLine(ex.Message);
-                        }
-                    }
-                    catch (SafeException ex)
-                    {
-                        Debug.WriteLine(ex.Message);
-                        ShowLog(strLog1, LogLevel.Error);
-                        break;
-                    }
-                    catch (Exception ex)
-                    {
-                        _nCurState = StationState.StateEmg;
-                        SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
-                        ShowLog(ex.Message, LogLevel.Error);
-                        ShowLog(strLog2, LogLevel.Error);
-                    }
-                }
-                Thread.Sleep(50);
-            }
-
-            IsDeinit = true;
-
-            if (!StationEnable)
-                return;
-            StationDeinit();
-        }
-
-        /// <summary>
-        /// 站位被禁用时空运行
-        /// </summary>
-        public void DisableRun()
-        {
-            WaitBegin();
-            if (LocationServices.GetLangType() == "en-us")
-                ShowLog("This station is disabled, ready to wait", LogLevel.Warn);
-            else
-                ShowLog("此站已禁用，就绪等待中", LogLevel.Warn);
-
-            WaitTimeDelay(1000);
-        }
-
-        /// <summary>
-        /// 站位初始化,虚函数，重写需要子类继承
-        /// </summary>
-        public virtual void StationInit()
-        {
-        }
-
-        /// <summary>
-        /// 站位结束处理过程,虚函数，重写需要子类继承
-        /// </summary>
-        public virtual void StationDeinit()
-        {
-        }
-
-        /// <summary>
-        /// 站位初始化为安全状态,虚函数，重写需要子类继承
-        /// </summary>
-        public virtual void InitSecurityState()
-        {
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual bool IsStop()
-        {
-            return _nCurState == StationState.StateManual;
-        }
-
-        /// <summary>
-        /// 响应流程暂停的处理，比如流水线在暂停时需要停止
-        /// </summary>
-        public virtual void OnPause()
-        {
-        }
-
-        /// <summary>
-        /// 响应流程恢复的处理，比如流水线在恢复时需要继续运行
-        /// </summary>
-        public virtual void OnResume()
-        {
-        }
-
-        /// <summary>
-        /// 站位急停,虚函数，重写需要子类继承
-        /// </summary>
-        public virtual void EmgStop()
-        {
-            for (int index = 0; index < 4; ++index)
-            {
-                if (AxisNumArray[index] > 0)
-                    SingletonPattern<MotionManager>.GetInstance().StopEmg(AxisNumArray[index]);
-            }
-        }
-
-        /// <summary>
-        /// 手动运行一个函数
-        /// </summary>
-        /// <param name="func"></param>
-        public void ManualRun(delegateFunc func)
-        {
-            string text1 = "当前正在自动运行中，是否要继续手动运行?";
-            string caption = "提示";
-            string text2 = "当前正在手动运行中，是否要继续加入手动运行动作队列?";
-            if (LocationServices.GetLangType() == "en-us")
-            {
-                text1 = "Currently running automatically, do you want to continue running manually?";
-                caption = "Tips";
-                text2 = "You are currently running manually. Do you want to continue to join the manual operation action queue?";
-            }
-            if (SingletonPattern<StationManager>.GetInstance().IsAutoRunning() && MessageBox.Show(text1, caption, MessageBoxButton.OKCancel) == MessageBoxResult.Cancel || _manualFuncList.Count > 0 && MessageBox.Show(text2, caption, MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
-                return;
-            lock (this)
-                _manualFuncList.Add(func);
-            StartManualRun();
-        }
-
-        /// <summary>
-        /// 开始手动运行
-        /// </summary>
-        public void StartManualRun()
-        {
-            string strLog1 = "当前站位开始手动运行";
-            string strLog2 = "当前站位处于模拟运行模式";
-            if (LocationServices.GetLangType() == "en-us")
-            {
-                strLog1 = "Current station starts manual operation";
-                strLog2 = "Current station is in simulated operation mode";
-            }
-            if (ManualThread == null)
-                ManualThread = new Thread(ManualRunThread);
-            if (ManualThread.ThreadState != System.Threading.ThreadState.Unstarted)
-                return;
-            _manaulState = ManualState.StateManualRun;
-            ManualThread.Start();
-
-            ManualStateChangedEvent?.Invoke(_manaulState);
-            ShowLog(strLog1);
-            if (SingletonPattern<SystemManager>.GetInstance().IsSimulateRunMode())
-                ShowLog(strLog2);
-        }
-
-        /// <summary>
-        /// 停止手动运行
-        /// </summary>
-        public void StopManualRun()
-        {
-            if (ManualThread == null)
-                return;
-            _manaulState = ManualState.StateManualStop;
-            EmgStop();
-            if (!ManualThread.Join(5000))
-                ManualThread.Abort();
-            ManualThread = null;
-            _manualFuncList.Clear();
-
-            ManualStateChangedEvent?.Invoke(_manaulState);
-            if (LocationServices.GetLangType() == "en-us")
-                ShowLog("Current station stops manual operation");
-            else
-                ShowLog("当前站位停止手动运行");
-        }
-
-        /// <summary>
-        /// 暂停手动运行流程
-        /// </summary>
-        public void PauseManualRun()
-        {
-            if (ManualThread == null || _manaulState != ManualState.StateManualRun)
-                return;
-            _manaulState = ManualState.StateManualPause;
-            OnPause();
-            ManualStateChangedEvent?.Invoke(_manaulState);
-            if (LocationServices.GetLangType() == "en-us")
-                ShowLog("Manual operation is suspended at current station");
-            else
-                ShowLog("当前站位暂停手动运行");
-        }
-
-        /// <summary>
-        /// 恢复手动运行流程
-        /// </summary>
-        public void ResumeManualRun()
-        {
-            if (ManualThread == null || _manaulState != ManualState.StateManualPause)
-                return;
-            _manaulState = ManualState.StateManualRun;
-            OnResume();
-            ManualStateChangedEvent?.Invoke(_manaulState);
-            if (LocationServices.GetLangType() == "en-us")
-                ShowLog("Continue manual operation at current station");
-            else
-                ShowLog("当前站位继续手动运行");
-        }
-
-        /// <summary>
-        /// 手动运行的线程函数
-        /// </summary>
-        public void ManualRunThread()
-        {
-            string strLog1 = "本站位出现异常,停止运行";
-            string strLog2 = "手动运行停止";
-            string str1 = "出现异常";
-            string strLog3 = "本站位出现异常,停止手动运行";
-            string str2 = "手动运行已结束";
-            if (LocationServices.GetLangType() == "en-us")
-            {
-                strLog1 = "The station is abnormal and stops operation";
-                strLog2 = "Manual operation stop";
-                str1 = " abnormal ";
-                strLog3 = "The station is abnormal, stop manual operation";
-                str2 = "Manual operation ended";
-            }
-            try
-            {
-                IsDeinit = false;
-                while (_manualFuncList.Count > 0)
-                {
-                    _manualFuncList.ElementAt(0)();
-                    lock (this)
-                        _manualFuncList.RemoveAt(0);
-                }
-            }
-            catch (StationException ex)
-            {
-                if (_manaulState != ManualState.StateManualEmg)
-                {
-                    _manaulState = ManualState.StateManualEmg;
-                    if (!SingletonPattern<StationManager>.GetInstance().IsEmg())
-                    {
-                        SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
-                        SingletonPattern<RunInforManager>.GetInstance().Error(ErrorType.ErrSystem, Name, ex.Message);
-                        ShowLog(ex.Message, LogLevel.Error);
-                        ShowLog(strLog1, LogLevel.Error);
-                    }
-                    Debug.WriteLine(ex.Message);
-                }
-                else
-                {
-                    ShowLog(ex.Message, LogLevel.Error);
-                    Debug.WriteLine(ex.Message, LogLevel.Error);
-                }
-            }
-            catch (SafeException ex)
-            {
-                Debug.WriteLine(ex.Message);
-                ShowLog(strLog2, LogLevel.Error);
-                _manaulState = ManualState.StateManualStop;
-            }
-            catch (Exception ex)
-            {
-                _manaulState = ManualState.StateManualEmg;
-                SingletonPattern<StationManager>.GetInstance().EmgStopAllStation();
-                MessageBox.Show(ex.ToString(), Name + str1, MessageBoxButton.OK, MessageBoxImage.Hand);
-                ShowLog(ex.Message, LogLevel.Error);
-                ShowLog(strLog3, LogLevel.Error);
-            }
-            finally
-            {
-                ManualThread = null;
-                _manualFuncList.Clear();
-
-                ManualStateChangedEvent?.Invoke(_manaulState);
-                ShowLog(str2);
-                Debug.WriteLine(str2);
-            }
-        }
-
-        /// <summary>
-        /// 根据轴号获取轴的方向
-        /// </summary>
-        /// <param name="nAxisNo">轴号，AxisX/AxisY/AxisZ/AxisU</param>
-        /// <returns></returns>
-        public bool GetAxisPositiveByAxisNo(int nAxisNo)
-        {
-            return PositiveMove[Array.IndexOf(AxisNumArray, nAxisNo)];
-        }
-
-        /// <summary>
-        /// 根据轴的索引号获取轴的方向
-        /// </summary>
-        /// <param name="index">索引号，从0开始</param>
-        /// <returns></returns>
-        public bool GetAxisPositiveByIndex(int index)
-        {
-            return PositiveMove[index];
-        }
-
-        /// <summary>
-        /// 根据轴号取反轴的方向，当发现UI界面上方向和实际方向不一致时取反
-        /// </summary>
-        /// <param name="nAxisNo">索引号，从0开始</param>
-        public void InverseAxisPositiveByAxisNo(int nAxisNo)
-        {
-            int index = Array.IndexOf(AxisNumArray, nAxisNo);
-            PositiveMove[index] = !PositiveMove[index];
-        }
-
-        /// <summary>
-        /// 根据轴的索引号取反轴的方向，当发现UI界面上方向和实际方向不一致时取反
-        /// </summary>
-        /// <param name="index">索引号，从0开始</param>
-        public void InverseAxisPositiveByIndex(int index)
-        {
-            PositiveMove[index] = !PositiveMove[index];
-        }
-
-        /// <summary>重命名轴名称</summary>
-        /// <param name="index">轴号索引</param>
-        /// <param name="strNewName">新名称</param>
-        public void RenameAxisName(int index, string strNewName)
-        {
-            StrAxisName[index] = strNewName;
-        }
-
-        /// <summary>获取轴的名称</summary>
-        /// <param name="index">索引号</param>
-        /// <returns></returns>
-        public string GetAxisName(int index)
-        {
-            return StrAxisName[index];
-        }
-
-        /// <summary>
-        /// 站位处理流程,虚函数，重写需要子类继承
-        /// </summary>
-        public virtual void StationProcess()
-        {
-            WaitBegin();
-
-            if (LocationServices.GetLangType() == "en-us")
-                ShowLog("Process not written, default ready waiting", LogLevel.Warn);
-            else
-                ShowLog("流程未编写，默认就绪等待中", LogLevel.Warn);
-
-            WaitTimeDelay(1000);
-        }
-
-        /// <summary>
-        /// 站位是否已经等待开始
-        /// </summary>
-        /// <returns></returns>
-        public virtual bool IsReady()
-        {
-            return _nCurState == StationState.StateReady;
-        }
-
-        /// <summary>
         /// 等待开始
         /// </summary>
         protected void WaitBegin()
@@ -2335,15 +2588,15 @@ namespace AutoMationFrameworkDll
             while (true)
             {
                 CheckContinue();
-                if (!_beginCycle)
+                if (!BeginCycle1)
                 {
-                    _nCurState = StationState.StateReady;
+                    NCurState = StationState.StateReady;
                     Thread.Sleep(SingletonPattern<SystemManager>.GetInstance().ScanTime);
                 }
                 else
                     break;
             }
-            _beginCycle = false;
+            BeginCycle1 = false;
         }
 
         /// <summary>
@@ -2364,7 +2617,7 @@ namespace AutoMationFrameworkDll
             {
                 if (SingletonPattern<StationManager>.GetInstance().IsAutoThread(Thread.CurrentThread))
                 {
-                    switch (_nCurState)
+                    switch (NCurState)
                     {
                         case StationState.StateAuto:
                             return true;
@@ -2389,7 +2642,7 @@ namespace AutoMationFrameworkDll
                 }
                 else if (SingletonPattern<StationManager>.GetInstance().IsManaualThread(Thread.CurrentThread) || Thread.CurrentThread == ManualThread)
                 {
-                    switch (_manaulState)
+                    switch (ManaulState)
                     {
                         case ManualState.StateManualRun:
                             return true;
@@ -2432,5 +2685,6 @@ namespace AutoMationFrameworkDll
             while (num <= nMilliSeconds);
             return 1;
         }
+        #endregion
     }
 }

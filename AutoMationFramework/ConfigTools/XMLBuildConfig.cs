@@ -34,7 +34,7 @@ namespace ConfigTools
                 case "systemCfg":
                     return (T)(object)LoadSystemConfig<SystemCfg>(config);
                 case "point":
-                //return (T)(object)LoadPointConfig<List<StationPoint>>();
+                    return (T)(object)LoadPointConfig<List<StationPoint>>(config);
                 case "systemParam":
                 case "systemParamDefault":
                     return (T)(object)LoadParamConfig<Parameters>(config);
@@ -835,41 +835,42 @@ namespace ConfigTools
                 doc.Save(fileFullName);
             }
         }
-        //private void SavePointCfg<T>(T tCfg, string fileName)
-        //{
-        //    string path = AppDomain.CurrentDomain.BaseDirectory;
-        //    string fileFullName = path + fileName + ".xml";
+        private void SavePointCfg<T>(T tCfg, string fileName)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            string fileFullName = path + fileName + ".xml";
 
-        //    List<StationPoint> stationPoints = null;
+            List<StationPoint> stationPoints = null;
 
-        //    if (tCfg is List<StationPoint>)
-        //    {
-        //        stationPoints = (List<StationPoint>)(object)tCfg;
+            if (tCfg is List<StationPoint>)
+            {
+                stationPoints = (List<StationPoint>)(object)tCfg;
 
-        //    }
+            }
 
-        //    XDocument doc = new XDocument(
-        //        new XDeclaration("1.0", "utf-8", "yes"),
-        //        new XElement("PointCfg",
-        //            from station in stationPoints
-        //            select
-        //                new XElement(station.Name,
-        //                from item in station.PointInfos
-        //                select
-        //                    new XElement("Point",
-        //                        new XAttribute("index", item.Index),
-        //                        new XAttribute("name", item.Name),
-        //                        new XAttribute("x", item.XPos ?? ""),
-        //                        new XAttribute("y", item.YPos ?? ""),
-        //                        new XAttribute("z", item.ZPos ?? ""),
-        //                        new XAttribute("u", item.UPos ?? ""),
-        //                        new XAttribute("a", item.APos ?? ""),
-        //                        new XAttribute("b", item.BPos ?? ""),
-        //                        new XAttribute("c", item.CPos ?? ""),
-        //                        new XAttribute("d", item.DPos ?? "")
-        //    ))));
-        //    doc.Save(fileFullName);
-        //}
+            XDocument doc = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XElement("PointCfg",
+                    from station in stationPoints
+                    select
+                        new XElement(station.Name,
+                            new XAttribute("EngName", station.EngName),
+                        from item in station.PointInfos
+                        select
+                            new XElement("Point",
+                                new XAttribute("index", item.Index),
+                                new XAttribute("name", item.Name),
+                                new XAttribute("x", item.XPos ?? ""),
+                                new XAttribute("y", item.YPos ?? ""),
+                                new XAttribute("z", item.ZPos ?? ""),
+                                new XAttribute("u", item.UPos ?? ""),
+                                new XAttribute("a", item.APos ?? ""),
+                                new XAttribute("b", item.BPos ?? ""),
+                                new XAttribute("c", item.CPos ?? ""),
+                                new XAttribute("d", item.DPos ?? "")
+            ))));
+            doc.Save(fileFullName);
+        }
 
         private void SaveSystemCfg<T>(T tCfg, string fileName)
         {
@@ -1001,10 +1002,10 @@ namespace ConfigTools
                 {
                     SaveSystemCfg(tCfg, file);
                 }
-                //else if (tCfg is List<StationPoint>)
-                //{
-                //    SavePointCfg(tCfg, file);
-                //}
+                else if (tCfg is List<StationPoint>)
+                {
+                    SavePointCfg(tCfg, file);
+                }
                 //else 
                 else if (tCfg is Parameters)
                 {
@@ -1048,66 +1049,68 @@ namespace ConfigTools
             }
         }
 
-        //private T LoadPointConfig<T>() where T : List<StationPoint>
-        //{
-        //    string file = AppDomain.CurrentDomain.BaseDirectory + "point.xml";
-        //    List<StationPoint> stationPoints;
+        private T LoadPointConfig<T>(string config) where T : List<StationPoint>
+        {
+            string file = config + ".xml";
+            List<StationPoint> stationPoints;
 
-        //    if (!File.Exists(file))
-        //    {
-        //        string sysFile = AppDomain.CurrentDomain.BaseDirectory + "systemCfg.xml";
+            if (!File.Exists(file))
+            {
+                string sysFile = config.Substring(0, config.Length - 5) + "systemCfg";
 
-        //        var systemCfg = LoadSystemConfig<SystemCfg>();
+                var systemCfg = LoadSystemConfig<SystemCfg>(sysFile);
 
-        //        stationPoints = new List<StationPoint>();
+                stationPoints = new List<StationPoint>();
 
-        //        foreach (var station in systemCfg.StationInfos)
-        //        {
-        //            stationPoints.Add(new StationPoint { Name = station.StationName, PointInfos = new List<PointInfo>() });
-        //        }
-        //        return stationPoints as T;
-        //    }
-        //    else
-        //    {
-        //        stationPoints = LoadPointFromFile<T>(file);
+                foreach (var station in systemCfg.StationInfos)
+                {
+                    stationPoints.Add(new StationPoint { Name = station.StationName, PointInfos = new List<PointInfo>() });
+                }
+                return stationPoints as T;
+            }
+            else
+            {
+                stationPoints = LoadPointFromFile<T>(file);
 
-        //        return stationPoints as T;
-        //    }
-        //}
+                return stationPoints as T;
+            }
+        }
 
-        //private List<StationPoint> LoadPointFromFile<T>(string file) where T : List<StationPoint>
-        //{
-        //    var stationPoints = new List<StationPoint>();
-        //    XDocument doc = XDocument.Load(file);
-        //    foreach (var item in doc.Elements().Elements())
-        //    {
-        //        string name = item.Name.ToString();
-        //        var station = from points in item.Descendants("Point")
-        //                      where points.HasAttributes
-        //                      select
-        //                          new PointInfo
-        //                          {
-        //                              Index = points.Attribute("index")?.Value,
-        //                              Name = points.Attribute("name")?.Value,
-        //                              XPos = points.Attribute("x")?.Value,
-        //                              YPos = points.Attribute("y")?.Value,
-        //                              ZPos = points.Attribute("z")?.Value,
-        //                              UPos = points.Attribute("u")?.Value,
-        //                              APos = points.Attribute("a")?.Value,
-        //                              BPos = points.Attribute("b")?.Value,
-        //                              CPos = points.Attribute("c")?.Value,
-        //                              DPos = points.Attribute("d")?.Value
-        //                          };
-        //        var stationPoint = new StationPoint
-        //        {
-        //            Name = name,
-        //            PointInfos = station.ToList()
-        //        };
-        //        stationPoints.Add(stationPoint);
-        //    }
+        private List<StationPoint> LoadPointFromFile<T>(string file) where T : List<StationPoint>
+        {
+            var stationPoints = new List<StationPoint>();
+            XDocument doc = XDocument.Load(file);
+            foreach (var item in doc.Elements().Elements())
+            {
+                string name = item.Name.ToString();
+                string EngName = item.Attribute("EngName")?.Value;
+                var station = from points in item.Descendants("Point")
+                              where points.HasAttributes
+                              select
+                                  new PointInfo
+                                  {
+                                      Index = points.Attribute("index")?.Value,
+                                      Name = points.Attribute("name")?.Value,
+                                      XPos = points.Attribute("x")?.Value,
+                                      YPos = points.Attribute("y")?.Value,
+                                      ZPos = points.Attribute("z")?.Value,
+                                      UPos = points.Attribute("u")?.Value,
+                                      APos = points.Attribute("a")?.Value,
+                                      BPos = points.Attribute("b")?.Value,
+                                      CPos = points.Attribute("c")?.Value,
+                                      DPos = points.Attribute("d")?.Value
+                                  };
+                var stationPoint = new StationPoint
+                {
+                    Name = name,
+                    EngName = EngName,
+                    PointInfos = station.ToList()
+                };
+                stationPoints.Add(stationPoint);
+            }
 
-        //    return stationPoints;
-        //}
+            return stationPoints;
+        }
 
         public T LoadConfigFromFile<T>(string config)
         {
@@ -1127,10 +1130,10 @@ namespace ConfigTools
                     switch (config)
                     {
                         case "system":
-                            //tCfg = (T)(object)LoadSystemFromFile<SystemCfg>(file);
+                            tCfg = (T)(object)LoadSystemFromFile<SystemCfg>(file);
                             break;
                         case "point":
-                            //tCfg = (T)(object)LoadPointFromFile<List<StationPoint>>(file);
+                            tCfg = (T)(object)LoadPointFromFile<List<StationPoint>>(file);
                             break;
                         case "systemParam":
                             tCfg = (T)(object)LoadParamFromFile<Parameters>(file);

@@ -46,15 +46,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComLink.cs" />
-    <Compile Include="ComMgr.cs" />
+    <Compile Include="ComManager.cs" />
     <Compile Include="Notify.cs" />
     <Compile Include="OpcLink.cs" />
-    <Compile Include="OpcMgr.cs" />
+    <Compile Include="OpcManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TcpLink.cs" />
-    <Compile Include="TcpMgr.cs" />
+    <Compile Include="TcpManager.cs" />
     <Compile Include="TcpServer.cs" />
-    <Compile Include="TcpServerMgr.cs" />
+    <Compile Include="TcpServerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutoMationFrameworkSystemDll\AutoMationFrameworkSystemDll.csproj">

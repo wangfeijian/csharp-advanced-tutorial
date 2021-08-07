@@ -1,5 +1,14 @@
-﻿//2019-01-22 Binggoo  1.为防止发送或接收数据缓冲区未满而延时，修改TcpClient的NoDelay属性值为True.
-//2019-07-08 Binggoo  1.加入是否正在连接属性
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-07                               *
+*                                                                    *
+*           ModifyTime:     2021-08-07                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Tcp link class                           *
+*********************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;

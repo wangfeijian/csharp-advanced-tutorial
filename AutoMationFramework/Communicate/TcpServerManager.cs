@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-07                               *
+*                                                                    *
+*           ModifyTime:     2021-08-07                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Tcp server manager class                 *
+*********************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +24,7 @@ namespace Communicate
     /// <summary>
     /// TCP服务管理类
     /// </summary>
-    public class TcpServerMgr : SingletonPattern<TcpServerMgr>
+    public class TcpServerManager : SingletonPattern<TcpServerManager>
     {
         /// <summary>
         /// 网口描述定义

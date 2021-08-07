@@ -1,9 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-07                               *
+*                                                                    *
+*           ModifyTime:     2021-08-07                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Communicate event                        *
+*********************************************************************/
 namespace Communicate
 {
     /// <summary>
@@ -26,10 +31,7 @@ namespace Communicate
         /// <param name="strLog"></param>
         public void NotifyData(string strLog)
         {
-       //     if (DoSend != null)
-            {
-                DoSend(strLog);
-            }
+                DoSend?.Invoke(strLog);
         }
         /// <summary>
         /// 返回类引用

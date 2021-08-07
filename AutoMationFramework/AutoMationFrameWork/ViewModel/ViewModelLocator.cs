@@ -62,6 +62,7 @@ namespace AutoMationFrameWork.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<SysParamControlViewModel>();
             SimpleIoc.Default.Register<SystemConfigViewModel>();
+            SimpleIoc.Default.Register<PointConfigViewModel>();
             SimpleIoc.Default.Register(() => { return ConfigDir; });
             SimpleIoc.Default.Register(() => { return (IBuildConfig)t.Assembly.CreateInstance(ConfigClassName); });
 
@@ -86,6 +87,7 @@ namespace AutoMationFrameWork.ViewModel
         public SysParamControlViewModel SysParam => ServiceLocator.Current.GetInstance<SysParamControlViewModel>();
 
         public SystemConfigViewModel SysConfig => ServiceLocator.Current.GetInstance<SystemConfigViewModel>();
+        public PointConfigViewModel PointConfig => ServiceLocator.Current.GetInstance<PointConfigViewModel>();
 
         public static void Cleanup()
         {

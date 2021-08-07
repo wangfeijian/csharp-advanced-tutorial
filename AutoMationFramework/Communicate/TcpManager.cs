@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-07                               *
+*                                                                    *
+*           ModifyTime:     2021-08-07                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Tcp manager class                        *
+*********************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +22,7 @@ namespace Communicate
    /// <summary>
    /// 网口类管理器
    /// </summary>
-   public class TcpMgr: SingletonPattern<TcpMgr>
+   public class TcpManager: SingletonPattern<TcpManager>
     {
         /// <summary>
         /// 网口描述定义
@@ -93,11 +104,11 @@ namespace Communicate
         //        {
         //            int j = 0;
         //            grid.Rows[i].Cells[j++].Value = t.m_nIndex.ToString();
-        //            grid.Rows[i].Cells[j++].Value = t.m_strName;
+        //            grid.Rows[i].Cells[j++].Value = t.StrName;
         //            grid.Rows[i].Cells[j++].Value = t.m_strIP;
         //            grid.Rows[i].Cells[j++].Value = t.m_nPort;
-        //            grid.Rows[i].Cells[j++].Value = t.m_nTime;
-        //            grid.Rows[i].Cells[j++].Value = t.m_strLineFlag;
+        //            grid.Rows[i].Cells[j++].Value = t.Time;
+        //            grid.Rows[i].Cells[j++].Value = t.StrLineFlag;
         //            i++;
         //        }
         //    }

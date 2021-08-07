@@ -1,4 +1,15 @@
-﻿namespace AutoMationFrameworkDll
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-06                               *
+*                                                                    *
+*           ModifyTime:     2021-08-06                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Station base class                       *
+*********************************************************************/
+namespace AutoMationFrameworkDll
 {
     /// <summary>
     /// 点位信息

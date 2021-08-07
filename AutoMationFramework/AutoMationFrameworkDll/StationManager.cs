@@ -15,14 +15,47 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using AutoMationFrameworkSystemDll;
+using AutoMationFrameworkViewModel;
 using CommonTools.Tools;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace AutoMationFrameworkDll
 {
-    public class StationManager:SingletonPattern<StationManager>
+    public class StationManager : SingletonPattern<StationManager>
     {
+        /// <summary>
+        /// 轴号枚举
+        /// </summary>
+        enum AxisNum
+        {
+            AxisX,
+            AxisY,
+            AxisZ,
+            AxisU,
+            AxisA,
+            AxisB,
+            AxisC,
+            AxisD,
+        }
+
+        /// <summary>
+        /// 点位枚举
+        /// </summary>
+        enum PointNum
+        {
+            XPos,
+            YPos,
+            ZPos,
+            UPos,
+            APos,
+            BPos,
+            CPos,
+            DPos,
+        }
+
         /// <summary>
         /// 弹窗计数改变委托
         /// </summary>
@@ -79,6 +112,100 @@ namespace AutoMationFrameworkDll
         }
 
         /// <summary>
+        /// 读取系统配置文件里的站位信息
+        /// </summary>
+        public void ReadCardFromCfg()
+        {
+            _lsStation.Clear();
+
+            var stationList = IoManager.GetInstance().SystemConfig.StationInfos;
+
+            if (stationList.Count > 0)
+            {
+                foreach (var stationInfo in stationList)
+                {
+                    string stationName = LocationServices.GetLangType() == "en-us"
+                        ? stationInfo.StationEngName
+                        : stationInfo.StationName;
+
+                    StationBase stationBase = new StationBase(stationName)
+                    {
+                        Index = Convert.ToInt32(stationInfo.StationIndex)
+                    };
+
+                    for (int i = 0; i < 8; i++)
+                    {
+                        var axisNum = stationInfo.GetType().GetProperty(((AxisNum)i).ToString())?.GetValue(stationInfo, null);
+                        if (axisNum != null && !string.IsNullOrEmpty(axisNum.ToString()))
+                        {
+                            stationBase.SetAxisNo(i, Convert.ToInt32(axisNum));
+                        }
+                    }
+
+                    _lsStation.Add(stationBase);
+                }
+            }
+        }
+
+        public bool LoadPointFromCfg()
+        {
+            var pointList = SimpleIoc.Default.GetInstance<PointConfigViewModel>().StationPoints;
+            try
+            {
+
+
+                foreach (StationBase stationBase in _lsStation)
+                {
+                    stationBase.DicPoint.Clear();
+                    var pointInfos = from item in pointList
+                                     where stationBase.Name == (LocationServices.GetLangType() == "en-us" ? item.EngName : item.Name)
+                                     select item.PointInfos;
+
+                    var pointInfoList = pointInfos.First();
+
+                    if (pointInfoList.Any())
+                    {
+                        foreach (var item in pointInfoList)
+                        {
+                            PointInfo pointInfo = new PointInfo();
+                            int index = Convert.ToInt32(item.Index);
+                            pointInfo.StrName = item.Name;
+
+                            for (int i = 0; i < 8; i++)
+                            {
+                                var pos = item.GetType().GetProperty(((PointNum)i).ToString())?.GetValue(item, null);
+                                if (pos != null && !string.IsNullOrEmpty(pos.ToString()))
+                                {
+                                    pointInfo.Pos[i] = Convert.ToDouble(pos);
+                                }
+                                else
+                                {
+                                    pointInfo.Pos[i] = -1.0;
+                                }
+                            }
+                            stationBase.DicPoint.Add(index, pointInfo);
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                if (LocationServices.GetLangType() == "en-us")
+                {
+                    MessageBox.Show(e.ToString(), "Reading of point file failed", MessageBoxButton.OK, MessageBoxImage.Hand);
+                }
+                else
+                {
+                    MessageBox.Show(e.ToString(), "点位文件读取失败", MessageBoxButton.OK, MessageBoxImage.Hand);
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// 站位当前状态
         /// </summary>
         public StationState CurrentState => _nCurState;
@@ -111,7 +238,7 @@ namespace AutoMationFrameworkDll
             lock (_lockCount)
             {
                 ++_showMessageCount;
-               OnShowMessageCountChanged?.Invoke(_showMessageCount);
+                OnShowMessageCountChanged?.Invoke(_showMessageCount);
             }
         }
 

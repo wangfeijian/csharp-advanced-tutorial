@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-07                               *
+*                                                                    *
+*           ModifyTime:     2021-08-07                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Opc link class                           *
+*********************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

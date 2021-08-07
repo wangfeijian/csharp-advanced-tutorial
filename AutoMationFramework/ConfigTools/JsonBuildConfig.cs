@@ -107,7 +107,7 @@ namespace ConfigTools
                 case "systemCfg":
                     return (T)(object)LoadSystemConfig<SystemCfg>(config);
                 case "point":
-                //return (T)(object)LoadPointConfig<List<StationPoint>>();
+                    return (T)(object)LoadPointConfig<List<StationPoint>>();
                 case "systemParam":
                 case "systemParamDefault":
                     return (T)(object)LoadParamConfig<Parameters>(config);
@@ -199,31 +199,31 @@ namespace ConfigTools
             }
         }
 
-        //private T LoadPointConfig<T>() where T : List<StationPoint>
-        //{
-        //    string filePoint = AppDomain.CurrentDomain.BaseDirectory + "point.json";
-        //    List<StationPoint> stationPoints;
+        private T LoadPointConfig<T>() where T : List<StationPoint>
+        {
+            string filePoint = AppDomain.CurrentDomain.BaseDirectory + "point.json";
+            List<StationPoint> stationPoints;
 
-        //    if (!File.Exists(filePoint))
-        //    {
-        //        string sysFile = AppDomain.CurrentDomain.BaseDirectory + "systemCfg.json";
+            if (!File.Exists(filePoint))
+            {
+                string sysFile = AppDomain.CurrentDomain.BaseDirectory + "systemCfg.json";
 
-        //        var systemCfg = JsonConvert.DeserializeObject<SystemCfg>(File.ReadAllText(sysFile));
+                var systemCfg = JsonConvert.DeserializeObject<SystemCfg>(File.ReadAllText(sysFile));
 
-        //        stationPoints = new List<StationPoint>();
+                stationPoints = new List<StationPoint>();
 
-        //        foreach (var station in systemCfg.StationInfos)
-        //        {
-        //            stationPoints.Add(new StationPoint { Name = station.StationName, PointInfos = new List<PointInfo>() });
-        //        }
-        //        return stationPoints as T;
-        //    }
-        //    else
-        //    {
-        //        stationPoints = JsonConvert.DeserializeObject<List<StationPoint>>(File.ReadAllText(filePoint));
-        //        return stationPoints as T;
-        //    }
-        //}
+                foreach (var station in systemCfg.StationInfos)
+                {
+                    stationPoints.Add(new StationPoint { Name = station.StationName, PointInfos = new List<PointInfo>() });
+                }
+                return stationPoints as T;
+            }
+            else
+            {
+                stationPoints = JsonConvert.DeserializeObject<List<StationPoint>>(File.ReadAllText(filePoint));
+                return stationPoints as T;
+            }
+        }
 
         private T LoadParamConfig<T>(string fileName) where T : Parameters
         {

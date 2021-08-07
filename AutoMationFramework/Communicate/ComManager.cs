@@ -1,28 +1,36 @@
-﻿using System;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-07                               *
+*                                                                    *
+*           ModifyTime:     2021-08-07                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Com port manager class                   *
+*********************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml;
 using AutoMationFrameworkSystemDll;
-using CommonTools.Tools;
-using System.Windows.Controls;
 
 namespace Communicate
 {
     /// <summary>
     /// 串口系统管理类
     /// </summary>
-    public class ComMgr : SingletonPattern<ComMgr>
+    public class ComManager : SingletonPattern<ComManager>
     {
         /// <summary>
         /// 串口定义描述
         /// </summary>
-        public static readonly string[] m_strDescribe = {  "串口号", "串口定义", "波特率", "数据位", "校验位",
+        public static readonly string[] StrDescribe = {  "串口号", "串口定义", "波特率", "数据位", "校验位",
                                             "停止位", "流控制", "超时时间", "缓冲区大小","命令分隔" };
         /// <summary>
         /// 串口定义列表
         /// </summary>
-        private List<ComLink> m_listComLink = new List<ComLink>();
+        private List<ComLink> _listComLink = new List<ComLink>();
 
         /// <summary>
         /// 从xml文件中读取定义的串口信息
@@ -30,7 +38,7 @@ namespace Communicate
         /// <param name="doc">已打开的xml文档</param>
         public void ReadCfgFromXml(XmlDocument doc)
         {
-            m_listComLink.Clear();
+            _listComLink.Clear();
             XmlNodeList xnl = doc.SelectNodes("/SystemCfg/" + "Com");
             if (xnl.Count > 0)
             {
@@ -41,18 +49,18 @@ namespace Communicate
                     {
                         XmlElement xe = (XmlElement)xn;
 
-                        string strNo = xe.GetAttribute(m_strDescribe[0]).Trim();
-                        string strName = xe.GetAttribute(m_strDescribe[1]).Trim();
-                        string strBaudRate = xe.GetAttribute(m_strDescribe[2]).Trim();
-                        string strDataBit = xe.GetAttribute(m_strDescribe[3]).Trim();
-                        string strPartiy = xe.GetAttribute(m_strDescribe[4]).Trim();
-                        string strStopBit = xe.GetAttribute(m_strDescribe[5]).Trim();
-                        string strFlowCtrl = xe.GetAttribute(m_strDescribe[6]).Trim(); 
-                        string strTime = xe.GetAttribute(m_strDescribe[7]).Trim();
-                        string strBufferSize = xe.GetAttribute(m_strDescribe[8]).Trim();
-                        string strLine = xe.GetAttribute(m_strDescribe[9]).Trim();
+                        string strNo = xe.GetAttribute(StrDescribe[0]).Trim();
+                        string strName = xe.GetAttribute(StrDescribe[1]).Trim();
+                        string strBaudRate = xe.GetAttribute(StrDescribe[2]).Trim();
+                        string strDataBit = xe.GetAttribute(StrDescribe[3]).Trim();
+                        string strPartiy = xe.GetAttribute(StrDescribe[4]).Trim();
+                        string strStopBit = xe.GetAttribute(StrDescribe[5]).Trim();
+                        string strFlowCtrl = xe.GetAttribute(StrDescribe[6]).Trim(); 
+                        string strTime = xe.GetAttribute(StrDescribe[7]).Trim();
+                        string strBufferSize = xe.GetAttribute(StrDescribe[8]).Trim();
+                        string strLine = xe.GetAttribute(StrDescribe[9]).Trim();
 
-                        m_listComLink.Add(new ComLink(Convert.ToInt32(strNo), strName,  Convert.ToInt32(strBaudRate),
+                        _listComLink.Add(new ComLink(Convert.ToInt32(strNo), strName,  Convert.ToInt32(strBaudRate),
                                     Convert.ToInt32(strDataBit), strPartiy, strStopBit, strFlowCtrl,
                                     Convert.ToInt32(strTime),Convert.ToInt32(strBufferSize), strLine));
                     }
@@ -67,25 +75,25 @@ namespace Communicate
         //public void UpdateGridFromParam(DataGrid grid)
         //{
         //    grid.Rows.Clear();
-        //    if (m_listComLink.Count > 0)
+        //    if (_listComLink.Count > 0)
         //    {
                 
-        //        grid.Rows.AddCopies(0, m_listComLink.Count);
+        //        grid.Rows.AddCopies(0, _listComLink.Count);
 
         //        int i = 0;
-        //        foreach (ComLink t in m_listComLink)
+        //        foreach (ComLink t in _listComLink)
         //        {
         //            int j = 0;
-        //            grid.Rows[i].Cells[j++].Value = t.m_nComNo.ToString();
-        //            grid.Rows[i].Cells[j++].Value = t.m_strName;
-        //            grid.Rows[i].Cells[j++].Value = t.m_nBaudRate.ToString();
-        //            grid.Rows[i].Cells[j++].Value = t.m_nDataBit.ToString();
-        //            grid.Rows[i].Cells[j++].Value = t.m_strPartiy;
-        //            grid.Rows[i].Cells[j++].Value = t.m_strStopBit;
-        //            grid.Rows[i].Cells[j++].Value = t.m_strFlowCtrl;
-        //            grid.Rows[i].Cells[j++].Value = t.m_nTime.ToString();
-        //            grid.Rows[i].Cells[j++].Value = t.m_nBufferSzie.ToString();
-        //            grid.Rows[i].Cells[j++].Value = t.m_strLineFlag;
+        //            grid.Rows[i].Cells[j++].Value = t.ComNo.ToString();
+        //            grid.Rows[i].Cells[j++].Value = t.StrName;
+        //            grid.Rows[i].Cells[j++].Value = t.BaudRate.ToString();
+        //            grid.Rows[i].Cells[j++].Value = t.DataBit.ToString();
+        //            grid.Rows[i].Cells[j++].Value = t.StrPartiy;
+        //            grid.Rows[i].Cells[j++].Value = t.StrStopBit;
+        //            grid.Rows[i].Cells[j++].Value = t.StrFlowCtrl;
+        //            grid.Rows[i].Cells[j++].Value = t.Time.ToString();
+        //            grid.Rows[i].Cells[j++].Value = t.BufferSzie.ToString();
+        //            grid.Rows[i].Cells[j++].Value = t.StrLineFlag;
 
         //            i++;
         //        }
@@ -101,7 +109,7 @@ namespace Communicate
         //    int m = grid.RowCount;
         //    int n = grid.ColumnCount;
 
-        //    m_listComLink.Clear();
+        //    _listComLink.Clear();
 
         //    for (int i = 0; i < m; ++i)
         //    {
@@ -118,7 +126,7 @@ namespace Communicate
         //        string strBufferSize = grid.Rows[i].Cells[8].Value.ToString();
         //        string strLine = grid.Rows[i].Cells[9].Value.ToString();
 
-        //        m_listComLink.Add(new ComLink(Convert.ToInt32(strNo), strName, Convert.ToInt32(strBaudRate),
+        //        _listComLink.Add(new ComLink(Convert.ToInt32(strNo), strName, Convert.ToInt32(strBaudRate),
         //                Convert.ToInt32(strDataBit), strPartiy, strStopBit, strFlowCtrl,
         //                 Convert.ToInt32(strTime), Convert.ToInt32(strBufferSize), strLine));
 
@@ -135,21 +143,21 @@ namespace Communicate
             XmlNode root = doc.CreateElement("Com");
             xnl.AppendChild(root);
 
-            foreach (ComLink t in m_listComLink)
+            foreach (ComLink t in _listComLink)
             {
                 XmlElement xe = doc.CreateElement("Com");
 
                 int j = 0;
-                xe.SetAttribute(m_strDescribe[j++], t.m_nComNo.ToString());
-                xe.SetAttribute(m_strDescribe[j++], t.m_strName);
-                xe.SetAttribute(m_strDescribe[j++], t.m_nBaudRate.ToString());
-                xe.SetAttribute(m_strDescribe[j++], t.m_nDataBit.ToString());
-                xe.SetAttribute(m_strDescribe[j++], t.m_strPartiy);
-                xe.SetAttribute(m_strDescribe[j++], t.m_strStopBit);
-                xe.SetAttribute(m_strDescribe[j++], t.m_strFlowCtrl);
-                xe.SetAttribute(m_strDescribe[j++], t.m_nTime.ToString());
-                xe.SetAttribute(m_strDescribe[j++], t.m_nBufferSzie.ToString());
-                xe.SetAttribute(m_strDescribe[j++], t.m_strLineFlag);
+                xe.SetAttribute(StrDescribe[j++], t.ComNo.ToString());
+                xe.SetAttribute(StrDescribe[j++], t.StrName);
+                xe.SetAttribute(StrDescribe[j++], t.BaudRate.ToString());
+                xe.SetAttribute(StrDescribe[j++], t.DataBit.ToString());
+                xe.SetAttribute(StrDescribe[j++], t.StrPartiy);
+                xe.SetAttribute(StrDescribe[j++], t.StrStopBit);
+                xe.SetAttribute(StrDescribe[j++], t.StrFlowCtrl);
+                xe.SetAttribute(StrDescribe[j++], t.Time.ToString());
+                xe.SetAttribute(StrDescribe[j++], t.BufferSzie.ToString());
+                xe.SetAttribute(StrDescribe[j++], t.StrLineFlag);
                 root.AppendChild(xe);
             }
         }
@@ -161,9 +169,9 @@ namespace Communicate
         /// <returns></returns>
         public ComLink GetComLink(int nIndex)
         {
-            if (nIndex < m_listComLink.Count())
+            if (nIndex < _listComLink.Count())
             {
-                return m_listComLink.ElementAt(nIndex);
+                return _listComLink.ElementAt(nIndex);
             }
             return null;
         }
@@ -174,7 +182,7 @@ namespace Communicate
         /// <returns></returns>
         public int Count
         {
-            get{ return m_listComLink.Count; }
+            get{ return _listComLink.Count; }
         }
 
     }

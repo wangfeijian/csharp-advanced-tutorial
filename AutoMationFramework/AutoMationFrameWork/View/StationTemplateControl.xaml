@@ -22,6 +22,9 @@
     d:DesignHeight="570"
     d:DesignWidth="950"
     mc:Ignorable="d">
+    <UserControl.DataContext>
+        <Binding Path="PointConfig" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*" />

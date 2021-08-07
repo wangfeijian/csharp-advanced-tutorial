@@ -1,5 +1,15 @@
-﻿using System;
-using System.Text;
+﻿/*********************************************************************
+*           Author:         wangfeijian                              *
+*                                                                    *
+*           CreatTime:      2021-08-07                               *
+*                                                                    *
+*           ModifyTime:     2021-08-07                               *
+*                                                                    *
+*           Email:          wangfeijianhao@163.com                   *
+*                                                                    *
+*           Description:    Com port class                           *
+*********************************************************************/
+using System;
 using System.IO.Ports;
 using System.Diagnostics;
 using AutoMationFrameworkSystemDll;
@@ -10,72 +20,82 @@ namespace Communicate
     /// <summary>
     /// 串口通讯类封装
     /// </summary>
-    public class ComLink:LogBase
+    public class ComLink : LogBase
     {
         /// <summary>
         ///串口号 
         /// </summary>
-        public int m_nComNo;
+        public int ComNo;
+
         /// <summary>
         ///串口定义名称 
         /// </summary>
-        public string m_strName;
+        public string StrName;
+
         /// <summary>
         ///波特率 
         /// </summary>
-        public int m_nBaudRate;
+        public int BaudRate;
+
         /// <summary>
         ///数据位 
         /// </summary>
-        public int m_nDataBit;
+        public int DataBit;
+
         /// <summary>
         ///校验位 
         /// </summary>
-        public string m_strPartiy;
+        public string StrPartiy;
+
         /// <summary>
         ///停止位 
         /// </summary>
-        public string m_strStopBit;
+        public string StrStopBit;
+
         /// <summary>
         ///流控制 
         /// </summary>
-        public string m_strFlowCtrl;
+        public string StrFlowCtrl;
+
         /// <summary>
         ///超时时间,单位毫秒
         /// </summary>
-        public int m_nTime;
+        public int Time;
+
         /// <summary>
         ///缓冲区大小 
         /// </summary>
-        public int m_nBufferSzie;
+        public int BufferSzie;
+
         /// <summary>
         ///命令分隔符标志 
         /// </summary>
-        public string m_strLineFlag;
+        public string StrLineFlag;
 
         /// <summary>
         ///命令分隔符 
         /// </summary>
-        private string m_strLine;
+        private string StrLine;
 
         /// <summary>
         /// 状态变更委托
         /// </summary>
         /// <param name="com"></param>
         public delegate void StateChangedHandler(ComLink com);
+
         /// <summary>
         /// 定义状态变更事件
         /// </summary>
         public event StateChangedHandler StateChangedEvent;
 
-        private bool m_bAsysnReceive = false; //异步接收标志
+        private bool _bAsysnReceive; //异步接收标志
 
         /// <summary>
         /// 异步接收数据委托
         /// </summary>
         /// <param name="data"></param>
         /// <param name="length"></param>
-        public delegate void DataReceivedHandler(byte[] data,int length);
+        public delegate void DataReceivedHandler(byte[] data, int length);
         /// <summary>
         /// 异步接收数据事件
         /// </summary>
@@ -84,12 +104,12 @@ namespace Communicate
         /// <summary>
         /// 系统串口类引用
         /// </summary>
-        private SerialPort m_serialPort  = null;
+        private SerialPort _serialPort;
 
         /// <summary>
         /// 读取数据过程中是否已经超时
         /// </summary>
-        bool m_bTimeOut = false;
+        bool _bTimeOut;
 
         private object m_lock = new object();
 
@@ -107,38 +127,38 @@ namespace Communicate
         /// <param name="nBufferSzie"></param>
         /// <param name="strLine"></param>
         public ComLink(int nComNo, string strName, int nBaudRate, int nDataBit, string strPartiy,
-            string strStopBit, string strFlowCtrl,int nTimeMs,int nBufferSzie,string strLine)
+            string strStopBit, string strFlowCtrl, int nTimeMs, int nBufferSzie, string strLine)
         {
-            m_nComNo = nComNo;
-            m_strName = strName;
-            m_nBaudRate = nBaudRate;
-            m_nDataBit = nDataBit;
-            m_strPartiy = strPartiy;
-            m_strStopBit = strStopBit;
-            m_strFlowCtrl = strFlowCtrl;
-            m_nTime = nTimeMs;
-            m_nBufferSzie = nBufferSzie;
+            ComNo = nComNo;
+            StrName = strName;
+            BaudRate = nBaudRate;
+            DataBit = nDataBit;
+            StrPartiy = strPartiy;
+            StrStopBit = strStopBit;
+            StrFlowCtrl = strFlowCtrl;
+            Time = nTimeMs;
+            BufferSzie = nBufferSzie;
 
-            m_strLineFlag = strLine;
+            StrLineFlag = strLine;
             if (strLine == "CRLF")
             {
-                m_strLine = "\r\n";
+                StrLine = "\r\n";
             }
             else if (strLine == "CR")
             {
-                m_strLine = "\r";
+                StrLine = "\r";
             }
             else if (strLine == "LF")
             {
-                m_strLine = "\n";
+                StrLine = "\n";
             }
             else if (strLine == "无")
             {
-                m_strLine = "";
+                StrLine = "";
             }
-            else if(strLine == "ETX")
+            else if (strLine == "ETX")
             {
-                m_strLine = "\u0003";
+                StrLine = "\u0003";
             }
         }
 
@@ -149,51 +169,51 @@ namespace Communicate
         /// <returns></returns>
         public bool Open()
         {
-            if(m_serialPort == null)
-                m_serialPort = new SerialPort();
+            if (_serialPort == null)
+                _serialPort = new SerialPort();
 
-            if(m_serialPort.IsOpen == false)
+            if (_serialPort.IsOpen == false)
             {
-                m_serialPort.PortName = "COM" + m_nComNo.ToString();
-                m_serialPort.BaudRate = m_nBaudRate;
-                m_serialPort.Parity = (Parity)Enum.Parse(typeof(Parity), m_strPartiy);
-                m_serialPort.DataBits = m_nDataBit;
-                m_serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), m_strStopBit);
-                m_serialPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), m_strFlowCtrl);
+                _serialPort.PortName = "COM" + ComNo.ToString();
+                _serialPort.BaudRate = BaudRate;
+                _serialPort.Parity = (Parity)Enum.Parse(typeof(Parity), StrPartiy);
+                _serialPort.DataBits = DataBit;
+                _serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), StrStopBit);
+                _serialPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), StrFlowCtrl);
 
-                m_serialPort.ReadTimeout = m_nTime;
-                m_serialPort.WriteTimeout = m_nTime;
+                _serialPort.ReadTimeout = Time;
+                _serialPort.WriteTimeout = Time;
 
-                m_serialPort.NewLine = m_strLine;
-         
+                _serialPort.NewLine = StrLine;
+
                 try
                 {
-                    m_serialPort.Open();
-                    if(StateChangedEvent != null)
+                    _serialPort.Open();
+                    if (StateChangedEvent != null)
                         StateChangedEvent(this);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    Debug.WriteLine("串口 {0} 打开失败\r\n{1}\r\n",m_strName, e.ToString());
+                    Debug.WriteLine("串口 {0} 打开失败\r\n{1}\r\n", StrName, e);
                     if (SystemManager.GetInstance().IsSimulateRunMode() == false)
                     {
-                        //WarningMgr.GetInstance().Error(string.Format("51220,ERR-SSW,串口 {0} 打开失败", m_strName));
-                        RunInforManager.GetInstance().Error(ErrorType.ErrComOpen,m_strName,
-                            string.Format("SerialPort {0} open failed", m_strName));
+                        //WarningMgr.GetInstance().Error(string.Format("51220,ERR-SSW,串口 {0} 打开失败", StrName));
+                        RunInforManager.GetInstance().Error(ErrorType.ErrComOpen, StrName,
+                            string.Format("SerialPort {0} open failed", StrName));
 
                     }
                 }
-            }            
-            return m_serialPort.IsOpen;
+            }
+            return _serialPort.IsOpen;
         }
 
         /// <summary>
         /// 判断是否已经打开
         /// </summary>
         /// <returns></returns>
-        public   bool IsOpen()
+        public bool IsOpen()
         {
-            return m_serialPort != null && m_serialPort.IsOpen;
+            return _serialPort != null && _serialPort.IsOpen;
         }
 
         /// <summary>
@@ -202,10 +222,10 @@ namespace Communicate
         /// <returns></returns>
         public bool IsTimeOut()
         {
-            return m_bTimeOut;
+            return _bTimeOut;
         }
 
-           /// <summary>
+        /// <summary>
         ///向串口写入数据 
         /// </summary>
         /// <param name="sendBytes"></param>
@@ -213,12 +233,12 @@ namespace Communicate
         /// <returns></returns>
         public bool WriteData(byte[] sendBytes, int nLen)
         {
-            if (m_serialPort != null && m_serialPort.IsOpen)
+            if (_serialPort != null && _serialPort.IsOpen)
             {
-                m_serialPort.Write(sendBytes,0, nLen);
+                _serialPort.Write(sendBytes, 0, nLen);
 
                 string strData = Win32Help.ByteToAsciiString(sendBytes);
-                string strLog = string.Format("Send to {0} : {1}", this.m_strName, strData);
+                string strLog = $"Send to {StrName} : {strData}";
                 ShowLog(strLog);
                 RunInforManager.GetInstance().Info(strLog);
 
@@ -234,11 +254,11 @@ namespace Communicate
         /// <returns></returns>
         public bool WriteString(string strData)
         {
-            if (m_serialPort != null && m_serialPort.IsOpen)
+            if (_serialPort != null && _serialPort.IsOpen)
             {
-                m_serialPort.Write(strData);
+                _serialPort.Write(strData);
 
-                string strLog = string.Format("Send to {0} : {1}", m_strName, strData);
+                string strLog = string.Format("Send to {0} : {1}", StrName, strData);
                 ShowLog(strLog);
                 RunInforManager.GetInstance().Info(strLog);
 
@@ -254,11 +274,11 @@ namespace Communicate
         /// <returns></returns>
         public bool WriteLine(string strData)
         {
-            if (m_serialPort != null && m_serialPort.IsOpen)
+            if (_serialPort != null && _serialPort.IsOpen)
             {
-                m_serialPort.WriteLine(strData);
+                _serialPort.WriteLine(strData);
 
-                string strLog = string.Format("Send to {0} : {1}", m_strName, strData);
+                string strLog = string.Format("Send to {0} : {1}", StrName, strData);
                 ShowLog(strLog);
                 RunInforManager.GetInstance().Info(strLog);
 
@@ -275,29 +295,29 @@ namespace Communicate
         /// <returns></returns>
         public int ReadData(byte[] bytes, int nLen)
         {
-            m_bTimeOut = false;
+            _bTimeOut = false;
             int nActualReadCount = 0;
-            if (m_serialPort != null && m_serialPort.IsOpen)
+            if (_serialPort != null && _serialPort.IsOpen)
             {
                 try
                 {
                     DateTime startTime = DateTime.Now;
-					//有些串口驱动超时无效提前返回的BUG，需要多次读取
+                    //有些串口驱动超时无效提前返回的BUG，需要多次读取
                     while (nActualReadCount < nLen)
                     {
                         TimeSpan diffT = DateTime.Now - startTime;
-                        if (diffT.TotalMilliseconds > m_nTime)
+                        if (diffT.TotalMilliseconds > Time)
                         {
                             break;
                         }
 
-                        int rcvCnt = m_serialPort.Read(bytes, nActualReadCount, nLen - nActualReadCount);
+                        int rcvCnt = _serialPort.Read(bytes, nActualReadCount, nLen - nActualReadCount);
                         nActualReadCount += rcvCnt;
                         if (nActualReadCount > 0)
                         {
                             string strData = Win32Help.ByteToAsciiString(bytes);
 
-                            string strLog = string.Format("Receive from {0} : {1}", m_strName, strData);
+                            string strLog = string.Format("Receive from {0} : {1}", StrName, strData);
                             ShowLog(strLog);
                             RunInforManager.GetInstance().Info(strLog);
 
@@ -306,7 +326,7 @@ namespace Communicate
                 }
                 catch/*(TimeoutException e)*/
                 {
-                    m_bTimeOut = true;
+                    _bTimeOut = true;
                     if (StateChangedEvent != null)
                         StateChangedEvent(this);
                 }
@@ -316,19 +336,19 @@ namespace Communicate
 
         //public int ReadData(byte[] bytes, int nLen)
         //{
-        //    m_bTimeOut = false;
+        //    _bTimeOut = false;
         //    int nReadCount = 0;
-        //    if (m_serialPort.IsOpen)
+        //    if (_serialPort.IsOpen)
         //    {
         //        try
         //        {
-        //            nReadCount = m_serialPort.Read(bytes, 0, nLen);
+        //            nReadCount = _serialPort.Read(bytes, 0, nLen);
         //            if (nReadCount > 0)
         //                ShowLog(System.Text.Encoding.Default.GetString(bytes));
         //        }
         //        catch/*(TimeoutException e)*/
         //        {
-        //            m_bTimeOut = true;
+        //            _bTimeOut = true;
         //            if (StateChangedEvent != null)
         //                StateChangedEvent(this);
         //        }
@@ -344,16 +364,16 @@ namespace Communicate
         /// <returns></returns>
         public int ReadLine(out string strData)
         {
-            m_bTimeOut = false;
+            _bTimeOut = false;
             strData = "";
-            if (m_serialPort != null && m_serialPort.IsOpen)
-            {               
+            if (_serialPort != null && _serialPort.IsOpen)
+            {
                 try
                 {
-                    strData = m_serialPort.ReadLine();
+                    strData = _serialPort.ReadLine();
                     if (strData.Length > 0)
                     {
-                        string strLog = string.Format("Receive from {0} : {1}", this.m_strName, strData);
+                        string strLog = $"Receive from {StrName} : {strData}";
 
                         ShowLog(strLog);
 
@@ -362,7 +382,7 @@ namespace Communicate
                 }
                 catch/*(TimeoutException e)*/
                 {
-                    m_bTimeOut = true;
+                    _bTimeOut = true;
                     if (StateChangedEvent != null)
                         StateChangedEvent(this);
                 }
@@ -375,11 +395,11 @@ namespace Communicate
         /// </summary>
         public void Close()
         {
-            if(m_serialPort != null && m_serialPort.IsOpen)
+            if (_serialPort != null && _serialPort.IsOpen)
             {
-                m_serialPort.Close();
-                m_serialPort = null;
-                m_bTimeOut = false;
+                _serialPort.Close();
+                _serialPort = null;
+                _bTimeOut = false;
                 if (StateChangedEvent != null)
                     StateChangedEvent(this);
             }
@@ -393,12 +413,12 @@ namespace Communicate
         /// <param name="bOut">是否清除输出缓冲区</param>
         public void ClearBuffer(bool bIn, bool bOut)
         {
-            if (m_serialPort != null)
+            if (_serialPort != null)
             {
-                if(bIn)
-                    m_serialPort.DiscardInBuffer();
-                if(bOut)
-                    m_serialPort.DiscardOutBuffer();
+                if (bIn)
+                    _serialPort.DiscardInBuffer();
+                if (bOut)
+                    _serialPort.DiscardOutBuffer();
 
             }
         }
@@ -409,25 +429,25 @@ namespace Communicate
         /// <param name="hander"></param>
         public void BeginAsynReceive(DataReceivedHandler hander)
         {
-            m_bAsysnReceive = true;
+            _bAsysnReceive = true;
             DataReceivedEvent += hander;
-            m_serialPort.DataReceived += SerialPort_DataReceived;
+            _serialPort.DataReceived += SerialPort_DataReceived;
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (DataReceivedEvent != null && m_bAsysnReceive)
+            if (DataReceivedEvent != null && _bAsysnReceive)
             {
-                int length = m_serialPort.BytesToRead;
+                int length = _serialPort.BytesToRead;
 
                 if (length > 0)
                 {
                     byte[] data = new byte[length];
-                    m_serialPort.Read(data, 0, length);
+                    _serialPort.Read(data, 0, length);
 
                     DataReceivedEvent(data, length);
                 }
-                
+
             }
         }
 
@@ -436,10 +456,10 @@ namespace Communicate
         /// </summary>
         public void EndAsynReceive()
         {
-            m_bAsysnReceive = false;
+            _bAsysnReceive = false;
             if (DataReceivedEvent != null)
             {
-                m_serialPort.DataReceived -= SerialPort_DataReceived;
+                _serialPort.DataReceived -= SerialPort_DataReceived;
 
                 foreach (var d in DataReceivedEvent.GetInvocationList())
                 {
@@ -466,7 +486,7 @@ namespace Communicate
             {
                 System.Threading.Monitor.Exit(m_lock);
             }
-            
+
         }
     }
 }

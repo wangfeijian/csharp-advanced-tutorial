@@ -32,6 +32,8 @@ namespace AutoMationFrameworkDll
             bool runBool = RunInforManager.GetInstance().ReadXmlConfig(fileName);
             IoManager.GetInstance().ReadCfgFromFile();
             MotionManager.GetInstance().ReadCardFromCfg();
+            StationManager.GetInstance().ReadCardFromCfg();
+            StationManager.GetInstance().LoadPointFromCfg();
             return runBool;
         }
     }
