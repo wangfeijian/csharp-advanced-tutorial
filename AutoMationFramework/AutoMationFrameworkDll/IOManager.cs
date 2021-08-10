@@ -316,7 +316,7 @@ namespace AutoMationFrameworkDll
         /// <summary>
         /// 读取系统配置文件里的IO板卡信息
         /// </summary>
-        public void ReadCfgFromFile()
+        public void ReadIoCardFromCfg()
         {
             ListCard.Clear();
 

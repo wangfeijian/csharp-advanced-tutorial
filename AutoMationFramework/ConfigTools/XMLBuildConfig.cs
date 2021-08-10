@@ -413,6 +413,7 @@ namespace ConfigTools
                     MotionCardsList = new List<MotionCard>(),
                     AxisConfigList = new List<AxisCfg>(),
                     EthInfos = new List<EthInfo>(),
+                    ComInfos = new List<ComInfo>(),
                     StationInfos = new List<StationInfo>()
                 };
                 return systemCfg as T;
@@ -539,6 +540,22 @@ namespace ConfigTools
                               TimeOut = item.Attribute("超时时间")?.Value,
                               Command = item.Attribute("命令分隔")?.Value
                           };
+            var com = from item in doc.Descendants("Com")
+                      where item.HasAttributes
+                      select
+                          new ComInfo
+                          {
+                              ComNum = item.Attribute("串口号")?.Value,
+                              ComDefine = item.Attribute("串口定义")?.Value,
+                              BaudRate = item.Attribute("波特率")?.Value,
+                              DataByte = item.Attribute("数据位")?.Value,
+                              CheckByte = item.Attribute("校验位")?.Value,
+                              StopByte = item.Attribute("停止位")?.Value,
+                              StreamControl = item.Attribute("流控制")?.Value,
+                              TimeOut = item.Attribute("超时时间")?.Value,
+                              BufferSize = item.Attribute("缓冲区大小")?.Value,
+                              Command = item.Attribute("命令分隔")?.Value,
+                          };
             systemCfg = new SystemCfg
             {
                 IoInput = ioInput.ToList(),
@@ -548,6 +565,7 @@ namespace ConfigTools
                 SysOutput = systemIoOut.ToList(),
                 MotionCardsList = motion.ToList(),
                 AxisConfigList = axis.ToList(),
+                ComInfos = com.ToList(),
                 EthInfos = eth.ToList(),
                 StationInfos = station.ToList()
             };
@@ -977,7 +995,22 @@ namespace ConfigTools
                                 new XAttribute("对方IP地址", item.IpAddress),
                                 new XAttribute("端口号", item.Port),
                                 new XAttribute("超时时间", item.TimeOut),
-                                new XAttribute("命令分隔", item.Command)))
+                                new XAttribute("命令分隔", item.Command))),
+                    new XElement("Com",
+                        from item in systemCfg.ComInfos
+                        select
+                            new XElement("Com",
+                                new XAttribute("串口号", item.ComNum),
+                                new XAttribute("串口定义", item.ComDefine),
+                                new XAttribute("波特率", item.BaudRate),
+                                new XAttribute("数据位", item.DataByte),
+                                new XAttribute("校验位", item.CheckByte),
+                                new XAttribute("停止位", item.StopByte),
+                                new XAttribute("流控制", item.StreamControl),
+                                new XAttribute("超时时间", item.TimeOut),
+                                new XAttribute("缓冲区大小", item.BufferSize),
+                                new XAttribute("命令分隔", item.Command)
+                                ))
             ));
             doc.Save(fileFullName);
         }

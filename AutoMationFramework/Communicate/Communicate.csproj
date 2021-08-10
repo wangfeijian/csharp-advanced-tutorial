@@ -30,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\APP\Dll\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\APP\Dll\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\APP\Dll\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.OPCAutomation">
       <HintPath>..\APP\Dll\Interop.OPCAutomation.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -57,9 +69,17 @@
     <Compile Include="TcpServerManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoMationFrameworkModel\AutoMationFrameworkModel.csproj">
+      <Project>{43FB611A-75D5-46CA-AA75-94F8C61A3782}</Project>
+      <Name>AutoMationFrameworkModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AutoMationFrameworkSystemDll\AutoMationFrameworkSystemDll.csproj">
       <Project>{3424def9-ef07-4095-8f98-7e71aee36c69}</Project>
       <Name>AutoMationFrameworkSystemDll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoMationFrameworkViewModel\AutoMationFrameworkViewModel.csproj">
+      <Project>{8288d1c9-3ec9-4e54-a814-632ec6d20259}</Project>
+      <Name>AutoMationFrameworkViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">
       <Project>{b11174c1-280b-4e41-9856-7da214a6f6c3}</Project>

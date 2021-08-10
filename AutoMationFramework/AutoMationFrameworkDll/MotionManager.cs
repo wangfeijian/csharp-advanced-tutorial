@@ -1076,7 +1076,7 @@ namespace AutoMationFrameworkDll
         /// <summary>
         /// 读取系统配置文件里的运动卡信息
         /// </summary>
-        public void ReadCardFromCfg()
+        public void ReadMotionCardFromCfg()
         {
             ListCard.Clear();
             _dictAxisCfg.Clear();

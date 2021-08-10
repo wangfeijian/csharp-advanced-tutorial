@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMationFrameworkSystemDll;
+using Communicate;
 
 namespace AutoMationFrameworkDll
 {
@@ -29,11 +30,12 @@ namespace AutoMationFrameworkDll
         /// <returns></returns>
         public bool LoadConfigFile(string fileName)
         {
-            bool runBool = RunInforManager.GetInstance().ReadXmlConfig(fileName);
-            IoManager.GetInstance().ReadCfgFromFile();
-            MotionManager.GetInstance().ReadCardFromCfg();
-            StationManager.GetInstance().ReadCardFromCfg();
-            StationManager.GetInstance().LoadPointFromCfg();
+            bool runBool = RunInforManager.GetInstance().ReadLog4NetXmlConfig(fileName);
+            IoManager.GetInstance().ReadIoCardFromCfg();
+            MotionManager.GetInstance().ReadMotionCardFromCfg();
+            StationManager.GetInstance().ReadStationFromCfg();
+            TcpManager.GetInstance().ReadTcpFromCfg();
+            ComManager.GetInstance().ReadComFromCfg();
             return runBool;
         }
     }

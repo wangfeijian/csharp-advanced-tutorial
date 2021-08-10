@@ -153,6 +153,20 @@ namespace AutoMationFrameworkModel
         public string Command { get; set; }
     }
 
+    public class ComInfo
+    {
+        public string ComNum { get; set; }
+        public string ComDefine { get; set; }
+        public string BaudRate { get; set; }
+        public string DataByte { get; set; }
+        public string CheckByte { get; set; }
+        public string StopByte { get; set; }
+        public string StreamControl { get; set; }
+        public string TimeOut { get; set; }
+        public string BufferSize { get; set; }
+        public string Command { get; set; }
+    }
+
     public class StationInfo
     {
         public string StationIndex { get; set; }
@@ -235,6 +249,14 @@ namespace AutoMationFrameworkModel
         {
             get { return _ethInfos; }
             set { _ethInfos = value; }
+        }
+
+        private List<ComInfo> _comInfos;
+
+        public List<ComInfo> ComInfos
+        {
+            get { return _comInfos; }
+            set { _comInfos = value; }
         }
 
         private List<StationInfo> _stationInfos;

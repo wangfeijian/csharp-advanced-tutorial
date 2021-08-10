@@ -22,6 +22,7 @@ using CommonTools.Tools;
 using AutoMationFrameworkDll;
 using AutoMationFrameworkViewModel;
 using AutoMationFrameworkSystemDll;
+using AutoMationFrameWork.View;
 using ConfigTools;
 
 namespace AutoMationFrameWork.ViewModel
@@ -103,7 +104,8 @@ namespace AutoMationFrameWork.ViewModel
 
                 if (ConfigManager.GetInstance().LoadConfigFile(ConfigDir))
                 {
-
+                    StationManager.GetInstance().LoadPointFromCfg();
+                    AddStation();
                     return true;
                 }
 
@@ -115,6 +117,11 @@ namespace AutoMationFrameWork.ViewModel
                 MessageBox.Show(LocationServices.GetLang("SysInitError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return false;
+        }
+
+        public void AddStation()
+        {
+            //StationManager.GetInstance().AddStation(new StationTemplateControl(), new station);
         }
     }
 }

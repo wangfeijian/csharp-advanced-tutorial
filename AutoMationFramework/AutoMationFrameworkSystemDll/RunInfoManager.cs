@@ -457,7 +457,7 @@ namespace AutoMationFrameworkSystemDll
         /// 读取日志参数配置
         /// </summary>
         /// <returns></returns>
-        public bool ReadXmlConfig(string path)
+        public bool ReadLog4NetXmlConfig(string path)
         {
             if(!CheckLogPath(path)) return false;
             XmlConfigurator.Configure(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "Config\\"+path+"\\log4net.config"));

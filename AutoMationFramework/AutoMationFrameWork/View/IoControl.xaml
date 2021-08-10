@@ -18,8 +18,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="610"
-    d:DesignWidth="950"
+    d:DesignHeight="710"
+    d:DesignWidth="990"
+    Loaded="IoControl_OnLoaded"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -59,12 +60,13 @@
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                         Text="{StaticResource SysIoIn}" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                    <Grid Grid.Row="2">
+                    <Grid x:Name="SystemInGrid" Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Button
                             Grid.Row="0"
@@ -80,6 +82,10 @@
                             Template="{StaticResource IoButtonTemplate}" />
                         <Button
                             Grid.Row="3"
+                            HorizontalAlignment="Stretch"
+                            Template="{StaticResource IoButtonTemplate}" />
+                        <Button
+                            Grid.Row="4"
                             HorizontalAlignment="Stretch"
                             Template="{StaticResource IoButtonTemplate}" />
                     </Grid>
@@ -104,12 +110,13 @@
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                         Text="{StaticResource SysIoOut}" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                    <Grid Grid.Row="2">
+                    <Grid x:Name="SystemOutGrid" Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Button
                             Grid.Row="0"
@@ -125,6 +132,10 @@
                             Template="{StaticResource IoButtonTemplate}" />
                         <Button
                             Grid.Row="3"
+                            HorizontalAlignment="Stretch"
+                            Template="{StaticResource IoButtonTemplate}" />
+                        <Button
+                            Grid.Row="4"
                             HorizontalAlignment="Stretch"
                             Template="{StaticResource IoButtonTemplate}" />
                     </Grid>
@@ -212,12 +223,13 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock
+                    x:Name="IoInTextBlock"
                     Grid.Row="0"
                     Margin="16,16,16,4"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                     Text="{StaticResource IoIn}" />
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                <Grid Grid.Row="2">
+                <Grid x:Name="IoInGrid" Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -418,12 +430,13 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock
+                    x:Name="IoOutTextBlock"
                     Grid.Row="0"
                     Margin="16,16,16,4"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                     Text="{StaticResource IoOut}" />
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                <Grid Grid.Row="2">
+                <Grid x:Name="IoOutGird" Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -620,6 +633,7 @@
                 Margin="10,5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
+                Click="PreviousPageButtonInOnClick"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
                 Content="{StaticResource NextPage}"
@@ -628,6 +642,7 @@
                 Margin="10,5,5,5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
+                Click="NextPageButtonInOnClick"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
         </Grid>
         <Grid Grid.Row="1" Grid.Column="2">
@@ -641,6 +656,7 @@
                 Margin="5,5,10,5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
+                Click="PreviousPageButtonOutOnClick"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
                 Content="{StaticResource NextPage}"
@@ -649,6 +665,7 @@
                 Margin="10,5"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Background="#899DC0"
+                Click="NextPageButtonOutOnClick"
                 Style="{StaticResource MaterialDesignRaisedButton}" />
         </Grid>
     </Grid>

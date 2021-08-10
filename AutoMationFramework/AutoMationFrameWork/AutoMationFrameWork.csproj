@@ -369,7 +369,9 @@
   <ItemGroup>
     <Resource Include="automation.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Stations\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\AxisHome\0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
