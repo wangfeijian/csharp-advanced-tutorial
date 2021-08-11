@@ -13,6 +13,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using AutoMationFrameworkDll;
 using AutoMationFrameworkModel;
 using AutoMationFrameworkViewModel;
 using CommonTools.Tools;
@@ -25,24 +26,22 @@ namespace AutoMationFrameWork.View
     /// </summary>
     public partial class SettingControl
     {
-        public List<StationInfo> StationList = SimpleIoc.Default.GetInstance<SystemConfigViewModel>().SystemConfig.StationInfos;
         public SettingControl()
         {
             InitializeComponent();
+            CustomConfig.AddStation();
             AddStationControl();
         }
 
         private void AddStationControl()
         {
-            foreach (var stationInfo in StationList)
+            foreach (var stationInfo in StationManager.GetInstance().DicControlStation)
             {
                 TabItem item = new TabItem
                 {
-                    Header = LocationServices.GetLangType() == "en-us"
-                        ? stationInfo.StationEngName
-                        : stationInfo.StationName,
+                    Header = stationInfo.Value.StrName,
                     Style   = (Style) Application.Current.Resources["TabItemStyle"],
-                    Content = new StationTemplateControl()
+                    Content = stationInfo.Key
                 };
 
                 StationTabControl.Items.Add(item);

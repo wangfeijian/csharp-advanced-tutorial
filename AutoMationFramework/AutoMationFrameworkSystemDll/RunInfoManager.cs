@@ -539,7 +539,7 @@ namespace AutoMationFrameworkSystemDll
                     xmlDocument.Save(filename);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show(LocationServices.GetLang("LogConfigReadError"),
                                                     LocationServices.GetLang("Tips"), MessageBoxButton.OK,

@@ -18,6 +18,7 @@ using System;
 using System.Configuration;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using CommonTools.Tools;
 using AutoMationFrameworkDll;
 using AutoMationFrameworkViewModel;
@@ -67,7 +68,7 @@ namespace AutoMationFrameWork.ViewModel
             SimpleIoc.Default.Register(() => { return ConfigDir; });
             SimpleIoc.Default.Register(() => { return (IBuildConfig)t.Assembly.CreateInstance(ConfigClassName); });
 
-            if (ConfigApp(ConfigDir))
+            if (CustomConfig.ConfigApp(ConfigDir))
             {
 
             }
@@ -93,35 +94,6 @@ namespace AutoMationFrameWork.ViewModel
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
-        }
-
-        public bool ConfigApp(string ConfigDir)
-        {
-            try
-            {
-                //ErrorCodeMgr.GetInstance();
-                RunInforManager.GetInstance();
-
-                if (ConfigManager.GetInstance().LoadConfigFile(ConfigDir))
-                {
-                    StationManager.GetInstance().LoadPointFromCfg();
-                    AddStation();
-                    return true;
-                }
-
-                MessageBox.Show(LocationServices.GetLang("SysInitError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(LocationServices.GetLang("SysInitError"), LocationServices.GetLang("Tips"), MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            return false;
-        }
-
-        public void AddStation()
-        {
-            //StationManager.GetInstance().AddStation(new StationTemplateControl(), new station);
         }
     }
 }

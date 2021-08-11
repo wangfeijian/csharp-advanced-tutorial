@@ -180,6 +180,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomConfig.cs" />
     <Compile Include="ViewModel\HomeModeConverter.cs" />
     <Compile Include="View\AlarmControl.xaml.cs">
       <DependentUpon>AlarmControl.xaml</DependentUpon>
@@ -447,6 +448,10 @@
       <Project>{72ab7783-800d-4efa-871b-18b9d975107e}</Project>
       <Name>MotionIo</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolExtensions\ToolExtensions.csproj">
+      <Project>{46db02a1-dc55-459f-bc3c-82cbf89dce8a}</Project>
+      <Name>ToolExtensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

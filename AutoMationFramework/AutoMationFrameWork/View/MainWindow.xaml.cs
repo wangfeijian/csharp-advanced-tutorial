@@ -26,6 +26,7 @@ namespace AutoMationFrameWork.View
         public MainWindow()
         {
             InitializeComponent();
+            //CustomConfig.AddStation();
             Lv.SelectedIndex = 0;
         }
 

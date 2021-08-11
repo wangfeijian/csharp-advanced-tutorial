@@ -21,9 +21,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="570"
     d:DesignWidth="950"
+    Loaded="StationTemplateControl_OnLoaded"
     mc:Ignorable="d">
     <UserControl.DataContext>
-        <Binding Path="PointConfig" Source="{StaticResource Locator}"/>
+        <Binding Path="PointConfig" Source="{StaticResource Locator}" />
     </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -127,6 +128,7 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Button
+                                    x:Name="ButtonPositive4"
                                     Content="&#xe6e2;"
                                     Height="50"
                                     Margin="2"
@@ -134,6 +136,7 @@
                                     Foreground="#D2D2D3"
                                     Template="{StaticResource ButtonTemplate}" />
                                 <Button
+                                    x:Name="ButtonPositive2"
                                     Content="&#xe660;"
                                     Grid.Row="0"
                                     Grid.Column="1"
@@ -143,6 +146,7 @@
                                     Foreground="#D2D2D3"
                                     Template="{StaticResource ButtonTemplate}" />
                                 <Button
+                                    x:Name="ButtonPositive3"
                                     Content="&#xe6f4;"
                                     Grid.Row="0"
                                     Grid.Column="2"
@@ -152,6 +156,7 @@
                                     Foreground="#D2D2D3"
                                     Template="{StaticResource ButtonTemplate}" />
                                 <Button
+                                    x:Name="ButtonNegtive1"
                                     Content="&#xe6f6;"
                                     Grid.Row="1"
                                     Grid.Column="0"
@@ -170,6 +175,7 @@
                                     Foreground="#d81e06"
                                     Template="{StaticResource ButtonTemplate}" />
                                 <Button
+                                    x:Name="ButtonPositive1"
                                     Content="&#xe6f7;"
                                     Grid.Row="1"
                                     Grid.Column="2"
@@ -179,6 +185,7 @@
                                     Foreground="#D2D2D3"
                                     Template="{StaticResource ButtonTemplate}" />
                                 <Button
+                                    x:Name="ButtonNegtive4"
                                     Content="&#xe6eb;"
                                     Grid.Row="2"
                                     Grid.Column="0"
@@ -188,6 +195,7 @@
                                     Foreground="#D2D2D3"
                                     Template="{StaticResource ButtonTemplate}" />
                                 <Button
+                                    x:Name="ButtonNegtive2"
                                     Content="&#xe666;"
                                     Grid.Row="2"
                                     Grid.Column="1"
@@ -197,6 +205,7 @@
                                     Foreground="#D2D2D3"
                                     Template="{StaticResource ButtonTemplate}" />
                                 <Button
+                                    x:Name="ButtonNegtive3"
                                     Content="&#xe6f5;"
                                     Grid.Row="2"
                                     Grid.Column="2"
@@ -206,6 +215,7 @@
                                     Foreground="#D2D2D3"
                                     Template="{StaticResource ButtonTemplate}" />
                                 <TextBlock
+                                    x:Name="TextBlockPositive4"
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     HorizontalAlignment="Center"
@@ -213,6 +223,7 @@
                                     FontSize="12"
                                     Text="U+" />
                                 <TextBlock
+                                    x:Name="TextBlockPositive2"
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     HorizontalAlignment="Center"
@@ -220,6 +231,7 @@
                                     FontSize="12"
                                     Text="Y+" />
                                 <TextBlock
+                                    x:Name="TextBlockPositive3"
                                     Grid.Row="0"
                                     Grid.Column="2"
                                     HorizontalAlignment="Center"
@@ -227,6 +239,7 @@
                                     FontSize="12"
                                     Text="Z+" />
                                 <TextBlock
+                                    x:Name="TextBlockNegtive1"
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     HorizontalAlignment="Center"
@@ -241,6 +254,7 @@
                                     FontSize="12"
                                     Text="停止" />
                                 <TextBlock
+                                    x:Name="TextBlockPositive1"
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     HorizontalAlignment="Center"
@@ -248,6 +262,7 @@
                                     FontSize="12"
                                     Text="X+" />
                                 <TextBlock
+                                    x:Name="TextBlockNegtive4"
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     HorizontalAlignment="Center"
@@ -255,6 +270,7 @@
                                     FontSize="12"
                                     Text="U-" />
                                 <TextBlock
+                                    x:Name="TextBlockNegtive2"
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     HorizontalAlignment="Center"
@@ -262,6 +278,7 @@
                                     FontSize="12"
                                     Text="Y-" />
                                 <TextBlock
+                                    x:Name="TextBlockNegtive3"
                                     Grid.Row="2"
                                     Grid.Column="2"
                                     HorizontalAlignment="Center"
@@ -275,18 +292,22 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Button
+                                    x:Name="ButtonXYZU"
                                     Content="XYZU"
                                     Grid.Column="0"
                                     Margin="2.5,5,5,5"
                                     materialDesign:ButtonAssist.CornerRadius="5"
                                     Background="#899DC0"
+                                    Click="SwitchAxis"
                                     Style="{StaticResource MaterialDesignRaisedButton}" />
                                 <Button
+                                    x:Name="ButtonABCD"
                                     Content="ABCD"
                                     Grid.Column="1"
                                     Margin="2.5,5,5,5"
                                     materialDesign:ButtonAssist.CornerRadius="5"
                                     Background="#899DC0"
+                                    Click="SwitchAxis"
                                     Style="{StaticResource MaterialDesignRaisedButton}" />
                             </Grid>
                         </Grid>
@@ -299,9 +320,9 @@
                         Background="#50bc93"
                         Foreground="White"
                         UniformCornerRadius="1">
-                        <Grid>
+                        <Grid x:Name="PackIconGrid">
                             <Grid.RowDefinitions>
-                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition />
                                 <RowDefinition />
                                 <RowDefinition />
@@ -375,6 +396,7 @@
                                 FontSize="15"
                                 Text="{StaticResource ServoOn}" />
                             <TextBlock
+                                x:Name="ShowAxisX"
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
@@ -382,6 +404,7 @@
                                 FontSize="15"
                                 Text="X" />
                             <TextBlock
+                                x:Name="ShowAxisY"
                                 Grid.Row="2"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
@@ -389,6 +412,7 @@
                                 FontSize="15"
                                 Text="Y" />
                             <TextBlock
+                                x:Name="ShowAxisZ"
                                 Grid.Row="3"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
@@ -396,6 +420,7 @@
                                 FontSize="15"
                                 Text="Z" />
                             <TextBlock
+                                x:Name="ShowAxisU"
                                 Grid.Row="4"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
@@ -403,6 +428,7 @@
                                 FontSize="15"
                                 Text="U" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateX0"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Width="25"
@@ -412,6 +438,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateX1"
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 Width="25"
@@ -421,6 +448,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateX2"
                                 Grid.Row="1"
                                 Grid.Column="3"
                                 Width="25"
@@ -430,6 +458,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateX3"
                                 Grid.Row="1"
                                 Grid.Column="4"
                                 Width="25"
@@ -439,6 +468,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateX4"
                                 Grid.Row="1"
                                 Grid.Column="5"
                                 Width="25"
@@ -448,6 +478,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateX5"
                                 Grid.Row="1"
                                 Grid.Column="6"
                                 Width="25"
@@ -457,6 +488,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateX6"
                                 Grid.Row="1"
                                 Grid.Column="7"
                                 Width="25"
@@ -466,6 +498,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateX7"
                                 Grid.Row="1"
                                 Grid.Column="8"
                                 Width="25"
@@ -475,6 +508,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateY0"
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 Width="25"
@@ -484,6 +518,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateY1"
                                 Grid.Row="2"
                                 Grid.Column="2"
                                 Width="25"
@@ -493,6 +528,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateY2"
                                 Grid.Row="2"
                                 Grid.Column="3"
                                 Width="25"
@@ -502,6 +538,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateY3"
                                 Grid.Row="2"
                                 Grid.Column="4"
                                 Width="25"
@@ -511,6 +548,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateY4"
                                 Grid.Row="2"
                                 Grid.Column="5"
                                 Width="25"
@@ -520,6 +558,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateY5"
                                 Grid.Row="2"
                                 Grid.Column="6"
                                 Width="25"
@@ -529,6 +568,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateY6"
                                 Grid.Row="2"
                                 Grid.Column="7"
                                 Width="25"
@@ -538,6 +578,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateY7"
                                 Grid.Row="2"
                                 Grid.Column="8"
                                 Width="25"
@@ -547,6 +588,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateZ0"
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 Width="25"
@@ -556,6 +598,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateZ1"
                                 Grid.Row="3"
                                 Grid.Column="2"
                                 Width="25"
@@ -565,6 +608,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateZ2"
                                 Grid.Row="3"
                                 Grid.Column="3"
                                 Width="25"
@@ -574,6 +618,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateZ3"
                                 Grid.Row="3"
                                 Grid.Column="4"
                                 Width="25"
@@ -583,6 +628,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateZ4"
                                 Grid.Row="3"
                                 Grid.Column="5"
                                 Width="25"
@@ -592,6 +638,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateZ5"
                                 Grid.Row="3"
                                 Grid.Column="6"
                                 Width="25"
@@ -601,6 +648,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateZ6"
                                 Grid.Row="3"
                                 Grid.Column="7"
                                 Width="25"
@@ -610,6 +658,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateZ7"
                                 Grid.Row="3"
                                 Grid.Column="8"
                                 Width="25"
@@ -619,6 +668,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateU0"
                                 Grid.Row="4"
                                 Grid.Column="1"
                                 Width="25"
@@ -628,6 +678,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateU1"
                                 Grid.Row="4"
                                 Grid.Column="2"
                                 Width="25"
@@ -637,6 +688,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateU2"
                                 Grid.Row="4"
                                 Grid.Column="3"
                                 Width="25"
@@ -646,6 +698,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateU3"
                                 Grid.Row="4"
                                 Grid.Column="4"
                                 Width="25"
@@ -655,6 +708,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateU4"
                                 Grid.Row="4"
                                 Grid.Column="5"
                                 Width="25"
@@ -664,6 +718,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateU5"
                                 Grid.Row="4"
                                 Grid.Column="6"
                                 Width="25"
@@ -673,6 +728,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateU6"
                                 Grid.Row="4"
                                 Grid.Column="7"
                                 Width="25"
@@ -682,6 +738,7 @@
                                 Foreground="Gray"
                                 Kind="Circle" />
                             <materialDesign:PackIcon
+                                x:Name="PackIconStateU7"
                                 Grid.Row="4"
                                 Grid.Column="8"
                                 Width="25"
@@ -700,9 +757,9 @@
                         Background="#50bc93"
                         Foreground="White"
                         UniformCornerRadius="1">
-                        <Grid>
+                        <Grid x:Name="AxisPosParamGird">
                             <Grid.RowDefinitions>
-                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition />
                                 <RowDefinition />
                                 <RowDefinition />
@@ -733,6 +790,7 @@
                                 FontSize="15"
                                 Text="{StaticResource MoveDistance}" />
                             <TextBlock
+                                x:Name="ParamAxisX"
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
@@ -747,6 +805,7 @@
                                 FontSize="15"
                                 Text="{StaticResource AxisSpeed}" />
                             <TextBlock
+                                x:Name="ParamAxisY"
                                 Grid.Row="2"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
@@ -754,6 +813,7 @@
                                 FontSize="15"
                                 Text="Y" />
                             <TextBlock
+                                x:Name="ParamAxisZ"
                                 Grid.Row="3"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
@@ -761,6 +821,7 @@
                                 FontSize="15"
                                 Text="Z" />
                             <TextBlock
+                                x:Name="ParamAxisU"
                                 Grid.Row="4"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
@@ -768,6 +829,7 @@
                                 FontSize="15"
                                 Text="U" />
                             <TextBox
+                                x:Name="AxisPosX"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Margin="2"
@@ -775,18 +837,21 @@
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="15" />
                             <TextBox
+                                x:Name="AxisTarX"
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 Margin="2"
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="1" />
                             <TextBox
+                                x:Name="AxisSpeedX"
                                 Grid.Row="1"
                                 Grid.Column="7"
                                 Margin="2"
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="5000" />
                             <TextBox
+                                x:Name="AxisPosY"
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 Margin="2"
@@ -794,18 +859,21 @@
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="15" />
                             <TextBox
+                                x:Name="AxisTarY"
                                 Grid.Row="2"
                                 Grid.Column="2"
                                 Margin="2"
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="1" />
                             <TextBox
+                                x:Name="AxisSpeedY"
                                 Grid.Row="2"
                                 Grid.Column="7"
                                 Margin="2"
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="5000" />
                             <TextBox
+                                x:Name="AxisPosZ"
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 Margin="2"
@@ -813,18 +881,21 @@
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="15" />
                             <TextBox
+                                x:Name="AxisTarZ"
                                 Grid.Row="3"
                                 Grid.Column="2"
                                 Margin="2"
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="1" />
                             <TextBox
+                                x:Name="AxisSpeedZ"
                                 Grid.Row="3"
                                 Grid.Column="7"
                                 Margin="2"
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="5000" />
                             <TextBox
+                                x:Name="AxisPosU"
                                 Grid.Row="4"
                                 Grid.Column="1"
                                 Margin="2"
@@ -832,18 +903,21 @@
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="15" />
                             <TextBox
+                                x:Name="AxisTarU"
                                 Grid.Row="4"
                                 Grid.Column="2"
                                 Margin="2"
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="1" />
                             <TextBox
+                                x:Name="AxisSpeedU"
                                 Grid.Row="4"
                                 Grid.Column="7"
                                 Margin="2"
                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                 Text="5000" />
                             <Button
+                                x:Name="ButtonServerX"
                                 Content="{StaticResource ServoOn}"
                                 Grid.Row="1"
                                 Grid.Column="3"
@@ -876,6 +950,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
+                                x:Name="ButtonServerY"
                                 Content="{StaticResource ServoOn}"
                                 Grid.Row="2"
                                 Grid.Column="3"
@@ -908,6 +983,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
+                                x:Name="ButtonServerZ"
                                 Content="{StaticResource ServoOn}"
                                 Grid.Row="3"
                                 Grid.Column="3"
@@ -940,6 +1016,7 @@
                                 Background="#899DC0"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
                             <Button
+                                x:Name="ButtonServerU"
                                 Content="{StaticResource ServoOn}"
                                 Grid.Row="4"
                                 Grid.Column="3"
