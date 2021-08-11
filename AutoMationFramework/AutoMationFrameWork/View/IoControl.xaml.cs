@@ -94,6 +94,7 @@ namespace AutoMationFrameWork.View
                         }
                         _btnsIn[i].Content = $"{nCardNo + 1}.{i + nIndex + 1,2} {strIoName}";
                         _btnsIn[i].Visibility = Visibility.Visible;
+                        _btnsIn[i].IsEnabled = false;
                         _btnsIn[i].Foreground = Brushes.Gray;
                     }
                     else
@@ -255,6 +256,10 @@ namespace AutoMationFrameWork.View
                         btn[i].Content = $"{nCardNo}.{nIndex,2} {strIoName}";
                         btn[i].Visibility = Visibility.Visible;
                         btn[i].Foreground = Brushes.Gray;
+                        if (bIn)
+                        {
+                            btn[i].IsEnabled = false;
+                        }
                     }
 
                 }

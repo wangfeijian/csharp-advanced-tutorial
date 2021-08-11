@@ -17,6 +17,7 @@ using MaterialDesignThemes.Wpf;
 using ToolExtensions;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace AutoMationFrameWork.View
 {
@@ -30,6 +31,8 @@ namespace AutoMationFrameWork.View
         private TextBox[] _axisPosBlocks = new TextBox[4];
         private TextBox[] _axisTarBlocks = new TextBox[4];
         private TextBox[] _axisSpeedBlocks = new TextBox[4];
+        private Button[] _btnIn;   //输入IO按钮数组
+        private Button[] _btnsOut;  //输出IO按钮数组
 
         private int _curPage = -1; //0 - XYZU  1 - ABCD
 
@@ -41,29 +44,31 @@ namespace AutoMationFrameWork.View
         private void StationTemplateControl_OnLoaded(object sender, RoutedEventArgs e)
         {
             StationBase sta = ManualOperation.GetStation(this);
-            if (sta!=null)
+            if (sta != null)
             {
                 string[] strAxisName = { "X", "Y", "Z", "U" };
                 for (int i = 0; i < _packIcons.GetLength(0); i++)
                 {
                     for (int j = 0; j < _packIcons.GetLength(1); j++)
                     {
-                        _packIcons[i, j] = (PackIcon) PackIconGrid.FindName("PackIconState" + strAxisName[i] + j);
+                        _packIcons[i, j] = (PackIcon)PackIconGrid.FindName("PackIconState" + strAxisName[i] + j);
                     }
 
-                    _showAxisNumBlocks[i] = (TextBlock) PackIconGrid.FindName("ShowAxis" + strAxisName[i]);
+                    _showAxisNumBlocks[i] = (TextBlock)PackIconGrid.FindName("ShowAxis" + strAxisName[i]);
                     _showAxisNumBlocks[i].Text = sta.StrAxisName[i];
-                    ((TextBlock) PackIconGrid.FindName("ParamAxis" + strAxisName[i])).Text = sta.StrAxisName[i];
-                    _axisPosBlocks[i]=(TextBox)PackIconGrid.FindName("AxisPos" + strAxisName[i]);
-                    _axisTarBlocks[i]=(TextBox)PackIconGrid.FindName("AxisTar" + strAxisName[i]);
-                    _axisSpeedBlocks[i]=(TextBox)PackIconGrid.FindName("AxisSpeed" + strAxisName[i]);
+                    // ReSharper disable once PossibleNullReferenceException
+                    ((TextBlock)PackIconGrid.FindName("ParamAxis" + strAxisName[i])).Text = sta.StrAxisName[i];
+                    _axisPosBlocks[i] = (TextBox)PackIconGrid.FindName("AxisPos" + strAxisName[i]);
+                    _axisTarBlocks[i] = (TextBox)PackIconGrid.FindName("AxisTar" + strAxisName[i]);
+                    _axisSpeedBlocks[i] = (TextBox)PackIconGrid.FindName("AxisSpeed" + strAxisName[i]);
                 }
 
-                SwitchToXYZU();
+                SwitchToXyzu();
+                BindIoButton();
             }
         }
 
-        private void SwitchToXYZU()
+        private void SwitchToXyzu()
         {
             if (_curPage != 0)
             {
@@ -72,11 +77,11 @@ namespace AutoMationFrameWork.View
                 ButtonABCD.IsEnabled = true;
                 ButtonXYZU.IsEnabled = false;
 
-                UpdateUI();
+                UpdateUi();
             }
         }
 
-        private void SwitchToABCD()
+        private void SwitchToAbcd()
         {
             if (_curPage != 1)
             {
@@ -85,11 +90,77 @@ namespace AutoMationFrameWork.View
                 ButtonABCD.IsEnabled = false;
                 ButtonXYZU.IsEnabled = true;
 
-                UpdateUI();
+                UpdateUi();
             }
         }
 
-        private void UpdateUI()
+        /// <summary>
+        /// 创建IO输入输出按钮并声明按钮点击事件
+        /// </summary>
+        private void BindIoButton()
+        {
+            StationBase sta = ManualOperation.GetStation(this);
+            _btnIn = new Button[sta.IoIn.Length];
+            _btnsOut = new Button[sta.IoOut.Length];
+            int row = sta.IoIn.Length % 2 == 0 ? sta.IoIn.Length / 2 : sta.IoIn.Length / 2 + 1;
+
+            for (int i = 0; i < row; i++)
+            {
+                IoInGrid.RowDefinitions.Add(new RowDefinition());
+            }
+
+            row = sta.IoOut.Length % 2 == 0 ? sta.IoOut.Length / 2 : sta.IoOut.Length / 2 + 1;
+
+            for (int i = 0; i < row; i++)
+            {
+                IoOutGrid.RowDefinitions.Add(new RowDefinition());
+            }
+
+            int index = 0;
+            for (int i = 0; i < IoInGrid.RowDefinitions.Count; i++)
+            {
+                for (int j = 0; j < IoInGrid.ColumnDefinitions.Count; j++)
+                {
+                    if (index == sta.IoIn.Length)
+                    {
+                        break;
+                    }
+                    Button tempButton = new Button();
+                    tempButton.Template = (ControlTemplate)Application.Current.Resources["IoButtonTemplate"];
+                    tempButton.Content = sta.IoIn[index];
+                    tempButton.Foreground = Brushes.Gray;
+                    tempButton.IsEnabled = false;
+                    IoInGrid.Children.Add(tempButton);
+                    Grid.SetRow(tempButton, i);
+                    Grid.SetColumn(tempButton, j);
+                    _btnIn[index] = tempButton;
+                    index++;
+                }
+            }
+
+            index = 0;
+            for (int i = 0; i < IoOutGrid.RowDefinitions.Count; i++)
+            {
+                for (int j = 0; j < IoOutGrid.ColumnDefinitions.Count; j++)
+                {
+                    if (index == sta.IoOut.Length)
+                    {
+                        break;
+                    }
+                    Button tempButton = new Button();
+                    tempButton.Template = (ControlTemplate)Application.Current.Resources["IoButtonTemplate"];
+                    tempButton.Content = sta.IoOut[index];
+                    tempButton.Foreground = Brushes.Gray;
+                    IoOutGrid.Children.Add(tempButton);
+                    Grid.SetRow(tempButton, i);
+                    Grid.SetColumn(tempButton, j);
+                    _btnsOut[index] = tempButton;
+                    index++;
+                }
+            }
+        }
+
+        private void UpdateUi()
         {
             StationBase sta = ManualOperation.GetStation(this);
             if (sta == null)
@@ -151,22 +222,22 @@ namespace AutoMationFrameWork.View
                 int nStartIndex = _curPage * 4 + i;
                 if (sta.GetAxisNo(nStartIndex) == 0)
                 {
-                    PackIconGrid.RowDefinitions[i+1].Height = new GridLength(0);
-                    AxisPosParamGird.RowDefinitions[i+1].Height = new GridLength(0);
+                    PackIconGrid.RowDefinitions[i + 1].Height = new GridLength(0);
+                    AxisPosParamGird.RowDefinitions[i + 1].Height = new GridLength(0);
 
                     // ReSharper disable once PossibleNullReferenceException
-                    ((TextBlock) FindName("TextBlockPositive" + (i + 1))).Visibility = Visibility.Hidden;
+                    ((TextBlock)FindName("TextBlockPositive" + (i + 1))).Visibility = Visibility.Hidden;
                     // ReSharper disable once PossibleNullReferenceException
-                    ((TextBlock) FindName("TextBlockNegtive" + (i + 1))).Visibility = Visibility.Hidden;
+                    ((TextBlock)FindName("TextBlockNegtive" + (i + 1))).Visibility = Visibility.Hidden;
                     // ReSharper disable once PossibleNullReferenceException
-                    ((Button) FindName("ButtonPositive" + (i + 1))).Visibility = Visibility.Hidden;
+                    ((Button)FindName("ButtonPositive" + (i + 1))).Visibility = Visibility.Hidden;
                     // ReSharper disable once PossibleNullReferenceException
-                    ((Button) FindName("ButtonNegtive" + (i + 1))).Visibility = Visibility.Hidden;
+                    ((Button)FindName("ButtonNegtive" + (i + 1))).Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    PackIconGrid.RowDefinitions[i+1].Height = GridLength.Auto;
-                    AxisPosParamGird.RowDefinitions[i+1].Height = GridLength.Auto;
+                    PackIconGrid.RowDefinitions[i + 1].Height = GridLength.Auto;
+                    AxisPosParamGird.RowDefinitions[i + 1].Height = GridLength.Auto;
 
                     // ReSharper disable once PossibleNullReferenceException
                     ((TextBlock)FindName("TextBlockPositive" + (i + 1))).Visibility = Visibility.Visible;
@@ -185,13 +256,13 @@ namespace AutoMationFrameWork.View
         {
             Button b = sender as Button;
 
-            if (b != null && b.Name =="ButtonXYZU")
+            if (b != null && b.Name == "ButtonXYZU")
             {
-                SwitchToXYZU();
+                SwitchToXyzu();
             }
             else
             {
-                SwitchToABCD();
+                SwitchToAbcd();
             }
         }
     }

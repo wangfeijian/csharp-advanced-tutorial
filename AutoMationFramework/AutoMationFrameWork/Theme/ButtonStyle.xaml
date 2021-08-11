@@ -110,8 +110,7 @@
                 <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource IoButton.Pressed.Border}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource IoButton.Disabled.Background}" />
-                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource IoButton.Disabled.Border}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

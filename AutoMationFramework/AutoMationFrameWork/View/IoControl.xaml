@@ -255,7 +255,6 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="0"
-                        HorizontalAlignment="Stretch"
                         Template="{StaticResource IoButtonTemplate}" />
                     <Button
                         Grid.Row="0"
@@ -462,7 +461,6 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="0"
-                        HorizontalAlignment="Stretch"
                         Template="{StaticResource IoButtonTemplate}" />
                     <Button
                         Grid.Row="0"

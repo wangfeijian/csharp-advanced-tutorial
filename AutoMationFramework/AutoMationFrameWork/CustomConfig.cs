@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AutoMationFramework.Stations;
 using AutoMationFrameworkDll;
 using AutoMationFrameworkSystemDll;
 using AutoMationFrameWork.View;
@@ -40,12 +41,12 @@ namespace AutoMationFrameWork
         public static void AddStation()
         {
             // 当配置的是英文界面就需要将站名改成英文
-            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationBase("TurntableStation"));
-            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationBase("CCDInspectOneStation"));
-            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationBase("CCDInspectTwoStation"));
-            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationBase("LaserOneStation"));
-            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationBase("LaserTwoStation"));
-            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationBase("LaserThreeStation"));
+            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationRotatingDisk("TurntableStation"));
+            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationCcdInspectionOne("CCDInspectOneStation"));
+            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationCcdInspectionTwo("CCDInspectTwoStation"));
+            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationLaserOne("LaserOneStation"));
+            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationLaserTwo("LaserTwoStation"));
+            StationManager.GetInstance().AddStation(new StationTemplateControl(), new StationLaserThree("LaserThreeStation"));
         }
     }
 }

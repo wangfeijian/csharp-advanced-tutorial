@@ -181,6 +181,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CustomConfig.cs" />
+    <Compile Include="Stations\RegDefine.cs" />
+    <Compile Include="Stations\StationCcdInspectionOne.cs" />
+    <Compile Include="Stations\StationCcdInspectionTwo.cs" />
+    <Compile Include="Stations\StationEx.cs" />
+    <Compile Include="Stations\StationLaserOne.cs" />
+    <Compile Include="Stations\StationLaserThree.cs" />
+    <Compile Include="Stations\StationLaserTwo.cs" />
+    <Compile Include="Stations\StationRotatingDisk.cs" />
     <Compile Include="ViewModel\HomeModeConverter.cs" />
     <Compile Include="View\AlarmControl.xaml.cs">
       <DependentUpon>AlarmControl.xaml</DependentUpon>
@@ -370,9 +378,7 @@
   <ItemGroup>
     <Resource Include="automation.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Stations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\AxisHome\0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -438,6 +444,10 @@
       <Project>{b11174c1-280b-4e41-9856-7da214a6f6c3}</Project>
       <Name>CommonTools</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Communicate\Communicate.csproj">
+      <Project>{F402AE32-59A8-44BA-B7C2-FA3927C28321}</Project>
+      <Name>Communicate</Name>
     </ProjectReference>
     <ProjectReference Include="..\ConfigTools\ConfigTools.csproj">
       <Project>{7d153995-1823-45f5-8a06-405f8606a9c7}</Project>

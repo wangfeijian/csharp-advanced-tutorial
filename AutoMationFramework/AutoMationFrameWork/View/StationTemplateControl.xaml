@@ -1080,7 +1080,76 @@
                                 Style="{StaticResource TabItemStyle}">
                                 点位
                             </TabItem>
-                            <TabItem Header="IO" Style="{StaticResource TabItemStyle}">IO</TabItem>
+                            <TabItem Header="IO" Style="{StaticResource TabItemStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:Card
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Margin="10,10,5,10"
+                                        Padding="5"
+                                        Background="#50bc93"
+                                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                        UniformCornerRadius="6">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                x:Name="IoInTextBlock"
+                                                Grid.Row="0"
+                                                Margin="16,16,16,4"
+                                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                Text="{StaticResource IoIn}" />
+                                            <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Hidden">
+                                                <Grid x:Name="IoInGrid">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                </Grid>
+                                            </ScrollViewer>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                    <materialDesign:Card
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="10,10,5,10"
+                                        Padding="5"
+                                        Background="#50bc93"
+                                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                        UniformCornerRadius="6">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                x:Name="IoOutTextBlock"
+                                                Grid.Row="0"
+                                                Margin="16,16,16,4"
+                                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                Text="{StaticResource IoOut}" />
+                                            <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Hidden">
+                                                <Grid x:Name="IoOutGrid">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                </Grid>
+                                            </ScrollViewer>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </Grid>
+                            </TabItem>
                             <TabItem Header="{StaticResource Cylinder}" Style="{StaticResource TabItemStyle}">气缸</TabItem>
                         </TabControl>
                         <Button
