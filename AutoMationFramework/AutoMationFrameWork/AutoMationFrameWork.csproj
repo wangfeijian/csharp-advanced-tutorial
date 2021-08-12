@@ -189,7 +189,7 @@
     <Compile Include="Stations\StationLaserThree.cs" />
     <Compile Include="Stations\StationLaserTwo.cs" />
     <Compile Include="Stations\StationRotatingDisk.cs" />
-    <Compile Include="ViewModel\HomeModeConverter.cs" />
+    <Compile Include="ViewModel\CustomerConverter.cs" />
     <Compile Include="View\AlarmControl.xaml.cs">
       <DependentUpon>AlarmControl.xaml</DependentUpon>
     </Compile>

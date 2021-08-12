@@ -18,9 +18,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:AutoMationFrameWork.ViewModel"
     d:DesignHeight="160"
     d:DesignWidth="350"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <viewModel:BoolValueConverter x:Key="BoolValueConverter" />
+    </UserControl.Resources>
     <Grid>
         <materialDesign:Card
             Grid.Row="0"
@@ -64,7 +68,10 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Orientation="Horizontal">
-                        <ToggleButton HorizontalAlignment="Left" />
+                        <ToggleButton
+                            x:Name="CylinderOut"
+                            HorizontalAlignment="Left"
+                            IsChecked="{Binding IsChecked, ElementName=CylinderIn, Converter={StaticResource BoolValueConverter}}" />
                         <TextBlock
                             Margin="5"
                             VerticalAlignment="Center"
@@ -75,7 +82,10 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Orientation="Horizontal">
-                        <ToggleButton HorizontalAlignment="Left" />
+                        <ToggleButton
+                            x:Name="CylinderIn"
+                            HorizontalAlignment="Left"
+                            IsChecked="False" />
                         <TextBlock
                             Margin="5"
                             VerticalAlignment="Center"

@@ -32,6 +32,25 @@ namespace AutoMationFrameWork.ViewModel
         }
     }
 
+    public class BoolValueConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool result;
+            if (value != null&&bool.TryParse(value.ToString(),out result))
+            {
+                return !result;
+            }
+
+            return false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool result = (bool) value;
+            return !result;
+        }
+    }
     public class TreeViewLineConverter : IMultiValueConverter
     {
 

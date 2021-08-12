@@ -43,9 +43,11 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
-                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
+                                <local:CylinderControl />
+                                <local:CylinderControl />
+                                <local:CylinderControl />
                                 <local:CylinderControl />
                                 <local:CylinderControl />
                                 <local:CylinderControl />
@@ -55,9 +57,6 @@
                                 <local:CylinderControl />
                                 <local:CylinderControl />
                                 <local:CylinderControl />
-                                <local:CylinderControl />
-                            </StackPanel>
-                            <StackPanel Grid.Column="2">
                                 <local:CylinderControl />
                                 <local:CylinderControl />
                                 <local:CylinderControl />
