@@ -558,8 +558,8 @@ namespace AutoMationFrameworkDll
                 {
                     stationBase.DicPoint.Clear();
                     var pointInfos = from item in pointList
-                        where stationBase.Name == (LocationServices.GetLangType() == "en-us" ? item.EngName : item.Name)
-                        select item.PointInfos;
+                                     where stationBase.Name == (LocationServices.GetLangType() == "en-us" ? item.EngName : item.Name)
+                                     select item.PointInfos;
 
                     var pointInfoList = pointInfos.First();
 
@@ -568,7 +568,7 @@ namespace AutoMationFrameworkDll
                         foreach (var item in pointInfoList)
                         {
                             PointInfo pointInfo = new PointInfo();
-                            int       index     = Convert.ToInt32(item.Index);
+                            pointInfo.Index = Convert.ToInt32(item.Index);
                             pointInfo.StrName = item.Name;
 
                             for (int i = 0; i < 8; i++)
@@ -576,14 +576,14 @@ namespace AutoMationFrameworkDll
                                 var pos = item.GetType().GetProperty(((PointNum)i).ToString())?.GetValue(item, null);
                                 if (pos != null && !string.IsNullOrEmpty(pos.ToString()))
                                 {
-                                    pointInfo.Pos[i] = Convert.ToDouble(pos);
+                                    pointInfo.Pos[i] = Math.Round(Convert.ToDouble(pos),4);
                                 }
                                 else
                                 {
                                     pointInfo.Pos[i] = -1.0;
                                 }
                             }
-                            stationBase.DicPoint.Add(index, pointInfo);
+                            stationBase.DicPoint.Add(pointInfo.Index, pointInfo);
                         }
                     }
                 }

@@ -11,12 +11,14 @@
 *********************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using AutoMationFrameworkDll;
 using MaterialDesignThemes.Wpf;
 using ToolExtensions;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace AutoMationFrameWork.View
@@ -33,7 +35,7 @@ namespace AutoMationFrameWork.View
         private TextBox[] _axisSpeedBlocks = new TextBox[4];
         private Button[] _btnIn;   //输入IO按钮数组
         private Button[] _btnsOut;  //输出IO按钮数组
-
+        private string[] _pointBindingStr = { "Index", "StrName", "X", "Y", "Z", "U", "A", "B", "C", "D" };
         private int _curPage = -1; //0 - XYZU  1 - ABCD
 
         public StationTemplateControl()
@@ -65,6 +67,38 @@ namespace AutoMationFrameWork.View
 
                 SwitchToXyzu();
                 BindIoButton();
+
+                //隐藏点位中不需要的轴，并把名称改为自定义名称
+                for (int i = 0; i < sta.AxisCount; i++)
+                {
+                    int nAxisNo = sta.GetAxisNo(i);
+
+                    if (nAxisNo > 0)
+                    {
+                        PointDatGrid.Columns[i + 2].Header = sta.GetAxisName(i);
+                    }
+                    else
+                    {
+                        PointDatGrid.Columns[i + 2].Visibility = Visibility.Collapsed;
+                    }
+                }
+
+                List<PointInfo> pointInfos = new List<PointInfo>(sta.DicPoint.Values); 
+                PointDatGrid.ItemsSource = pointInfos;
+
+                int index = 0;
+                foreach (var dataGridColumn in PointDatGrid.Columns)
+                {
+                    if (dataGridColumn.Visibility == Visibility.Visible)
+                    {
+                        ((System.Windows.Controls.DataGridTextColumn)dataGridColumn).Binding = new Binding(_pointBindingStr[index]) {Mode = BindingMode.TwoWay};
+                        index++;
+                        continue;
+                    }
+
+                    index++;
+                }
+
             }
         }
 

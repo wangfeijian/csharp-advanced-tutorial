@@ -111,6 +111,8 @@
     <sys:String x:Key="DryRun">空跑</sys:String>
     <sys:String x:Key="Calibration">标定</sys:String>
     <sys:String x:Key="DeInitial">反初始化</sys:String>
+    <sys:String x:Key="Index">序号</sys:String>
+    <sys:String x:Key="PointName">点位名</sys:String>
     <!--  MessageBox变量  -->
     <sys:String x:Key="OK">确定</sys:String>
     <sys:String x:Key="Cancel">取消</sys:String>

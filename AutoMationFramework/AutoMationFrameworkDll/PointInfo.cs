@@ -22,9 +22,14 @@ namespace AutoMationFrameworkDll
         public double[] Pos = new double[8];
 
         /// <summary>
+        /// 点位序号
+        /// </summary>
+        public int Index { get; set; }
+
+        /// <summary>
         /// 点位名称
         /// </summary>
-        public string StrName;
+        public string StrName { get; set; }
 
         /// <summary>
         /// X轴脉冲位置

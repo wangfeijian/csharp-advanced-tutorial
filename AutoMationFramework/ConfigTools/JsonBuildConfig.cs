@@ -107,7 +107,7 @@ namespace ConfigTools
                 case "systemCfg":
                     return (T)(object)LoadSystemConfig<SystemCfg>(config);
                 case "point":
-                    return (T)(object)LoadPointConfig<List<StationPoint>>();
+                    return (T)(object)LoadPointConfig<List<StationPoint>>(config);
                 case "systemParam":
                 case "systemParamDefault":
                     return (T)(object)LoadParamConfig<Parameters>(config);
@@ -187,6 +187,7 @@ namespace ConfigTools
                     SysOutput = new List<SysOutputPoint>(),
                     MotionCardsList = new List<MotionCard>(),
                     AxisConfigList = new List<AxisCfg>(),
+                    ComInfos = new List<ComInfo>(),
                     EthInfos = new List<EthInfo>(),
                     StationInfos = new List<StationInfo>()
                 };
@@ -199,9 +200,9 @@ namespace ConfigTools
             }
         }
 
-        private T LoadPointConfig<T>() where T : List<StationPoint>
+        private T LoadPointConfig<T>(string config) where T : List<StationPoint>
         {
-            string filePoint = AppDomain.CurrentDomain.BaseDirectory + "point.json";
+            string filePoint = config + ".json";
             List<StationPoint> stationPoints;
 
             if (!File.Exists(filePoint))

@@ -344,6 +344,10 @@ namespace AutoMationFrameworkDll
             DicInTranslate.Clear();
             foreach (var ioInputPoint in SystemConfig.IoInput)
             {
+                if (ioInputPoint.PointName==null)
+                {
+                    ioInputPoint.PointName="";
+                }
                 string cardIndex = ioInputPoint.CardIndex;
                 string pointIndex = ioInputPoint.PointIndex;
                 string pointName = ioInputPoint.PointName;
@@ -394,6 +398,11 @@ namespace AutoMationFrameworkDll
             DicOutTranslate.Clear();
             foreach (var ioOutputPoint in SystemConfig.IoOutput)
             {
+                if (ioOutputPoint.PointName == null)
+                {
+                    ioOutputPoint.PointName = "";
+                }
+
                 string cardIndex = ioOutputPoint.CardIndex;
                 string pointIndex = ioOutputPoint.PointIndex;
                 string pointName = ioOutputPoint.PointName;

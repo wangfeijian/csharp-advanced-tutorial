@@ -448,6 +448,7 @@
     <ProjectReference Include="..\Communicate\Communicate.csproj">
       <Project>{F402AE32-59A8-44BA-B7C2-FA3927C28321}</Project>
       <Name>Communicate</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\ConfigTools\ConfigTools.csproj">
       <Project>{7d153995-1823-45f5-8a06-405f8606a9c7}</Project>
@@ -462,6 +463,7 @@
     <ProjectReference Include="..\ToolExtensions\ToolExtensions.csproj">
       <Project>{46db02a1-dc55-459f-bc3c-82cbf89dce8a}</Project>
       <Name>ToolExtensions</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,1 +1,587 @@
-{"ParameterInfos":[{"KeyValue":"RunParam","CurrentValue":null,"Unit":null,"ParamDesc":"运行参数设置","EnglishDesc":"Operation parameter setting","MinValue":null,"MaxValue":null,"Authority":"1"},{"KeyValue":"AxisXSpeed","CurrentValue":"0.1","Unit":"%","ParamDesc":"X轴速度百分比","EnglishDesc":"X-axis speed (speed percentage)","MinValue":"0.1","MaxValue":"100","Authority":"2"},{"KeyValue":"AxisYSpeed","CurrentValue":"80","Unit":"%","ParamDesc":"Y轴速度百分比","EnglishDesc":"Y-axis speed(speed percentage)","MinValue":"0.1","MaxValue":"100","Authority":"2"}]}
+{
+  "ParameterInfos": [
+    {
+      "KeyValue": "RunParam",
+      "CurrentValue": null,
+      "Unit": null,
+      "ParamDesc": "运行参数设置",
+      "EnglishDesc": "Operation parameter setting",
+      "MinValue": null,
+      "MaxValue": null,
+      "Authority": "1"
+    },
+    {
+      "KeyValue": "AxisXSpeed",
+      "CurrentValue": "10",
+      "Unit": "%",
+      "ParamDesc": "X轴速度(速度百分比)",
+      "EnglishDesc": "X-axis speed (speed percentage)",
+      "MinValue": "0.1",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "AxisYSpeed",
+      "CurrentValue": "80",
+      "Unit": "%",
+      "ParamDesc": "Y轴速度(速度百分比)",
+      "EnglishDesc": "Y-axis speed (speed percentage)",
+      "MinValue": "0.1",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "AxisZSpeed",
+      "CurrentValue": "80",
+      "Unit": "%",
+      "ParamDesc": "Z轴速度(速度百分比)",
+      "EnglishDesc": "Z-axis speed (speed percentage)",
+      "MinValue": "0.1",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "AxisUSpeed",
+      "CurrentValue": "80",
+      "Unit": "%",
+      "ParamDesc": "U轴速度(速度百分比)",
+      "EnglishDesc": "U-axis speed (speed percentage)",
+      "MinValue": "0.1",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "AxisASpeed",
+      "CurrentValue": "80",
+      "Unit": "%",
+      "ParamDesc": "A轴速度(速度百分比)",
+      "EnglishDesc": "A-axis speed (speed percentage)",
+      "MinValue": "0.1",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "AxisBSpeed",
+      "CurrentValue": "80",
+      "Unit": "%",
+      "ParamDesc": "B轴速度(速度百分比)",
+      "EnglishDesc": "B-axis speed (speed percentage)",
+      "MinValue": "0.1",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "AxisCSpeed",
+      "CurrentValue": "80",
+      "Unit": "%",
+      "ParamDesc": "C轴速度(速度百分比)",
+      "EnglishDesc": "C-axis speed (speed percentage)",
+      "MinValue": "0.1",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "AxisDSpeed",
+      "CurrentValue": "80",
+      "Unit": "%",
+      "ParamDesc": "D轴速度(速度百分比)",
+      "EnglishDesc": "D-axis speed (speed percentage)",
+      "MinValue": "0.1",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "AxisSpeed",
+      "CurrentValue": "5000",
+      "Unit": null,
+      "ParamDesc": "标定时轴速度",
+      "EnglishDesc": "Axis calib speed",
+      "MinValue": "100",
+      "MaxValue": "5000",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "TimeParam",
+      "CurrentValue": null,
+      "Unit": null,
+      "ParamDesc": "-----------超时参数设置-----------",
+      "EnglishDesc": "---Timeout parameter setting---",
+      "MinValue": null,
+      "MaxValue": null,
+      "Authority": "1"
+    },
+    {
+      "KeyValue": "IoTimeOut",
+      "CurrentValue": "10",
+      "Unit": "sec",
+      "ParamDesc": "IO等待超时时间",
+      "EnglishDesc": "IO wait timeout",
+      "MinValue": "0",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "MotionTimeOut",
+      "CurrentValue": "100",
+      "Unit": "sec",
+      "ParamDesc": "轴运动等待超时时间",
+      "EnglishDesc": "Axis movement waiting timeout",
+      "MinValue": "0",
+      "MaxValue": "600",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "RegTimeOut",
+      "CurrentValue": "100",
+      "Unit": "sec",
+      "ParamDesc": "寄存器等待超时时间",
+      "EnglishDesc": "Register wait timeout",
+      "MinValue": "0",
+      "MaxValue": "600",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "CommunicationTimeOut",
+      "CurrentValue": "100",
+      "Unit": "sec",
+      "ParamDesc": "通讯命令超时时间",
+      "EnglishDesc": "Communication timeout",
+      "MinValue": "0",
+      "MaxValue": "600",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "OpcTimeOut",
+      "CurrentValue": "100",
+      "Unit": "sec",
+      "ParamDesc": "Opc等待超时时间",
+      "EnglishDesc": "OPC wait timeout",
+      "MinValue": "0",
+      "MaxValue": "600",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "MessageTimeOut",
+      "CurrentValue": "100",
+      "Unit": "sec",
+      "ParamDesc": "提示框等待时间",
+      "EnglishDesc": "Prompt box waiting time",
+      "MinValue": "0",
+      "MaxValue": "3600",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "ScanTime",
+      "CurrentValue": "10",
+      "Unit": "ms",
+      "ParamDesc": "系统扫描周期",
+      "EnglishDesc": "System scan cycle",
+      "MinValue": "0",
+      "MaxValue": "50",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "IdleTime",
+      "CurrentValue": "10",
+      "Unit": "min",
+      "ParamDesc": "无操作自动转为OP模式时间",
+      "EnglishDesc": "Idle switch to OP mode time",
+      "MinValue": "0",
+      "MaxValue": "60",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "CylDelayTime",
+      "CurrentValue": "100",
+      "Unit": "ms",
+      "ParamDesc": "气缸延时时间",
+      "EnglishDesc": "Cylinder delay time",
+      "MinValue": "0",
+      "MaxValue": "10000",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "AntiShakeTimeMs",
+      "CurrentValue": "50",
+      "Unit": "ms",
+      "ParamDesc": "IO防抖时间",
+      "EnglishDesc": "IO anti shake time",
+      "MinValue": "0",
+      "MaxValue": "100",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "MoveInpDelay",
+      "CurrentValue": "50",
+      "Unit": "ms",
+      "ParamDesc": "运动到位延时",
+      "EnglishDesc": "Move inp delay",
+      "MinValue": "0",
+      "MaxValue": "10000",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "CCDInpDelay",
+      "CurrentValue": "200",
+      "Unit": "ms",
+      "ParamDesc": "相机到位延时",
+      "EnglishDesc": "CCD inp delay",
+      "MinValue": "0",
+      "MaxValue": "10000",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "Laser1InpDelay",
+      "CurrentValue": "200",
+      "Unit": "ms",
+      "ParamDesc": "镭射1到位延时",
+      "EnglishDesc": "Laser1 inp delay",
+      "MinValue": "0",
+      "MaxValue": "10000",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "Laser2InpDelay",
+      "CurrentValue": "200",
+      "Unit": "ms",
+      "ParamDesc": "镭射2到位延时",
+      "EnglishDesc": "Laser2 inp delay",
+      "MinValue": "0",
+      "MaxValue": "10000",
+      "Authority": "2"
+    },
+    {
+      "KeyValue": "DebugParam",
+      "CurrentValue": "",
+      "Unit": "",
+      "ParamDesc": "-----------调试参数设置-----------",
+      "EnglishDesc": "Debug parameter settings",
+      "MinValue": "",
+      "MaxValue": ""
+    },
+    {
+      "KeyValue": "SafetyDoor",
+      "CurrentValue": "0",
+      "Unit": "/",
+      "ParamDesc": "是否启动安全门（1:启用 0:不启用）",
+      "EnglishDesc": "Enable safety door(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "FullScreen",
+      "CurrentValue": "0",
+      "Unit": "/",
+      "ParamDesc": "程序全屏运行（1:启用 0:不启用）",
+      "EnglishDesc": "Enable full screen(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "AutoCycle",
+      "CurrentValue": "0",
+      "Unit": "/",
+      "ParamDesc": "全自动运行（1:启用 0:不启用）",
+      "EnglishDesc": "Fully automatic operation(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "SystemSpeed",
+      "CurrentValue": "100",
+      "Unit": "%",
+      "ParamDesc": "系统运动速度百分比",
+      "EnglishDesc": "System speed percentage",
+      "MinValue": "1",
+      "MaxValue": "100"
+    },
+    {
+      "KeyValue": "VisionEnable",
+      "CurrentValue": "0",
+      "Unit": "/",
+      "ParamDesc": "是否启用相机（1:启用 0:不启用）",
+      "EnglishDesc": "Enable vision(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "CameraCrossEnable",
+      "CurrentValue": "1",
+      "Unit": "/",
+      "ParamDesc": "是否启用相机十字线（1:启用 0:不启用）",
+      "EnglishDesc": "Enable Camera cross(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "PDCAEnable",
+      "CurrentValue": "0",
+      "Unit": "/",
+      "ParamDesc": "是否启动PDCA数据上传（1:启用 0:不启用）",
+      "EnglishDesc": "Enable PDCA(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "SaveShowLogEnable",
+      "CurrentValue": "0",
+      "Unit": "/",
+      "ParamDesc": "是否保存ShowLog（1:启用 0:不启用）",
+      "EnglishDesc": "Enable save show log(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "AntiShakeEnable",
+      "CurrentValue": "1",
+      "Unit": "/",
+      "ParamDesc": "是否启用IO防抖（1:启用 0:不启用）",
+      "EnglishDesc": "Enable IO anti shake(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "GrrTestEnable",
+      "CurrentValue": "0",
+      "Unit": "/",
+      "ParamDesc": "是否启用GRR测试（1:启用 0:不启用）",
+      "EnglishDesc": "Enable Grr test(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "GrrTestNum",
+      "CurrentValue": "32",
+      "Unit": "/",
+      "ParamDesc": "GRR测试次数",
+      "EnglishDesc": "Grr test number",
+      "MinValue": "1",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "TopCoverEnable",
+      "CurrentValue": "0",
+      "Unit": "/",
+      "ParamDesc": "是否启用盖板测试（1:启用 0:不启用）",
+      "EnglishDesc": "Enable TopCover test(1:Enable 0:Disable)",
+      "MinValue": "0",
+      "MaxValue": "1"
+    },
+    {
+      "KeyValue": "Laser1OffsetX",
+      "CurrentValue": "1.1",
+      "Unit": "/",
+      "ParamDesc": "镭射1定位偏差X",
+      "EnglishDesc": "Laser1 offset x",
+      "MinValue": "0.01",
+      "MaxValue": "10"
+    },
+    {
+      "KeyValue": "Laser1OffsetY",
+      "CurrentValue": "0.3",
+      "Unit": "/",
+      "ParamDesc": "镭射1定位偏差Y",
+      "EnglishDesc": "Laser1 offset y",
+      "MinValue": "0.01",
+      "MaxValue": "10"
+    },
+    {
+      "KeyValue": "Laser1PointOffset",
+      "CurrentValue": "0.05",
+      "Unit": "/",
+      "ParamDesc": "镭射1点位范围偏差",
+      "EnglishDesc": "Laser1 point offset",
+      "MinValue": "0.01",
+      "MaxValue": "10"
+    },
+    {
+      "KeyValue": "FileSaveParam",
+      "CurrentValue": "",
+      "Unit": "",
+      "ParamDesc": "---------文件保存参数设置---------",
+      "EnglishDesc": "---File save parameter settings---",
+      "MinValue": "",
+      "MaxValue": ""
+    },
+    {
+      "KeyValue": "ImageSavePath",
+      "CurrentValue": "d:\\exe\\Image",
+      "Unit": "/",
+      "ParamDesc": "图片存储路径",
+      "EnglishDesc": "Picture storage path",
+      "MinValue": "",
+      "MaxValue": ""
+    },
+    {
+      "KeyValue": "ImageSaveParam",
+      "CurrentValue": "2",
+      "Unit": "/",
+      "ParamDesc": "原始图存储(0:不存储 1:NG图 2:存储)",
+      "EnglishDesc": "Save raw picture(0:none 1:NG picture 2:All)",
+      "MinValue": "0",
+      "MaxValue": "2"
+    },
+    {
+      "KeyValue": "WindowSaveParam",
+      "CurrentValue": "2",
+      "Unit": "",
+      "ParamDesc": "窗口图存储(0:不存储 1:NG图 2:存储)",
+      "EnglishDesc": "Save window picture(0:none 1:NG picture 2:All)",
+      "MinValue": "0",
+      "MaxValue": "2"
+    },
+    {
+      "KeyValue": "ImageKeepTime",
+      "CurrentValue": "10",
+      "Unit": "day",
+      "ParamDesc": "图像文件存储时间",
+      "EnglishDesc": "Image file storage days",
+      "MinValue": "10",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "LogSavePath",
+      "CurrentValue": "d:\\exe\\Log",
+      "Unit": "/",
+      "ParamDesc": "日志存储路径",
+      "EnglishDesc": "Log storage path",
+      "MinValue": "",
+      "MaxValue": ""
+    },
+    {
+      "KeyValue": "ReportSavePath",
+      "CurrentValue": "d:\\exe\\Report",
+      "Unit": "/",
+      "ParamDesc": "测试报告存储路径",
+      "EnglishDesc": "Test report storage path",
+      "MinValue": "",
+      "MaxValue": ""
+    },
+    {
+      "KeyValue": "LogKeepTime",
+      "CurrentValue": "31",
+      "Unit": "day",
+      "ParamDesc": "日志存储时间",
+      "EnglishDesc": "Log storage days",
+      "MinValue": "10",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "DataSavePath",
+      "CurrentValue": "d:\\exe\\Data",
+      "Unit": "/",
+      "ParamDesc": "数据文件存储路径",
+      "EnglishDesc": "Data file storage path",
+      "MinValue": "",
+      "MaxValue": ""
+    },
+    {
+      "KeyValue": "DataKeepTime",
+      "CurrentValue": "31",
+      "Unit": "day",
+      "ParamDesc": "数据文件存储时间",
+      "EnglishDesc": "Data file storage days",
+      "MinValue": "10",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "CCD1CalibStep",
+      "CurrentValue": "1.5",
+      "Unit": "mm",
+      "ParamDesc": "相机1标定步长",
+      "EnglishDesc": "CCD1 Calib step",
+      "MinValue": "0.1",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "CCD3CalibStep",
+      "CurrentValue": "4",
+      "Unit": "mm",
+      "ParamDesc": "相机3标定步长",
+      "EnglishDesc": "CCD3 Calib step",
+      "MinValue": "0.1",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "CalibInpDelay",
+      "CurrentValue": "1000",
+      "Unit": "ms",
+      "ParamDesc": "标定到位延时",
+      "EnglishDesc": "Calib delay",
+      "MinValue": "0",
+      "MaxValue": "10000"
+    },
+    {
+      "KeyValue": "LaserMeasureCount",
+      "CurrentValue": "10",
+      "Unit": "/",
+      "ParamDesc": "镭射测量次数",
+      "EnglishDesc": "Laser measure counts",
+      "MinValue": "1",
+      "MaxValue": "50"
+    },
+    {
+      "KeyValue": "LaserDistance1",
+      "CurrentValue": "110.89",
+      "Unit": "mm",
+      "ParamDesc": "镭射头之间的距离",
+      "EnglishDesc": "Distance between two laser",
+      "MinValue": "0.1",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "LaserDistance2",
+      "CurrentValue": "227.21",
+      "Unit": "mm",
+      "ParamDesc": "镭射头之间的距离",
+      "EnglishDesc": "Distance between two laser",
+      "MinValue": "0.1",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "LaserDistance3",
+      "CurrentValue": "341.15",
+      "Unit": "mm",
+      "ParamDesc": "镭射头之间的距离",
+      "EnglishDesc": "Distance between two laser",
+      "MinValue": "0.1",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "LaserTwoStep_1",
+      "CurrentValue": "22",
+      "Unit": "mm",
+      "ParamDesc": "镭射二站的步长一",
+      "EnglishDesc": "The fisrt step of the second station",
+      "MinValue": "0.1",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "LaserTwoStep_2",
+      "CurrentValue": "17.37",
+      "Unit": "mm",
+      "ParamDesc": "镭射二站的步长二",
+      "EnglishDesc": "The second step of the second station",
+      "MinValue": "0.1",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "LaserThreeStep_1",
+      "CurrentValue": "25.97",
+      "Unit": "mm",
+      "ParamDesc": "镭射三站的步长一",
+      "EnglishDesc": "The fisrt step of the thirdly station",
+      "MinValue": "0.1",
+      "MaxValue": "1000"
+    },
+    {
+      "KeyValue": "LaserThreeStep_2",
+      "CurrentValue": "32.26",
+      "Unit": "mm",
+      "ParamDesc": "镭射三站的步长二",
+      "EnglishDesc": "The second step of the thirdly station",
+      "MinValue": "0.1",
+      "MaxValue": "1000"
+    }
+  ]
+}

@@ -15,7 +15,9 @@
     x:Class="AutoMationFrameWork.View.StationTemplateControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:AutoMationFrameWork.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -1078,7 +1080,61 @@
                                 x:Name="PointManageItem"
                                 Header="{StaticResource Point}"
                                 Style="{StaticResource TabItemStyle}">
-                                点位
+                                <DataGrid Name="PointDatGrid" Style="{StaticResource DataGridStyle}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            Width="45"
+                                            Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type DataGridRow}}, Path=Header}"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="{StaticResource Index}"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        <DataGridTextColumn
+                                            Width="*"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="{StaticResource PointName}"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        <DataGridTextColumn
+                                            Width="80"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="X"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        <DataGridTextColumn
+                                            Width="80"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="Y"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        <DataGridTextColumn
+                                            Width="80"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="Z"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        <DataGridTextColumn
+                                            Width="80"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="U"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        <DataGridTextColumn
+                                            Width="80"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="A"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        <DataGridTextColumn
+                                            Width="80"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="B"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        <DataGridTextColumn
+                                            Width="80"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="C"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                        <DataGridTextColumn
+                                            Width="80"
+                                            ElementStyle="{StaticResource DataGridContentStyle}"
+                                            Header="D"
+                                            HeaderStyle="{StaticResource DataGridHeadStyle}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </TabItem>
                             <TabItem Header="IO" Style="{StaticResource TabItemStyle}">
                                 <Grid>

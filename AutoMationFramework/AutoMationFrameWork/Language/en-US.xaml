@@ -111,6 +111,8 @@
     <sys:String x:Key="DryRun">DryRun</sys:String>
     <sys:String x:Key="Calibration">Calibration</sys:String>
     <sys:String x:Key="DeInitial">Deinitialization</sys:String>
+    <sys:String x:Key="Index">Index</sys:String>
+    <sys:String x:Key="PointName">PointName</sys:String>
     <!--  MessageBox变量  -->
     <sys:String x:Key="OK">OK</sys:String>
     <sys:String x:Key="Cancel">Cancel</sys:String>
