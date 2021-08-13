@@ -9,7 +9,8 @@ bin/
 .settings/
 .vs/
 .*/.vs/
-packages/
+*/packages/
+*/*/bin/
 
 # Executables
 *.swf
