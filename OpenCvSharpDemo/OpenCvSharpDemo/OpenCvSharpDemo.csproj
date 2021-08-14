@@ -82,6 +82,26 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="Theme\ButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Theme\ComboxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Theme\FontStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Theme\TabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Theme\TreeViewStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,6 +133,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Fonts\download.zip" />
+    <None Include="Fonts\iconfont.json" />
+    <Resource Include="Fonts\iconfont.ttf" />
+    <None Include="Fonts\iconfont.woff" />
+    <None Include="Fonts\iconfont.woff2" />
+    <Resource Include="Fonts\Roboto-Light.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -124,10 +150,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomerControl\CustomerControl.csproj">
+      <Project>{4a09f00d-79db-4d6d-b242-d3b6b87ee904}</Project>
+      <Name>CustomerControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VisionFroOpenCvSharpDll\VisionFroOpenCvSharpDll.csproj">
       <Project>{43B3D507-7345-400A-8169-7954BD14921A}</Project>
       <Name>VisionFroOpenCvSharpDll</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fonts\demo.css" />
+    <Content Include="Fonts\demo_index.html" />
+    <Content Include="Fonts\iconfont.css" />
+    <Content Include="Fonts\iconfont.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

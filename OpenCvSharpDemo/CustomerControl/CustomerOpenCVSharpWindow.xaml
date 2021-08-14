@@ -1,0 +1,165 @@
+﻿<UserControl
+    x:Class="CustomerControl.CustomerOpenCVSharpWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CustomerControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="Theme/ButtonStyle.xaml" />
+                <ResourceDictionary Source="Theme/ComboxStyle.xaml" />
+                <ResourceDictionary Source="Theme/FontStyle.xaml" />
+                <ResourceDictionary Source="Theme/TabControlStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton
+                    Content="&#xe6c8;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource RadioButtonTemplate}" />
+                <RadioButton
+                    Content="&#xe659;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource RadioButtonTemplate}" />
+                <RadioButton
+                    Content="&#xe601;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource RadioButtonTemplate}" />
+                <RadioButton
+                    Content="&#xe600;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource RadioButtonTemplate}" />
+                <Separator
+                    Width="1"
+                    Height="15"
+                    Margin="2"
+                    Foreground="#D3D3D3"
+                    Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                <Button
+                    Content="&#xe6f2;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource ButtonTemplate}" />
+                <Button
+                    Content="&#xe674;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource ButtonTemplate}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    Content="&#xe62d;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource ButtonTemplate}" />
+                <Button
+                    Content="&#xe967;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource ButtonTemplate}" />
+            </StackPanel>
+        </Grid>
+        <Border
+            Name="ShowBorder"
+            Grid.Row="1"
+            Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=CameraColor}">
+            <Image Name="ShowImage" Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=ShowImageBitmap}" />
+        </Border>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                FontSize="10"
+                Foreground="#4F28D4"
+                Text="35ms" />
+            <Separator
+                Grid.Column="0"
+                Width="1"
+                Height="10"
+                Margin="2"
+                HorizontalAlignment="Right"
+                Foreground="#D3D3D3"
+                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <TextBlock
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                FontSize="10"
+                Foreground="#538A51"
+                Text="" />
+            <TextBlock
+                Grid.Column="2"
+                HorizontalAlignment="Right "
+                FontSize="10"
+                Foreground="#538A51"
+                Text="" />
+            <Separator
+                Grid.Column="2"
+                Width="1"
+                Height="10"
+                Margin="2"
+                HorizontalAlignment="Left"
+                Foreground="#D3D3D3"
+                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <TextBlock
+                Grid.Column="3"
+                HorizontalAlignment="Right "
+                FontSize="10"
+                Foreground="#538A51"
+                Text="" />
+            <Separator
+                Grid.Column="3"
+                Width="1"
+                Height="10"
+                Margin="2"
+                HorizontalAlignment="Left"
+                Foreground="#D3D3D3"
+                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+        </Grid>
+    </Grid>
+</UserControl>

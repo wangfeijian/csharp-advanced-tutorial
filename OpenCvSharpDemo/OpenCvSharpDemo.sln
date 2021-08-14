@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCvSharpDemo", "OpenCvSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionFroOpenCvSharpDll", "VisionFroOpenCvSharpDll\VisionFroOpenCvSharpDll.csproj", "{43B3D507-7345-400A-8169-7954BD14921A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerControl", "CustomerControl\CustomerControl.csproj", "{4A09F00D-79DB-4D6D-B242-D3B6B87EE904}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{43B3D507-7345-400A-8169-7954BD14921A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43B3D507-7345-400A-8169-7954BD14921A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43B3D507-7345-400A-8169-7954BD14921A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A09F00D-79DB-4D6D-B242-D3B6B87EE904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A09F00D-79DB-4D6D-B242-D3B6B87EE904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A09F00D-79DB-4D6D-B242-D3B6B87EE904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A09F00D-79DB-4D6D-B242-D3B6B87EE904}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

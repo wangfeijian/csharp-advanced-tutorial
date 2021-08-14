@@ -2,6 +2,7 @@
     x:Class="OpenCvSharpDemo.View.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:customerControl="clr-namespace:CustomerControl;assembly=CustomerControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:OpenCvSharpDemo"
@@ -25,11 +26,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border BorderBrush="Gainsboro" BorderThickness="1">
-                <Image
-                    x:Name="ImageShow"
-                    Margin="5"
-                    VerticalAlignment="Top"
-                    Source="{Binding ShowBitmap, Mode=TwoWay}" />
+                <customerControl:CustomerOpenCVSharpWindow CameraColor="#000000" ShowImageBitmap="{Binding ShowBitmap, Mode=TwoWay}" />
             </Border>
             <Grid Grid.Row="1">
                 <StackPanel

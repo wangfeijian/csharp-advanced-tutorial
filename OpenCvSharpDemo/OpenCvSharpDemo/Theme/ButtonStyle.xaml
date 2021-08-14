@@ -1,0 +1,200 @@
+﻿<!--
+    *********************************************************************
+    *               Author:         wangfeijian                         *
+    *                                                                   *
+    *               CreatTime:      2021-06-21                          *
+    *                                                                   *
+    *               ModifyTime:     2021-07-27                          *
+    *                                                                   *
+    *               Email:          wangfeijianhao@163.com              *
+    *                                                                   *
+    *               Description:    Static resource                     *
+    *********************************************************************
+-->
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
+    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
+    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
+    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+    <ControlTemplate x:Key="ListBoxItemTemplate" TargetType="ListBoxItem">
+        <Border Name="Border" Background="{TemplateBinding ListBoxItem.Background}">
+            <TextBlock
+                Margin="4"
+                Text="{TemplateBinding ListBoxItem.Content}"
+                TextWrapping="WrapWithOverflow" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#CFA674" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="#CFA674" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="LabelListViewStyle" TargetType="{x:Type Label}">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#IconFont" />
+        <Setter Property="FontSize" Value="40" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    <ControlTemplate x:Key="ButtonTemplate" TargetType="{x:Type Button}">
+        <Border x:Name="Border" Background="Transparent">
+            <ContentPresenter
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextBlock.FontFamily="pack://application:,,,/Fonts/#IconFont" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsDefaulted" Value="true">
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.MouseOver.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.MouseOver.Border}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.Pressed.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="DataGridContentStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+    <Style x:Key="DataGridHeadStyle" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="TextBlockDataGridHeader" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    <Style x:Key="DataGridStyle" TargetType="DataGrid">
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="AlternationCount" Value="2" />
+        <Setter Property="Background" Value="#CADDEC" />
+        <Setter Property="AutoGenerateColumns" Value="False" />
+        <Setter Property="CanUserAddRows" Value="True" />
+        <Setter Property="CanUserDeleteRows" Value="True" />
+        <Setter Property="FontFamily" Value="Times New Roman" />
+        <Setter Property="CanUserResizeColumns" Value="False" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="GridLinesVisibility" Value="None" />
+        <Setter Property="HeadersVisibility" Value="Column" />
+        <Setter Property="IsReadOnly" Value="False" />
+        <Style.Triggers>
+            <Trigger Property="DataGrid.AlternationIndex" Value="0">
+                <Setter Property="RowBackground" Value="#ABCDE8" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <ControlTemplate x:Key="RadioButtonTemplate" TargetType="{x:Type RadioButton}">
+        <Border x:Name="Border" Background="Transparent">
+            <ContentPresenter
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextBlock.FontFamily="pack://application:,,,/Fonts/#IconFont" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="Border" Property="Background" Value="#27D0D8" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.Pressed.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ImageBrush x:Key="TbMouseOver" ImageSource="../Resources/Image/tgBtn_MouseOver.png" />
+    <Style x:Key="TbStyle" TargetType="{x:Type ToggleButton}">
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True" />
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="true">
+
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource TbMouseOver}" />
+
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TbMouseOver}" />
+
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="true">
+
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource TbMouseOver}" />
+
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TbMouseOver}" />
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+    <Style x:Key="FontStyle" TargetType="TextBlock">
+
+        <Setter Property="FontFamily" Value="../Fonts/Roboto-Light.ttf #Roboto" />
+
+        <Setter Property="VerticalAlignment" Value="Center" />
+
+        <Setter Property="HorizontalAlignment" Value="Left" />
+
+        <Setter Property="Foreground" Value="Black" />
+
+        <Setter Property="FontSize" Value="20" />
+
+    </Style>
+
+    <!--  // Tooltip Style Template //  -->
+
+    <Style x:Key="TtStyle" TargetType="ToolTip">
+
+        <Setter Property="Placement" Value="Right" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Margin" Value="20,0,0,0" />
+        <Setter Property="Background" Value="#4A5668" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="../Fonts/Roboto-Light.ttf #Roboto" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="PlacementRectangle" Value="60,0,0,0" />
+        <Setter Property="HorizontalOffset" Value="15" />
+        <Setter Property="VerticalOffset" Value="6" />
+        <Setter Property="HasDropShadow" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+
+    </Style>
+</ResourceDictionary>
