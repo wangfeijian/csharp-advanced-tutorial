@@ -7,11 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="300"
+    Background="White"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
                 <ResourceDictionary Source="Theme/ButtonStyle.xaml" />
                 <ResourceDictionary Source="Theme/ComboxStyle.xaml" />
                 <ResourceDictionary Source="Theme/FontStyle.xaml" />
@@ -22,7 +22,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid>
@@ -38,8 +38,10 @@
                     Margin="2"
                     FontSize="15"
                     Foreground="#333333"
+                    IsChecked="True"
                     Template="{StaticResource RadioButtonTemplate}" />
                 <RadioButton
+                    x:Name="RadioButtonHand"
                     Content="&#xe659;"
                     Height="20"
                     Margin="2"
@@ -47,6 +49,7 @@
                     Foreground="#333333"
                     Template="{StaticResource RadioButtonTemplate}" />
                 <RadioButton
+                    Click="ButtonZoomIn_OnClick"
                     Content="&#xe601;"
                     Height="20"
                     Margin="2"
@@ -54,6 +57,7 @@
                     Foreground="#333333"
                     Template="{StaticResource RadioButtonTemplate}" />
                 <RadioButton
+                    Click="ButtonZoomOut_OnClick"
                     Content="&#xe600;"
                     Height="20"
                     Margin="2"
@@ -104,8 +108,24 @@
         <Border
             Name="ShowBorder"
             Grid.Row="1"
-            Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=CameraColor}">
-            <Image Name="ShowImage" Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=ShowImageBitmap}" />
+            ClipToBounds="True"
+            Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=CameraColor}"
+            MouseEnter="ShowBorder_OnMouseEnter">
+            <Image
+                Name="ShowImage"
+                MouseWheel="ShowImage_OnMouseWheel"
+                MouseLeftButtonDown="ShowImage_OnMouseLeftButtonDown"
+                MouseLeftButtonUp="ShowImage_OnMouseLeftButtonUp"
+                MouseMove="ShowImage_OnMouseMove"
+                Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=ShowImageBitmap}">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform />
+                        <ScaleTransform />
+                        <RotateTransform />
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
         </Border>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
