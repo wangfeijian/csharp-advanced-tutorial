@@ -1,0 +1,197 @@
+﻿<Window
+    x:Class="OpenCvSharpDemo.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:OpenCvSharpDemo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="OpenCVSharpDemo"
+    Width="655"
+    Height="450"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}" />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Gainsboro" BorderThickness="1">
+                <Image
+                    x:Name="ImageShow"
+                    Margin="5"
+                    VerticalAlignment="Top"
+                    Source="{Binding ShowBitmap, Mode=TwoWay}" />
+            </Border>
+            <Grid Grid.Row="1">
+                <StackPanel
+                    x:Name="SelectImageStackPanel"
+                    HorizontalAlignment="Center"
+                    IsEnabled="{Binding SelectImageStackPanelEnable, Mode=TwoWay}"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="ButtonPreview"
+                        Content="上一张"
+                        Width="100"
+                        Margin="0,5,50,5"
+                        IsEnabled="{Binding ButtonPreviewIsEnabled, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding PreviewImageCommand}" CommandParameter="{Binding ElementName=ButtonPreview}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button
+                        x:Name="ButtonNext"
+                        Content="下一张"
+                        Width="100"
+                        Margin="50,5,0,5"
+                        IsEnabled="{Binding ButtonNextIsEnabled, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding NextImageCommand}" CommandParameter="{Binding ElementName=ButtonNext}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Gainsboro" BorderThickness="1">
+                <StackPanel Margin="5">
+                    <RadioButton
+                        x:Name="RadioButtonFile"
+                        Content="文件"
+                        Margin="2"
+                        IsChecked="{Binding RadioButtonFileIsChecked}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SelectImageSourceCommand}" CommandParameter="{Binding ElementName=RadioButtonFile}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="RadioButtonDir"
+                        Content="文件夹"
+                        Margin="2"
+                        IsChecked="{Binding RadioButtonDirIsChecked}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SelectImageSourceCommand}" CommandParameter="{Binding ElementName=RadioButtonDir}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="RadioButtonCamera"
+                        Content="相机"
+                        Margin="2"
+                        IsChecked="{Binding RadioButtonCameraIsChecked}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SelectImageSourceCommand}" CommandParameter="{Binding ElementName=RadioButtonCamera}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                    <TextBox
+                        x:Name="PathTextBox"
+                        Margin="2"
+                        Text="{Binding PathTextBoxText, Mode=TwoWay}"
+                        TextWrapping="WrapWithOverflow" />
+                </StackPanel>
+            </Border>
+            <Border
+                Grid.Row="1"
+                BorderBrush="Gainsboro"
+                BorderThickness="1"
+                IsEnabled="{Binding Path=IsChecked, ElementName=CameraRadioButton}">
+                <StackPanel Margin="5">
+                    <RadioButton Content="单张触发" Margin="2" />
+                    <RadioButton Content="连续采集" Margin="2" />
+                </StackPanel>
+            </Border>
+            <Border
+                Grid.Row="2"
+                BorderBrush="Gainsboro"
+                BorderThickness="1">
+                <StackPanel Margin="5">
+                    <RadioButton
+                        x:Name="RadioButtonColorImage"
+                        Content="彩色图片"
+                        Margin="2" />
+                    <RadioButton
+                        x:Name="RadioButtonGrayImage"
+                        Content="灰度图片"
+                        Margin="2"
+                        IsChecked="{Binding RadioButtonGrayImageIsChecked}" />
+                    <Button
+                        x:Name="ButtonGrabImage"
+                        Content="采集图片"
+                        Margin="2">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding GrabImageCommand}" CommandParameter="{Binding ElementName=ButtonGrabImage}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button
+                        x:Name="ButtonLoad"
+                        Content="加载视频"
+                        Margin="2"
+                        IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonFile}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding LoadVideoCommand}" CommandParameter="{Binding ElementName=ButtonLoad}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FrameSlider, StringFormat=帧间隔时间(ms):{0}}" />
+                    <Slider
+                        x:Name="FrameSlider"
+                        Maximum="100"
+                        Minimum="1"
+                        Value="{Binding Frame, Mode=TwoWay}" />
+                    <Button
+                        x:Name="ButtonStartPlay"
+                        Content="开始播放"
+                        Margin="2"
+                        IsEnabled="{Binding ButtonStartPlayEnable}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding StartPlayCommand}" CommandParameter="{Binding ElementName=ButtonStartPlay}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button
+                        x:Name="ButtonStopPlay"
+                        Content="停止播放"
+                        Margin="2"
+                        IsEnabled="{Binding ButtonStopPlayEnable}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding StopPlayCommand}" CommandParameter="{Binding ElementName=ButtonStopPlay}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <Border
+                Grid.Row="3"
+                BorderBrush="Gainsboro"
+                BorderThickness="1" />
+        </Grid>
+    </Grid>
+</Window>
