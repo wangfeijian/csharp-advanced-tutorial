@@ -22,7 +22,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid>
@@ -33,6 +33,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <RadioButton
+                    x:Name="RadioButtonPoint"
                     Content="&#xe6c8;"
                     Height="20"
                     Margin="2"
@@ -49,18 +50,18 @@
                     Foreground="#333333"
                     Template="{StaticResource RadioButtonTemplate}" />
                 <RadioButton
-                    Click="ButtonZoomIn_OnClick"
                     Content="&#xe601;"
                     Height="20"
                     Margin="2"
+                    Click="ButtonZoomIn_OnClick"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource RadioButtonTemplate}" />
                 <RadioButton
-                    Click="ButtonZoomOut_OnClick"
                     Content="&#xe600;"
                     Height="20"
                     Margin="2"
+                    Click="ButtonZoomOut_OnClick"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource RadioButtonTemplate}" />
@@ -74,13 +75,16 @@
                     Content="&#xe6f2;"
                     Height="20"
                     Margin="2"
+                    Click="ScalingPixelWindow"
                     FontSize="15"
                     Foreground="#333333"
+                    Tag="1"
                     Template="{StaticResource ButtonTemplate}" />
                 <Button
                     Content="&#xe674;"
                     Height="20"
                     Margin="2"
+                    Click="AdaptWindow"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource ButtonTemplate}" />
@@ -108,16 +112,83 @@
         <Border
             Name="ShowBorder"
             Grid.Row="1"
-            ClipToBounds="True"
             Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=CameraColor}"
+            ClipToBounds="True"
             MouseEnter="ShowBorder_OnMouseEnter">
+            <Border.ContextMenu>
+                <ContextMenu Name="BorderMenu">
+                    <MenuItem
+                        x:Name="MenuItemPoint"
+                        Click="MenuItem_OnClick"
+                        Header="指针"
+                        Icon="&#xe6c8;"
+                        IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonPoint}}" />
+                    <MenuItem
+                        x:Name="MenuItemMove"
+                        Click="MenuItem_OnClick"
+                        Header="平移"
+                        Icon="&#xe659;"
+                        IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonHand}}" />
+                    <MenuItem
+                        Click="ButtonZoomIn_OnClick"
+                        Header="放大"
+                        Icon="&#xe601;" />
+                    <MenuItem
+                        Click="ButtonZoomOut_OnClick"
+                        Header="缩小"
+                        Icon="&#xe600;" />
+                    <Separator />
+                    <MenuItem Header="图像尺寸" Icon="&#xe63c;">
+                        <MenuItem Click="AdaptWindow" Header="适应窗口" />
+                        <Separator />
+                        <MenuItem
+                            Click="ScalingPixelWindow"
+                            Header="400 %"
+                            Tag="4" />
+                        <MenuItem
+                            Click="ScalingPixelWindow"
+                            Header="200 %"
+                            Tag="2" />
+                        <MenuItem
+                            Click="ScalingPixelWindow"
+                            Header="100 %"
+                            Tag="1" />
+                        <MenuItem
+                            Click="ScalingPixelWindow"
+                            Header="50 %"
+                            Tag="0.5" />
+                        <MenuItem
+                            Click="ScalingPixelWindow"
+                            Header="25 %"
+                            Tag="0.25" />
+                        <MenuItem
+                            Click="ScalingPixelWindow"
+                            Header="10 %"
+                            Tag="0.1" />
+                        <Separator />
+                        <MenuItem
+                            Click="ScalingPixelWindow"
+                            Header="两倍"
+                            Tag="2" />
+                        <MenuItem
+                            Click="ScalingWindow"
+                            Header="1/2窗口"
+                            Tag="0.5" />
+                        <Separator />
+                        <MenuItem
+                            Click="ScalingPixelWindow"
+                            Header="1:1显示"
+                            Tag="1" />
+                    </MenuItem>
+                </ContextMenu>
+            </Border.ContextMenu>
             <Image
                 Name="ShowImage"
-                MouseWheel="ShowImage_OnMouseWheel"
                 MouseLeftButtonDown="ShowImage_OnMouseLeftButtonDown"
                 MouseLeftButtonUp="ShowImage_OnMouseLeftButtonUp"
                 MouseMove="ShowImage_OnMouseMove"
-                Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=ShowImageBitmap}">
+                MouseWheel="ShowImage_OnMouseWheel"
+                Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=ShowImageBitmap, Mode=TwoWay}">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <TranslateTransform />
@@ -129,37 +200,26 @@
         </Border>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="120" />
                 <ColumnDefinition Width="80" />
-                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock
-                FontSize="10"
-                Foreground="#4F28D4"
-                Text="35ms" />
-            <Separator
+                x:Name="TextBlockPos"
                 Grid.Column="0"
-                Width="1"
-                Height="10"
-                Margin="2"
-                HorizontalAlignment="Right"
-                Foreground="#D3D3D3"
-                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-            <TextBlock
-                Grid.Column="1"
                 HorizontalAlignment="Right"
                 FontSize="10"
                 Foreground="#538A51"
-                Text="" />
+                Text="未加载图片" />
             <TextBlock
-                Grid.Column="2"
+                x:Name="TextBlockScale"
+                Grid.Column="1"
                 HorizontalAlignment="Right "
                 FontSize="10"
                 Foreground="#538A51"
-                Text="" />
+                Text="缩放：100%" />
             <Separator
-                Grid.Column="2"
+                Grid.Column="1"
                 Width="1"
                 Height="10"
                 Margin="2"
@@ -167,13 +227,14 @@
                 Foreground="#D3D3D3"
                 Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
             <TextBlock
-                Grid.Column="3"
+                x:Name="TextBlockPixel"
+                Grid.Column="2"
                 HorizontalAlignment="Right "
                 FontSize="10"
                 Foreground="#538A51"
-                Text="" />
+                Text="255" />
             <Separator
-                Grid.Column="3"
+                Grid.Column="2"
                 Width="1"
                 Height="10"
                 Margin="2"

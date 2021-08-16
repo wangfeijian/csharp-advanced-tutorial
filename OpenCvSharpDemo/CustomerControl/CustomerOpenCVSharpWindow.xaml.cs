@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Color = System.Windows.Media.Color;
+using Image = System.Drawing.Image;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
+using Point = System.Drawing.Point;
 
 namespace CustomerControl
 {
@@ -32,6 +36,27 @@ namespace CustomerControl
             InitializeComponent();
         }
 
+        private double xPos;
+
+        public double XPos
+        {
+            get { return xPos; }
+            set { xPos = value; }
+        }
+
+        private double yPos;
+
+        public double YPos
+        {
+            get { return yPos; }
+            set { yPos = value; }
+        }
+
+        public double ScaleSize { get; set; }
+
+        public string MousePos => $"X:{XPos:f2},  Y:{YPos:f2}";
+        public string ScaleSizeString => $"缩放:{ScaleSize:f2}";
+
         public string CameraColor
         {
             get { return (string)GetValue(CameraColorProperty); }
@@ -42,8 +67,6 @@ namespace CustomerControl
         public static readonly DependencyProperty CameraColorProperty =
             DependencyProperty.Register("CameraColor", typeof(string), typeof(CustomerOpenCVSharpWindow), new PropertyMetadata("#E5B881"));
 
-
-
         public WriteableBitmap ShowImageBitmap
         {
             get { return (WriteableBitmap)GetValue(ShowImageBitmapProperty); }
@@ -52,7 +75,7 @@ namespace CustomerControl
 
         // Using a DependencyProperty as the backing store for ShowImageBitmap.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowImageBitmapProperty =
-            DependencyProperty.Register("ShowImageBitmap", typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("ShowImageBitmap", typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
 
         private void ShowBorder_OnMouseEnter(object sender, MouseEventArgs e)
         {
@@ -125,6 +148,14 @@ namespace CustomerControl
                 // 重新给图像赋值Transform变换属性
                 img.RenderTransform = tgnew;
             }
+
+            System.Windows.Point point = e.GetPosition(ShowImage);
+            XPos = point.X;
+            YPos = point.Y;
+            TextBlockPos.Text = MousePos;
+
+            WriteableBitmap image = ShowImage.Source as WriteableBitmap;
+            ShowPixel((int)XPos,(int)YPos);
         }
 
         /// <summary>
@@ -138,6 +169,7 @@ namespace CustomerControl
             }
             TransformGroup tg = ShowImage.RenderTransform as TransformGroup;
             var tgnew = tg.CloneCurrentValue();
+            double scale = 1;
             if (tgnew != null)
             {
                 ScaleTransform st = tgnew.Children[1] as ScaleTransform;
@@ -152,10 +184,13 @@ namespace CustomerControl
                     st.ScaleX -= 0.05;
                     st.ScaleY += 0.05;
                 }
+
+                scale = st.ScaleX;
             }
 
             // 重新给图像赋值Transform变换属性
             ShowImage.RenderTransform = tgnew;
+            ShowScaleSize(scale);
         }
 
         /// <summary>
@@ -170,6 +205,7 @@ namespace CustomerControl
 
             TransformGroup tg = ShowImage.RenderTransform as TransformGroup;
             var tgnew = tg.CloneCurrentValue();
+            double scale = 1;
             if (tgnew != null)
             {
                 ScaleTransform st = tgnew.Children[1] as ScaleTransform;
@@ -184,10 +220,13 @@ namespace CustomerControl
                     st.ScaleX += 0.05;
                     st.ScaleY -= 0.05;
                 }
+
+                scale = st.ScaleX;
             }
 
             // 重新给图像赋值Transform变换属性
             ShowImage.RenderTransform = tgnew;
+            ShowScaleSize(scale);
         }
 
         private void ShowImage_OnMouseWheel(object sender, MouseWheelEventArgs e)
@@ -198,6 +237,7 @@ namespace CustomerControl
             }
             TransformGroup tg = ShowImage.RenderTransform as TransformGroup;
             var tgnew = tg.CloneCurrentValue();
+            double scale = 1;
             if (tgnew != null)
             {
                 ScaleTransform st = tgnew.Children[1] as ScaleTransform;
@@ -212,11 +252,183 @@ namespace CustomerControl
                 }
                 st.ScaleX += (double)e.Delta / 1000;
                 st.ScaleY += (double)e.Delta / 1000;
-
+                scale = st.ScaleX;
             }
 
             // 重新给图像赋值Transform变换属性
             ShowImage.RenderTransform = tgnew;
+            ShowScaleSize(scale);
+        }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem menu = sender as MenuItem;
+
+            if (menu == null)
+            {
+                return;
+            }
+
+            switch (menu.Header.ToString())
+            {
+                case "指针":
+                    RadioButtonPoint.IsChecked = !menu.IsChecked;
+                    RadioButtonHand.IsChecked = !RadioButtonPoint.IsChecked;
+                    ShowBorder_OnMouseEnter(null, null);
+                    break;
+                case "平移":
+                    RadioButtonHand.IsChecked = !menu.IsChecked;
+                    RadioButtonPoint.IsChecked = !RadioButtonHand.IsChecked;
+                    ShowBorder_OnMouseEnter(null, null);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 图片适应窗口显示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AdaptWindow(object sender, RoutedEventArgs e)
+        {
+            if (ShowImage == null)
+            {
+                return;
+            }
+            TransformGroup tg = ShowImage.RenderTransform as TransformGroup;
+            var tgnew = tg.CloneCurrentValue();
+            if (tgnew != null)
+            {
+                TranslateTransform tt = tgnew.Children[0] as TranslateTransform;
+                ScaleTransform st = tgnew.Children[1] as ScaleTransform;
+                System.Windows.Point point = ShowBorder.PointToScreen(new System.Windows.Point(0, 0));
+
+                tt.X = 0;
+                tt.Y = 0;
+                st.CenterX = point.X;
+                st.CenterY = point.Y;
+                st.ScaleX = 1;
+                st.ScaleY = 1;
+            }
+
+            // 重新给图像赋值Transform变换属性
+            ShowImage.RenderTransform = tgnew;
+            ShowScaleSize(1);
+        }
+
+        /// <summary>
+        /// 图片按缩放比例显示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ScalingWindow(object sender, RoutedEventArgs e)
+        {
+            MenuItem menu = sender as MenuItem;
+            if (ShowImage == null || menu == null)
+            {
+                return;
+            }
+
+            double scale = Convert.ToDouble(menu.Tag);
+            TransformGroup tg = ShowImage.RenderTransform as TransformGroup;
+            var tgnew = tg.CloneCurrentValue();
+            if (tgnew != null)
+            {
+                ScaleTransform st = tgnew.Children[1] as ScaleTransform;
+
+                st.CenterX = ShowImage.ActualWidth / 2;
+                st.CenterY = ShowImage.ActualHeight / 2;
+                st.ScaleX = scale;
+                st.ScaleY = scale;
+            }
+
+            // 重新给图像赋值Transform变换属性
+            ShowImage.RenderTransform = tgnew;
+            ShowScaleSize(scale);
+        }
+
+        private void ShowScaleSize(double scale)
+        {
+            WriteableBitmap image = ShowImage.Source as WriteableBitmap;
+            ScaleSize = ShowImage.ActualWidth * scale / image.PixelWidth * 100;
+            TextBlockScale.Text = ScaleSizeString;
+        }
+
+        /// <summary>
+        /// 图片按像素比例显示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ScalingPixelWindow(object sender, RoutedEventArgs e)
+        {
+            MenuItem menu = sender as MenuItem;
+            Button radioButton = sender as Button;
+            if (ShowImage == null || (menu == null && radioButton == null))
+            {
+                return;
+            }
+
+            WriteableBitmap image = ShowImage.Source as WriteableBitmap;
+            double scale = menu == null ? Convert.ToDouble(radioButton.Tag) : Convert.ToDouble(menu.Tag);
+            scale = scale * (image.PixelWidth / ShowImage.ActualWidth);
+            TransformGroup tg = ShowImage.RenderTransform as TransformGroup;
+            var tgnew = tg.CloneCurrentValue();
+            if (tgnew != null)
+            {
+                ScaleTransform st = tgnew.Children[1] as ScaleTransform;
+
+                st.CenterX = ShowImage.ActualWidth / 2;
+                st.CenterY = ShowImage.ActualHeight / 2;
+                st.ScaleX = scale;
+                st.ScaleY = scale;
+            }
+
+            // 重新给图像赋值Transform变换属性
+            ShowImage.RenderTransform = tgnew;
+            ShowScaleSize(scale);
+        }
+
+        /// <summary>
+        /// 在窗口底部显示像素值 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private void ShowPixel(int x, int y)
+        {
+            if (ShowImageBitmap.Format == PixelFormats.Gray8)
+            {
+                Color c = GetPixel(ShowImageBitmap, (int)XPos, (int)YPos);
+                TextBlockPixel.Text = c.B.ToString();
+            }
+            else if (ShowImageBitmap.Format == PixelFormats.Bgr24)
+            {
+                Color c = GetPixel(ShowImageBitmap, (int)XPos, (int)YPos);
+                TextBlockPixel.Text = $"R:{c.R},G:{c.G},B:{c.B}";
+            }
+        }
+
+        /// <summary>
+        /// 获取像素值
+        /// </summary>
+        /// <param name="wbm"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="flag">是否为灰度图片</param>
+        /// <returns></returns>
+        private Color GetPixel(WriteableBitmap wbm, int x, int y)
+        {
+            if (y > wbm.PixelHeight - 1 || x > wbm.PixelWidth - 1) return Color.FromArgb(0, 0, 0, 0);
+            if (y < 0 || x < 0) return Color.FromArgb(0, 0, 0, 0);
+            IntPtr buff = wbm.BackBuffer;
+            int Stride = wbm.BackBufferStride;
+            Color c;
+            unsafe
+            {
+                byte* pbuff = (byte*)buff.ToPointer();
+                int loc = y * Stride + x * 4;
+                c = Color.FromArgb(pbuff[loc + 3], pbuff[loc + 2], pbuff[loc + 1], pbuff[loc]);
+            }
+            return c;
         }
     }
 }

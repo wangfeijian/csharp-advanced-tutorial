@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "23061043",
+      "name": "尺寸",
+      "font_class": "chicun",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "19698225",
+      "name": "info",
+      "font_class": "info",
+      "unicode": "e728",
+      "unicode_decimal": 59176
+    },
+    {
       "icon_id": "4573742",
       "name": "中文",
       "font_class": "zhongwen",
