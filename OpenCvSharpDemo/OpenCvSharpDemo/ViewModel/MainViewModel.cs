@@ -32,10 +32,12 @@ namespace OpenCvSharpDemo.ViewModel
         #region 字段
 
         private ImageGrab _imageGrab;
+        private ImageBlob _imageBlob;
         private string[] _filePaths;
         private bool _isStop = false;
         private int _index;
         public int FileNum => _filePaths.Length;
+        private WriteableBitmap _originalImage;
 
         #endregion
 
@@ -48,6 +50,7 @@ namespace OpenCvSharpDemo.ViewModel
         public ICommand LoadVideoCommand { get; set; }
         public ICommand StartPlayCommand { get; set; }
         public ICommand StopPlayCommand { get; set; }
+        public ICommand BlobAnalyzeCommand { get; set; }
 
         #endregion
         /// <summary>
@@ -64,6 +67,7 @@ namespace OpenCvSharpDemo.ViewModel
             ////    // Code runs "for real"
             ////}
             _imageGrab = new ImageGrab();
+            _imageBlob = new ImageBlob();
             InitCommand();
         }
 
@@ -75,7 +79,7 @@ namespace OpenCvSharpDemo.ViewModel
         public bool SelectImageStackPanelEnable
         {
             get { return selectImageStackPanelEnable; }
-            set { Set(ref selectImageStackPanelEnable ,value); }
+            set { Set(ref selectImageStackPanelEnable, value); }
         }
 
         private bool buttonStartPlayEnable;
@@ -85,7 +89,7 @@ namespace OpenCvSharpDemo.ViewModel
         public bool ButtonStartPlayEnable
         {
             get { return buttonStartPlayEnable; }
-            set { Set(ref buttonStartPlayEnable ,value); }
+            set { Set(ref buttonStartPlayEnable, value); }
         }
 
         private bool buttonStopPlayEnable;
@@ -95,7 +99,7 @@ namespace OpenCvSharpDemo.ViewModel
         public bool ButtonStopPlayEnable
         {
             get { return buttonStopPlayEnable; }
-            set { Set(ref buttonStopPlayEnable , value); }
+            set { Set(ref buttonStopPlayEnable, value); }
         }
 
         private WriteableBitmap showBitmap;
@@ -106,7 +110,7 @@ namespace OpenCvSharpDemo.ViewModel
         public WriteableBitmap ShowBitmap
         {
             get { return showBitmap; }
-            set { Set(ref showBitmap , value); }
+            set { Set(ref showBitmap, value); }
         }
 
         private string pathTextBoxText;
@@ -116,7 +120,7 @@ namespace OpenCvSharpDemo.ViewModel
         public string PathTextBoxText
         {
             get { return pathTextBoxText; }
-            set { Set(ref pathTextBoxText , value); }
+            set { Set(ref pathTextBoxText, value); }
         }
 
         private bool radioButtonFileIsChecked;
@@ -126,7 +130,7 @@ namespace OpenCvSharpDemo.ViewModel
         public bool RadioButtonFileIsChecked
         {
             get { return radioButtonFileIsChecked; }
-            set { Set(ref radioButtonFileIsChecked , value); }
+            set { Set(ref radioButtonFileIsChecked, value); }
         }
 
         private bool radioButtonDirIsChecked;
@@ -136,7 +140,7 @@ namespace OpenCvSharpDemo.ViewModel
         public bool RadioButtonDirIsChecked
         {
             get { return radioButtonDirIsChecked; }
-            set { Set(ref radioButtonDirIsChecked , value); }
+            set { Set(ref radioButtonDirIsChecked, value); }
         }
 
         private bool radioButtonCameraIsChecked;
@@ -146,7 +150,7 @@ namespace OpenCvSharpDemo.ViewModel
         public bool RadioButtonCameraIsChecked
         {
             get { return radioButtonCameraIsChecked; }
-            set { Set(ref radioButtonCameraIsChecked , value); }
+            set { Set(ref radioButtonCameraIsChecked, value); }
         }
 
         private bool radioButtonGrayImageIsChecked = true;
@@ -156,38 +160,239 @@ namespace OpenCvSharpDemo.ViewModel
         public bool RadioButtonGrayImageIsChecked
         {
             get { return radioButtonGrayImageIsChecked; }
-            set { Set(ref radioButtonGrayImageIsChecked , value); }
+            set { Set(ref radioButtonGrayImageIsChecked, value); }
         }
 
-        private bool buttonPreviewIsEnabled=true;
+        private bool buttonPreviewIsEnabled = true;
         /// <summary>
         /// 上一张图片按钮是否启用
         /// </summary>
         public bool ButtonPreviewIsEnabled
         {
             get { return buttonPreviewIsEnabled; }
-            set { Set(ref buttonPreviewIsEnabled , value); }
+            set { Set(ref buttonPreviewIsEnabled, value); }
         }
 
 
-        private bool buttonNextIsEnabled=true;
+        private bool buttonNextIsEnabled = true;
         /// <summary>
         /// 下一张图片按钮是否启用
         /// </summary>
         public bool ButtonNextIsEnabled
         {
             get { return buttonNextIsEnabled; }
-            set { Set(ref buttonNextIsEnabled , value); }
+            set { Set(ref buttonNextIsEnabled, value); }
         }
 
-        private double frame=30;
-
+        private double frame = 30;
+        /// <summary>
+        /// 播放视频时帧间隔时间
+        /// </summary>
         public double Frame
         {
             get { return frame; }
-            set { Set(ref frame , value); }
+            set { Set(ref frame, value); }
         }
 
+        private bool blobEnable;
+
+        public bool BlobEnable
+        {
+            get { return blobEnable; }
+            set { Set(ref blobEnable , value); }
+        }
+
+        private bool byColorEnable;
+        /// <summary>
+        /// 是否启用灰度值过滤
+        /// </summary>
+        public bool ByColorEnable
+        {
+            get { return byColorEnable; }
+            set { Set(ref byColorEnable, value); }
+
+        }
+
+        private bool byCircularityEnable;
+        /// <summary>
+        /// 是否启用圆度过滤
+        /// </summary>
+        public bool ByCircularityEnable
+        {
+            get { return byCircularityEnable; }
+            set { Set(ref byCircularityEnable, value); }
+        }
+
+        private bool byAreaEnable;
+        /// <summary>
+        /// 是否启用面积过滤
+        /// </summary>
+        public bool ByAreaEnable
+        {
+            get { return byAreaEnable; }
+            set { Set(ref byAreaEnable, value); }
+        }
+
+        private bool byConvexityEnable;
+        /// <summary>
+        /// 是否启用凸性过滤
+        /// </summary>
+        public bool ByConvexityEnable
+        {
+            get { return byConvexityEnable; }
+            set { Set(ref byConvexityEnable, value); }
+        }
+
+        private bool byInertiaEnable;
+        /// <summary>
+        /// 是否启用惯性比过滤
+        /// </summary>
+        public bool ByInertiaEnable
+        {
+            get { return byInertiaEnable; }
+            set { Set(ref byInertiaEnable, value); }
+        }
+
+        private float thresholdStep = 10f;
+        /// <summary>
+        /// 阈值递进值
+        /// </summary>
+        public float ThresholdStep
+        {
+            get { return thresholdStep; }
+            set { Set(ref thresholdStep , value); }
+        }
+
+
+        private float thresholdMinDis = 10f;
+        /// <summary>
+        /// 阈值之间的最小距离
+        /// </summary>
+        public float ThresholdMinDis
+        {
+            get { return thresholdMinDis; }
+            set { Set(ref thresholdMinDis , value); }
+        }
+
+        private uint thresholdTimes = 2;
+        /// <summary>
+        /// 阈值之间重复次数
+        /// </summary>
+        public uint ThresholdTimes
+        {
+            get { return thresholdTimes; }
+            set { Set(ref thresholdTimes , value); }
+        }
+
+        private float thresholdMin = 10f;
+        /// <summary>
+        /// 阈值最小值
+        /// </summary>
+        public float ThresholdMin
+        {
+            get { return thresholdMin; }
+            set { Set(ref thresholdMin , value); }
+        }
+
+        private float thresholdMax = 100f;
+        /// <summary>
+        /// 阈值最小值
+        /// </summary>
+        public float ThresholdMax
+        {
+            get { return thresholdMax; }
+            set { Set(ref thresholdMax, value); }
+        }
+
+        private byte byColorValue;
+        /// <summary>
+        /// 启用颜色过滤时的值
+        /// </summary>
+        public byte BycolorValue
+        {
+            get { return byColorValue; }
+            set { Set(ref byColorValue , value); }
+        }
+
+        private float byCircularityMinValue;
+        /// <summary>
+        /// 圆度最小值
+        /// </summary>
+        public float ByCircularityMinValue
+        {
+            get { return byCircularityMinValue; }
+            set { Set(ref byCircularityMinValue, value); }
+        }
+
+        private float byCircularityMaxValue;
+        /// <summary>
+        /// 圆度最大值
+        /// </summary>
+        public float ByCircularityMaxValue
+        {
+            get { return byCircularityMaxValue; }
+            set { Set(ref byCircularityMaxValue , value); }
+        }
+
+        private float byAreaMinValue;
+        /// <summary>
+        /// 面积最小值
+        /// </summary>
+        public float ByAreaMinValue
+        {
+            get { return byAreaMinValue; }
+            set { Set(ref byAreaMinValue , value); }
+        }
+
+        private float byAreaMaxValue;
+        /// <summary>
+        /// 面积最大值
+        /// </summary>
+        public float ByAreaMaxValue
+        {
+            get { return byAreaMaxValue; }
+            set { Set(ref byAreaMaxValue , value); }
+        }
+
+        private float byConvexityMinValue;
+        /// <summary>
+        /// 凸性最小值
+        /// </summary>
+        public float ByConvexityMinValue
+        {
+            get { return byConvexityMinValue; }
+            set { Set(ref byConvexityMinValue , value); }
+        }
+
+        private float byConvexityMaxValue;
+        /// <summary>
+        /// 凸性最大值
+        /// </summary>
+        public float ByConvexityMaxValue
+        {
+            get { return byConvexityMaxValue; }
+            set { Set(ref byConvexityMaxValue , value); }
+        }
+
+        private float byInertiaMinValue;
+        /// <summary>
+        /// 惯性比最小值
+        /// </summary>
+        public float ByInertiaMinValue
+        {
+            get { return byInertiaMinValue; }
+            set { Set(ref byInertiaMinValue , value); }
+        }
+
+        private float byInertiaMaxValue;
+        /// <summary>
+        /// 惯性比最大值
+        /// </summary>
+        public float ByInertiaMaxValue
+        {
+            get { return byInertiaMaxValue; }
+            set { Set(ref byInertiaMaxValue , value); }
+        }
         #endregion
 
         private void InitCommand()
@@ -199,6 +404,7 @@ namespace OpenCvSharpDemo.ViewModel
             LoadVideoCommand = new RelayCommand<object>(ButtonLoadVideoClick);
             StartPlayCommand = new RelayCommand<object>(ButtonStartPlayClick);
             StopPlayCommand = new RelayCommand<object>(ButtonStopPlayClick);
+            BlobAnalyzeCommand = new RelayCommand<object>(BlobAnalyzeImage);
         }
 
         #region 绑定方法
@@ -319,6 +525,45 @@ namespace OpenCvSharpDemo.ViewModel
         {
             _isStop = true;
         }
+
+        private void BlobAnalyzeImage(object sender)
+        {
+            if (!BlobEnable)
+            {
+                return;
+            }
+
+            SimpleBlobDetector.Params pParams = new SimpleBlobDetector.Params();
+
+            // 给SimpleBlobDetector参数赋值
+            // 1、根据界面选择是否启用某些参数
+            pParams.FilterByArea = ByAreaEnable;
+            pParams.FilterByCircularity = ByCircularityEnable;
+            pParams.FilterByColor = ByColorEnable;
+            pParams.FilterByConvexity = ByConvexityEnable;
+            pParams.FilterByInertia = ByInertiaEnable;
+
+            // 2、几个必要的参数先赋值
+            pParams.ThresholdStep = ThresholdStep;
+            pParams.MinThreshold = ThresholdMin;
+            pParams.MaxThreshold = ThresholdMax;
+            pParams.MinRepeatability = ThresholdTimes;
+            pParams.MinDistBetweenBlobs = ThresholdMinDis;
+
+            // 3、设置其它参数，数值来自界面
+            pParams.BlobColor = BycolorValue;
+            pParams.MinArea = ByAreaMinValue;
+            pParams.MaxArea = ByAreaMaxValue;
+            pParams.MinCircularity = ByCircularityMinValue;
+            pParams.MaxCircularity = ByCircularityMaxValue;
+            pParams.MinConvexity = ByConvexityMinValue;
+            pParams.MaxConvexity = ByConvexityMaxValue;
+            pParams.MinInertiaRatio = ByInertiaMinValue;
+            pParams.MaxInertiaRatio = ByInertiaMaxValue;
+
+            ShowBitmap = _imageBlob.GetBlobedImage(pParams, _originalImage);
+        }
+
         #endregion
 
         #region 其它方法
@@ -349,6 +594,7 @@ namespace OpenCvSharpDemo.ViewModel
                 RadioButtonGrayImageIsChecked == true ? ImreadModes.Grayscale : ImreadModes.Color;
             ShowBitmap = _imageGrab.GetImageFromFile(fileName, imreadModes, ref flag);
 
+            _originalImage = ShowBitmap.Clone();
             if (ShowBitmap == null)
             {
                 MessageBox.Show("文件不正确");

@@ -2,6 +2,7 @@
     x:Class="OpenCvSharpDemo.View.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:OpenCvSharpDemo.Service"
     xmlns:customerControl="clr-namespace:CustomerControl;assembly=CustomerControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -12,13 +13,16 @@
     Height="450"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
     <Window.DataContext>
         <Binding Path="Main" Source="{StaticResource Locator}" />
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="180" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -63,7 +67,6 @@
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
@@ -124,71 +127,330 @@
                 Grid.Row="2"
                 BorderBrush="Gainsboro"
                 BorderThickness="1">
-                <StackPanel Margin="5">
-                    <RadioButton
-                        x:Name="RadioButtonColorImage"
-                        Content="彩色图片"
-                        Margin="2" />
-                    <RadioButton
-                        x:Name="RadioButtonGrayImage"
-                        Content="灰度图片"
-                        Margin="2"
-                        IsChecked="{Binding RadioButtonGrayImageIsChecked}" />
-                    <Button
-                        x:Name="ButtonGrabImage"
-                        Content="采集图片"
-                        Margin="2">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding GrabImageCommand}" CommandParameter="{Binding ElementName=ButtonGrabImage}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
-                    <Button
-                        x:Name="ButtonLoad"
-                        Content="加载视频"
-                        Margin="2"
-                        IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonFile}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding LoadVideoCommand}" CommandParameter="{Binding ElementName=ButtonLoad}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
-                    <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FrameSlider, StringFormat=帧间隔时间(ms):{0}}" />
-                    <Slider
-                        x:Name="FrameSlider"
-                        Maximum="100"
-                        Minimum="1"
-                        Value="{Binding Frame, Mode=TwoWay}" />
-                    <Button
-                        x:Name="ButtonStartPlay"
-                        Content="开始播放"
-                        Margin="2"
-                        IsEnabled="{Binding ButtonStartPlayEnable}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding StartPlayCommand}" CommandParameter="{Binding ElementName=ButtonStartPlay}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
-                    <Button
-                        x:Name="ButtonStopPlay"
-                        Content="停止播放"
-                        Margin="2"
-                        IsEnabled="{Binding ButtonStopPlayEnable}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding StopPlayCommand}" CommandParameter="{Binding ElementName=ButtonStopPlay}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
-                </StackPanel>
+                <TreeView Margin="-1,-1,1,1" ItemContainerStyle="{DynamicResource TreeViewItemStyle}">
+                    <TreeViewItem Header="图片采集">
+                        <StackPanel Width="125" Margin="8,0">
+                            <RadioButton
+                                x:Name="RadioButtonColorImage"
+                                Content="彩色图片"
+                                Margin="2" />
+                            <RadioButton
+                                x:Name="RadioButtonGrayImage"
+                                Content="灰度图片"
+                                Margin="2"
+                                IsChecked="{Binding RadioButtonGrayImageIsChecked}" />
+                            <Button
+                                x:Name="ButtonGrabImage"
+                                Content="采集图片"
+                                Margin="2">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding GrabImageCommand}" CommandParameter="{Binding ElementName=ButtonGrabImage}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button
+                                x:Name="ButtonLoad"
+                                Content="加载视频"
+                                Margin="2"
+                                IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonFile}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding LoadVideoCommand}" CommandParameter="{Binding ElementName=ButtonLoad}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Separator />
+                            <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FrameSlider, StringFormat=帧间隔时间(ms):{0}}" />
+                            <Slider
+                                x:Name="FrameSlider"
+                                IsSnapToTickEnabled="True"
+                                Maximum="100"
+                                Minimum="1"
+                                Value="{Binding Frame, Mode=TwoWay}" />
+                            <Button
+                                x:Name="ButtonStartPlay"
+                                Content="开始播放"
+                                Margin="2"
+                                IsEnabled="{Binding ButtonStartPlayEnable}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding StartPlayCommand}" CommandParameter="{Binding ElementName=ButtonStartPlay}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button
+                                x:Name="ButtonStopPlay"
+                                Content="停止播放"
+                                Margin="2"
+                                IsEnabled="{Binding ButtonStopPlayEnable}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding StopPlayCommand}" CommandParameter="{Binding ElementName=ButtonStopPlay}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </StackPanel>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Blob分析">
+                        <StackPanel Width="125" Margin="8,0">
+                            <CheckBox
+                                x:Name="BlobEnable"
+                                Content="启用Blob分析"
+                                Margin="2"
+                                IsChecked="{Binding BlobEnable}" />
+                            <CheckBox
+                                x:Name="ByColorEnable"
+                                Content="灰度值过滤"
+                                Margin="2"
+                                IsChecked="{Binding ByColorEnable}"
+                                ToolTip="是否启用根据指定的灰度值来筛选" />
+                            <CheckBox
+                                x:Name="ByCircularityEnable"
+                                Content="圆度过滤"
+                                Margin="2"
+                                IsChecked="{Binding ByCircularityEnable}"
+                                ToolTip="是否启用根据特征的圆度来筛选" />
+                            <CheckBox
+                                x:Name="ByAreaEnable"
+                                Content="面积过滤"
+                                Margin="2"
+                                IsChecked="{Binding ByAreaEnable}"
+                                ToolTip="是否启用根据特征的面积来筛选" />
+                            <CheckBox
+                                x:Name="ByConvexityEnable"
+                                Content="凸性过滤"
+                                Margin="2"
+                                IsChecked="{Binding ByConvexityEnable}"
+                                ToolTip="是否启用根据特征的凸度来筛选" />
+                            <CheckBox
+                                x:Name="ByInertiaEnable"
+                                Content="惯性比过滤"
+                                Margin="2"
+                                IsChecked="{Binding ByInertiaEnable}"
+                                ToolTip="是否启用根据特征的惯性比来筛选" />
+                            <Separator />
+                            <StackPanel Margin="2" Orientation="Horizontal">
+                                <TextBlock Text="阈值递进值：" />
+                                <TextBox
+                                    Width="40"
+                                    Text="{Binding ThresholdStep}"
+                                    ToolTip="对源图像进行阈值处理时，每次阈值递增的量" />
+                            </StackPanel>
+                            <StackPanel Margin="2" Orientation="Horizontal">
+                                <TextBlock Text="值重复次数：" />
+                                <TextBox
+                                    Width="40"
+                                    Text="{Binding ThresholdTimes}"
+                                    ToolTip="重复的最小次数，只有属于灰度图像斑点的那些二值图像斑点数量大于该值时，该灰度图像斑点才被认为是特征点" />
+                            </StackPanel>
+                            <StackPanel Margin="2" Orientation="Horizontal">
+                                <TextBlock Text="值最小距离：" />
+                                <TextBox
+                                    Width="40"
+                                    Text="{Binding ThresholdMinDis}"
+                                    ToolTip="最小的斑点距离，不同二值图像的斑点间距离小于该值时，被认为是同一个位置的斑点，否则是不同位置上的斑点" />
+                            </StackPanel>
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Path=Value, ElementName=MinThresholdSlider, StringFormat=阈值最小值：{0}}"
+                                ToolTip="对源图像进行阈值处理时，从此阈值开始" />
+                            <Slider
+                                x:Name="MinThresholdSlider"
+                                Margin="2"
+                                IsSnapToTickEnabled="True"
+                                Maximum="255"
+                                Minimum="0"
+                                Value="{Binding ThresholdMin}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="ValueChanged">
+                                        <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=MinThresholdSlider}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Slider>
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Path=Value, ElementName=MaxThresholdSlider, StringFormat=阈值最大值：{0}}"
+                                ToolTip="对源图像进行阈值处理时，以此阈值结束" />
+                            <Slider
+                                x:Name="MaxThresholdSlider"
+                                Margin="2"
+                                IsSnapToTickEnabled="True"
+                                Maximum="255"
+                                Minimum="0"
+                                Value="{Binding ThresholdMax}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="ValueChanged">
+                                        <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=MaxThresholdSlider}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Slider>
+                            <Separator />
+                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByColorEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <TextBlock
+                                    Margin="2"
+                                    Text="{Binding Path=Value, ElementName=FilterByColorSlider, StringFormat=选定的灰度值：{0}}"
+                                    ToolTip="选定按灰度值过滤时，所指定的灰度值" />
+                                <Slider
+                                    x:Name="FilterByColorSlider"
+                                    Margin="2"
+                                    IsSnapToTickEnabled="True"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    Ticks="0,255"
+                                    Value="{Binding BycolorValue}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="ValueChanged">
+                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByColorSlider}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Slider>
+                                <Separator />
+                            </StackPanel>
+                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByCircularityEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <TextBlock
+                                    Margin="2"
+                                    Text="{Binding Path=Value, ElementName=FilterByCircularityMinSlider, StringFormat=最小圆度值：{0}}"
+                                    ToolTip="选定按圆度值过滤时，所指定的最小圆度值" />
+                                <Slider
+                                    x:Name="FilterByCircularityMinSlider"
+                                    Margin="2"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    Value="{Binding ByCircularityMinValue}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="ValueChanged">
+                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByCircularityMinSlider}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Slider>
+                                <TextBlock
+                                    Margin="2"
+                                    Text="{Binding Path=Value, ElementName=FilterByCircularityMaxSlider, StringFormat=最大圆度值：{0}}"
+                                    ToolTip="选定按圆度值过滤时，所指定的最大圆度值" />
+                                <Slider
+                                    x:Name="FilterByCircularityMaxSlider"
+                                    Margin="2"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    Value="{Binding ByCircularityMaxValue}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="ValueChanged">
+                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByCircularityMaxSlider}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Slider>
+                                <Separator />
+                            </StackPanel>
+                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByAreaEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel Margin="2" Orientation="Horizontal">
+                                    <TextBlock Text="最小面积值：" />
+                                    <TextBox
+                                        x:Name="FilterByAreaMinTextBox"
+                                        Width="40"
+                                        Text="{Binding ByAreaMinValue}"
+                                        ToolTip="选定按面积值过滤时，所指定的最小面积">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByAreaMinTextBox}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                </StackPanel>
+                                <StackPanel Margin="2" Orientation="Horizontal">
+                                    <TextBlock Text="最大面积值：" />
+                                    <TextBox
+                                        x:Name="FilterByAreaMaxTextBox"
+                                        Width="40"
+                                        Text="{Binding ByAreaMaxValue}"
+                                        ToolTip="选定按面积值过滤时，所指定的最大面积">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByAreaMaxTextBox}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                </StackPanel>
+                                <Separator />
+                            </StackPanel>
+                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByConvexityEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByConvexityMinSlider, StringFormat=最小的凸性值：{0}}">
+                                    <TextBlock.ToolTip>
+                                        <TextBlock Width="200" TextWrapping="Wrap">凸度定义为（斑点的面积/凸包的面积）。现在，形状的“凸包”是最紧密的凸形，它完全包围了该形状，用不严谨的话来讲，给定二维平面上的点集，凸包就是将最外层的点连接起来构成的凸多边形，它能包含点集中所有的点。直观感受上，凸性越高则里面“奇怪的部分”越少。</TextBlock>
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                                <Slider
+                                    x:Name="FilterByConvexityMinSlider"
+                                    Margin="2"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    Value="{Binding ByConvexityMinValue}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="ValueChanged">
+                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByConvexityMinSlider}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Slider>
+                                <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByConvexityMaxSlider, StringFormat=最大的凸性值：{0}}">
+                                    <TextBlock.ToolTip>
+                                        <TextBlock Width="200" TextWrapping="Wrap">凸度定义为（斑点的面积/凸包的面积）。现在，形状的“凸包”是最紧密的凸形，它完全包围了该形状，用不严谨的话来讲，给定二维平面上的点集，凸包就是将最外层的点连接起来构成的凸多边形，它能包含点集中所有的点。直观感受上，凸性越高则里面“奇怪的部分”越少。</TextBlock>
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                                <Slider
+                                    x:Name="FilterByConvexityMaxSlider"
+                                    Margin="2"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    Value="{Binding ByConvexityMaxValue}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="ValueChanged">
+                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByConvexityMaxSlider}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Slider>
+                                <Separator />
+                            </StackPanel>
+                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByInertiaEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByInertiaMinSlider, StringFormat=最小的惯性比值：{0}}">
+                                    <TextBlock.ToolTip>
+                                        <TextBlock Width="200" TextWrapping="Wrap">这个词汇比较抽象。我们需要知道Ratio可以衡量形状的伸长程度。简单来说。对于圆，此值是1，对于椭圆，它在0到1之间，对于直线，它是0</TextBlock>
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                                <Slider
+                                    x:Name="FilterByInertiaMinSlider"
+                                    Margin="2"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    Value="{Binding ByInertiaMinValue}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="ValueChanged">
+                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByInertiaMinSlider}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Slider>
+                                <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByInertiaMaxSlider, StringFormat=最大的惯性比值：{0}}">
+                                    <TextBlock.ToolTip>
+                                        <TextBlock Width="200" TextWrapping="Wrap">这个词汇比较抽象。我们需要知道Ratio可以衡量形状的伸长程度。简单来说。对于圆，此值是1，对于椭圆，它在0到1之间，对于直线，它是0</TextBlock>
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                                <Slider
+                                    x:Name="FilterByInertiaMaxSlider"
+                                    Margin="2"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    Value="{Binding ByInertiaMaxValue}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="ValueChanged">
+                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByInertiaMaxSlider}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Slider>
+                                <Separator />
+                            </StackPanel>
+                        </StackPanel>
+                    </TreeViewItem>
+                </TreeView>
             </Border>
-            <Border
-                Grid.Row="3"
-                BorderBrush="Gainsboro"
-                BorderThickness="1" />
         </Grid>
     </Grid>
 </Window>
