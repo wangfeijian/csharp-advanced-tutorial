@@ -77,6 +77,7 @@ namespace CustomerControl
         public static readonly DependencyProperty ShowImageBitmapProperty =
             DependencyProperty.Register("ShowImageBitmap", typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
 
+
         private void ShowBorder_OnMouseEnter(object sender, MouseEventArgs e)
         {
             string fileName = AppDomain.CurrentDomain.BaseDirectory + "cursor.cur";
@@ -124,6 +125,13 @@ namespace CustomerControl
         /// </summary>
         private void ShowImage_OnMouseMove(object sender, MouseEventArgs e)
         {
+            System.Windows.Point point = e.GetPosition(ShowImage);
+            double scale = ShowImage.ActualWidth / ShowImageBitmap.PixelWidth;
+            XPos = point.X / scale;
+            YPos = point.Y / scale;
+            TextBlockPos.Text = MousePos;
+            ShowPixel();
+
             if (RadioButtonHand.IsChecked == false)
             {
                 return;
@@ -148,14 +156,6 @@ namespace CustomerControl
                 // 重新给图像赋值Transform变换属性
                 img.RenderTransform = tgnew;
             }
-
-            System.Windows.Point point = e.GetPosition(ShowImage);
-            XPos = point.X;
-            YPos = point.Y;
-            TextBlockPos.Text = MousePos;
-
-            WriteableBitmap image = ShowImage.Source as WriteableBitmap;
-            ShowPixel((int)XPos,(int)YPos);
         }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace CustomerControl
             if (tgnew != null)
             {
                 ScaleTransform st = tgnew.Children[1] as ScaleTransform;
-                System.Windows.Point centerPoint = e.GetPosition(ShowBorder);
+                System.Windows.Point centerPoint = e.GetPosition(ShowImage);
 
                 st.CenterX = centerPoint.X;
                 st.CenterY = centerPoint.Y;
@@ -393,7 +393,7 @@ namespace CustomerControl
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        private void ShowPixel(int x, int y)
+        private void ShowPixel()
         {
             if (ShowImageBitmap.Format == PixelFormats.Gray8)
             {

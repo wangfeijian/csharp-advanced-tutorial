@@ -184,6 +184,7 @@
             </Border.ContextMenu>
             <Image
                 Name="ShowImage"
+                RenderOptions.BitmapScalingMode="NearestNeighbor"
                 MouseLeftButtonDown="ShowImage_OnMouseLeftButtonDown"
                 MouseLeftButtonUp="ShowImage_OnMouseLeftButtonUp"
                 MouseMove="ShowImage_OnMouseMove"
