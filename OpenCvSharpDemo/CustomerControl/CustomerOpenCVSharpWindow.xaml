@@ -40,7 +40,8 @@
                     FontSize="15"
                     Foreground="#333333"
                     IsChecked="True"
-                    Template="{StaticResource RadioButtonTemplate}" />
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="指针" />
                 <RadioButton
                     x:Name="RadioButtonHand"
                     Content="&#xe659;"
@@ -48,7 +49,8 @@
                     Margin="2"
                     FontSize="15"
                     Foreground="#333333"
-                    Template="{StaticResource RadioButtonTemplate}" />
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="抓手" />
                 <RadioButton
                     Content="&#xe601;"
                     Height="20"
@@ -56,7 +58,8 @@
                     Click="ButtonZoomIn_OnClick"
                     FontSize="15"
                     Foreground="#333333"
-                    Template="{StaticResource RadioButtonTemplate}" />
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="放大" />
                 <RadioButton
                     Content="&#xe600;"
                     Height="20"
@@ -64,7 +67,8 @@
                     Click="ButtonZoomOut_OnClick"
                     FontSize="15"
                     Foreground="#333333"
-                    Template="{StaticResource RadioButtonTemplate}" />
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="缩小" />
                 <Separator
                     Width="1"
                     Height="15"
@@ -79,7 +83,8 @@
                     FontSize="15"
                     Foreground="#333333"
                     Tag="1"
-                    Template="{StaticResource ButtonTemplate}" />
+                    Template="{StaticResource ButtonTemplate}"
+                    ToolTip="1：1显示" />
                 <Button
                     Content="&#xe674;"
                     Height="20"
@@ -87,7 +92,8 @@
                     Click="AdaptWindow"
                     FontSize="15"
                     Foreground="#333333"
-                    Template="{StaticResource ButtonTemplate}" />
+                    Template="{StaticResource ButtonTemplate}"
+                    ToolTip="适应屏幕" />
             </StackPanel>
             <StackPanel
                 Grid.Column="2"
@@ -99,14 +105,16 @@
                     Margin="2"
                     FontSize="15"
                     Foreground="#333333"
-                    Template="{StaticResource ButtonTemplate}" />
+                    Template="{StaticResource ButtonTemplate}"
+                    ToolTip="保存原始图片" />
                 <Button
                     Content="&#xe967;"
                     Height="20"
                     Margin="2"
                     FontSize="15"
                     Foreground="#333333"
-                    Template="{StaticResource ButtonTemplate}" />
+                    Template="{StaticResource ButtonTemplate}"
+                    ToolTip="保存截图" />
             </StackPanel>
         </Grid>
         <Border
@@ -184,11 +192,11 @@
             </Border.ContextMenu>
             <Image
                 Name="ShowImage"
-                RenderOptions.BitmapScalingMode="NearestNeighbor"
                 MouseLeftButtonDown="ShowImage_OnMouseLeftButtonDown"
                 MouseLeftButtonUp="ShowImage_OnMouseLeftButtonUp"
                 MouseMove="ShowImage_OnMouseMove"
                 MouseWheel="ShowImage_OnMouseWheel"
+                RenderOptions.BitmapScalingMode="NearestNeighbor"
                 Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=ShowImageBitmap, Mode=TwoWay}">
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -211,14 +219,16 @@
                 HorizontalAlignment="Right"
                 FontSize="10"
                 Foreground="#538A51"
-                Text="未加载图片" />
+                Text="未加载图片"
+                ToolTip="坐标" />
             <TextBlock
                 x:Name="TextBlockScale"
                 Grid.Column="1"
                 HorizontalAlignment="Right "
                 FontSize="10"
                 Foreground="#538A51"
-                Text="缩放：100%" />
+                Text="缩放：100%"
+                ToolTip="缩放比例" />
             <Separator
                 Grid.Column="1"
                 Width="1"
@@ -233,7 +243,8 @@
                 HorizontalAlignment="Right "
                 FontSize="10"
                 Foreground="#538A51"
-                Text="255" />
+                Text="255"
+                ToolTip="灰度值/RGB值" />
             <Separator
                 Grid.Column="2"
                 Width="1"

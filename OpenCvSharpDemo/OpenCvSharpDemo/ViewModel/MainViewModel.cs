@@ -38,6 +38,9 @@ namespace OpenCvSharpDemo.ViewModel
         private int _index;
         public int FileNum => _filePaths.Length;
         private WriteableBitmap _originalImage;
+        private WriteableBitmap _simpleBlobImage;
+        private WriteableBitmap _thresholdImage;
+        private Mat _thresholdMat;
 
         #endregion
 
@@ -51,6 +54,9 @@ namespace OpenCvSharpDemo.ViewModel
         public ICommand StartPlayCommand { get; set; }
         public ICommand StopPlayCommand { get; set; }
         public ICommand BlobAnalyzeCommand { get; set; }
+        public ICommand BlobAnalyzeAdvanceCommand { get; set; }
+        public ICommand ShowOriginImageCommand { get; set; }
+        public ICommand ShowContourCommand { get; set; }
 
         #endregion
         /// <summary>
@@ -199,7 +205,7 @@ namespace OpenCvSharpDemo.ViewModel
         public bool BlobEnable
         {
             get { return blobEnable; }
-            set { Set(ref blobEnable , value); }
+            set { Set(ref blobEnable, value); }
         }
 
         private bool byColorEnable;
@@ -260,7 +266,7 @@ namespace OpenCvSharpDemo.ViewModel
         public float ThresholdStep
         {
             get { return thresholdStep; }
-            set { Set(ref thresholdStep , value); }
+            set { Set(ref thresholdStep, value); }
         }
 
 
@@ -271,7 +277,7 @@ namespace OpenCvSharpDemo.ViewModel
         public float ThresholdMinDis
         {
             get { return thresholdMinDis; }
-            set { Set(ref thresholdMinDis , value); }
+            set { Set(ref thresholdMinDis, value); }
         }
 
         private uint thresholdTimes = 2;
@@ -281,7 +287,7 @@ namespace OpenCvSharpDemo.ViewModel
         public uint ThresholdTimes
         {
             get { return thresholdTimes; }
-            set { Set(ref thresholdTimes , value); }
+            set { Set(ref thresholdTimes, value); }
         }
 
         private float thresholdMin = 10f;
@@ -291,7 +297,7 @@ namespace OpenCvSharpDemo.ViewModel
         public float ThresholdMin
         {
             get { return thresholdMin; }
-            set { Set(ref thresholdMin , value); }
+            set { Set(ref thresholdMin, value); }
         }
 
         private float thresholdMax = 100f;
@@ -311,7 +317,7 @@ namespace OpenCvSharpDemo.ViewModel
         public byte BycolorValue
         {
             get { return byColorValue; }
-            set { Set(ref byColorValue , value); }
+            set { Set(ref byColorValue, value); }
         }
 
         private float byCircularityMinValue;
@@ -331,7 +337,7 @@ namespace OpenCvSharpDemo.ViewModel
         public float ByCircularityMaxValue
         {
             get { return byCircularityMaxValue; }
-            set { Set(ref byCircularityMaxValue , value); }
+            set { Set(ref byCircularityMaxValue, value); }
         }
 
         private float byAreaMinValue;
@@ -341,7 +347,7 @@ namespace OpenCvSharpDemo.ViewModel
         public float ByAreaMinValue
         {
             get { return byAreaMinValue; }
-            set { Set(ref byAreaMinValue , value); }
+            set { Set(ref byAreaMinValue, value); }
         }
 
         private float byAreaMaxValue;
@@ -351,7 +357,7 @@ namespace OpenCvSharpDemo.ViewModel
         public float ByAreaMaxValue
         {
             get { return byAreaMaxValue; }
-            set { Set(ref byAreaMaxValue , value); }
+            set { Set(ref byAreaMaxValue, value); }
         }
 
         private float byConvexityMinValue;
@@ -361,7 +367,7 @@ namespace OpenCvSharpDemo.ViewModel
         public float ByConvexityMinValue
         {
             get { return byConvexityMinValue; }
-            set { Set(ref byConvexityMinValue , value); }
+            set { Set(ref byConvexityMinValue, value); }
         }
 
         private float byConvexityMaxValue;
@@ -371,7 +377,7 @@ namespace OpenCvSharpDemo.ViewModel
         public float ByConvexityMaxValue
         {
             get { return byConvexityMaxValue; }
-            set { Set(ref byConvexityMaxValue , value); }
+            set { Set(ref byConvexityMaxValue, value); }
         }
 
         private float byInertiaMinValue;
@@ -381,7 +387,7 @@ namespace OpenCvSharpDemo.ViewModel
         public float ByInertiaMinValue
         {
             get { return byInertiaMinValue; }
-            set { Set(ref byInertiaMinValue , value); }
+            set { Set(ref byInertiaMinValue, value); }
         }
 
         private float byInertiaMaxValue;
@@ -391,7 +397,37 @@ namespace OpenCvSharpDemo.ViewModel
         public float ByInertiaMaxValue
         {
             get { return byInertiaMaxValue; }
-            set { Set(ref byInertiaMaxValue , value); }
+            set { Set(ref byInertiaMaxValue, value); }
+        }
+
+        private double thresholdValue = 100;
+        /// <summary>
+        /// 二值化阈值
+        /// </summary>
+        public double ThresholdValue
+        {
+            get { return thresholdValue; }
+            set { thresholdValue = value; }
+        }
+
+        private bool thresholdEnable;
+        /// <summary>
+        /// 是否启用二值化
+        /// </summary>
+        public bool ThresholdEnable
+        {
+            get { return thresholdEnable; }
+            set { Set(ref thresholdEnable, value); }
+        }
+
+        private bool autoThresholdEnable;
+        /// <summary>
+        /// 是否启用自动阈值
+        /// </summary>
+        public bool AutoThresholdEnable
+        {
+            get { return autoThresholdEnable; }
+            set { Set(ref autoThresholdEnable, value); }
         }
         #endregion
 
@@ -405,6 +441,9 @@ namespace OpenCvSharpDemo.ViewModel
             StartPlayCommand = new RelayCommand<object>(ButtonStartPlayClick);
             StopPlayCommand = new RelayCommand<object>(ButtonStopPlayClick);
             BlobAnalyzeCommand = new RelayCommand<object>(BlobAnalyzeImage);
+            BlobAnalyzeAdvanceCommand = new RelayCommand<object>(BlobAdvanAnalyzeImage);
+            ShowOriginImageCommand = new RelayCommand<object>(ShowOriginImage);
+            ShowContourCommand = new RelayCommand<object>(ShowContourImage);
         }
 
         #region 绑定方法
@@ -561,9 +600,43 @@ namespace OpenCvSharpDemo.ViewModel
             pParams.MinInertiaRatio = ByInertiaMinValue;
             pParams.MaxInertiaRatio = ByInertiaMaxValue;
 
-            ShowBitmap = _imageBlob.GetBlobedImage(pParams, _originalImage);
+            ShowBitmap = _imageBlob.GetBlobedImageSimple(pParams, _originalImage);
+            _simpleBlobImage = ShowBitmap.Clone();
         }
 
+        private void ShowOriginImage(object sender)
+        {
+            if (_originalImage == null)
+            {
+                MessageBox.Show("还未采集图片，请先采集图片");
+                return;
+            }
+
+            ShowBitmap = _originalImage.Clone();
+        }
+
+        private void BlobAdvanAnalyzeImage(object sender)
+        {
+            if (AutoThresholdEnable)
+            {
+                ShowBitmap = _imageBlob.GetThresholdImage(ThresholdValue, _originalImage, ref _thresholdMat, false);
+            }
+            else
+            {
+                ShowBitmap = _imageBlob.GetThresholdImage(ThresholdValue, _originalImage, ref _thresholdMat);
+            }
+            _thresholdImage = ShowBitmap.Clone();
+        }
+
+        private void ShowContourImage(object sender)
+        {
+            if (_thresholdImage == null || _originalImage == null)
+            {
+                return;
+            }
+
+            ShowBitmap = _imageBlob.GetContourToImage(_thresholdMat, _originalImage);
+        }
         #endregion
 
         #region 其它方法
@@ -589,12 +662,8 @@ namespace OpenCvSharpDemo.ViewModel
 
         private void ShowSingleImage(string fileName)
         {
-            bool flag = false;
-            ImreadModes imreadModes =
-                RadioButtonGrayImageIsChecked == true ? ImreadModes.Grayscale : ImreadModes.Color;
-            ShowBitmap = _imageGrab.GetImageFromFile(fileName, imreadModes, ref flag);
+            ShowBitmap = _imageGrab.GetImageFromFile(fileName, ref _originalImage, RadioButtonGrayImageIsChecked);
 
-            _originalImage = ShowBitmap.Clone();
             if (ShowBitmap == null)
             {
                 MessageBox.Show("文件不正确");

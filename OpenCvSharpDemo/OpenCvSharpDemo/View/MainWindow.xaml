@@ -43,7 +43,8 @@
                         Content="上一张"
                         Width="100"
                         Margin="0,5,50,5"
-                        IsEnabled="{Binding ButtonPreviewIsEnabled, Mode=TwoWay}">
+                        IsEnabled="{Binding ButtonPreviewIsEnabled, Mode=TwoWay}"
+                        ToolTip="显示上一张图片">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding PreviewImageCommand}" CommandParameter="{Binding ElementName=ButtonPreview}" />
@@ -55,7 +56,8 @@
                         Content="下一张"
                         Width="100"
                         Margin="50,5,0,5"
-                        IsEnabled="{Binding ButtonNextIsEnabled, Mode=TwoWay}">
+                        IsEnabled="{Binding ButtonNextIsEnabled, Mode=TwoWay}"
+                        ToolTip="显示下一张图片">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding NextImageCommand}" CommandParameter="{Binding ElementName=ButtonNext}" />
@@ -128,7 +130,7 @@
                 BorderBrush="Gainsboro"
                 BorderThickness="1">
                 <TreeView Margin="-1,-1,1,1" ItemContainerStyle="{DynamicResource TreeViewItemStyle}">
-                    <TreeViewItem Header="图片采集">
+                    <TreeViewItem Header="图片采集" ToolTip="对图片进行采集操作">
                         <StackPanel Width="125" Margin="8,0">
                             <RadioButton
                                 x:Name="RadioButtonColorImage"
@@ -146,6 +148,16 @@
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
                                         <i:InvokeCommandAction Command="{Binding GrabImageCommand}" CommandParameter="{Binding ElementName=ButtonGrabImage}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button
+                                x:Name="ButtonShowOriginImage"
+                                Content="显示原图"
+                                Margin="2">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ShowOriginImageCommand}" CommandParameter="{Binding ElementName=ButtonShowOriginImage}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Button>
@@ -192,7 +204,7 @@
                             </Button>
                         </StackPanel>
                     </TreeViewItem>
-                    <TreeViewItem Header="Blob分析">
+                    <TreeViewItem Header="简单Blob分析" ToolTip="只用于一些简单的分析，查看分析的结果，不进行结果的保存">
                         <StackPanel Width="125" Margin="8,0">
                             <CheckBox
                                 x:Name="BlobEnable"
@@ -447,6 +459,58 @@
                                 </Slider>
                                 <Separator />
                             </StackPanel>
+                        </StackPanel>
+                    </TreeViewItem>
+                    <TreeViewItem Header="高级Blob分析" ToolTip="经过一些特定的步骤，对图片进行分析，并且输出指定的结果">
+                        <StackPanel Width="125" Margin="8,0">
+                            <CheckBox
+                                x:Name="ThresholdEnable"
+                                Content="启用二值化处理"
+                                Margin="2"
+                                IsChecked="{Binding ThresholdEnable}" />
+                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ThresholdEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <CheckBox
+                                    x:Name="AutoThresholdEnable"
+                                    Content="自动阈值"
+                                    Margin="2"
+                                    IsChecked="{Binding AutoThresholdEnable}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeAdvanceCommand}" CommandParameter="{Binding ElementName=AutoThresholdEnable}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
+                                <TextBlock
+                                    Margin="2"
+                                    Text="{Binding Path=Value, ElementName=ThresholdSlider, StringFormat=二值化阈值：{0}}"
+                                    ToolTip="指定使用二值化时，最小的灰度值。处理后图像是白色为选中区域。" />
+                                <Slider
+                                    x:Name="ThresholdSlider"
+                                    Margin="2"
+                                    IsSnapToTickEnabled="True"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    Value="{Binding ThresholdValue}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="ValueChanged">
+                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeAdvanceCommand}" CommandParameter="{Binding ElementName=ThresholdSlider}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Slider>
+                                <Separator />
+                            </StackPanel>
+                            <Button
+                                x:Name="ShowContourEnable"
+                                Content="显示轮廓"
+                                Height="25"
+                                Margin="2"
+                                IsEnabled="{Binding Path=IsChecked, ElementName=ThresholdEnable}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ShowContourCommand}" CommandParameter="{Binding ElementName=ShowContourEnable}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
                         </StackPanel>
                     </TreeViewItem>
                 </TreeView>

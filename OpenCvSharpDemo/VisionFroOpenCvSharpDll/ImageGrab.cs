@@ -16,7 +16,7 @@ namespace VisionFroOpenCvSharpDll
     {
         private VideoCapture _video;
         private int _index;
-        public WriteableBitmap GetImageFromFile(string fileName, ImreadModes imageReadMode, ref bool flag)
+        public WriteableBitmap GetImageFromFile(string fileName,ref WriteableBitmap originBitmap, bool flag)
         {
             WriteableBitmap bitmap;
 
@@ -28,19 +28,30 @@ namespace VisionFroOpenCvSharpDll
 
             try
             {
-                using (Mat mat = Cv2.ImRead(fileName, imageReadMode))
+                using (Mat mat = Cv2.ImRead(fileName))
                 {
-                    bitmap = mat.ToWriteableBitmap();
+                    originBitmap = mat.ToWriteableBitmap();
+                    if (flag)
+                    {
+                        using (Mat grayMat = new Mat())
+                        {
+                            Cv2.CvtColor(mat, grayMat, ColorConversionCodes.RGB2GRAY);
+                            bitmap = grayMat.ToWriteableBitmap();
+                        }
+                    }
+                    else
+                    {
+                        bitmap = mat.ToWriteableBitmap();
+                    }
+
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                flag = false;
                 return null;
             }
 
-            flag = true;
             return bitmap;
         }
 
@@ -89,7 +100,7 @@ namespace VisionFroOpenCvSharpDll
                 {
                     using (Mat newMat = new Mat())
                     {
-                        Cv2.CvtColor(mat, newMat, ColorConversionCodes.BGR2GRAY);
+                        Cv2.CvtColor(mat, newMat, ColorConversionCodes.RGB2GRAY);
                         _index++;
                         return newMat.ToWriteableBitmap();
                     }
