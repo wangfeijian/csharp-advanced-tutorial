@@ -415,10 +415,10 @@ namespace CustomerControl
         /// <param name="y"></param>
         /// <param name="flag">是否为彩色图片</param>
         /// <returns></returns>
-        private Color GetPixel(WriteableBitmap wbm, int x, int y , bool flag=true)
+        private Color GetPixel(WriteableBitmap wbm, int x, int y, bool flag = true)
         {
-            if (y > wbm.PixelHeight - 1 || x > wbm.PixelWidth - 1) return Color.FromArgb(0, 0, 0, 0);
-            if (y < 0 || x < 0) return Color.FromArgb(0, 0, 0, 0);
+            if (y > wbm.PixelHeight - 1 || x > wbm.PixelWidth - 1) return Color.FromRgb(0, 0, 0);
+            if (y < 0 || x < 0) return Color.FromRgb(0, 0, 0);
             IntPtr buff = wbm.BackBuffer;
             int Stride = wbm.BackBufferStride;
             Color c;
@@ -426,7 +426,7 @@ namespace CustomerControl
             {
                 byte* pbuff = (byte*)buff.ToPointer();
                 int loc = flag ? y * Stride + x * 3 : y * Stride + x;
-                c = Color.FromArgb(pbuff[loc + 3], pbuff[loc + 2], pbuff[loc + 1], pbuff[loc]);
+                c = flag ? Color.FromRgb(pbuff[loc + 2], pbuff[loc + 1], pbuff[loc]) : Color.FromRgb(pbuff[loc], pbuff[loc], pbuff[loc]);
             }
             return c;
         }

@@ -12,15 +12,21 @@ namespace TestDemo
         static void Main(string[] args)
         {
             Mat srcImage = Cv2.ImRead(
-                @"D:\Project\7月\螺丝机\保护罩三号\7_Calib\下相机十二点标定-2020-1003-1444-44\1884716798.jpg");
+                @"C:\Users\Public\Documents\MVTec\HALCON-19.11-Progress\examples\images\die\die_03.png");
             Cv2.ImShow("Source", srcImage);
             Cv2.WaitKey(1); // do events
-            Mat dstImage = MyFindContours(srcImage);
+            Mat morpMat = new Mat();
+            Mat dstImage = MyFindContours(srcImage,ref morpMat);
 
             Cv2.ImShow("dst", dstImage);
             Cv2.WaitKey(1);
-            ThresholdImage(srcImage);
 
+            Mat morphMat = MorphologicalOperations(morpMat);
+
+            Cv2.ImShow("mor", morphMat);
+            Cv2.WaitKey(1);
+
+            ThresholdImage(srcImage);
             Cv2.DestroyAllWindows();
 
             srcImage.Dispose();
@@ -50,19 +56,18 @@ namespace TestDemo
             }
         }
 
-        static Mat MyFindContours(Mat srcImage)
+        static Mat MyFindContours(Mat srcImage,ref Mat contoursMat)
         {
-            Mat cannyImage = new Mat();
-            Mat srcGray = new Mat();
+            Mat srcMat = new Mat(srcImage.Size(), MatType.CV_8UC1);
+            Cv2.CvtColor(srcImage, srcMat, ColorConversionCodes.RGB2GRAY);
 
-            Cv2.CvtColor(srcImage,srcGray,ColorConversionCodes.RGB2GRAY);
-            Cv2.Canny(srcGray, cannyImage, 100, 200);
+            Mat dstMat = new Mat();
+            Cv2.Threshold(srcMat, dstMat, thresh: 45, maxval: 255, type: ThresholdTypes.Binary);
 
+            contoursMat = dstMat.Clone();
             Point[][] contours;
             HierarchyIndex[] hierarchy;
-
-            Cv2.FindContours(cannyImage, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
-            Mat dstMat = Mat.Zeros(cannyImage.Size(), srcImage.Type());
+            Cv2.FindContours(dstMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
 
             for (int i = 0; i < contours.Length; i++)
             {
@@ -70,6 +75,14 @@ namespace TestDemo
             }
 
             return srcImage;
+        }
+
+        static Mat MorphologicalOperations(Mat srcMat)
+        {
+            Mat dstMat = new Mat();
+            Mat element = Cv2.GetStructuringElement(MorphShapes.Ellipse, new Size(15.5, 15.5));
+            Cv2.MorphologyEx(srcMat, dstMat, MorphTypes.Close, element);
+            return dstMat;
         }
     }
 }

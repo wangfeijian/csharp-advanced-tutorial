@@ -36,11 +36,32 @@ namespace OpenCvSharpDemo.ViewModel
         private string[] _filePaths;
         private bool _isStop = false;
         private int _index;
+        private string _info;
         public int FileNum => _filePaths.Length;
+        /// <summary>
+        /// 原始图片
+        /// </summary>
         private WriteableBitmap _originalImage;
+        /// <summary>
+        /// 使用简单Blob分析后的图片
+        /// </summary>
         private WriteableBitmap _simpleBlobImage;
+        /// <summary>
+        /// 二值化区域和原始图片合成的图片
+        /// </summary>
         private WriteableBitmap _thresholdImage;
+        /// <summary>
+        /// 形态学处理后和原始图片合成的图片
+        /// </summary>
+        private WriteableBitmap _morphImage;
+        /// <summary>
+        /// 二值化得到的区域
+        /// </summary>
         private Mat _thresholdMat;
+        /// <summary>
+        /// 形态学处理后得到的区域
+        /// </summary>
+        private Mat _morphMat;
 
         #endregion
 
@@ -57,6 +78,7 @@ namespace OpenCvSharpDemo.ViewModel
         public ICommand BlobAnalyzeAdvanceCommand { get; set; }
         public ICommand ShowOriginImageCommand { get; set; }
         public ICommand ShowContourCommand { get; set; }
+        public ICommand ShowMorphCommand { get; set; }
 
         #endregion
         /// <summary>
@@ -128,6 +150,17 @@ namespace OpenCvSharpDemo.ViewModel
             get { return pathTextBoxText; }
             set { Set(ref pathTextBoxText, value); }
         }
+
+        private string processInfo;
+        /// <summary>
+        /// 处理的信息
+        /// </summary>
+        public string ProcessInfo
+        {
+            get { return processInfo; }
+            set { Set(ref processInfo, value); }
+        }
+
 
         private bool radioButtonFileIsChecked;
         /// <summary>
@@ -429,6 +462,47 @@ namespace OpenCvSharpDemo.ViewModel
             get { return autoThresholdEnable; }
             set { Set(ref autoThresholdEnable, value); }
         }
+
+        private bool morphologicalEnable;
+        /// <summary>
+        /// 是否启用形态学操作
+        /// </summary>
+        public bool MorphologicalEnable
+        {
+            get { return morphologicalEnable; }
+            set { Set(ref morphologicalEnable, value); }
+        }
+
+        private byte morphType = 0;
+        /// <summary>
+        /// 形态学类型
+        /// </summary>
+        public byte MorphType
+        {
+            get { return morphType; }
+            set { Set(ref morphType, value); }
+        }
+
+        private byte morphShape = 0;
+        /// <summary>
+        /// 结构形状
+        /// </summary>
+        public byte MorphShape
+        {
+            get { return morphShape; }
+            set { Set(ref morphShape, value); }
+        }
+
+        private byte morphElement = 5;
+        /// <summary>
+        /// 结构大小
+        /// </summary>
+        public byte MorphElement
+        {
+            get { return morphElement; }
+            set { Set(ref morphElement, value); }
+        }
+
         #endregion
 
         private void InitCommand()
@@ -444,6 +518,7 @@ namespace OpenCvSharpDemo.ViewModel
             BlobAnalyzeAdvanceCommand = new RelayCommand<object>(BlobAdvanAnalyzeImage);
             ShowOriginImageCommand = new RelayCommand<object>(ShowOriginImage);
             ShowContourCommand = new RelayCommand<object>(ShowContourImage);
+            ShowMorphCommand = new RelayCommand<object>(ShowMorphImage);
         }
 
         #region 绑定方法
@@ -522,10 +597,11 @@ namespace OpenCvSharpDemo.ViewModel
         {
             _index = 0;
             _isStop = false;
-            if (_imageGrab.GetVideoFromFile(PathTextBoxText, ref _index))
+            if (_imageGrab.GetVideoFromFile(PathTextBoxText, ref _index,ref _info))
             {
                 ButtonStartPlayEnable = true;
                 ButtonStopPlayEnable = true;
+                ProcessInfo = _info;
                 return;
             }
 
@@ -544,7 +620,8 @@ namespace OpenCvSharpDemo.ViewModel
 
             while (true)
             {
-                var image = _imageGrab.GetVideoFrame(isGray);
+                var image = _imageGrab.GetVideoFrame(isGray,ref _info);
+                ProcessInfo = _info;
                 if (image == null || _isStop)
                 {
                     break;
@@ -600,7 +677,8 @@ namespace OpenCvSharpDemo.ViewModel
             pParams.MinInertiaRatio = ByInertiaMinValue;
             pParams.MaxInertiaRatio = ByInertiaMaxValue;
 
-            ShowBitmap = _imageBlob.GetBlobedImageSimple(pParams, _originalImage);
+            ShowBitmap = _imageBlob.GetBlobedImageSimple(pParams, _originalImage, ref _info);
+            ProcessInfo = _info;
             _simpleBlobImage = ShowBitmap.Clone();
         }
 
@@ -619,11 +697,13 @@ namespace OpenCvSharpDemo.ViewModel
         {
             if (AutoThresholdEnable)
             {
-                ShowBitmap = _imageBlob.GetThresholdImage(ThresholdValue, _originalImage, ref _thresholdMat, false);
+                ShowBitmap = _imageBlob.GetThresholdImage(ThresholdValue, _originalImage, ref _thresholdMat, false, ref _info);
+                ProcessInfo = _info;
             }
             else
             {
-                ShowBitmap = _imageBlob.GetThresholdImage(ThresholdValue, _originalImage, ref _thresholdMat);
+                ShowBitmap = _imageBlob.GetThresholdImage(ThresholdValue, _originalImage, ref _thresholdMat, true, ref _info);
+                ProcessInfo = _info;
             }
             _thresholdImage = ShowBitmap.Clone();
         }
@@ -635,7 +715,20 @@ namespace OpenCvSharpDemo.ViewModel
                 return;
             }
 
-            ShowBitmap = _imageBlob.GetContourToImage(_thresholdMat, _originalImage);
+            ShowBitmap = _imageBlob.GetContourToImage(_thresholdMat, _originalImage,ref _info);
+            ProcessInfo = _info;
+        }
+
+        private void ShowMorphImage(object sender)
+        {
+            if (_thresholdMat == null || _originalImage == null)
+            {
+                return;
+            }
+
+            ShowBitmap = _imageBlob.MorphologicalOperations(_originalImage, _thresholdMat, ref _morphMat, (MorphShapes)MorphShape, (MorphTypes)MorphType, MorphElement,ref _info);
+            ProcessInfo = _info;
+            _morphImage = ShowBitmap.Clone();
         }
         #endregion
 
@@ -662,7 +755,8 @@ namespace OpenCvSharpDemo.ViewModel
 
         private void ShowSingleImage(string fileName)
         {
-            ShowBitmap = _imageGrab.GetImageFromFile(fileName, ref _originalImage, RadioButtonGrayImageIsChecked);
+            ShowBitmap = _imageGrab.GetImageFromFile(fileName, ref _originalImage, RadioButtonGrayImageIsChecked, ref _info);
+            ProcessInfo = _info;
 
             if (ShowBitmap == null)
             {

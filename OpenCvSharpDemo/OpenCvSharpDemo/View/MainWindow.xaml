@@ -29,7 +29,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border BorderBrush="Gainsboro" BorderThickness="1">
-                <customerControl:CustomerOpenCVSharpWindow CameraColor="#000000" ShowImageBitmap="{Binding ShowBitmap, Mode=TwoWay}" />
+                <customerControl:CustomerOpenCVSharpWindow CameraColor="#27D0D8" ShowImageBitmap="{Binding ShowBitmap, Mode=TwoWay}" />
             </Border>
             <Grid Grid.Row="1">
                 <StackPanel
@@ -122,6 +122,12 @@
                 <StackPanel Margin="5">
                     <RadioButton Content="单张触发" Margin="2" />
                     <RadioButton Content="连续采集" Margin="2" />
+                    <TextBox
+                        x:Name="ProcessInfoTextBox"
+                        Margin="2"
+                        Text="{Binding ProcessInfo, Mode=TwoWay}"
+                        TextWrapping="WrapWithOverflow"
+                        ToolTip="处理信息" />
                 </StackPanel>
             </Border>
             <Border
@@ -240,224 +246,232 @@
                                 Margin="2"
                                 IsChecked="{Binding ByInertiaEnable}"
                                 ToolTip="是否启用根据特征的惯性比来筛选" />
-                            <Separator />
-                            <StackPanel Margin="2" Orientation="Horizontal">
-                                <TextBlock Text="阈值递进值：" />
-                                <TextBox
-                                    Width="40"
-                                    Text="{Binding ThresholdStep}"
-                                    ToolTip="对源图像进行阈值处理时，每次阈值递增的量" />
-                            </StackPanel>
-                            <StackPanel Margin="2" Orientation="Horizontal">
-                                <TextBlock Text="值重复次数：" />
-                                <TextBox
-                                    Width="40"
-                                    Text="{Binding ThresholdTimes}"
-                                    ToolTip="重复的最小次数，只有属于灰度图像斑点的那些二值图像斑点数量大于该值时，该灰度图像斑点才被认为是特征点" />
-                            </StackPanel>
-                            <StackPanel Margin="2" Orientation="Horizontal">
-                                <TextBlock Text="值最小距离：" />
-                                <TextBox
-                                    Width="40"
-                                    Text="{Binding ThresholdMinDis}"
-                                    ToolTip="最小的斑点距离，不同二值图像的斑点间距离小于该值时，被认为是同一个位置的斑点，否则是不同位置上的斑点" />
-                            </StackPanel>
-                            <TextBlock
-                                Margin="2"
-                                Text="{Binding Path=Value, ElementName=MinThresholdSlider, StringFormat=阈值最小值：{0}}"
-                                ToolTip="对源图像进行阈值处理时，从此阈值开始" />
-                            <Slider
-                                x:Name="MinThresholdSlider"
-                                Margin="2"
-                                IsSnapToTickEnabled="True"
-                                Maximum="255"
-                                Minimum="0"
-                                Value="{Binding ThresholdMin}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="ValueChanged">
-                                        <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=MinThresholdSlider}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Slider>
-                            <TextBlock
-                                Margin="2"
-                                Text="{Binding Path=Value, ElementName=MaxThresholdSlider, StringFormat=阈值最大值：{0}}"
-                                ToolTip="对源图像进行阈值处理时，以此阈值结束" />
-                            <Slider
-                                x:Name="MaxThresholdSlider"
-                                Margin="2"
-                                IsSnapToTickEnabled="True"
-                                Maximum="255"
-                                Minimum="0"
-                                Value="{Binding ThresholdMax}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="ValueChanged">
-                                        <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=MaxThresholdSlider}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Slider>
-                            <Separator />
-                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByColorEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <TextBlock
-                                    Margin="2"
-                                    Text="{Binding Path=Value, ElementName=FilterByColorSlider, StringFormat=选定的灰度值：{0}}"
-                                    ToolTip="选定按灰度值过滤时，所指定的灰度值" />
-                                <Slider
-                                    x:Name="FilterByColorSlider"
-                                    Margin="2"
-                                    IsSnapToTickEnabled="True"
-                                    Maximum="255"
-                                    Minimum="0"
-                                    Ticks="0,255"
-                                    Value="{Binding BycolorValue}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="ValueChanged">
-                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByColorSlider}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Slider>
-                                <Separator />
-                            </StackPanel>
-                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByCircularityEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <TextBlock
-                                    Margin="2"
-                                    Text="{Binding Path=Value, ElementName=FilterByCircularityMinSlider, StringFormat=最小圆度值：{0}}"
-                                    ToolTip="选定按圆度值过滤时，所指定的最小圆度值" />
-                                <Slider
-                                    x:Name="FilterByCircularityMinSlider"
-                                    Margin="2"
-                                    Maximum="1"
-                                    Minimum="0"
-                                    Value="{Binding ByCircularityMinValue}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="ValueChanged">
-                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByCircularityMinSlider}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Slider>
-                                <TextBlock
-                                    Margin="2"
-                                    Text="{Binding Path=Value, ElementName=FilterByCircularityMaxSlider, StringFormat=最大圆度值：{0}}"
-                                    ToolTip="选定按圆度值过滤时，所指定的最大圆度值" />
-                                <Slider
-                                    x:Name="FilterByCircularityMaxSlider"
-                                    Margin="2"
-                                    Maximum="1"
-                                    Minimum="0"
-                                    Value="{Binding ByCircularityMaxValue}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="ValueChanged">
-                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByCircularityMaxSlider}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Slider>
-                                <Separator />
-                            </StackPanel>
-                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByAreaEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <StackPanel Margin="2" Orientation="Horizontal">
-                                    <TextBlock Text="最小面积值：" />
-                                    <TextBox
-                                        x:Name="FilterByAreaMinTextBox"
-                                        Width="40"
-                                        Text="{Binding ByAreaMinValue}"
-                                        ToolTip="选定按面积值过滤时，所指定的最小面积">
+                            <GroupBox Header="基本属性">
+                                <StackPanel>
+                                    <StackPanel Margin="2" Orientation="Horizontal">
+                                        <TextBlock Text="阈值递进值：" />
+                                        <TextBox
+                                            Width="40"
+                                            Text="{Binding ThresholdStep}"
+                                            ToolTip="对源图像进行阈值处理时，每次阈值递增的量" />
+                                    </StackPanel>
+                                    <StackPanel Margin="2" Orientation="Horizontal">
+                                        <TextBlock Text="值重复次数：" />
+                                        <TextBox
+                                            Width="40"
+                                            Text="{Binding ThresholdTimes}"
+                                            ToolTip="重复的最小次数，只有属于灰度图像斑点的那些二值图像斑点数量大于该值时，该灰度图像斑点才被认为是特征点" />
+                                    </StackPanel>
+                                    <StackPanel Margin="2" Orientation="Horizontal">
+                                        <TextBlock Text="值最小距离：" />
+                                        <TextBox
+                                            Width="40"
+                                            Text="{Binding ThresholdMinDis}"
+                                            ToolTip="最小的斑点距离，不同二值图像的斑点间距离小于该值时，被认为是同一个位置的斑点，否则是不同位置上的斑点" />
+                                    </StackPanel>
+                                    <TextBlock
+                                        Margin="2"
+                                        Text="{Binding Path=Value, ElementName=MinThresholdSlider, StringFormat=阈值最小值：{0}}"
+                                        ToolTip="对源图像进行阈值处理时，从此阈值开始" />
+                                    <Slider
+                                        x:Name="MinThresholdSlider"
+                                        Margin="2"
+                                        IsSnapToTickEnabled="True"
+                                        Maximum="255"
+                                        Minimum="0"
+                                        Value="{Binding ThresholdMin}">
                                         <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByAreaMinTextBox}" />
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=MinThresholdSlider}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
-                                    </TextBox>
-                                </StackPanel>
-                                <StackPanel Margin="2" Orientation="Horizontal">
-                                    <TextBlock Text="最大面积值：" />
-                                    <TextBox
-                                        x:Name="FilterByAreaMaxTextBox"
-                                        Width="40"
-                                        Text="{Binding ByAreaMaxValue}"
-                                        ToolTip="选定按面积值过滤时，所指定的最大面积">
+                                    </Slider>
+                                    <TextBlock
+                                        Margin="2"
+                                        Text="{Binding Path=Value, ElementName=MaxThresholdSlider, StringFormat=阈值最大值：{0}}"
+                                        ToolTip="对源图像进行阈值处理时，以此阈值结束" />
+                                    <Slider
+                                        x:Name="MaxThresholdSlider"
+                                        Margin="2"
+                                        IsSnapToTickEnabled="True"
+                                        Maximum="255"
+                                        Minimum="0"
+                                        Value="{Binding ThresholdMax}">
                                         <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByAreaMaxTextBox}" />
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=MaxThresholdSlider}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
-                                    </TextBox>
+                                    </Slider>
                                 </StackPanel>
-                                <Separator />
-                            </StackPanel>
-                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByConvexityEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByConvexityMinSlider, StringFormat=最小的凸性值：{0}}">
-                                    <TextBlock.ToolTip>
-                                        <TextBlock Width="200" TextWrapping="Wrap">凸度定义为（斑点的面积/凸包的面积）。现在，形状的“凸包”是最紧密的凸形，它完全包围了该形状，用不严谨的话来讲，给定二维平面上的点集，凸包就是将最外层的点连接起来构成的凸多边形，它能包含点集中所有的点。直观感受上，凸性越高则里面“奇怪的部分”越少。</TextBlock>
-                                    </TextBlock.ToolTip>
-                                </TextBlock>
-                                <Slider
-                                    x:Name="FilterByConvexityMinSlider"
-                                    Margin="2"
-                                    Maximum="1"
-                                    Minimum="0"
-                                    Value="{Binding ByConvexityMinValue}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="ValueChanged">
-                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByConvexityMinSlider}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Slider>
-                                <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByConvexityMaxSlider, StringFormat=最大的凸性值：{0}}">
-                                    <TextBlock.ToolTip>
-                                        <TextBlock Width="200" TextWrapping="Wrap">凸度定义为（斑点的面积/凸包的面积）。现在，形状的“凸包”是最紧密的凸形，它完全包围了该形状，用不严谨的话来讲，给定二维平面上的点集，凸包就是将最外层的点连接起来构成的凸多边形，它能包含点集中所有的点。直观感受上，凸性越高则里面“奇怪的部分”越少。</TextBlock>
-                                    </TextBlock.ToolTip>
-                                </TextBlock>
-                                <Slider
-                                    x:Name="FilterByConvexityMaxSlider"
-                                    Margin="2"
-                                    Maximum="1"
-                                    Minimum="0"
-                                    Value="{Binding ByConvexityMaxValue}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="ValueChanged">
-                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByConvexityMaxSlider}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Slider>
-                                <Separator />
-                            </StackPanel>
-                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ByInertiaEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByInertiaMinSlider, StringFormat=最小的惯性比值：{0}}">
-                                    <TextBlock.ToolTip>
-                                        <TextBlock Width="200" TextWrapping="Wrap">这个词汇比较抽象。我们需要知道Ratio可以衡量形状的伸长程度。简单来说。对于圆，此值是1，对于椭圆，它在0到1之间，对于直线，它是0</TextBlock>
-                                    </TextBlock.ToolTip>
-                                </TextBlock>
-                                <Slider
-                                    x:Name="FilterByInertiaMinSlider"
-                                    Margin="2"
-                                    Maximum="1"
-                                    Minimum="0"
-                                    Value="{Binding ByInertiaMinValue}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="ValueChanged">
-                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByInertiaMinSlider}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Slider>
-                                <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByInertiaMaxSlider, StringFormat=最大的惯性比值：{0}}">
-                                    <TextBlock.ToolTip>
-                                        <TextBlock Width="200" TextWrapping="Wrap">这个词汇比较抽象。我们需要知道Ratio可以衡量形状的伸长程度。简单来说。对于圆，此值是1，对于椭圆，它在0到1之间，对于直线，它是0</TextBlock>
-                                    </TextBlock.ToolTip>
-                                </TextBlock>
-                                <Slider
-                                    x:Name="FilterByInertiaMaxSlider"
-                                    Margin="2"
-                                    Maximum="1"
-                                    Minimum="0"
-                                    Value="{Binding ByInertiaMaxValue}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="ValueChanged">
-                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByInertiaMaxSlider}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Slider>
-                                <Separator />
-                            </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="灰度值过滤" Visibility="{Binding Path=IsChecked, ElementName=ByColorEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel>
+                                    <TextBlock
+                                        Margin="2"
+                                        Text="{Binding Path=Value, ElementName=FilterByColorSlider, StringFormat=选定的灰度值：{0}}"
+                                        ToolTip="选定按灰度值过滤时，所指定的灰度值" />
+                                    <Slider
+                                        x:Name="FilterByColorSlider"
+                                        Margin="2"
+                                        IsSnapToTickEnabled="True"
+                                        Maximum="255"
+                                        Minimum="0"
+                                        Ticks="0,255"
+                                        Value="{Binding BycolorValue}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByColorSlider}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Slider>
+                                    <Separator />
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="圆度过滤" Visibility="{Binding Path=IsChecked, ElementName=ByCircularityEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel>
+                                    <TextBlock
+                                        Margin="2"
+                                        Text="{Binding Path=Value, ElementName=FilterByCircularityMinSlider, StringFormat=最小圆度值：{0}}"
+                                        ToolTip="选定按圆度值过滤时，所指定的最小圆度值" />
+                                    <Slider
+                                        x:Name="FilterByCircularityMinSlider"
+                                        Margin="2"
+                                        Maximum="1"
+                                        Minimum="0"
+                                        Value="{Binding ByCircularityMinValue}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByCircularityMinSlider}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Slider>
+                                    <TextBlock
+                                        Margin="2"
+                                        Text="{Binding Path=Value, ElementName=FilterByCircularityMaxSlider, StringFormat=最大圆度值：{0}}"
+                                        ToolTip="选定按圆度值过滤时，所指定的最大圆度值" />
+                                    <Slider
+                                        x:Name="FilterByCircularityMaxSlider"
+                                        Margin="2"
+                                        Maximum="1"
+                                        Minimum="0"
+                                        Value="{Binding ByCircularityMaxValue}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByCircularityMaxSlider}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Slider>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="面积过滤" Visibility="{Binding Path=IsChecked, ElementName=ByAreaEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel>
+                                    <StackPanel Margin="2" Orientation="Horizontal">
+                                        <TextBlock Text="最小面积值：" />
+                                        <TextBox
+                                            x:Name="FilterByAreaMinTextBox"
+                                            Width="40"
+                                            Text="{Binding ByAreaMinValue}"
+                                            ToolTip="选定按面积值过滤时，所指定的最小面积">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="TextChanged">
+                                                    <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByAreaMinTextBox}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Margin="2" Orientation="Horizontal">
+                                        <TextBlock Text="最大面积值：" />
+                                        <TextBox
+                                            x:Name="FilterByAreaMaxTextBox"
+                                            Width="40"
+                                            Text="{Binding ByAreaMaxValue}"
+                                            ToolTip="选定按面积值过滤时，所指定的最大面积">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="TextChanged">
+                                                    <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByAreaMaxTextBox}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </TextBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="凸性过滤" Visibility="{Binding Path=IsChecked, ElementName=ByConvexityEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel>
+                                    <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByConvexityMinSlider, StringFormat=最小的凸性值：{0}}">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock Width="200" TextWrapping="Wrap">凸度定义为（斑点的面积/凸包的面积）。现在，形状的“凸包”是最紧密的凸形，它完全包围了该形状，用不严谨的话来讲，给定二维平面上的点集，凸包就是将最外层的点连接起来构成的凸多边形，它能包含点集中所有的点。直观感受上，凸性越高则里面“奇怪的部分”越少。</TextBlock>
+                                        </TextBlock.ToolTip>
+                                    </TextBlock>
+                                    <Slider
+                                        x:Name="FilterByConvexityMinSlider"
+                                        Margin="2"
+                                        Maximum="1"
+                                        Minimum="0"
+                                        Value="{Binding ByConvexityMinValue}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByConvexityMinSlider}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Slider>
+                                    <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByConvexityMaxSlider, StringFormat=最大的凸性值：{0}}">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock Width="200" TextWrapping="Wrap">凸度定义为（斑点的面积/凸包的面积）。现在，形状的“凸包”是最紧密的凸形，它完全包围了该形状，用不严谨的话来讲，给定二维平面上的点集，凸包就是将最外层的点连接起来构成的凸多边形，它能包含点集中所有的点。直观感受上，凸性越高则里面“奇怪的部分”越少。</TextBlock>
+                                        </TextBlock.ToolTip>
+                                    </TextBlock>
+                                    <Slider
+                                        x:Name="FilterByConvexityMaxSlider"
+                                        Margin="2"
+                                        Maximum="1"
+                                        Minimum="0"
+                                        Value="{Binding ByConvexityMaxValue}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByConvexityMaxSlider}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Slider>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="惯性比过滤" Visibility="{Binding Path=IsChecked, ElementName=ByInertiaEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel>
+                                    <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByInertiaMinSlider, StringFormat=最小的惯性比值：{0}}">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock Width="200" TextWrapping="Wrap">这个词汇比较抽象。我们需要知道Ratio可以衡量形状的伸长程度。简单来说。对于圆，此值是1，对于椭圆，它在0到1之间，对于直线，它是0</TextBlock>
+                                        </TextBlock.ToolTip>
+                                    </TextBlock>
+                                    <Slider
+                                        x:Name="FilterByInertiaMinSlider"
+                                        Margin="2"
+                                        Maximum="1"
+                                        Minimum="0"
+                                        Value="{Binding ByInertiaMinValue}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByInertiaMinSlider}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Slider>
+                                    <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FilterByInertiaMaxSlider, StringFormat=最大的惯性比值：{0}}">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock Width="200" TextWrapping="Wrap">这个词汇比较抽象。我们需要知道Ratio可以衡量形状的伸长程度。简单来说。对于圆，此值是1，对于椭圆，它在0到1之间，对于直线，它是0</TextBlock>
+                                        </TextBlock.ToolTip>
+                                    </TextBlock>
+                                    <Slider
+                                        x:Name="FilterByInertiaMaxSlider"
+                                        Margin="2"
+                                        Maximum="1"
+                                        Minimum="0"
+                                        Value="{Binding ByInertiaMaxValue}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeCommand}" CommandParameter="{Binding ElementName=FilterByInertiaMaxSlider}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Slider>
+                                </StackPanel>
+                            </GroupBox>
                         </StackPanel>
                     </TreeViewItem>
                     <TreeViewItem Header="高级Blob分析" ToolTip="经过一些特定的步骤，对图片进行分析，并且输出指定的结果">
@@ -467,49 +481,100 @@
                                 Content="启用二值化处理"
                                 Margin="2"
                                 IsChecked="{Binding ThresholdEnable}" />
-                            <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ThresholdEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <CheckBox
-                                    x:Name="AutoThresholdEnable"
-                                    Content="自动阈值"
-                                    Margin="2"
-                                    IsChecked="{Binding AutoThresholdEnable}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Click">
-                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeAdvanceCommand}" CommandParameter="{Binding ElementName=AutoThresholdEnable}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </CheckBox>
-                                <TextBlock
-                                    Margin="2"
-                                    Text="{Binding Path=Value, ElementName=ThresholdSlider, StringFormat=二值化阈值：{0}}"
-                                    ToolTip="指定使用二值化时，最小的灰度值。处理后图像是白色为选中区域。" />
-                                <Slider
-                                    x:Name="ThresholdSlider"
-                                    Margin="2"
-                                    IsSnapToTickEnabled="True"
-                                    Maximum="255"
-                                    Minimum="0"
-                                    Value="{Binding ThresholdValue}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="ValueChanged">
-                                            <i:InvokeCommandAction Command="{Binding BlobAnalyzeAdvanceCommand}" CommandParameter="{Binding ElementName=ThresholdSlider}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Slider>
-                                <Separator />
-                            </StackPanel>
-                            <Button
-                                x:Name="ShowContourEnable"
-                                Content="显示轮廓"
-                                Height="25"
+                            <CheckBox
+                                x:Name="MorphologicalEnable"
+                                Content="启用形态学处理"
                                 Margin="2"
-                                IsEnabled="{Binding Path=IsChecked, ElementName=ThresholdEnable}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding ShowContourCommand}" CommandParameter="{Binding ElementName=ShowContourEnable}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Button>
+                                IsChecked="{Binding MorphologicalEnable}" />
+                            <GroupBox Header="二值化处理" Visibility="{Binding Path=IsChecked, ElementName=ThresholdEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel>
+                                    <CheckBox
+                                        x:Name="AutoThresholdEnable"
+                                        Content="自动阈值"
+                                        Margin="2"
+                                        IsChecked="{Binding AutoThresholdEnable}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeAdvanceCommand}" CommandParameter="{Binding ElementName=AutoThresholdEnable}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </CheckBox>
+                                    <TextBlock
+                                        Margin="2"
+                                        Text="{Binding Path=Value, ElementName=ThresholdSlider, StringFormat=二值化阈值：{0}}"
+                                        ToolTip="指定使用二值化时，最小的灰度值。处理后图像是白色为选中区域。" />
+                                    <Slider
+                                        x:Name="ThresholdSlider"
+                                        Margin="2"
+                                        IsSnapToTickEnabled="True"
+                                        Maximum="255"
+                                        Minimum="0"
+                                        Value="{Binding ThresholdValue}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding BlobAnalyzeAdvanceCommand}" CommandParameter="{Binding ElementName=ThresholdSlider}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Slider>
+                                    <Separator />
+                                    <Button
+                                        x:Name="ShowContourEnable"
+                                        Content="显示二值后轮廓"
+                                        Height="25"
+                                        Margin="2">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding ShowContourCommand}" CommandParameter="{Binding ElementName=ShowContourEnable}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="形态学处理" Visibility="{Binding Path=IsChecked, ElementName=MorphologicalEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel>
+                                    <ComboBox
+                                        Margin="2"
+                                        SelectedIndex="{Binding MorphType}"
+                                        ToolTip="选择形态学处理方式">
+                                        <ComboBoxItem Content="膨胀" ToolTip="用于连接相邻的元素" />
+                                        <ComboBoxItem Content="腐蚀" ToolTip="用于分割独立的图像元素" />
+                                        <ComboBoxItem Content="闭运算" ToolTip="先膨胀，再腐蚀，可清除小黑点" />
+                                        <ComboBoxItem Content="开运算" ToolTip="先腐蚀，再膨胀，可清除一些小东西(亮的)，放大局部低亮度的区域" />
+                                        <ComboBoxItem Content="形态学梯度" ToolTip="膨胀图与腐蚀图之差，提取物体边缘" />
+                                        <ComboBoxItem Content="顶帽" ToolTip="原图像-开运算图，突出原图像中比周围亮的区域" />
+                                        <ComboBoxItem Content="黑帽" ToolTip="闭运算图-原图像，突出原图像中比周围暗的区域" />
+                                        <ComboBoxItem Content="击中击不中" ToolTip="1.使用模板s1腐蚀原图像X。2.使用模板s2（s2为是s1的补）对Y(Y为X的补)进行腐蚀。3.对两个结果进行取交集" />
+                                    </ComboBox>
+                                    <ComboBox
+                                        Margin="2"
+                                        SelectedIndex="{Binding MorphShape}"
+                                        ToolTip="选择结构形状">
+                                        <ComboBoxItem Content="矩形" ToolTip="结构的形状为矩形" />
+                                        <ComboBoxItem Content="十字" ToolTip="结构的形状为十字" />
+                                        <ComboBoxItem Content="椭圆" ToolTip="结构的形状为椭圆形" />
+                                    </ComboBox>
+                                    <StackPanel Margin="2">
+                                        <TextBlock
+                                            Margin="2"
+                                            Text="{Binding Path=Value, ElementName=MorphologicalElementSizeSlider, StringFormat=形状大小：{0}}"
+                                            ToolTip="对源图像进行形态学处理时，结构形状的大小" />
+                                        <Slider
+                                            x:Name="MorphologicalElementSizeSlider"
+                                            Margin="2"
+                                            IsSnapToTickEnabled="True"
+                                            Maximum="49"
+                                            Minimum="3"
+                                            TickFrequency="2"
+                                            Value="{Binding MorphElement}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="ValueChanged">
+                                                    <i:InvokeCommandAction Command="{Binding ShowMorphCommand}" CommandParameter="{Binding ElementName=MorphologicalElementSizeSlider}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Slider>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
                         </StackPanel>
                     </TreeViewItem>
                 </TreeView>
