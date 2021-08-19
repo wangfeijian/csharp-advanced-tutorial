@@ -161,6 +161,16 @@ namespace OpenCvSharpDemo.ViewModel
             set { Set(ref processInfo, value); }
         }
 
+        private WriteableBitmap originBitmap;
+        /// <summary>
+        /// ԭʼͼƬ
+        /// </summary>
+        public WriteableBitmap OriginBitmap
+        {
+            get { return originBitmap; }
+            set { Set(ref originBitmap , value); }
+        }
+
 
         private bool radioButtonFileIsChecked;
         /// <summary>
@@ -691,6 +701,7 @@ namespace OpenCvSharpDemo.ViewModel
             }
 
             ShowBitmap = _originalImage.Clone();
+            OriginBitmap = _originalImage.Clone();
         }
 
         private void BlobAdvanAnalyzeImage(object sender)
@@ -756,6 +767,7 @@ namespace OpenCvSharpDemo.ViewModel
         private void ShowSingleImage(string fileName)
         {
             ShowBitmap = _imageGrab.GetImageFromFile(fileName, ref _originalImage, RadioButtonGrayImageIsChecked, ref _info);
+            OriginBitmap = _originalImage.Clone();
             ProcessInfo = _info;
 
             if (ShowBitmap == null)

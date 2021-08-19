@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -15,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using Color = System.Windows.Media.Color;
 using Image = System.Drawing.Image;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
@@ -76,6 +79,16 @@ namespace CustomerControl
         // Using a DependencyProperty as the backing store for ShowImageBitmap.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowImageBitmapProperty =
             DependencyProperty.Register("ShowImageBitmap", typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
+
+        public WriteableBitmap SaveImageBitmap
+        {
+            get { return (WriteableBitmap)GetValue(SaveImageBitmapProperty); }
+            set { SetValue(SaveImageBitmapProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SaveImageBitmap.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SaveImageBitmapProperty =
+            DependencyProperty.Register("SaveImageBitmap", typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
 
 
         private void ShowBorder_OnMouseEnter(object sender, MouseEventArgs e)
@@ -429,6 +442,97 @@ namespace CustomerControl
                 c = flag ? Color.FromRgb(pbuff[loc + 2], pbuff[loc + 1], pbuff[loc]) : Color.FromRgb(pbuff[loc], pbuff[loc], pbuff[loc]);
             }
             return c;
+        }
+
+        /// <summary>
+        /// 保存原始图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveOriginImage(object sender, RoutedEventArgs e)
+        {
+            if (SaveImageBitmap == null)
+            {
+                MessageBox.Show("未加载任何图片");
+                return;
+            }
+
+            try
+            {
+                SaveImageToFile(SaveImageBitmap);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 保存图片到文件
+        /// </summary>
+        /// <param name="image"></param>
+        private void SaveImageToFile(WriteableBitmap image)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                DefaultExt = "jpg",
+                Filter = "jpg files(*.jpg)|*.jpg|png files(*.png)|*.png|bmp files(*.bmp)|*.bmp"
+            };
+
+            if (sfd.ShowDialog() == true)
+            {
+                string fileName = sfd.FileName;
+                BitmapEncoder bitmapEncoder = new JpegBitmapEncoder();
+                switch (fileName.Substring(fileName.LastIndexOf("."), fileName.Length - fileName.LastIndexOf(".")))
+                {
+                    case "jpg":
+                        bitmapEncoder = new JpegBitmapEncoder();
+                        break;
+                    case "png":
+                        bitmapEncoder = new PngBitmapEncoder();
+                        break;
+                    case "bmp":
+                        bitmapEncoder = new BmpBitmapEncoder();
+                        break;
+                }
+
+                RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap(image.PixelWidth, image.PixelHeight, image.DpiX, image.DpiY, PixelFormats.Default);
+                DrawingVisual drawingVisual = new DrawingVisual();
+                using (var dc = drawingVisual.RenderOpen())
+                {
+                    dc.DrawImage(image, new Rect(0, 0, image.Width, image.Height));
+                }
+                renderTargetBitmap.Render(drawingVisual);
+
+                bitmapEncoder.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+                using (FileStream file = File.OpenWrite(fileName))
+                {
+                    bitmapEncoder.Save(file);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 保存截图
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveProcessImage(object sender, RoutedEventArgs e)
+        {
+            if (ShowImageBitmap == null)
+            {
+                MessageBox.Show("图片不存在，未加载！");
+                return;
+            }
+
+            try
+            {
+                SaveImageToFile(ShowImageBitmap);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
         }
     }
 }

@@ -29,7 +29,10 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border BorderBrush="Gainsboro" BorderThickness="1">
-                <customerControl:CustomerOpenCVSharpWindow CameraColor="#27D0D8" ShowImageBitmap="{Binding ShowBitmap, Mode=TwoWay}" />
+                <customerControl:CustomerOpenCVSharpWindow
+                    CameraColor="#27D0D8"
+                    SaveImageBitmap="{Binding OriginBitmap, Mode=TwoWay}"
+                    ShowImageBitmap="{Binding ShowBitmap, Mode=TwoWay}" />
             </Border>
             <Grid Grid.Row="1">
                 <StackPanel
