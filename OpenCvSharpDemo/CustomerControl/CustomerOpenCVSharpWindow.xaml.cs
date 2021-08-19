@@ -397,7 +397,7 @@ namespace CustomerControl
         {
             if (ShowImageBitmap.Format == PixelFormats.Gray8)
             {
-                Color c = GetPixel(ShowImageBitmap, (int)XPos, (int)YPos);
+                Color c = GetPixel(ShowImageBitmap, (int)XPos, (int)YPos, false);
                 TextBlockPixel.Text = c.B.ToString();
             }
             else if (ShowImageBitmap.Format == PixelFormats.Bgr24)
@@ -413,9 +413,9 @@ namespace CustomerControl
         /// <param name="wbm"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="flag">是否为灰度图片</param>
+        /// <param name="flag">是否为彩色图片</param>
         /// <returns></returns>
-        private Color GetPixel(WriteableBitmap wbm, int x, int y)
+        private Color GetPixel(WriteableBitmap wbm, int x, int y , bool flag=true)
         {
             if (y > wbm.PixelHeight - 1 || x > wbm.PixelWidth - 1) return Color.FromArgb(0, 0, 0, 0);
             if (y < 0 || x < 0) return Color.FromArgb(0, 0, 0, 0);
@@ -425,7 +425,7 @@ namespace CustomerControl
             unsafe
             {
                 byte* pbuff = (byte*)buff.ToPointer();
-                int loc = y * Stride + x * 4;
+                int loc = flag ? y * Stride + x * 3 : y * Stride + x;
                 c = Color.FromArgb(pbuff[loc + 3], pbuff[loc + 2], pbuff[loc + 1], pbuff[loc]);
             }
             return c;

@@ -99,20 +99,20 @@ namespace VisionFroOpenCvSharpDll
 
             try
             {
-                Mat originMat = originBitmap.ToMat();
-
-
-                Point[][] contours;
-                HierarchyIndex[] hierarchy;
-
-                Cv2.FindContours(thresholdMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
-
-                for (int i = 0; i < contours.Length; i++)
+                using (Mat originMat = originBitmap.ToMat())
                 {
-                    Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), 2, LineTypes.Link8, hierarchy);
-                }
+                    Point[][] contours;
+                    HierarchyIndex[] hierarchy;
 
-                return originMat.ToWriteableBitmap();
+                    Cv2.FindContours(thresholdMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
+
+                    for (int i = 0; i < contours.Length; i++)
+                    {
+                        Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), 2, LineTypes.Link8, hierarchy);
+                    }
+
+                    return originMat.ToWriteableBitmap();
+                }
             }
             catch (Exception e)
             {
