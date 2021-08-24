@@ -13,6 +13,12 @@ using OpenCvSharp.WpfExtensions;
 
 namespace VisionFroOpenCvSharpDll
 {
+    public enum SelectContourType
+    {
+        ContourSize,
+        ContourArea,
+        ContourLocation
+    }
     public class ImageBlob
     {
         private SimpleBlobDetector _blobDetector;
@@ -24,7 +30,7 @@ namespace VisionFroOpenCvSharpDll
         /// <param name="inputBitmap">原始图片</param>
         /// <param name="info">返回的处理信息</param>
         /// <returns></returns>
-        public WriteableBitmap GetBlobedImageSimple(SimpleBlobDetector.Params pParams, WriteableBitmap inputBitmap ,ref string info)
+        public WriteableBitmap GetBlobedImageSimple(SimpleBlobDetector.Params pParams, WriteableBitmap inputBitmap, ref string info)
         {
             try
             {
@@ -86,7 +92,7 @@ namespace VisionFroOpenCvSharpDll
                     {
                         if (flag)
                         {
-                            Cv2.Threshold(inputMat, outputMat, threshold, 255, ThresholdTypes.Binary);
+                            Cv2.Threshold(inputMat, outputMat, threshold, 255, ThresholdTypes.BinaryInv);
                         }
                         else
                         {
@@ -171,13 +177,69 @@ namespace VisionFroOpenCvSharpDll
             {
                 using (Mat element = Cv2.GetStructuringElement(morphShape, new Size(size, size)))
                 {
-                    using (dstMat = new Mat())
+                    using (Mat dstMatTemp = new Mat())
                     {
-                        Cv2.MorphologyEx(srcMat, dstMat, morphType, element);
+                        Cv2.MorphologyEx(srcMat, dstMatTemp, morphType, element);
+                        dstMat = dstMatTemp.Clone();
                         info = "处理成功";
-                        return GetContourToImage(dstMat, originImage, ref info);
+                        return GetContourToImage(dstMatTemp, originImage, ref info);
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                info = e.ToString();
+                return originImage;
+            }
+        }
+
+        /// <summary>
+        /// 轮廓筛选
+        /// </summary>
+        /// <param name="originImage">原始图片</param>
+        /// <param name="srcMat">处理源数据</param>
+        /// <param name="dstMat">处理后的数据</param>
+        /// <param name="seletContourType">筛选类型</param>
+        /// <param name="info">筛选信息</param>
+        /// <param name="paramInts">筛选参数</param>
+        /// <returns></returns>
+        public WriteableBitmap SelectContourOperation(WriteableBitmap originImage, ref Mat srcMat,
+            ref Mat dstMat,
+            SelectContourType seletContourType, ref string info, params int[] paramInts)
+        {
+            if (srcMat == null)
+            {
+                info = "不存在有效二值化数据";
+                return originImage;
+            }
+
+            try
+            {
+                switch (seletContourType)
+                {
+                    case SelectContourType.ContourSize:
+                        using (Mat originMat = originImage.ToMat())
+                        {
+                            Point[][] contours;
+                            HierarchyIndex[] hierarchy;
+                            Cv2.FindContours(srcMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
+                            for (int i = 0; i < contours.Length; i++)
+                            {
+                                if (contours[i].Length > paramInts[0])
+                                {
+                                    Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), hierarchy: hierarchy);
+                                }
+                            }
+
+                            info = "处理成功";
+                            return originMat.ToWriteableBitmap();
+                        }
+                    case SelectContourType.ContourArea:
+                        break;
+                    case SelectContourType.ContourLocation:
+                        break;
+                }
+                return null;
             }
             catch (Exception e)
             {

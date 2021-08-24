@@ -55,6 +55,10 @@ namespace OpenCvSharpDemo.ViewModel
         /// </summary>
         private WriteableBitmap _morphImage;
         /// <summary>
+        /// 筛选轮廓区域合成的图片
+        /// </summary>
+        private WriteableBitmap _selectContourImage;
+        /// <summary>
         /// 二值化得到的区域
         /// </summary>
         private Mat _thresholdMat;
@@ -62,6 +66,10 @@ namespace OpenCvSharpDemo.ViewModel
         /// 形态学处理后得到的区域
         /// </summary>
         private Mat _morphMat;
+        /// <summary>
+        /// 筛选轮廓区域后得到的新区域
+        /// </summary>
+        private Mat _selectCountourMat;
 
         #endregion
 
@@ -79,6 +87,7 @@ namespace OpenCvSharpDemo.ViewModel
         public ICommand ShowOriginImageCommand { get; set; }
         public ICommand ShowContourCommand { get; set; }
         public ICommand ShowMorphCommand { get; set; }
+        public ICommand SelectContourCommand { get; set; }
 
         #endregion
         /// <summary>
@@ -168,7 +177,7 @@ namespace OpenCvSharpDemo.ViewModel
         public WriteableBitmap OriginBitmap
         {
             get { return originBitmap; }
-            set { Set(ref originBitmap , value); }
+            set { Set(ref originBitmap, value); }
         }
 
 
@@ -513,6 +522,105 @@ namespace OpenCvSharpDemo.ViewModel
             set { Set(ref morphElement, value); }
         }
 
+        private bool contourSelectEnable;
+        /// <summary>
+        /// 是否启用轮廓筛选
+        /// </summary>
+        public bool ContourSelectEnable
+        {
+            get { return contourSelectEnable; }
+            set { Set(ref contourSelectEnable, value); }
+        }
+
+        private bool contourSizeSelectEnable;
+        /// <summary>
+        /// 启用轮廓大小筛选
+        /// </summary>
+        public bool ContourSizeSelectEnable
+        {
+            get { return contourSizeSelectEnable; }
+            set { Set(ref contourSizeSelectEnable, value); }
+        }
+
+        private bool contourAreaSelectEnable;
+        /// <summary>
+        /// 启用轮廓面积筛选
+        /// </summary>
+        public bool ContourAreaSelectEnable
+        {
+            get { return contourAreaSelectEnable; }
+            set { Set(ref contourAreaSelectEnable, value); }
+        }
+
+        private int contourSize = 100;
+        /// <summary>
+        /// 轮廓大小
+        /// </summary>
+        public int ContourSize
+        {
+            get { return contourSize; }
+            set { Set(ref contourSize, value); }
+        }
+
+        private int contourArea = 100;
+        /// <summary>
+        /// 轮廓面积
+        /// </summary>
+        public int ContourArea
+        {
+            get { return contourArea; }
+            set { Set(ref contourArea, value); }
+        }
+
+        private bool contourLocationSelectEnable;
+        /// <summary>
+        /// 轮廓位置
+        /// </summary>
+        public bool ContourLocationSelectEnable
+        {
+            get { return contourLocationSelectEnable; }
+            set { Set(ref contourLocationSelectEnable, value); }
+        }
+
+        private int contourXStartPos;
+        /// <summary>
+        /// 轮廓X起始坐标
+        /// </summary>
+        public int ContourXStartPos
+        {
+            get { return contourXStartPos; }
+            set { Set(ref contourXStartPos, value); }
+        }
+
+        private int contourXEndPos;
+        /// <summary>
+        /// 轮廓X结束坐标
+        /// </summary>
+        public int ContourXEndPos
+        {
+            get { return contourXEndPos; }
+            set { Set(ref contourXEndPos, value); }
+        }
+
+        private int contourYStartPos;
+        /// <summary>
+        /// 轮廓Y起始坐标
+        /// </summary>
+        public int ContourYStartPos
+        {
+            get { return contourYStartPos; }
+            set { Set(ref contourYStartPos, value); }
+        }
+
+        private int contourYEndPos;
+        /// <summary>
+        /// 轮廓Y结束坐标
+        /// </summary>
+        public int ContourYEndPos
+        {
+            get { return contourYEndPos; }
+            set { Set(ref contourYEndPos, value); }
+        }
         #endregion
 
         private void InitCommand()
@@ -529,6 +637,7 @@ namespace OpenCvSharpDemo.ViewModel
             ShowOriginImageCommand = new RelayCommand<object>(ShowOriginImage);
             ShowContourCommand = new RelayCommand<object>(ShowContourImage);
             ShowMorphCommand = new RelayCommand<object>(ShowMorphImage);
+            SelectContourCommand = new RelayCommand<object>(SelectContourImage);
         }
 
         #region 绑定方法
@@ -607,7 +716,7 @@ namespace OpenCvSharpDemo.ViewModel
         {
             _index = 0;
             _isStop = false;
-            if (_imageGrab.GetVideoFromFile(PathTextBoxText, ref _index,ref _info))
+            if (_imageGrab.GetVideoFromFile(PathTextBoxText, ref _index, ref _info))
             {
                 ButtonStartPlayEnable = true;
                 ButtonStopPlayEnable = true;
@@ -630,7 +739,7 @@ namespace OpenCvSharpDemo.ViewModel
 
             while (true)
             {
-                var image = _imageGrab.GetVideoFrame(isGray,ref _info);
+                var image = _imageGrab.GetVideoFrame(isGray, ref _info);
                 ProcessInfo = _info;
                 if (image == null || _isStop)
                 {
@@ -726,7 +835,7 @@ namespace OpenCvSharpDemo.ViewModel
                 return;
             }
 
-            ShowBitmap = _imageBlob.GetContourToImage(_thresholdMat, _originalImage,ref _info);
+            ShowBitmap = _imageBlob.GetContourToImage(_thresholdMat, _originalImage, ref _info);
             ProcessInfo = _info;
         }
 
@@ -737,9 +846,52 @@ namespace OpenCvSharpDemo.ViewModel
                 return;
             }
 
-            ShowBitmap = _imageBlob.MorphologicalOperations(_originalImage, _thresholdMat, ref _morphMat, (MorphShapes)MorphShape, (MorphTypes)MorphType, MorphElement,ref _info);
+            ShowBitmap = _imageBlob.MorphologicalOperations(_originalImage, _thresholdMat, ref _morphMat, (MorphShapes)MorphShape, (MorphTypes)MorphType, MorphElement, ref _info);
             ProcessInfo = _info;
             _morphImage = ShowBitmap.Clone();
+        }
+
+        private void SelectContourImage(object sender)
+        {
+            if (_thresholdMat == null || _originalImage == null)
+            {
+                ProcessInfo = "未采集图片或未进行二值化处理";
+                return;
+            }
+
+            if (MorphologicalEnable && _morphMat == null)
+            {
+                ProcessInfo = "选择形态学处理时，请先进行形态学处理，再进行筛选";
+                return;
+            }
+
+            Mat srcMat = MorphologicalEnable ? _morphMat.Clone() : _thresholdMat.Clone();
+
+            if (ContourSizeSelectEnable)
+            {
+                ShowBitmap = _imageBlob.SelectContourOperation(_originalImage, ref srcMat, ref _selectCountourMat,
+                    SelectContourType.ContourSize, ref _info, ContourSize);
+                ProcessInfo = _info;
+                _selectContourImage = ShowBitmap.Clone();
+            }
+
+            if (ContourAreaSelectEnable)
+            {
+                ShowBitmap = _imageBlob.SelectContourOperation(_originalImage, ref srcMat, ref _selectCountourMat,
+                    SelectContourType.ContourArea, ref _info, ContourArea);
+                ProcessInfo = _info;
+                _selectContourImage = ShowBitmap.Clone();
+            }
+
+            if (ContourLocationSelectEnable)
+            {
+                ShowBitmap = _imageBlob.SelectContourOperation(_originalImage, ref srcMat, ref _selectCountourMat,
+                    SelectContourType.ContourLocation, ref _info, ContourXStartPos, ContourXEndPos, ContourYStartPos, ContourYEndPos);
+                ProcessInfo = _info;
+                _selectContourImage = ShowBitmap.Clone();
+            }
+
+            srcMat.Dispose();
         }
         #endregion
 

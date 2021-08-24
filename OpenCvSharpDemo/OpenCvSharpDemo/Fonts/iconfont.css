@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2622590 */
-  src: url('iconfont.woff2?t=1629075927652') format('woff2'),
-       url('iconfont.woff?t=1629075927652') format('woff'),
-       url('iconfont.ttf?t=1629075927652') format('truetype');
+  src: url('iconfont.woff2?t=1629440086134') format('woff2'),
+       url('iconfont.woff?t=1629440086134') format('woff'),
+       url('iconfont.ttf?t=1629440086134') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,50 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-huizhi1:before {
+  content: "\e635";
+}
+
+.icon-xuanze:before {
+  content: "\e629";
+}
+
+.icon-huizhiguiji:before {
+  content: "\e607";
+}
+
+.icon-circle:before {
+  content: "\e80c";
+}
+
+.icon-hebing:before {
+  content: "\e719";
+}
+
+.icon-btn_drawline:before {
+  content: "\e610";
+}
+
+.icon-btn_drawclear:before {
+  content: "\e611";
+}
+
+.icon-btn_drawrec:before {
+  content: "\e612";
+}
+
+.icon-huizhi:before {
+  content: "\e602";
+}
+
+.icon-jiaoji:before {
+  content: "\e603";
+}
+
+.icon-chaji:before {
+  content: "\e604";
 }
 
 .icon-chicun:before {

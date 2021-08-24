@@ -2,6 +2,7 @@
     x:Class="CustomerControl.CustomerOpenCVSharpWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:CustomerControl.Service"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CustomerControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,6 +18,7 @@
                 <ResourceDictionary Source="Theme/FontStyle.xaml" />
                 <ResourceDictionary Source="Theme/TabControlStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -27,6 +29,7 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -95,8 +98,154 @@
                     Template="{StaticResource ButtonTemplate}"
                     ToolTip="适应屏幕" />
             </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Separator
+                    Width="1"
+                    Height="15"
+                    Margin="2"
+                    Foreground="#D3D3D3"
+                    Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                <CheckBox
+                    x:Name="CheckBoxInkCanvasEnable"
+                    Content="&#xe602;"
+                    Height="20"
+                    Margin="2"
+                    Click="InitInkCanvas"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource CheckBoxTemplate}"
+                    ToolTip="是否开启ROI绘制" />
+                <RadioButton
+                    x:Name="RadioButtonDrawAny"
+                    Content="&#xe607;"
+                    Height="20"
+                    Margin="2"
+                    Click="DrawModeSelect"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsChecked="True"
+                    Tag="0"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="任意绘制" />
+                <RadioButton
+                    x:Name="RadioButtonDrawLine"
+                    Content="&#xe610;"
+                    Height="20"
+                    Margin="2"
+                    Click="DrawModeSelect"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Tag="1"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="画线" />
+                <RadioButton
+                    x:Name="RadioButtonDrawRectangle"
+                    Content="&#xe612;"
+                    Height="20"
+                    Margin="2"
+                    Click="DrawModeSelect"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Tag="2"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="画矩形" />
+                <RadioButton
+                    x:Name="RadioButtonDrawCircle"
+                    Content="&#xe80c;"
+                    Height="20"
+                    Margin="2"
+                    Click="DrawModeSelect"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Tag="3"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="画圆" />
+                <ComboBox
+                    x:Name="ColorComboBox"
+                    Width="12"
+                    Height="12"
+                    Margin="2"
+                    SelectionChanged="ColorComboBox_OnSelectionChanged"
+                    ToolTip="画笔颜色">
+                    <ComboBoxItem
+                        Content="红"
+                        Height="20"
+                        Background="#ff0000"
+                        IsSelected="True" />
+                    <ComboBoxItem
+                        Content="绿"
+                        Height="20"
+                        Background="#00ff00" />
+                    <ComboBoxItem
+                        Content="蓝"
+                        Height="20"
+                        Background="#0000ff" />
+                    <ComboBoxItem
+                        Content="黄"
+                        Height="20"
+                        Background="Yellow" />
+                    <ComboBoxItem
+                        Content="紫"
+                        Height="20"
+                        Background="Purple" />
+                    <ComboBoxItem
+                        Content="青"
+                        Height="20"
+                        Background="Cyan" />
+                    <ComboBoxItem
+                        Content="白"
+                        Height="20"
+                        Background="White" />
+                    <ComboBoxItem
+                        Content="黑"
+                        Height="20"
+                        Background="Black" />
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Separator
+                    Width="1"
+                    Height="15"
+                    Margin="2"
+                    Foreground="#D3D3D3"
+                    Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                <RadioButton
+                    x:Name="RadioButtonEdit"
+                    Content="&#xe635;"
+                    Height="20"
+                    Margin="2"
+                    Click="InkCanvasEditingModeSelect"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsChecked="True"
+                    Tag="1"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="绘制" />
+                <RadioButton
+                    x:Name="RadioButtonSelect"
+                    Content="&#xe629;"
+                    Height="20"
+                    Margin="2"
+                    Click="InkCanvasEditingModeSelect"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Tag="4"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="选择" />
+                <RadioButton
+                    x:Name="RadioButtonDelete"
+                    Content="&#xe611;"
+                    Height="20"
+                    Margin="2"
+                    Click="InkCanvasEditingModeSelect"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Tag="5"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="擦除" />
+            </StackPanel>
             <StackPanel
-                Grid.Column="2"
+                Grid.Column="3"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
                 <Button
@@ -190,24 +339,106 @@
                             Header="1:1显示"
                             Tag="1" />
                     </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        x:Name="MenuItemEditRoi"
+                        Click="MenuItemEditRoi_OnClick"
+                        Header="绘制ROI"
+                        Icon="&#xe602;"
+                        IsChecked="{Binding Path=IsChecked, Source={x:Reference CheckBoxInkCanvasEnable}}" />
+                    <MenuItem Header="绘制" Icon="&#xe635;">
+                        <MenuItem
+                            Click="DrawModeMenuItemOnClick"
+                            Header="绘制任意区域"
+                            Icon="&#xe607;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDrawAny}}"
+                            Tag="0" />
+                        <MenuItem
+                            Click="DrawModeMenuItemOnClick"
+                            Header="绘制线段"
+                            Icon="&#xe610;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDrawLine}}"
+                            Tag="1" />
+                        <MenuItem
+                            Click="DrawModeMenuItemOnClick"
+                            Header="绘制矩形"
+                            Icon="&#xe612;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDrawRectangle}}"
+                            Tag="2" />
+                        <MenuItem
+                            Click="DrawModeMenuItemOnClick"
+                            Header="绘制椭圆"
+                            Icon="&#xe80c;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDrawCircle}}"
+                            Tag="3" />
+                    </MenuItem>
+                    <MenuItem Header="选择模式">
+                        <MenuItem
+                            Click="EditModeMenuItemOnClick"
+                            Header="绘制"
+                            Icon="&#xe635;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonEdit}}"
+                            Tag="0" />
+                        <MenuItem
+                            Click="EditModeMenuItemOnClick"
+                            Header="选择 移动"
+                            Icon="&#xe629;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonSelect}}"
+                            Tag="1" />
+                        <MenuItem
+                            Click="EditModeMenuItemOnClick"
+                            Header="擦除"
+                            Icon="&#xe611;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDelete}}"
+                            Tag="2" />
+                    </MenuItem>
                 </ContextMenu>
             </Border.ContextMenu>
-            <Image
-                Name="ShowImage"
-                MouseLeftButtonDown="ShowImage_OnMouseLeftButtonDown"
-                MouseLeftButtonUp="ShowImage_OnMouseLeftButtonUp"
-                MouseMove="ShowImage_OnMouseMove"
-                MouseWheel="ShowImage_OnMouseWheel"
-                RenderOptions.BitmapScalingMode="NearestNeighbor"
-                Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=ShowImageBitmap, Mode=TwoWay}">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <TranslateTransform />
-                        <ScaleTransform />
-                        <RotateTransform />
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
+            <Grid>
+                <Image
+                    Name="ShowImage"
+                    MouseLeftButtonDown="ShowImage_OnMouseLeftButtonDown"
+                    MouseLeftButtonUp="ShowImage_OnMouseLeftButtonUp"
+                    MouseMove="ShowImage_OnMouseMove"
+                    MouseWheel="ShowImage_OnMouseWheel"
+                    RenderOptions.BitmapScalingMode="NearestNeighbor"
+                    Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=ShowImageBitmap, Mode=TwoWay}">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform />
+                            <ScaleTransform />
+                            <RotateTransform />
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <InkCanvas
+                    x:Name="InkCanvasImage"
+                    Width="{Binding Path=ActualWidth, ElementName=ShowImage}"
+                    Height="{Binding Path=ActualHeight, ElementName=ShowImage}"
+                    Background="{x:Null}"
+                    Cursor="Pen"
+                    MouseMove="InkCanvasImage_OnMouseMove"
+                    PreviewMouseDown="InkCanvasImage_OnMouseDown"
+                    PreviewMouseUp="InkCanvasImage_OnMouseUp"
+                    Strokes="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomerOpenCVSharpWindow}, Path=StrokeCollections}"
+                    UseCustomCursor="True"
+                    Visibility="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <InkCanvas.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform />
+                            <ScaleTransform />
+                            <RotateTransform />
+                        </TransformGroup>
+                    </InkCanvas.RenderTransform>
+                    <InkCanvas.DefaultDrawingAttributes>
+                        <DrawingAttributes
+                            Width="1"
+                            Height="1"
+                            IgnorePressure="True"
+                            IsHighlighter="False" />
+                    </InkCanvas.DefaultDrawingAttributes>
+                </InkCanvas>
+            </Grid>
         </Border>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

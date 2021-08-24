@@ -6,6 +6,83 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11741138",
+      "name": "绘制 ",
+      "font_class": "huizhi1",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "16589907",
+      "name": "选择",
+      "font_class": "xuanze",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "23376799",
+      "name": "绘制轨迹",
+      "font_class": "huizhiguiji",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "1917153",
+      "name": "圆",
+      "font_class": "circle",
+      "unicode": "e80c",
+      "unicode_decimal": 59404
+    },
+    {
+      "icon_id": "8990450",
+      "name": "合并",
+      "font_class": "hebing",
+      "unicode": "e719",
+      "unicode_decimal": 59161
+    },
+    {
+      "icon_id": "10939126",
+      "name": "绘制线",
+      "font_class": "btn_drawline",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "10939127",
+      "name": "擦除绘制",
+      "font_class": "btn_drawclear",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "10939131",
+      "name": "绘制矩形",
+      "font_class": "btn_drawrec",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "14008818",
+      "name": "绘制",
+      "font_class": "huizhi",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "19665669",
+      "name": "交集",
+      "font_class": "jiaoji",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "19665670",
+      "name": "差集",
+      "font_class": "chaji",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
       "icon_id": "23061043",
       "name": "尺寸",
       "font_class": "chicun",

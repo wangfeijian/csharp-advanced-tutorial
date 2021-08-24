@@ -77,10 +77,10 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="Back" Property="Background" Value="LightGray" />
+                                        <Setter TargetName="Back" Property="Background" Value="Red" />
                                     </Trigger>
                                     <Trigger Property="IsHighlighted" Value="True">
-                                        <Setter TargetName="Back" Property="Background" Value="LightGray" />
+                                        <Setter TargetName="Back" Property="Background" Value="Red" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -185,5 +185,70 @@
     </Style>
     <Style x:Key="MaterialDataGridText" TargetType="{x:Type TextBlock}">
         <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="Transparent" />
+    <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+        <Border
+            x:Name="PART_ContentHost"
+            Background="{TemplateBinding Background}"
+            Focusable="False" />
+    </ControlTemplate>
+
+    <Style x:Key="{x:Type ComboBox}" TargetType="ComboBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <ToggleButton
+                            Name="ToggleButton"
+                            Grid.Column="2"
+                            Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ComboBox}}, Path=SelectedItem.Background}"
+                            BorderThickness="0"
+                            ClickMode="Press"
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <ContentPresenter
+                            Name="ContentSite"
+                            Margin="3,3,23,3"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            IsHitTestVisible="False" />
+                        <TextBox
+                            x:Name="PART_EditableTextBox"
+                            Margin="3,3,23,3"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Focusable="True"
+                            IsReadOnly="{TemplateBinding IsReadOnly}"
+                            Style="{x:Null}"
+                            Template="{StaticResource ComboBoxTextBox}"
+                            Visibility="Hidden" />
+                        <Popup
+                            Name="Popup"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            Placement="Bottom"
+                            PopupAnimation="Slide">
+                            <Grid
+                                Name="DropDown"
+                                MinWidth="{TemplateBinding ActualWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                SnapsToDevicePixels="True">
+                                <Border
+                                    x:Name="DropDownBorder"
+                                    Background="{StaticResource WindowBackgroundBrush}"
+                                    BorderThickness="1" />
+                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

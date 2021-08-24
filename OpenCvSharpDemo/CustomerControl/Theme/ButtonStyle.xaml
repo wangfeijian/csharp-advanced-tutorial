@@ -121,6 +121,27 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    <ControlTemplate x:Key="CheckBoxTemplate" TargetType="{x:Type CheckBox}">
+        <Border x:Name="Border" Background="Transparent">
+            <ContentPresenter
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextBlock.FontFamily="pack://application:,,,/Fonts/#IconFont" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="Border" Property="Background" Value="#27D0D8" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.Pressed.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
     <ImageBrush x:Key="TbMouseOver" ImageSource="../Resources/Image/tgBtn_MouseOver.png" />
     <Style x:Key="TbStyle" TargetType="{x:Type ToggleButton}">
 

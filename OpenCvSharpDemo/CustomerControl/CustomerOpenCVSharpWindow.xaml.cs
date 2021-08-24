@@ -12,19 +12,45 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using Brush = System.Windows.Media.Brush;
 using Color = System.Windows.Media.Color;
 using Image = System.Drawing.Image;
+using Path = System.Windows.Shapes.Path;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Point = System.Drawing.Point;
+using StrokeCollection = System.Windows.Ink.StrokeCollection;
 
 namespace CustomerControl
 {
+    /// <summary>
+    /// 绘制模式
+    /// </summary>
+    enum DrawMode
+    {
+        /// <summary>
+        /// 任意形状
+        /// </summary>
+        Any,
+        /// <summary>
+        /// 线
+        /// </summary>
+        Line,
+        /// <summary>
+        /// 矩形
+        /// </summary>
+        Rectangle,
+        /// <summary>
+        /// 椭圆
+        /// </summary>
+        Ellipse
+    }
     /// <summary>
     /// CustomerOpenCVSharpWindow.xaml 的交互逻辑
     /// </summary>
@@ -33,10 +59,18 @@ namespace CustomerControl
         private System.Windows.Controls.Image movingObject;  // 记录当前被拖拽移动的图片
         private System.Windows.Point StartPosition; // 本次移动开始时的坐标点位置
         private System.Windows.Point EndPosition;   // 本次移动结束时的坐标点位置
+        private InkCanvasEditingMode _inkCanvasEditingMode;
+        private DrawMode _drawMode;
+        private System.Windows.Point _drawPoint;
+        private bool _isMove;
+        private Stroke _stroke;
 
         public CustomerOpenCVSharpWindow()
         {
             InitializeComponent();
+            StrokeCollections = new StrokeCollection();
+            _inkCanvasEditingMode = InkCanvasEditingMode.Ink;
+            _drawMode = DrawMode.Any;
         }
 
         private double xPos;
@@ -60,15 +94,28 @@ namespace CustomerControl
         public string MousePos => $"X:{XPos:f2},  Y:{YPos:f2}";
         public string ScaleSizeString => $"缩放:{ScaleSize:f2}";
 
-        public string CameraColor
+
+
+        public StrokeCollection StrokeCollections
         {
-            get { return (string)GetValue(CameraColorProperty); }
+            get { return (StrokeCollection)GetValue(StrokeCollectionsProperty); }
+            set { SetValue(StrokeCollectionsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for StrokeCollections.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StrokeCollectionsProperty =
+            DependencyProperty.Register(nameof(StrokeCollection), typeof(StrokeCollection), typeof(CustomerOpenCVSharpWindow));
+
+
+        public Brush CameraColor
+        {
+            get { return (Brush)GetValue(CameraColorProperty); }
             set { SetValue(CameraColorProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CameraColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CameraColorProperty =
-            DependencyProperty.Register("CameraColor", typeof(string), typeof(CustomerOpenCVSharpWindow), new PropertyMetadata("#E5B881"));
+            DependencyProperty.Register(nameof(CameraColor), typeof(Brush), typeof(CustomerOpenCVSharpWindow));
 
         public WriteableBitmap ShowImageBitmap
         {
@@ -78,7 +125,7 @@ namespace CustomerControl
 
         // Using a DependencyProperty as the backing store for ShowImageBitmap.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowImageBitmapProperty =
-            DependencyProperty.Register("ShowImageBitmap", typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
+            DependencyProperty.Register(nameof(ShowImageBitmap), typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
 
         public WriteableBitmap SaveImageBitmap
         {
@@ -88,7 +135,7 @@ namespace CustomerControl
 
         // Using a DependencyProperty as the backing store for SaveImageBitmap.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SaveImageBitmapProperty =
-            DependencyProperty.Register("SaveImageBitmap", typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
+            DependencyProperty.Register(nameof(SaveImageBitmap), typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
 
 
         private void ShowBorder_OnMouseEnter(object sender, MouseEventArgs e)
@@ -168,6 +215,7 @@ namespace CustomerControl
 
                 // 重新给图像赋值Transform变换属性
                 img.RenderTransform = tgnew;
+                InkCanvasImage.RenderTransform = tgnew;
             }
         }
 
@@ -203,6 +251,7 @@ namespace CustomerControl
 
             // 重新给图像赋值Transform变换属性
             ShowImage.RenderTransform = tgnew;
+            InkCanvasImage.RenderTransform = tgnew;
             ShowScaleSize(scale);
         }
 
@@ -239,6 +288,7 @@ namespace CustomerControl
 
             // 重新给图像赋值Transform变换属性
             ShowImage.RenderTransform = tgnew;
+            InkCanvasImage.RenderTransform = tgnew;
             ShowScaleSize(scale);
         }
 
@@ -270,6 +320,7 @@ namespace CustomerControl
 
             // 重新给图像赋值Transform变换属性
             ShowImage.RenderTransform = tgnew;
+            InkCanvasImage.RenderTransform = tgnew;
             ShowScaleSize(scale);
         }
 
@@ -326,6 +377,7 @@ namespace CustomerControl
 
             // 重新给图像赋值Transform变换属性
             ShowImage.RenderTransform = tgnew;
+            InkCanvasImage.RenderTransform = tgnew;
             ShowScaleSize(1);
         }
 
@@ -357,6 +409,7 @@ namespace CustomerControl
 
             // 重新给图像赋值Transform变换属性
             ShowImage.RenderTransform = tgnew;
+            InkCanvasImage.RenderTransform = tgnew;
             ShowScaleSize(scale);
         }
 
@@ -398,6 +451,7 @@ namespace CustomerControl
 
             // 重新给图像赋值Transform变换属性
             ShowImage.RenderTransform = tgnew;
+            InkCanvasImage.RenderTransform = tgnew;
             ShowScaleSize(scale);
         }
 
@@ -534,5 +588,291 @@ namespace CustomerControl
                 MessageBox.Show(exception.ToString());
             }
         }
+
+        /// <summary>
+        /// 初始化InkCanvas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InitInkCanvas(object sender, RoutedEventArgs e)
+        {
+            if (CheckBoxInkCanvasEnable.IsChecked != true)
+            {
+                return;
+            }
+
+            InkCanvasImage.EditingMode = _inkCanvasEditingMode;
+            SetInkCanvasDrawingAttributes();
+        }
+
+        private void SetInkCanvasDrawingAttributes()
+        {
+            if (InkCanvasImage == null)
+            {
+                return;
+            }
+
+            DrawingAttributes drawingAttributes = new DrawingAttributes
+            {
+                Width = 1,
+                Height = 1,
+                IgnorePressure = true,
+                IsHighlighter = false,
+                Color = ((SolidColorBrush)((ComboBoxItem)ColorComboBox.SelectedItem).Background).Color
+            };
+
+            if (_inkCanvasEditingMode == InkCanvasEditingMode.Ink)
+            {
+                if (_drawMode == DrawMode.Rectangle)
+                {
+                    drawingAttributes.StylusTip = StylusTip.Rectangle;
+                    _inkCanvasEditingMode = InkCanvasEditingMode.None;
+                }
+                else if (_drawMode == DrawMode.Ellipse || _drawMode == DrawMode.Line)
+                {
+                    drawingAttributes.StylusTip = StylusTip.Ellipse;
+                    _inkCanvasEditingMode = InkCanvasEditingMode.None;
+                }
+            }
+
+            InkCanvasImage.EditingMode = _inkCanvasEditingMode;
+            InkCanvasImage.DefaultDrawingAttributes = drawingAttributes.Clone();
+        }
+
+        private void DrawModeSelect(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+
+            if (radioButton.IsChecked == true)
+            {
+                int index = Convert.ToInt32(radioButton.Tag);
+                _drawMode = (DrawMode)index;
+            }
+
+            RadioButtonEdit.IsChecked = true;
+            InkCanvasEditingModeSelect(RadioButtonEdit, null);
+            SetInkCanvasDrawingAttributes();
+        }
+
+        private void ColorComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+
+            if (comboBox.Name != "ColorComboBox")
+            {
+                return;
+            }
+
+            SetInkCanvasDrawingAttributes();
+        }
+
+        private void InkCanvasEditingModeSelect(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+
+            InkCanvasImage.UseCustomCursor = radioButton.Tag.ToString() == "1";
+            if (radioButton.IsChecked == true)
+            {
+                int index = Convert.ToInt32(radioButton.Tag);
+                _inkCanvasEditingMode = (InkCanvasEditingMode)index;
+            }
+
+            SetInkCanvasDrawingAttributes();
+        }
+
+        private void InkCanvasImage_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                _drawPoint = e.GetPosition(InkCanvasImage);
+                _isMove = true;
+            }
+        }
+
+        private void InkCanvasImage_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            if (!_isMove || _inkCanvasEditingMode != InkCanvasEditingMode.None)
+            {
+                return;
+            }
+
+            System.Windows.Point drawEndPoint = e.GetPosition(InkCanvasImage);
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                if (_drawMode == DrawMode.Rectangle)
+                {
+                    List<System.Windows.Point> points = new List<System.Windows.Point>
+                    {
+                        new System.Windows.Point(_drawPoint.X,_drawPoint.Y),
+                        new System.Windows.Point(_drawPoint.X, drawEndPoint.Y),
+                        new System.Windows.Point(drawEndPoint.X, drawEndPoint.Y),
+                        new System.Windows.Point(drawEndPoint.X,_drawPoint.Y),
+                        new System.Windows.Point(_drawPoint.X,_drawPoint.Y)
+                    };
+
+                    StylusPointCollection point = new StylusPointCollection(points);
+
+                    Stroke stroke = new Stroke(point)
+                    {
+                        DrawingAttributes = InkCanvasImage.DefaultDrawingAttributes.Clone()
+                    };
+
+                    if (_stroke != null)
+                        StrokeCollections.Remove(_stroke);
+
+                    if (stroke != null)
+                        StrokeCollections.Add(stroke);
+
+                    _stroke = stroke;
+                }
+                else if (_drawMode == DrawMode.Ellipse)
+                {
+                    List<System.Windows.Point> points = GetEclipsePoints(_drawPoint, drawEndPoint);
+                    StylusPointCollection point = new StylusPointCollection(points);
+
+                    Stroke stroke = new Stroke(point)
+                    {
+                        DrawingAttributes = InkCanvasImage.DefaultDrawingAttributes.Clone()
+                    };
+
+                    if (_stroke != null)
+                        StrokeCollections.Remove(_stroke);
+
+                    if (stroke != null)
+                        StrokeCollections.Add(stroke);
+
+                    _stroke = stroke;
+                }
+                else if (_drawMode == DrawMode.Line)
+                {
+                    List<System.Windows.Point> pointList = new List<System.Windows.Point>
+                    {
+                        new System.Windows.Point(_drawPoint.X, _drawPoint.Y),
+                        new System.Windows.Point(drawEndPoint.X, drawEndPoint.Y),
+                    };
+
+                    StylusPointCollection point = new StylusPointCollection(pointList);
+                    Stroke stroke = new Stroke(point)
+                    {
+                        DrawingAttributes = InkCanvasImage.DefaultDrawingAttributes.Clone()
+                    };
+                    if (_stroke != null)
+                        StrokeCollections.Remove(_stroke);
+
+                    if (stroke != null)
+                        StrokeCollections.Add(stroke);
+
+                    _stroke = stroke;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取椭圆点的位置
+        /// </summary>
+        /// <param name="stPoint"></param>
+        /// <param name="endPoint"></param>
+        /// <returns></returns>
+        private List<System.Windows.Point> GetEclipsePoints(System.Windows.Point stPoint, System.Windows.Point endPoint)
+        {
+            double a = 0.5 * (endPoint.X - stPoint.X);
+            double b = 0.5 * (endPoint.Y - stPoint.Y);
+            List<System.Windows.Point> points = new List<System.Windows.Point>();
+
+            for (double r = 0; r <= 2 * Math.PI; r = r + 0.01)
+            {
+                points.Add(new System.Windows.Point(0.5 * (stPoint.X + endPoint.X) + a * Math.Cos(r), 0.5 * (stPoint.Y + endPoint.Y) + b * Math.Sin(r)));
+            }
+
+            return points;
+        }
+        private void InkCanvasImage_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (_drawMode == DrawMode.Any || _inkCanvasEditingMode != InkCanvasEditingMode.None)
+            {
+                return;
+            }
+
+            StrokeCollections.RemoveAt(StrokeCollections.Count - 1);
+            Stroke newStroke = _stroke.Clone();
+            StrokeCollections.Add(newStroke);
+            _isMove = false;
+        }
+
+        private void MenuItemEditRoi_OnClick(object sender, RoutedEventArgs e)
+        {
+            CheckBoxInkCanvasEnable.IsChecked = !MenuItemEditRoi.IsChecked;
+            InitInkCanvas(null, null);
+        }
+
+        private void DrawModeMenuItemOnClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem menu = sender as MenuItem;
+
+            if (menu == null)
+            {
+                return;
+            }
+
+            switch (menu.Tag.ToString())
+            {
+                case "0":
+                    SetMenuItemDrawMode(RadioButtonDrawAny, RadioButtonDrawLine, RadioButtonDrawCircle, !menu.IsChecked, RadioButtonDrawRectangle);
+                    DrawModeSelect(RadioButtonDrawAny, null);
+                    break;
+                case "1":
+                    SetMenuItemDrawMode(RadioButtonDrawLine, RadioButtonDrawAny, RadioButtonDrawCircle, !menu.IsChecked, RadioButtonDrawRectangle);
+                    DrawModeSelect(RadioButtonDrawLine, null);
+                    break;
+                case "2":
+                    SetMenuItemDrawMode(RadioButtonDrawRectangle, RadioButtonDrawLine, RadioButtonDrawCircle, !menu.IsChecked, RadioButtonDrawAny);
+                    DrawModeSelect(RadioButtonDrawRectangle, null);
+                    break;
+                case "3":
+                    SetMenuItemDrawMode(RadioButtonDrawCircle, RadioButtonDrawLine, RadioButtonDrawAny, !menu.IsChecked, RadioButtonDrawRectangle);
+                    DrawModeSelect(RadioButtonDrawCircle, null);
+                    break;
+            }
+
+        }
+
+        private void EditModeMenuItemOnClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem menu = sender as MenuItem;
+
+            if (menu == null)
+            {
+                return;
+            }
+
+            switch (menu.Tag.ToString())
+            {
+                case "0":
+                    SetMenuItemDrawMode(RadioButtonEdit, RadioButtonSelect, RadioButtonDelete, !menu.IsChecked);
+                    InkCanvasEditingModeSelect(RadioButtonEdit, null);
+                    break;
+                case "1":
+                    SetMenuItemDrawMode(RadioButtonSelect, RadioButtonEdit, RadioButtonDelete, !menu.IsChecked);
+                    InkCanvasEditingModeSelect(RadioButtonSelect, null);
+                    break;
+                case "2":
+                    SetMenuItemDrawMode(RadioButtonDelete, RadioButtonEdit, RadioButtonSelect, !menu.IsChecked);
+                    InkCanvasEditingModeSelect(RadioButtonDelete, null);
+                    break;
+            }
+
+        }
+
+        private void SetMenuItemDrawMode(RadioButton select, RadioButton otherOne, RadioButton otherTwo, bool flag = false, RadioButton otherThree = null)
+        {
+            select.IsChecked = flag;
+            otherOne.IsChecked = !select.IsChecked;
+            otherTwo.IsChecked = !select.IsChecked;
+            if (otherThree != null)
+            {
+                otherThree.IsChecked = !select.IsChecked;
+            }
+        }
+
     }
 }
