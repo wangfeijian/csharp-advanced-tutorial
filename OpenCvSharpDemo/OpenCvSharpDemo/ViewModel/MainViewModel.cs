@@ -59,6 +59,10 @@ namespace OpenCvSharpDemo.ViewModel
         /// </summary>
         private WriteableBitmap _selectContourImage;
         /// <summary>
+        /// 拟合图片
+        /// </summary>
+        private WriteableBitmap _fitImage;
+        /// <summary>
         /// 二值化得到的区域
         /// </summary>
         private Mat _thresholdMat;
@@ -70,6 +74,10 @@ namespace OpenCvSharpDemo.ViewModel
         /// 筛选轮廓区域后得到的新区域
         /// </summary>
         private Mat _selectCountourMat;
+        /// <summary>
+        /// 拟合轮廓区域
+        /// </summary>
+        private Mat _fitMat;
 
         #endregion
 
@@ -88,6 +96,7 @@ namespace OpenCvSharpDemo.ViewModel
         public ICommand ShowContourCommand { get; set; }
         public ICommand ShowMorphCommand { get; set; }
         public ICommand SelectContourCommand { get; set; }
+        public ICommand FitContourCommand { get; set; }
 
         #endregion
         /// <summary>
@@ -552,24 +561,43 @@ namespace OpenCvSharpDemo.ViewModel
             set { Set(ref contourAreaSelectEnable, value); }
         }
 
-        private int contourSize = 100;
+        private int contourMaxSize = 100;
         /// <summary>
-        /// 轮廓大小
+        /// 轮廓大小最大值
         /// </summary>
-        public int ContourSize
+        public int ContourMaxSize
         {
-            get { return contourSize; }
-            set { Set(ref contourSize, value); }
+            get { return contourMaxSize; }
+            set { Set(ref contourMaxSize, value); }
         }
 
-        private int contourArea = 100;
+        private int contourMinSize = 20;
         /// <summary>
-        /// 轮廓面积
+        /// 轮廓大小最小值
         /// </summary>
-        public int ContourArea
+        public int ContourMinSize
         {
-            get { return contourArea; }
-            set { Set(ref contourArea, value); }
+            get { return contourMinSize; }
+            set { Set(ref contourMinSize, value); }
+        }
+        private int contourMinArea = 500;
+        /// <summary>
+        /// 轮廓面积最小值
+        /// </summary>
+        public int ContourMinArea
+        {
+            get { return contourMinArea; }
+            set { Set(ref contourMinArea, value); }
+        }
+
+        private int contourMaxArea = 1000;
+        /// <summary>
+        /// 轮廓面积最大值
+        /// </summary>
+        public int ContourMaxArea
+        {
+            get { return contourMaxArea; }
+            set { Set(ref contourMaxArea, value); }
         }
 
         private bool contourLocationSelectEnable;
@@ -582,7 +610,7 @@ namespace OpenCvSharpDemo.ViewModel
             set { Set(ref contourLocationSelectEnable, value); }
         }
 
-        private int contourXStartPos;
+        private int contourXStartPos = 50;
         /// <summary>
         /// 轮廓X起始坐标
         /// </summary>
@@ -592,7 +620,7 @@ namespace OpenCvSharpDemo.ViewModel
             set { Set(ref contourXStartPos, value); }
         }
 
-        private int contourXEndPos;
+        private int contourXEndPos = 80;
         /// <summary>
         /// 轮廓X结束坐标
         /// </summary>
@@ -602,7 +630,7 @@ namespace OpenCvSharpDemo.ViewModel
             set { Set(ref contourXEndPos, value); }
         }
 
-        private int contourYStartPos;
+        private int contourYStartPos = 50;
         /// <summary>
         /// 轮廓Y起始坐标
         /// </summary>
@@ -612,7 +640,7 @@ namespace OpenCvSharpDemo.ViewModel
             set { Set(ref contourYStartPos, value); }
         }
 
-        private int contourYEndPos;
+        private int contourYEndPos = 80;
         /// <summary>
         /// 轮廓Y结束坐标
         /// </summary>
@@ -621,6 +649,17 @@ namespace OpenCvSharpDemo.ViewModel
             get { return contourYEndPos; }
             set { Set(ref contourYEndPos, value); }
         }
+
+        private bool contourFitEnable;
+        /// <summary>
+        /// 是否启用轮廓拟合
+        /// </summary>
+        public bool ContourFitEnable
+        {
+            get { return contourFitEnable; }
+            set { contourFitEnable = value; }
+        }
+
         #endregion
 
         private void InitCommand()
@@ -638,6 +677,7 @@ namespace OpenCvSharpDemo.ViewModel
             ShowContourCommand = new RelayCommand<object>(ShowContourImage);
             ShowMorphCommand = new RelayCommand<object>(ShowMorphImage);
             SelectContourCommand = new RelayCommand<object>(SelectContourImage);
+            FitContourCommand = new RelayCommand<object>(FitContourImage);
         }
 
         #region 绑定方法
@@ -746,7 +786,7 @@ namespace OpenCvSharpDemo.ViewModel
                     break;
                 }
 
-                Delay(Convert.ToInt32(Frame));
+                DispatcherHelper.Delay(Convert.ToInt32(Frame));
                 ShowBitmap = image;
             }
 
@@ -870,7 +910,7 @@ namespace OpenCvSharpDemo.ViewModel
             if (ContourSizeSelectEnable)
             {
                 ShowBitmap = _imageBlob.SelectContourOperation(_originalImage, ref srcMat, ref _selectCountourMat,
-                    SelectContourType.ContourSize, ref _info, ContourSize);
+                    SelectContourType.ContourSize, ref _info, ContourMinSize, ContourMaxSize);
                 ProcessInfo = _info;
                 _selectContourImage = ShowBitmap.Clone();
             }
@@ -878,7 +918,7 @@ namespace OpenCvSharpDemo.ViewModel
             if (ContourAreaSelectEnable)
             {
                 ShowBitmap = _imageBlob.SelectContourOperation(_originalImage, ref srcMat, ref _selectCountourMat,
-                    SelectContourType.ContourArea, ref _info, ContourArea);
+                    SelectContourType.ContourArea, ref _info, ContourMinArea, ContourMaxArea);
                 ProcessInfo = _info;
                 _selectContourImage = ShowBitmap.Clone();
             }
@@ -892,6 +932,39 @@ namespace OpenCvSharpDemo.ViewModel
             }
 
             srcMat.Dispose();
+        }
+
+        /// <summary>
+        /// 拟合轮廓
+        /// </summary>
+        /// <param name="sender"></param>
+        private void FitContourImage(object sender)
+        {
+            RadioButton button = sender as RadioButton;
+
+            if (button == null)
+            {
+                return;
+            }
+
+            switch (button.Tag.ToString())
+            {
+                case "0":
+                    ShowBitmap = _imageBlob.FitSharpeToImage(_originalImage, ref _selectCountourMat, ref _fitMat, 0, ref _info);
+                    ProcessInfo = _info;
+                    _fitImage = ShowBitmap.Clone();
+                    break;
+                case "1":
+                    ShowBitmap = _imageBlob.FitSharpeToImage(_originalImage, ref _selectCountourMat, ref _fitMat, 1, ref _info);
+                    ProcessInfo = _info;
+                    _fitImage = ShowBitmap.Clone();
+                    break;
+                case "2":
+                    ShowBitmap = _imageBlob.FitSharpeToImage(_originalImage, ref _selectCountourMat, ref _fitMat, 2, ref _info);
+                    ProcessInfo = _info;
+                    _fitImage = ShowBitmap.Clone();
+                    break;
+            }
         }
         #endregion
 
@@ -955,17 +1028,17 @@ namespace OpenCvSharpDemo.ViewModel
 
         }
 
-        public void Delay(int milliSecond)
-        {
-            int start = Environment.TickCount;
-            while (Math.Abs(Environment.TickCount - start) < milliSecond)//毫秒
-            {
-                DispatcherHelper.DoEvents();
-            }
-        }
 
         public class DispatcherHelper
         {
+            public static void Delay(int milliSecond)
+            {
+                int start = Environment.TickCount;
+                while (Math.Abs(Environment.TickCount - start) < milliSecond)//毫秒
+                {
+                    DoEvents();
+                }
+            }
             [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
             public static void DoEvents()
             {

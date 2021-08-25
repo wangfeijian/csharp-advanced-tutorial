@@ -7,9 +7,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:OpenCvSharpDemo.View"
     Title="OpenCVSharpDemo"
-    Width="655"
-    Height="450"
+    Width="800"
+    Height="600"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -21,7 +22,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -112,7 +113,9 @@
                     </RadioButton>
                     <TextBox
                         x:Name="PathTextBox"
+                        Width="170"
                         Margin="2"
+                        HorizontalAlignment="Left"
                         Text="{Binding PathTextBoxText, Mode=TwoWay}"
                         TextWrapping="WrapWithOverflow" />
                 </StackPanel>
@@ -127,7 +130,9 @@
                     <RadioButton Content="连续采集" Margin="2" />
                     <TextBox
                         x:Name="ProcessInfoTextBox"
+                        Width="170"
                         Margin="2"
+                        HorizontalAlignment="Left"
                         Text="{Binding ProcessInfo, Mode=TwoWay}"
                         TextWrapping="WrapWithOverflow"
                         ToolTip="处理信息" />
@@ -139,7 +144,7 @@
                 BorderThickness="1">
                 <TreeView Margin="-1,-1,1,1" ItemContainerStyle="{DynamicResource TreeViewItemStyle}">
                     <TreeViewItem Header="图片采集" ToolTip="对图片进行采集操作">
-                        <StackPanel Width="125" Margin="8,0">
+                        <StackPanel Margin="8,0">
                             <RadioButton
                                 x:Name="RadioButtonColorImage"
                                 Content="彩色图片"
@@ -213,7 +218,7 @@
                         </StackPanel>
                     </TreeViewItem>
                     <TreeViewItem Header="简单Blob分析" ToolTip="只用于一些简单的分析，查看分析的结果，不进行结果的保存">
-                        <StackPanel Width="125" Margin="8,0">
+                        <StackPanel Margin="8,0">
                             <CheckBox
                                 x:Name="BlobEnable"
                                 Content="启用Blob分析"
@@ -478,7 +483,7 @@
                         </StackPanel>
                     </TreeViewItem>
                     <TreeViewItem Header="高级Blob分析" ToolTip="经过一些特定的步骤，对图片进行分析，并且输出指定的结果">
-                        <StackPanel Width="125" Margin="8,0">
+                        <StackPanel Margin="8,0">
                             <CheckBox
                                 x:Name="ThresholdEnable"
                                 Content="启用二值化处理"
@@ -494,6 +499,11 @@
                                 Content="启用轮廓筛选"
                                 Margin="2"
                                 IsChecked="{Binding ContourSelectEnable}" />
+                            <CheckBox
+                                x:Name="ContourFitEnable"
+                                Content="启用轮廓拟合"
+                                Margin="2"
+                                IsChecked="{Binding ContourFitEnable}" />
                             <GroupBox Header="二值化处理" Visibility="{Binding Path=IsChecked, ElementName=ThresholdEnable, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <StackPanel>
                                     <CheckBox
@@ -600,120 +610,152 @@
                                         Content="轮廓位置筛选"
                                         Margin="2"
                                         IsChecked="{Binding ContourLocationSelectEnable}" />
-                                    <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ContourSizeSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                        <TextBlock
-                                            Margin="2"
-                                            Text="{Binding Path=Value, ElementName=ContourSizeSlider, StringFormat=轮廓大小：{0}}"
-                                            ToolTip="对轮廓进行筛选时，轮廓外圈像素个数" />
-                                        <Slider
-                                            x:Name="ContourSizeSlider"
-                                            Margin="2"
-                                            IsSnapToTickEnabled="True"
-                                            Maximum="5000"
-                                            Minimum="1"
-                                            Value="{Binding ContourSize}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="ValueChanged">
-                                                    <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourSizeSlider}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Slider>
-                                    </StackPanel>
-                                    <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ContourAreaSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                        <TextBlock
-                                            Margin="2"
-                                            Text="{Binding Path=Value, ElementName=ContourAreaSlider, StringFormat=轮廓面积：{0}}"
-                                            ToolTip="对轮廓进行筛选时，轮廓面积大小" />
-                                        <Slider
-                                            x:Name="ContourAreaSlider"
-                                            Margin="2"
-                                            IsSnapToTickEnabled="True"
-                                            Maximum="5000"
-                                            Minimum="1"
-                                            Value="{Binding ContourArea}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="ValueChanged">
-                                                    <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourAreaSlider}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Slider>
-                                    </StackPanel>
-                                    <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                        <TextBlock
-                                            Margin="2"
-                                            Text="{Binding Path=Value, ElementName=ContourXStartPosSlider, StringFormat=轮廓起始X：{0}}"
-                                            ToolTip="对轮廓进行筛选时，轮廓的起始X坐标" />
-                                        <Slider
-                                            x:Name="ContourXStartPosSlider"
-                                            Margin="2"
-                                            IsSnapToTickEnabled="True"
-                                            Maximum="10000"
-                                            Minimum="0"
-                                            Value="{Binding ContourXStartPos}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="ValueChanged">
-                                                    <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourXStartPosSlider}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Slider>
-                                    </StackPanel>
-                                    <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                        <TextBlock
-                                            Margin="2"
-                                            Text="{Binding Path=Value, ElementName=ContourXEndPosSlider, StringFormat=轮廓结束X：{0}}"
-                                            ToolTip="对轮廓进行筛选时，轮廓的结束X坐标" />
-                                        <Slider
-                                            x:Name="ContourXEndPosSlider"
-                                            Margin="2"
-                                            IsSnapToTickEnabled="True"
-                                            Maximum="10000"
-                                            Minimum="0"
-                                            Value="{Binding ContourXEndPos}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="ValueChanged">
-                                                    <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourXEndPosSlider}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Slider>
-                                    </StackPanel>
-                                    <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                        <TextBlock
-                                            Margin="2"
-                                            Text="{Binding Path=Value, ElementName=ContourYStartPosSlider, StringFormat=轮廓起始Y：{0}}"
-                                            ToolTip="对轮廓进行筛选时，轮廓的起始Y坐标" />
-                                        <Slider
-                                            x:Name="ContourYStartPosSlider"
-                                            Margin="2"
-                                            IsSnapToTickEnabled="True"
-                                            Maximum="10000"
-                                            Minimum="0"
-                                            Value="{Binding ContourYStartPos}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="ValueChanged">
-                                                    <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourYStartPosSlider}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Slider>
-                                    </StackPanel>
-                                    <StackPanel Margin="2" Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                        <TextBlock
-                                            Margin="2"
-                                            Text="{Binding Path=Value, ElementName=ContourYEndPosSlider, StringFormat=轮廓结束Y：{0}}"
-                                            ToolTip="对轮廓进行筛选时，轮廓的结束Y坐标" />
-                                        <Slider
-                                            x:Name="ContourYEndPosSlider"
-                                            Margin="2"
-                                            IsSnapToTickEnabled="True"
-                                            Maximum="10000"
-                                            Minimum="0"
-                                            Value="{Binding ContourYEndPos}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="ValueChanged">
-                                                    <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourYEndPosSlider}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Slider>
-                                    </StackPanel>
+                                    <view:SetValueControl
+                                        x:Name="ContourSizeMin"
+                                        Width="170"
+                                        Margin="2"
+                                        ParamDescribe="轮廓大小Min："
+                                        ParamValue="{Binding ContourMinSize, Mode=TwoWay}"
+                                        ToolTip="对轮廓进行筛选时，轮廓外圈像素个数"
+                                        Visibility="{Binding Path=IsChecked, ElementName=ContourSizeSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChange">
+                                                <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourSizeMin}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </view:SetValueControl>
+                                    <view:SetValueControl
+                                        x:Name="ContourSizeMax"
+                                        Width="170"
+                                        Margin="2"
+                                        ParamDescribe="轮廓大小Max："
+                                        ParamValue="{Binding ContourMaxSize, Mode=TwoWay}"
+                                        ToolTip="对轮廓进行筛选时，轮廓外圈像素个数"
+                                        Visibility="{Binding Path=IsChecked, ElementName=ContourSizeSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChange">
+                                                <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourSizeMax}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </view:SetValueControl>
+                                    <view:SetValueControl
+                                        x:Name="ContourAreaMin"
+                                        Width="170"
+                                        Margin="2"
+                                        ParamDescribe="轮廓面积Min："
+                                        ParamValue="{Binding ContourMinArea, Mode=TwoWay}"
+                                        ToolTip="对轮廓进行筛选时，轮廓面积大小"
+                                        Visibility="{Binding Path=IsChecked, ElementName=ContourAreaSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChange">
+                                                <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourAreaMin}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </view:SetValueControl>
+                                    <view:SetValueControl
+                                        x:Name="ContourAreaMax"
+                                        Width="170"
+                                        Margin="2"
+                                        ParamDescribe="轮廓面积Max："
+                                        ParamValue="{Binding ContourMaxArea, Mode=TwoWay}"
+                                        ToolTip="对轮廓进行筛选时，轮廓面积大小"
+                                        Visibility="{Binding Path=IsChecked, ElementName=ContourAreaSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChange">
+                                                <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourAreaMax}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </view:SetValueControl>
+                                    <view:SetValueControl
+                                        x:Name="ContourXStartPos"
+                                        Width="170"
+                                        Margin="2"
+                                        ParamDescribe="轮廓起始X："
+                                        ParamValue="{Binding ContourXStartPos, Mode=TwoWay}"
+                                        ToolTip="对轮廓进行筛选时，轮廓的起始X坐标"
+                                        Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChange">
+                                                <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourXStartPos}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </view:SetValueControl>
+                                    <view:SetValueControl
+                                        x:Name="ContourXEndPos"
+                                        Width="170"
+                                        Margin="2"
+                                        ParamDescribe="轮廓结束X："
+                                        ParamValue="{Binding ContourXEndPos, Mode=TwoWay}"
+                                        ToolTip="对轮廓进行筛选时，轮廓的结束X坐标"
+                                        Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChange">
+                                                <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourXEndPos}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </view:SetValueControl>
+                                    <view:SetValueControl
+                                        x:Name="ContourYStartPos"
+                                        Width="170"
+                                        Margin="2"
+                                        ParamDescribe="轮廓起始Y："
+                                        ParamValue="{Binding ContourYStartPos, Mode=TwoWay}"
+                                        ToolTip="对轮廓进行筛选时，轮廓的起始Y坐标"
+                                        Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChange">
+                                                <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourYStartPos}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </view:SetValueControl>
+                                    <view:SetValueControl
+                                        x:Name="ContourYEndPos"
+                                        Width="170"
+                                        Margin="2"
+                                        ParamDescribe="轮廓结束Y："
+                                        ParamValue="{Binding ContourYEndPos, Mode=TwoWay}"
+                                        ToolTip="对轮廓进行筛选时，轮廓的结束Y坐标"
+                                        Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChange">
+                                                <i:InvokeCommandAction Command="{Binding SelectContourCommand}" CommandParameter="{Binding ElementName=ContourYEndPos}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </view:SetValueControl>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="轮廓拟合" Visibility="{Binding Path=IsChecked, ElementName=ContourFitEnable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel>
+                                    <RadioButton
+                                        x:Name="RadioButtonFitCircle"
+                                        Content="最小外接圆"
+                                        Tag="0">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding FitContourCommand}" CommandParameter="{Binding ElementName=RadioButtonFitCircle}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
+                                    <RadioButton
+                                        x:Name="RadioButtonFitRect"
+                                        Content="最小外接矩形"
+                                        Tag="1">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding FitContourCommand}" CommandParameter="{Binding ElementName=RadioButtonFitRect}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
+                                    <RadioButton
+                                        x:Name="RadioButtonFitSharp"
+                                        Content="凸包"
+                                        Tag="2">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding FitContourCommand}" CommandParameter="{Binding ElementName=RadioButtonFitSharp}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
                                 </StackPanel>
                             </GroupBox>
                         </StackPanel>

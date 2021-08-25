@@ -26,8 +26,8 @@ namespace OpenCvSharpDemo.Service
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-             bool result = (bool) value;
-            return result ? Visibility.Visible : Visibility.Collapsed;
+             Visibility result = (Visibility) value;
+            return result == Visibility.Visible;
         }
     }
 

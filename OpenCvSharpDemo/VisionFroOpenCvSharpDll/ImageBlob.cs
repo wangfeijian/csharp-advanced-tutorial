@@ -218,33 +218,164 @@ namespace VisionFroOpenCvSharpDll
                 switch (seletContourType)
                 {
                     case SelectContourType.ContourSize:
-                        using (Mat originMat = originImage.ToMat())
-                        {
-                            Point[][] contours;
-                            HierarchyIndex[] hierarchy;
-                            Cv2.FindContours(srcMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
-                            for (int i = 0; i < contours.Length; i++)
-                            {
-                                if (contours[i].Length > paramInts[0])
-                                {
-                                    Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), hierarchy: hierarchy);
-                                }
-                            }
+                        dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1);
 
-                            info = "处理成功";
-                            return originMat.ToWriteableBitmap();
-                        }
+                        //通过轮廓外径筛选
+                        SelectContourByCondition(srcMat, paramInts, dstMat, args => (int)Cv2.ArcLength(args, true));
+                        info = "处理成功";
+                        return GetContourToImage(dstMat, originImage, ref info);
+
                     case SelectContourType.ContourArea:
-                        break;
+                        dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1);
+
+                        //通过轮廓面积筛选
+                        SelectContourByCondition(srcMat, paramInts, dstMat, args => (int)Cv2.ContourArea(args));
+                        info = "处理成功";
+                        return GetContourToImage(dstMat, originImage, ref info);
+
                     case SelectContourType.ContourLocation:
-                        break;
+                        dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1);
+
+                        //通过行列坐标筛选
+                        SelectContourByCondition(srcMat, paramInts, dstMat, null, false);
+                        info = "处理成功";
+                        return GetContourToImage(dstMat, originImage, ref info);
+
                 }
-                return null;
+                info = "处理失败，选择类型不正确";
+                return originImage;
             }
             catch (Exception e)
             {
                 info = e.ToString();
                 return originImage;
+            }
+        }
+
+        /// <summary>
+        /// 根据条件筛选轮廓
+        /// </summary>
+        /// <param name="srcMat"></param>
+        /// <param name="paramInts"></param>
+        /// <param name="originMat"></param>
+        /// <param name="func">条件</param>
+        private void SelectContourByCondition(Mat srcMat, int[] paramInts, Mat originMat, Func<Point[], int> func, bool flag = true)
+        {
+            Point[][] contours;
+            HierarchyIndex[] hierarchy;
+            Cv2.FindContours(srcMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple,
+                new Point(0, 0));
+            for (int i = 0; i < contours.Length; i++)
+            {
+                if (flag)
+                {
+                    if (func(contours[i]) > paramInts[0] && func(contours[i]) < paramInts[1])
+                    {
+                        Cv2.DrawContours(originMat, contours, i, new Scalar(255, 255, 255), Cv2.FILLED, hierarchy: hierarchy);
+                    }
+                }
+                else
+                {
+                    var m = Cv2.Moments(contours[i]);
+                    int xPos = (int)(m.M10 / m.M00);
+                    int yPos = (int)(m.M01 / m.M00);
+
+                    bool condition = xPos > paramInts[0] && xPos < paramInts[1] && yPos > paramInts[2] &&
+                                     yPos < paramInts[3];
+                    if (condition)
+                    {
+                        Cv2.DrawContours(originMat, contours, i, new Scalar(255, 255, 255), Cv2.FILLED, hierarchy: hierarchy);
+                    }
+                }
+            }
+        }
+
+
+        public WriteableBitmap FitSharpeToImage(WriteableBitmap originImage, ref Mat srcMat, ref Mat dstMat, int index, ref string info)
+        {
+            if (srcMat == null)
+            {
+                info = "不存在有效拟合数据";
+                return originImage;
+            }
+
+            try
+            {
+                switch (index)
+                {
+                    case 0:
+                        using (dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1))
+                        {
+                            break;
+                        }
+                    case 1:
+                        using (dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1))
+                        {
+                            return GetAngFitContourToImage(srcMat, ref dstMat, originImage, ref info);
+                        }
+                    case 2:
+                        using (dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1))
+                        {
+                        }
+                        break;
+                }
+
+                info = "处理失败，选择类型不正确";
+                return originImage;
+            }
+            catch (Exception e)
+            {
+                info = e.ToString();
+                return originImage;
+            }
+        }
+
+        /// <summary>
+        /// 区域轮廓、拟合形状显示
+        /// </summary>
+        /// <param name="thresholdMat">二值化后的数据</param>
+        /// <param name="originBitmap">原始图片</param>
+        /// <param name="info">处理的信息</param>
+        /// <returns></returns>
+        private WriteableBitmap GetAngFitContourToImage(Mat thresholdMat, ref Mat fitMat, WriteableBitmap originBitmap, ref string info)
+        {
+            if (thresholdMat == null)
+            {
+                info = "不存在有效二值化数据";
+                return originBitmap;
+            }
+
+            try
+            {
+                using (Mat originMat = originBitmap.ToMat())
+                {
+                    Point[][] contours;
+                    HierarchyIndex[] hierarchy;
+
+                    Cv2.FindContours(thresholdMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
+
+                    for (int i = 0; i < contours.Length; i++)
+                    {
+                        RotatedRect rect = Cv2.MinAreaRect(contours[i]);
+                        Point[] ps = new Point[4];
+                        for (int j = 0; j < 4; j++)
+                        {
+                            ps[j] = new Point(rect.Points()[j].X, rect.Points()[j].Y);
+                        }
+
+                        Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), hierarchy: hierarchy);
+
+                        Cv2.Polylines(originMat, new[] { ps }, true, new Scalar(0, 0, 255));
+                    }
+
+                    info = "处理成功";
+                    return originMat.ToWriteableBitmap();
+                }
+            }
+            catch (Exception e)
+            {
+                info = e.ToString();
+                return originBitmap;
             }
         }
     }
