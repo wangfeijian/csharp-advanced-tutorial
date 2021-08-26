@@ -306,18 +306,18 @@ namespace VisionFroOpenCvSharpDll
                     case 0:
                         using (dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1))
                         {
-                            break;
+                            return FitCircleToImage(srcMat, ref dstMat, originImage, ref info);
                         }
                     case 1:
                         using (dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1))
                         {
-                            return GetAngFitContourToImage(srcMat, ref dstMat, originImage, ref info);
+                            return FitRectangleToImage(srcMat, ref dstMat, originImage, ref info);
                         }
                     case 2:
                         using (dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1))
                         {
+                            return FitHullToImage(srcMat, ref dstMat, originImage, ref info);
                         }
-                        break;
                 }
 
                 info = "处理失败，选择类型不正确";
@@ -331,13 +331,13 @@ namespace VisionFroOpenCvSharpDll
         }
 
         /// <summary>
-        /// 区域轮廓、拟合形状显示
+        /// 区域轮廓、拟合最小外接矩形
         /// </summary>
         /// <param name="thresholdMat">二值化后的数据</param>
         /// <param name="originBitmap">原始图片</param>
         /// <param name="info">处理的信息</param>
         /// <returns></returns>
-        private WriteableBitmap GetAngFitContourToImage(Mat thresholdMat, ref Mat fitMat, WriteableBitmap originBitmap, ref string info)
+        private WriteableBitmap FitRectangleToImage(Mat thresholdMat, ref Mat fitMat, WriteableBitmap originBitmap, ref string info)
         {
             if (thresholdMat == null)
             {
@@ -366,6 +366,97 @@ namespace VisionFroOpenCvSharpDll
                         Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), hierarchy: hierarchy);
 
                         Cv2.Polylines(originMat, new[] { ps }, true, new Scalar(0, 0, 255));
+                    }
+
+                    info = "处理成功";
+                    return originMat.ToWriteableBitmap();
+                }
+            }
+            catch (Exception e)
+            {
+                info = e.ToString();
+                return originBitmap;
+            }
+        }
+
+        /// <summary>
+        /// 区域轮廓、拟合最小外接圆
+        /// </summary>
+        /// <param name="thresholdMat">二值化后的数据</param>
+        /// <param name="originBitmap">原始图片</param>
+        /// <param name="info">处理的信息</param>
+        /// <returns></returns>
+        private WriteableBitmap FitCircleToImage(Mat thresholdMat, ref Mat fitMat, WriteableBitmap originBitmap, ref string info)
+        {
+            if (thresholdMat == null)
+            {
+                info = "不存在有效二值化数据";
+                return originBitmap;
+            }
+
+            try
+            {
+                using (Mat originMat = originBitmap.ToMat())
+                {
+                    Point[][] contours;
+                    HierarchyIndex[] hierarchy;
+
+                    Cv2.FindContours(thresholdMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
+
+                    for (int i = 0; i < contours.Length; i++)
+                    {
+                        Point2f point2F;
+                        float radius;
+                        Cv2.MinEnclosingCircle(contours[i],out point2F,out radius);
+
+                        Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), hierarchy: hierarchy);
+
+                        Cv2.Circle(originMat, new Point(point2F.X, point2F.Y), (int)radius, new Scalar(0, 0, 255));
+                    }
+
+                    info = "处理成功";
+                    return originMat.ToWriteableBitmap();
+                }
+            }
+            catch (Exception e)
+            {
+                info = e.ToString();
+                return originBitmap;
+            }
+        }
+
+        /// <summary>
+        /// 区域轮廓、拟合凸包
+        /// </summary>
+        /// <param name="thresholdMat">二值化后的数据</param>
+        /// <param name="originBitmap">原始图片</param>
+        /// <param name="info">处理的信息</param>
+        /// <returns></returns>
+        private WriteableBitmap FitHullToImage(Mat thresholdMat, ref Mat fitMat, WriteableBitmap originBitmap, ref string info)
+        {
+            if (thresholdMat == null)
+            {
+                info = "不存在有效二值化数据";
+                return originBitmap;
+            }
+
+            try
+            {
+                using (Mat originMat = originBitmap.ToMat())
+                {
+                    Point[][] contours;
+                    HierarchyIndex[] hierarchy;
+
+                    Cv2.FindContours(thresholdMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
+
+                    for (int i = 0; i < contours.Length; i++)
+                    {
+                        Mat r3 = new Mat();
+                       var point = Cv2.ConvexHull(contours[i]);
+
+                        Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), hierarchy: hierarchy);
+
+                        Cv2.DrawContours(originMat,new [] {point},0,new Scalar(0, 0, 255));
                     }
 
                     info = "处理成功";

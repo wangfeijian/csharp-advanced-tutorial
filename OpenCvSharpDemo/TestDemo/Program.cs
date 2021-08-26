@@ -9,7 +9,7 @@ namespace TestDemo
 {
     class Program
     {
-        static void Main(string[] args)
+        static void MainProcess(string[] args)
         {
             Mat srcImage = Cv2.ImRead(
                 @"C:\Users\Public\Documents\MVTec\HALCON-19.11-Progress\examples\images\die\die_03.png");
@@ -32,6 +32,47 @@ namespace TestDemo
             srcImage.Dispose();
         }
 
+        static void Main(string[] args)
+        {
+            //CreateImageMatOperator();
+            CreateBasicMatOperator();
+        }
+
+        /// <summary>
+        /// Mat对象的创建方法
+        /// </summary>
+        static void CreateImageMatOperator()
+        {
+            Mat matA, matC;
+            matA = Cv2.ImRead(@"D:\Desktop Image\1.jpg");
+            Mat matB=new Mat(matA,new Range(1,100));
+            matC = new Mat(matA,new Rect(0,0,500,500));
+            Mat matD =new Mat(matA,new Range(500,1000), new Range(500,1000));
+            Cv2.ImShow("a",matA);
+            Cv2.ImShow("b",matB);
+            Cv2.ImShow("c",matC);
+            Cv2.ImShow("d",matD);
+            Cv2.WaitKey(0);
+        }
+
+        static void CreateBasicMatOperator()
+        {
+            Mat mat = new Mat(2,2,MatType.CV_8UC3,new Scalar(0,255,0));
+            Console.WriteLine("默认风格输出");
+            Console.WriteLine(Cv2.Format(mat));
+            Console.WriteLine("C风格输出");
+            Console.WriteLine(Cv2.Format(mat,FormatType.C));
+            Console.WriteLine("CSV风格输出");
+            Console.WriteLine(Cv2.Format(mat,FormatType.CSV));
+            Console.WriteLine("MATLAB风格输出");
+            Console.WriteLine(Cv2.Format(mat,FormatType.MATLAB));
+            Console.WriteLine("NumPy风格输出");
+            Console.WriteLine(Cv2.Format(mat,FormatType.NumPy));
+            Console.WriteLine("python风格输出");
+            Console.WriteLine(Cv2.Format(mat,FormatType.Python));
+
+            Console.ReadKey();
+        }
         static void ThresholdImage(Mat srcImage)
         {
             Console.WriteLine("请输入数字0-255：");

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerControl", "Customer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDemo", "TestDemo\TestDemo.csproj", "{A096EF2F-1500-48B5-A656-A4DF1BD4637F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCvSharpTool", "OpenCvSharpTool\OpenCvSharpTool.csproj", "{15903311-C7AC-48D2-8581-4C56F5365A75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A096EF2F-1500-48B5-A656-A4DF1BD4637F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A096EF2F-1500-48B5-A656-A4DF1BD4637F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A096EF2F-1500-48B5-A656-A4DF1BD4637F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15903311-C7AC-48D2-8581-4C56F5365A75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15903311-C7AC-48D2-8581-4C56F5365A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15903311-C7AC-48D2-8581-4C56F5365A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15903311-C7AC-48D2-8581-4C56F5365A75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
