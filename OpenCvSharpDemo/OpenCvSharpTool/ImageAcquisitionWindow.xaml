@@ -27,6 +27,7 @@
                 <StackPanel
                     x:Name="SelectImageStackPanel"
                     HorizontalAlignment="Center"
+                    IsEnabled="False"
                     Orientation="Horizontal">
                     <Button
                         x:Name="ButtonPreview"
@@ -55,15 +56,22 @@
                         <RadioButton
                             x:Name="RadioButtonFile"
                             Content="文件"
-                            Margin="2" />
+                            Margin="2"
+                            Click="RadioButtonFile_OnClick"
+                            IsChecked="True"
+                            Tag="0" />
                         <RadioButton
                             x:Name="RadioButtonDir"
                             Content="文件夹"
-                            Margin="2" />
+                            Margin="2"
+                            Click="RadioButtonFile_OnClick"
+                            Tag="1" />
                         <RadioButton
                             x:Name="RadioButtonCamera"
                             Content="相机"
-                            Margin="2" />
+                            Margin="2"
+                            Click="RadioButtonFile_OnClick"
+                            Tag="2" />
                     </StackPanel>
                     <TextBox
                         x:Name="PathTextBox"
@@ -88,46 +96,54 @@
                 Grid.Row="2"
                 BorderBrush="Gainsboro"
                 BorderThickness="1">
-                <StackPanel Margin="5,0">
-                    <RadioButton
-                        x:Name="RadioButtonColorImage"
-                        Content="彩色图片"
-                        Margin="2" />
-                    <RadioButton
-                        x:Name="RadioButtonGrayImage"
-                        Content="灰度图片"
-                        Margin="2" />
-                    <GroupBox Header="测试">
-                        <StackPanel>
-                            <Button
-                                x:Name="ButtonGrabImage"
-                                Content="采集图片"
-                                Margin="2" />
-                            <Button
-                                x:Name="ButtonLoad"
-                                Content="加载视频"
-                                Margin="2"
-                                IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonFile}" />
-                            <Separator />
-                            <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FrameSlider, StringFormat=帧间隔时间(ms):{0}}" />
-                            <Slider
-                                x:Name="FrameSlider"
-                                IsSnapToTickEnabled="True"
-                                Maximum="100"
-                                Minimum="1" />
-                            <Button
-                                x:Name="ButtonStartPlay"
-                                Content="开始播放"
-                                Margin="2" />
-                            <Button
-                                x:Name="ButtonStopPlay"
-                                Content="停止播放"
-                                Margin="2" />
-                        </StackPanel>
-                    </GroupBox>
-                    <Button Content="配置采集工具" Margin="7,2" />
-                    <Button Content="测试采集工具" Margin="7,2" />
-                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="5,0">
+                        <RadioButton
+                            x:Name="RadioButtonColorImage"
+                            Content="彩色图片"
+                            Margin="2"
+                            Click="RadioButtonColorImage_OnClick"
+                            IsChecked="True" />
+                        <RadioButton
+                            x:Name="RadioButtonGrayImage"
+                            Content="灰度图片"
+                            Margin="2"
+                            Click="RadioButtonColorImage_OnClick" />
+                         <Button
+                            Content="配置采集工具"
+                            Margin="7,2"
+                            Click="Button_Click" />
+                        <GroupBox Header="测试" x:Name="TestGroup" IsEnabled="False">
+                            <StackPanel>
+                                <Button
+                                    x:Name="ButtonGrabImage"
+                                    Content="采集图片"
+                                    Margin="2" />
+                                <Button
+                                    x:Name="ButtonLoad"
+                                    Content="加载视频"
+                                    Margin="2"
+                                    IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonFile}" />
+                                <Separator />
+                                <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FrameSlider, StringFormat=帧间隔时间(ms):{0}}" />
+                                <Slider
+                                    x:Name="FrameSlider"
+                                    IsSnapToTickEnabled="True"
+                                    Maximum="100"
+                                    Minimum="1" />
+                                <Button
+                                    x:Name="ButtonStartPlay"
+                                    Content="开始播放"
+                                    Margin="2" />
+                                <Button
+                                    x:Name="ButtonStopPlay"
+                                    Content="停止播放"
+                                    Margin="2" />
+                            </StackPanel>
+                        </GroupBox>
+                        <Button Content="测试采集工具" Margin="7,2" />
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
         </Grid>
     </Grid>

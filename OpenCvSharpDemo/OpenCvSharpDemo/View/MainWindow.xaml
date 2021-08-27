@@ -7,6 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:openCvSharpDemo="clr-namespace:OpenCvSharpDemo"
+    xmlns:openCvSharpTool="clr-namespace:OpenCvSharpTool;assembly=OpenCvSharpTool"
     xmlns:view="clr-namespace:OpenCvSharpDemo.View"
     Title="OpenCVSharpDemo"
     Width="800"
@@ -74,6 +76,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Border BorderBrush="Gainsboro" BorderThickness="1">
@@ -138,8 +142,10 @@
                         ToolTip="处理信息" />
                 </StackPanel>
             </Border>
+            <openCvSharpTool:ToolBoxControl Grid.Row="2" />
+            <openCvSharpTool:ToolRunBox Name="ToolRunBoxItem" Grid.Row="3" />
             <Border
-                Grid.Row="2"
+                Grid.Row="4"
                 BorderBrush="Gainsboro"
                 BorderThickness="1">
                 <TreeView Margin="-1,-1,1,1" ItemContainerStyle="{DynamicResource TreeViewItemStyle}">

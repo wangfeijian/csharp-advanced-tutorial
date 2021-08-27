@@ -7,45 +7,27 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using OpenCvSharp;
+using OpenCvSharpTool;
 using VisionFroOpenCvSharpDll;
 
 namespace OpenCvSharpTool
 {
     /// <summary>
-    /// 采集类型
-    /// </summary>
-    public enum ImageGrabType
-    {
-        /// <summary>
-        /// 文件
-        /// </summary>
-        CaptureFile,
-        /// <summary>
-        /// 文件夹
-        /// </summary>
-        CaptureDir,
-        /// <summary>
-        /// 相机
-        /// </summary>
-        CaptureCamera
-    }
-
-    /// <summary>
     /// 图像采集工具
     /// </summary>
-    public class ImageAcquisitionTool : ToolBase
+    public class ImageProcessTool : ToolBase
     {
         public ImageGrab ImageGrab { get; set; }
         #region InputParams
 
-        public ImageGrabType CurrenType { get; set; } = 0;
+        public OpenCvSharpTool.ImageGrabType CurrenType { get; set; }
 
         public string FileName { get; set; }
         public string DirName { get; set; }
         public object CameraType { get; set; }
         public bool IsContinuousAcquisition { get; set; }
-        public bool IsColorImage { get; set; } = true;
-        public bool IsVideo { get; set; } = false;
+        public bool IsColorImage { get; set; }
+        public bool IsVideo { get; set; }
         #endregion
 
         #region OutputParams
@@ -54,11 +36,11 @@ namespace OpenCvSharpTool
         public Mat OutputMat { get; set; }
 
         #endregion
-        public ImageAcquisitionTool()
+        public ImageProcessTool()
         {
            InitializeComponent();
-            ToolDesStr = "图像采集";
-            ToolIcon = "\xe967";
+            ToolDesStr = "图像处理";
+            ToolIcon = "\xe635";
         }
 
         /// <summary>
@@ -96,7 +78,7 @@ namespace OpenCvSharpTool
 
         public override void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ToolWindow = new ImageAcquisitionWindow(this);
+           // ToolWindow = new ImageAcquisitionWindow(this);
             base.UIElement_OnPreviewMouseLeftButtonDown(this,e);
         }
 
