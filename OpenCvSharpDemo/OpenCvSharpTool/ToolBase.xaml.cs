@@ -83,26 +83,27 @@ namespace OpenCvSharpTool
 
         public virtual void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            i += 1;
+            //鼠标双击判断
+            //i += 1;
 
-            DispatcherTimer timer = new DispatcherTimer();
+            //DispatcherTimer timer = new DispatcherTimer();
 
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 300);
+            //timer.Interval = new TimeSpan(0, 0, 0, 0, 300);
 
-            timer.Tick += (s, e1) => { timer.IsEnabled = false; i = 0; };
+            //timer.Tick += (s, e1) => { timer.IsEnabled = false; i = 0; };
 
-            timer.IsEnabled = true;
+            //timer.IsEnabled = true;
 
-            if (i % 2 == 0)
+            //if (i % 2 == 0)
 
-            {
+            //{
 
-                timer.IsEnabled = false;
+            //    timer.IsEnabled = false;
 
-                i = 0;
+            //    i = 0;
 
-                ToolWindow?.ShowDialog();
-            }
+            //}
+            ToolWindow?.ShowDialog();
         }
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -112,27 +113,32 @@ namespace OpenCvSharpTool
             ToolBoxControl tool = groupBox.Parent as ToolBoxControl;
             Panel panel = tool.Parent as Panel;
             ToolRunBox toolRun = panel.FindName("ToolRunBoxItem") as ToolRunBox;
-            StackPanel toolStackPanel = toolRun.FindName("ToolStackPanel") as StackPanel;
+            TreeView toolTreeView = toolRun.FindName("ToolTreeView") as TreeView;
 
-            TreeView tree = CreateTreeView(ToolDesStr);
+            TreeViewItem tree = CreateTreeView(ToolDesStr);
 
             ToolBase toolBase = Activator.CreateInstance(GetType()) as ToolBase;
             toolBase.ContextMenu = null;
-            toolBase.Content = tree;
-
-            toolStackPanel.Children.Add(toolBase);
+            tree.Tag = toolBase;
+            tree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;  
+            toolTreeView.Items.Add(tree);
         }
 
-        private TreeView CreateTreeView(string name)
+        private void Tree_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            TreeView tree = new TreeView {BorderThickness = new Thickness(0)};
+           TreeViewItem treeViewItem = sender as TreeViewItem;
+            ToolBase tool=treeViewItem.Tag as ToolBase;
+            tool.UIElement_OnPreviewMouseLeftButtonDown(sender,e);
+        }
+
+        private TreeViewItem CreateTreeView(string name)
+        {
             TreeViewItem nameItem = new TreeViewItem { Header = name };
             TreeViewItem inputItem = new TreeViewItem { Header = "输入" };
             TreeViewItem outputItem = new TreeViewItem { Header = "输出" };
             nameItem.Items.Add(inputItem);
             nameItem.Items.Add(outputItem);
-            tree.Items.Add(nameItem);
-            return tree;
+            return nameItem;
         }
     }
 }

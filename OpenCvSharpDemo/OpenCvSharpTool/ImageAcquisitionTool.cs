@@ -38,6 +38,7 @@ namespace OpenCvSharpTool
     public class ImageAcquisitionTool : ToolBase
     {
         public ImageGrab ImageGrab { get; set; }
+        private TreeViewItem _tree;
         #region InputParams
 
         public ImageGrabType CurrenType { get; set; } = 0;
@@ -69,12 +70,13 @@ namespace OpenCvSharpTool
 
         public override void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            TreeView tree = Content as TreeView;
-            if (tree == null)
+             _tree = sender as TreeViewItem;
+            if (_tree == null)
             {
                 return;
             }
-            ToolWindow = new ImageAcquisitionWindow(this);
+            ToolWindow = new ImageAcquisitionWindow(this) {ToolTreeViewItem = _tree};
+            
             base.UIElement_OnPreviewMouseLeftButtonDown(this, e);
         }
 
@@ -115,19 +117,15 @@ namespace OpenCvSharpTool
         private void InitOutputParams()
         {
             TreeViewItem outputItem = null;
-            TreeView tree = Content as TreeView;
 
-            if (tree != null)
-                foreach (TreeViewItem treeItem in tree.Items)
+            if (_tree != null)
+                foreach (TreeViewItem treeItem in _tree.Items)
                 {
-                    foreach (TreeViewItem item in treeItem.Items)
-                    {
-                        if (item.Header.ToString() == "输出")
+                        if (treeItem.Header.ToString() == "输出")
                         {
-                            outputItem = item;
+                            outputItem = treeItem;
                             outputItem.Items.Clear();
                         }
-                    }
                 }
 
             OutputParams = new Dictionary<string, object>

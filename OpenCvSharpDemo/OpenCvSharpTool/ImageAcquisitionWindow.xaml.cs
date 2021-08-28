@@ -25,6 +25,7 @@ namespace OpenCvSharpTool
     public partial class ImageAcquisitionWindow : Window
     {
         public ImageAcquisitionTool ImageGrabTool { get; set; }
+        public TreeViewItem ToolTreeViewItem { get; set; }
 
         private int _index;
         private bool _isStop;
@@ -45,18 +46,14 @@ namespace OpenCvSharpTool
 
 
                 TreeViewItem inputItem = null;
-                TreeView tree = ImageGrabTool.Content as TreeView;
 
-                if (tree != null)
-                    foreach (TreeViewItem treeItem in tree.Items)
+                if (ToolTreeViewItem != null)
+                    foreach (TreeViewItem treeItem in ToolTreeViewItem.Items)
                     {
-                        foreach (TreeViewItem item in treeItem.Items)
+                        if (treeItem.Header.ToString() == "输入")
                         {
-                            if (item.Header.ToString() == "输入")
-                            {
-                                inputItem = item;
-                                inputItem.Items.Clear();
-                            }
+                            inputItem = treeItem;
+                            inputItem.Items.Clear();
                         }
                     }
 
@@ -310,7 +307,7 @@ namespace OpenCvSharpTool
             _isStop = true;
         }
 
-        
+
 
         private void ButtonTest_OnClick(object sender, RoutedEventArgs e)
         {
