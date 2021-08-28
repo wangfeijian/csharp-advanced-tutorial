@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -51,57 +53,101 @@ namespace OpenCvSharpTool
         #region OutputParams
 
         public WriteableBitmap OutputImage { get; set; }
-        public Mat OutputMat { get; set; }
+        public Mat ImageAcquisitionToolOutputMat { get; set; }
+        public string Info { get; set; }
+        public FileInfo[] FileInfos { get; set; }
+        public int FileIndex { get; set; } 
 
         #endregion
         public ImageAcquisitionTool()
         {
-           InitializeComponent();
+            InitializeComponent();
+            ImageGrab = new ImageGrab();
             ToolDesStr = "图像采集";
             ToolIcon = "\xe967";
         }
 
-        /// <summary>
-        /// 初始化输入参数，根据类型
-        /// </summary>
-        private void InitParams()
-        {
-            switch (CurrenType)
-            {
-                //case ImageGrabType.CaptureFile:
-                //    InputParams = new List<object>
-                //    {
-                //        FileName,
-                //        IsColorImage,
-                //        IsVideo
-                //    };
-                //    break;
-                //case ImageGrabType.CaptureDir:
-                //    InputParams = new List<object>
-                //    {
-                //        DirName,
-                //        IsColorImage
-                //    };
-                //    break;
-                //case ImageGrabType.CaptureCamera:
-                //    InputParams = new List<object>
-                //    {
-                //        CameraType,
-                //        IsContinuousAcquisition,
-                //        IsColorImage
-                //    };
-                //    break;
-            }
-        }
-
         public override void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            TreeView tree = Content as TreeView;
+            if (tree == null)
+            {
+                return;
+            }
             ToolWindow = new ImageAcquisitionWindow(this);
-            base.UIElement_OnPreviewMouseLeftButtonDown(this,e);
+            base.UIElement_OnPreviewMouseLeftButtonDown(this, e);
         }
 
         public override void Run()
         {
+            WriteableBitmap outputImage = null;
+            string _info = "";
+
+            if (InputParams.ContainsKey("FileName"))
+            {
+                OutputImage = ImageGrab.GetImageFromFile(FileName, ref outputImage, !IsColorImage, ref _info);
+                Info = _info;
+                InitOutputParams();
+            }
+            else if (InputParams.ContainsKey("DirName"))
+            {
+                if (FileInfos == null)
+                {
+                    FileInfos = new DirectoryInfo(DirName).GetFiles();
+                }
+
+                if (FileIndex == FileInfos.Length)
+                {
+                    FileIndex = 0;
+                }
+
+                OutputImage = ImageGrab.GetImageFromFile(FileInfos[FileIndex++].FullName, ref outputImage, !IsColorImage, ref _info);
+                Info = _info;
+                InitOutputParams();
+            }
+            else if (InputParams.ContainsKey("CameraType"))
+            {
+
+            }
+
+        }
+
+        private void InitOutputParams()
+        {
+            TreeViewItem outputItem = null;
+            TreeView tree = Content as TreeView;
+
+            if (tree != null)
+                foreach (TreeViewItem treeItem in tree.Items)
+                {
+                    foreach (TreeViewItem item in treeItem.Items)
+                    {
+                        if (item.Header.ToString() == "输出")
+                        {
+                            outputItem = item;
+                            outputItem.Items.Clear();
+                        }
+                    }
+                }
+
+            OutputParams = new Dictionary<string, object>
+            {
+                {nameof(OutputImage), OutputImage},
+                {nameof(Info), Info},
+            };
+
+            if (OutputParams != null)
+            {
+                foreach (var runToolOutputParam in OutputParams)
+                {
+                    TreeViewItem treeView = new TreeViewItem
+                    {
+                        Header = runToolOutputParam.Key,
+                        ToolTip = runToolOutputParam.Value
+                    };
+                    outputItem?.Items.Add(treeView);
+                }
+            }
         }
     }
 }

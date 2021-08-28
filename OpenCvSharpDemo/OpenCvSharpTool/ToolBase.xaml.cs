@@ -28,12 +28,12 @@ namespace OpenCvSharpTool
         /// <summary>
         /// 输入参数
         /// </summary>
-        public List<Dictionary<string,object>> InputParams;
+        public Dictionary<string,object> InputParams;
 
         /// <summary>
         /// 输出参数
         /// </summary>
-        public List<Dictionary<string,object>> OutputParams;
+        public Dictionary<string,object> OutputParams;
 
         /// <summary>
         /// 工具所绑定的窗体

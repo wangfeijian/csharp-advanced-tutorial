@@ -37,7 +37,7 @@
                     SaveImageBitmap="{Binding OriginBitmap, Mode=TwoWay}"
                     ShowImageBitmap="{Binding ShowBitmap, Mode=TwoWay}" />
             </Border>
-            <Grid Grid.Row="1">
+            <!--<Grid Grid.Row="1">
                 <StackPanel
                     x:Name="SelectImageStackPanel"
                     HorizontalAlignment="Center"
@@ -70,7 +70,7 @@
                         </i:Interaction.Triggers>
                     </Button>
                 </StackPanel>
-            </Grid>
+            </Grid>-->
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -78,9 +78,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Border BorderBrush="Gainsboro" BorderThickness="1">
+            <!--<Border BorderBrush="Gainsboro" BorderThickness="1">
                 <StackPanel Margin="5">
                     <RadioButton
                         x:Name="RadioButtonFile"
@@ -141,10 +141,13 @@
                         TextWrapping="WrapWithOverflow"
                         ToolTip="处理信息" />
                 </StackPanel>
-            </Border>
+            </Border>-->
             <openCvSharpTool:ToolBoxControl Grid.Row="2" />
-            <openCvSharpTool:ToolRunBox Name="ToolRunBoxItem" Grid.Row="3" />
-            <Border
+            <openCvSharpTool:ToolRunBox
+                Name="ToolRunBoxItem"
+                Grid.Row="3"
+                OutputBitmap="{Binding ShowBitmap, Mode=TwoWay}" />
+            <!--<Border
                 Grid.Row="4"
                 BorderBrush="Gainsboro"
                 BorderThickness="1">
@@ -767,7 +770,7 @@
                         </StackPanel>
                     </TreeViewItem>
                 </TreeView>
-            </Border>
+            </Border>-->
         </Grid>
     </Grid>
 </Window>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using OpenCvSharp;
@@ -9,6 +10,8 @@ namespace TestDemo
 {
     class Program
     {
+        private int num;
+        private static char charA='A', charB='B', charC='C';
         static void MainProcess(string[] args)
         {
             Mat srcImage = Cv2.ImRead(
@@ -35,7 +38,9 @@ namespace TestDemo
         static void Main(string[] args)
         {
             //CreateImageMatOperator();
-            CreateBasicMatOperator();
+            //CreateBasicMatOperator();
+            MoveHanotta(3,charA,charB,charC);
+            Console.ReadKey();
         }
 
         /// <summary>
@@ -124,6 +129,20 @@ namespace TestDemo
             Mat element = Cv2.GetStructuringElement(MorphShapes.Ellipse, new Size(15.5, 15.5));
             Cv2.MorphologyEx(srcMat, dstMat, MorphTypes.Close, element);
             return dstMat;
+        }
+
+        static void MoveHanotta(int index, char A, char B, char C)
+        {
+            if (index==1)
+            {
+                Console.WriteLine($"把{index}个，从{A}移动到{C}");
+            }
+            else
+            {
+                MoveHanotta(index-1,A,C,B);
+                Console.WriteLine($"把{index}个，从{A}移动到{C}");
+                MoveHanotta(index-1,B,A,C);
+            }
         }
     }
 }

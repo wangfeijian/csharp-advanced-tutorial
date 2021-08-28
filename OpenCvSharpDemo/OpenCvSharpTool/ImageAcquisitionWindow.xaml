@@ -21,7 +21,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border BorderBrush="Gainsboro" BorderThickness="1">
-                <customerControl:CustomerOpenCVSharpWindow CameraColor="#27D0D8" />
+                <customerControl:CustomerOpenCVSharpWindow x:Name="ShowImageWindow" CameraColor="#27D0D8" />
             </Border>
             <Grid Grid.Row="1">
                 <StackPanel
@@ -34,12 +34,14 @@
                         Content="上一张"
                         Width="100"
                         Margin="0,5,50,5"
+                        Click="ButtonPreviewClick"
                         ToolTip="显示上一张图片" />
                     <Button
                         x:Name="ButtonNext"
                         Content="下一张"
                         Width="100"
                         Margin="50,5,0,5"
+                        Click="ButtonNextClick"
                         ToolTip="显示下一张图片" />
                 </StackPanel>
             </Grid>
@@ -109,39 +111,48 @@
                             Content="灰度图片"
                             Margin="2"
                             Click="RadioButtonColorImage_OnClick" />
-                         <Button
+                        <Button
                             Content="配置采集工具"
                             Margin="7,2"
                             Click="Button_Click" />
-                        <GroupBox Header="测试" x:Name="TestGroup" IsEnabled="False">
+                        <GroupBox
+                            x:Name="TestGroup"
+                            Header="测试"
+                            IsEnabled="False">
                             <StackPanel>
                                 <Button
                                     x:Name="ButtonGrabImage"
                                     Content="采集图片"
-                                    Margin="2" />
+                                    Margin="2"
+                                    Click="ButtonGrabImageClick" />
                                 <Button
                                     x:Name="ButtonLoad"
                                     Content="加载视频"
                                     Margin="2"
+                                    Click="ButtonLoadVideoClick"
                                     IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonFile}" />
                                 <Separator />
                                 <TextBlock Margin="2" Text="{Binding Path=Value, ElementName=FrameSlider, StringFormat=帧间隔时间(ms):{0}}" />
                                 <Slider
                                     x:Name="FrameSlider"
                                     IsSnapToTickEnabled="True"
+                                    Value="30"
                                     Maximum="100"
-                                    Minimum="1" />
+                                    Minimum="1"
+                                    ValueChanged="FrameSlider_OnValueChanged" />
                                 <Button
                                     x:Name="ButtonStartPlay"
                                     Content="开始播放"
-                                    Margin="2" />
+                                    Margin="2"
+                                    Click="ButtonStartPlayClick" />
                                 <Button
                                     x:Name="ButtonStopPlay"
                                     Content="停止播放"
-                                    Margin="2" />
+                                    Margin="2"
+                                    Click="ButtonStopPlayClick" />
                             </StackPanel>
                         </GroupBox>
-                        <Button Content="测试采集工具" Margin="7,2" />
+                        <Button Content="测试采集工具" Margin="7,2" Click="ButtonTest_OnClick"/>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
