@@ -9,7 +9,7 @@
     d:DesignWidth="300"
     Loaded="ToolBoxControl_OnLoaded"
     mc:Ignorable="d">
-    <GroupBox Header="工具箱">
+    <GroupBox FontSize="18" Header="工具箱">
         <StackPanel x:Name="ToolStackPanel" Margin="2" />
     </GroupBox>
 </UserControl>

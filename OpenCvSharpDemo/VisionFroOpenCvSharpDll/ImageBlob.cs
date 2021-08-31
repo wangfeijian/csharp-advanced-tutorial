@@ -90,7 +90,7 @@ namespace VisionFroOpenCvSharpDll
 
                     using (Mat outputMat = new Mat())
                     {
-                        if (flag)
+                        if (!flag)
                         {
                             Cv2.Threshold(inputMat, outputMat, threshold, 255, ThresholdTypes.BinaryInv);
                         }
@@ -136,7 +136,7 @@ namespace VisionFroOpenCvSharpDll
                     Point[][] contours;
                     HierarchyIndex[] hierarchy;
 
-                    Cv2.FindContours(thresholdMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple, new Point(0, 0));
+                    Cv2.FindContours(thresholdMat, out contours, out hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxNone, new Point(0, 0));
 
                     for (int i = 0; i < contours.Length; i++)
                     {
@@ -203,52 +203,52 @@ namespace VisionFroOpenCvSharpDll
         /// <param name="info">筛选信息</param>
         /// <param name="paramInts">筛选参数</param>
         /// <returns></returns>
-        public WriteableBitmap SelectContourOperation(WriteableBitmap originImage, ref Mat srcMat,
-            ref Mat dstMat,
+        public void SelectContourOperation(WriteableBitmap originImage, Mat srcMat,ref Mat dstMat,
             SelectContourType seletContourType, ref string info, params int[] paramInts)
         {
             if (srcMat == null)
             {
                 info = "不存在有效二值化数据";
-                return originImage;
+                //return originImage;
             }
 
             try
             {
+
                 switch (seletContourType)
                 {
                     case SelectContourType.ContourSize:
-                        dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1);
 
                         //通过轮廓外径筛选
-                        SelectContourByCondition(srcMat, paramInts, dstMat, args => (int)Cv2.ArcLength(args, true));
+                        dstMat = SelectContourByCondition(srcMat, paramInts, args => (int)Cv2.ArcLength(args,false));
                         info = "处理成功";
-                        return GetContourToImage(dstMat, originImage, ref info);
+                        break;
+                    //return GetContourToImage(dstMat, originImage, ref info);
 
                     case SelectContourType.ContourArea:
-                        dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1);
 
                         //通过轮廓面积筛选
-                        SelectContourByCondition(srcMat, paramInts, dstMat, args => (int)Cv2.ContourArea(args));
+                        dstMat = SelectContourByCondition(srcMat, paramInts, args => (int)Cv2.ContourArea(args));
                         info = "处理成功";
-                        return GetContourToImage(dstMat, originImage, ref info);
+                        break;
+                    //return GetContourToImage(dstMat, originImage, ref info);
 
                     case SelectContourType.ContourLocation:
-                        dstMat = new Mat(originImage.ToMat().Size(), MatType.CV_8UC1);
 
                         //通过行列坐标筛选
-                        SelectContourByCondition(srcMat, paramInts, dstMat, null, false);
+                        dstMat = SelectContourByCondition(srcMat, paramInts, null, false);
                         info = "处理成功";
-                        return GetContourToImage(dstMat, originImage, ref info);
+                        break;
+                        //return GetContourToImage(dstMat, originImage, ref info);
 
                 }
-                info = "处理失败，选择类型不正确";
-                return originImage;
+                //info = "处理失败，选择类型不正确";
+                //return originImage;
             }
             catch (Exception e)
             {
                 info = e.ToString();
-                return originImage;
+                // return originImage;
             }
         }
 
@@ -257,37 +257,42 @@ namespace VisionFroOpenCvSharpDll
         /// </summary>
         /// <param name="srcMat"></param>
         /// <param name="paramInts"></param>
-        /// <param name="originMat"></param>
         /// <param name="func">条件</param>
-        private void SelectContourByCondition(Mat srcMat, int[] paramInts, Mat originMat, Func<Point[], int> func, bool flag = true)
+        /// <param name="flag"></param>
+        private Mat SelectContourByCondition(Mat srcMat, int[] paramInts, Func<Point[], int> func, bool flag = true)
         {
             Point[][] contours;
             HierarchyIndex[] hierarchy;
-            Cv2.FindContours(srcMat, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple,
-                new Point(0, 0));
-            for (int i = 0; i < contours.Length; i++)
-            {
-                if (flag)
-                {
-                    if (func(contours[i]) > paramInts[0] && func(contours[i]) < paramInts[1])
-                    {
-                        Cv2.DrawContours(originMat, contours, i, new Scalar(255, 255, 255), Cv2.FILLED, hierarchy: hierarchy);
-                    }
-                }
-                else
-                {
-                    var m = Cv2.Moments(contours[i]);
-                    int xPos = (int)(m.M10 / m.M00);
-                    int yPos = (int)(m.M01 / m.M00);
+            Cv2.FindContours(srcMat, out contours, out hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxNone);
 
-                    bool condition = xPos > paramInts[0] && xPos < paramInts[1] && yPos > paramInts[2] &&
-                                     yPos < paramInts[3];
-                    if (condition)
+            using (Mat originMat =  Mat.Zeros(srcMat.Rows,srcMat.Cols,MatType.CV_8UC1))
+            {
+                for (int i = 0; i < contours.Length; i++)
+                {
+                    if (flag)
                     {
-                        Cv2.DrawContours(originMat, contours, i, new Scalar(255, 255, 255), Cv2.FILLED, hierarchy: hierarchy);
+                        if (func(contours[i]) > paramInts[0] && func(contours[i]) < paramInts[1])
+                        {
+                            Cv2.DrawContours(originMat, contours, i, new Scalar(255, 255, 255), Cv2.FILLED);
+                        }
+                    }
+                    else
+                    {
+                        var m = Cv2.Moments(contours[i], true);
+                        int xPos = (int)(m.M10 / m.M00);
+                        int yPos = (int)(m.M01 / m.M00);
+
+                        bool condition = xPos > paramInts[0] && xPos < paramInts[1] && yPos > paramInts[2] && yPos < paramInts[3];
+                        if (condition)
+                        {
+                            Cv2.DrawContours(originMat, contours, i, new Scalar(255, 255, 255), Cv2.FILLED);
+                        }
                     }
                 }
+
+                return originMat.Clone();
             }
+
         }
 
 
@@ -407,7 +412,7 @@ namespace VisionFroOpenCvSharpDll
                     {
                         Point2f point2F;
                         float radius;
-                        Cv2.MinEnclosingCircle(contours[i],out point2F,out radius);
+                        Cv2.MinEnclosingCircle(contours[i], out point2F, out radius);
 
                         Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), hierarchy: hierarchy);
 
@@ -452,11 +457,11 @@ namespace VisionFroOpenCvSharpDll
                     for (int i = 0; i < contours.Length; i++)
                     {
                         Mat r3 = new Mat();
-                       var point = Cv2.ConvexHull(contours[i]);
+                        var point = Cv2.ConvexHull(contours[i]);
 
                         Cv2.DrawContours(originMat, contours, i, new Scalar(0, 255, 0), hierarchy: hierarchy);
 
-                        Cv2.DrawContours(originMat,new [] {point},0,new Scalar(0, 0, 255));
+                        Cv2.DrawContours(originMat, new[] { point }, 0, new Scalar(0, 0, 255));
                     }
 
                     info = "处理成功";

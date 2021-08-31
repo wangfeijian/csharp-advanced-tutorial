@@ -13,9 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using OpenCvSharpDemo.ViewModel;
 
-namespace OpenCvSharpDemo.View
+namespace OpenCvSharpTool
 {
     /// <summary>
     /// SetValueControl.xaml 的交互逻辑
@@ -84,11 +83,8 @@ namespace OpenCvSharpDemo.View
                 _isMouseLeftButtonDown = true;
                 while (_isMouseLeftButtonDown)
                 {
-                    MainViewModel.DispatcherHelper.Delay(1000);
-                    if (_isMouseLeftButtonDown)
-                    {
-                        SubButton_OnClick(null, null);
-                    }
+                    SubButton_OnClick(null, null);
+                    DispatcherHelper.Delay(20);
                 }
             }
         }
@@ -105,18 +101,15 @@ namespace OpenCvSharpDemo.View
                 _isMouseLeftButtonDown = true;
                 while (_isMouseLeftButtonDown)
                 {
-                    MainViewModel.DispatcherHelper.Delay(1000);
-                    if (_isMouseLeftButtonDown)
-                    {
-                        AddButton_OnClick(null, null);
-                    }
+                    AddButton_OnClick(null, null);
+                    DispatcherHelper.Delay(50);
                 }
             }
         }
 
         private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            ValueChanged(sender, e);
+            ValueChanged(sender,e);
         }
 
         private void ValueChanged(object sender, RoutedEventArgs e)
@@ -126,7 +119,7 @@ namespace OpenCvSharpDemo.View
             int temp = 0;
             int.TryParse(textBox.Text, out temp);
 
-            if (temp != 0)
+            if (temp!=0)
             {
                 ParamValue = temp;
             }

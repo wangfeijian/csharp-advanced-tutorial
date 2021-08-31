@@ -23,6 +23,7 @@ namespace OpenCvSharpTool
     /// </summary>
     public partial class ToolRunBox : UserControl
     {
+        public static Dictionary<string, object> OutputObjects = new Dictionary<string, object>();
         public ToolRunBox()
         {
             InitializeComponent();
@@ -45,30 +46,29 @@ namespace OpenCvSharpTool
             CancellationToken cls = clt.Token;
             ButtonRun.IsEnabled = false;
 
+            int time;
+            int.TryParse(TimeText.Text, out time);
+
+            if (time < 20)
+            {
+                time = 20;
+            }
 
             Task.Run(() =>
            {
                while (true)
                {
                    DispatcherHelper.Delay(10);
-                   try
+                   Dispatcher.Invoke(delegate
                    {
-                       Dispatcher.Invoke(delegate
-                       {
-                           TreeViewItem tree = ToolTreeView.Items[ToolTreeView.Items.Count - 1] as TreeViewItem;
-                           ToolBase tool = tree.Tag as ToolBase;
+                       TreeViewItem tree = ToolTreeView.Items[ToolTreeView.Items.Count - 1] as TreeViewItem;
+                       ToolBase tool = tree.Tag as ToolBase;
 
-                           if (tool != null && tool.OutputParams.ContainsKey("OutputImage"))
-                           {
-                               OutputBitmap = tool.OutputParams["OutputImage"] as WriteableBitmap;
-                           }
-                       });
-                   }
-                   catch (Exception exception)
-                   {
-                       Console.WriteLine(exception);
-                       throw;
-                   }
+                       if (tool != null && tool.OutputParams.ContainsKey("OutputImage"))
+                       {
+                           OutputBitmap = tool.OutputParams["OutputImage"] as WriteableBitmap;
+                       }
+                   });
 
                    if (cls.IsCancellationRequested)
                    {
@@ -81,7 +81,7 @@ namespace OpenCvSharpTool
             {
                 while (CheckBoxContinue.IsChecked == true)
                 {
-                    DispatcherHelper.Delay(1000);
+                    DispatcherHelper.Delay(time);
                     foreach (var child in ToolTreeView.Items)
                     {
                         TreeViewItem tree = child as TreeViewItem;
@@ -110,6 +110,9 @@ namespace OpenCvSharpTool
         {
             TreeView tree = sender as TreeView;
             TreeViewItem treItem = tree.SelectedItem as TreeViewItem;
+
+            if (treItem != null && treItem.Parent != tree) return;
+
             if (treItem != null && e.LeftButton == MouseButtonState.Pressed)
             {
                 DragDrop.DoDragDrop(treItem, treItem, DragDropEffects.All);
@@ -132,25 +135,28 @@ namespace OpenCvSharpTool
         {
             TreeViewItem treeView = (TreeViewItem)e.Data.GetData(typeof(TreeViewItem));
 
-           TreeViewItem targetTree = e.Source as TreeViewItem;
+            TreeViewItem targetTree = e.Source as TreeViewItem;
             int index = ToolTreeView.Items.IndexOf(targetTree);
-            if (index > ToolTreeView.Items.Count-1||index<0)
+            if (index > ToolTreeView.Items.Count - 1 || index < 0)
             {
                 return;
             }
             ToolTreeView.Items.Remove(treeView);
-            ToolTreeView.Items.Insert(index,treeView);
+            ToolTreeView.Items.Insert(index, treeView);
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (ToolTreeView.SelectedItem==null)
+            if (ToolTreeView.SelectedItem == null)
             {
                 MessageBox.Show("请先选择工具");
                 return;
             }
 
-            ToolTreeView.Items.Remove(ToolTreeView.SelectedItem);
+            if (MessageBox.Show("是否删除该工具，删除后将无法恢复！", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+            {
+                ToolTreeView.Items.Remove(ToolTreeView.SelectedItem);
+            }
         }
     }
 }

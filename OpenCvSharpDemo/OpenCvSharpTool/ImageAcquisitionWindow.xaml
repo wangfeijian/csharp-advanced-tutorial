@@ -9,6 +9,7 @@
     Title="图像采集"
     Width="600"
     Height="400"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -136,10 +137,10 @@
                                 <Slider
                                     x:Name="FrameSlider"
                                     IsSnapToTickEnabled="True"
-                                    Value="30"
                                     Maximum="100"
                                     Minimum="1"
-                                    ValueChanged="FrameSlider_OnValueChanged" />
+                                    ValueChanged="FrameSlider_OnValueChanged"
+                                    Value="30" />
                                 <Button
                                     x:Name="ButtonStartPlay"
                                     Content="开始播放"
@@ -152,7 +153,10 @@
                                     Click="ButtonStopPlayClick" />
                             </StackPanel>
                         </GroupBox>
-                        <Button Content="测试采集工具" Margin="7,2" Click="ButtonTest_OnClick"/>
+                        <Button
+                            Content="测试采集工具"
+                            Margin="7,2"
+                            Click="ButtonTest_OnClick" />
                     </StackPanel>
                 </ScrollViewer>
             </Border>

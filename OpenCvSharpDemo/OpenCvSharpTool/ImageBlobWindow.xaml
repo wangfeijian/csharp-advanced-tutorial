@@ -1,0 +1,193 @@
+﻿<Window
+    x:Class="OpenCvSharpTool.ImageBlobWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:customerControl="clr-namespace:CustomerControl;assembly=CustomerControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OpenCvSharpTool"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ImageBlobWindow"
+    Width="600"
+    Height="400"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+        <customerControl:CustomerOpenCVSharpWindow x:Name="TestCameraWindow" CameraColor="#27D0D9" />
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden">
+            <StackPanel Margin="8,0">
+                <Button
+                    Content="配置Blob工具"
+                    Margin="2"
+                    Click="Button_Click" />
+                <Button Content="测试Blob工具" Margin="2" />
+                <GroupBox Header="图像源选择">
+                    <ComboBox
+                        x:Name="ImageSelectCombox"
+                        Margin="2"
+                        SelectionChanged="ImageSelectCombox_OnSelectionChanged"
+                        ToolTip="选择形态学处理方式" />
+                </GroupBox>
+                <GroupBox Header="二值化处理">
+                    <StackPanel>
+                        <CheckBox
+                            x:Name="AutoThresholdEnable"
+                            Content="自动阈值"
+                            Margin="2" />
+                        <TextBlock
+                            Margin="2"
+                            Text="{Binding Path=Value, ElementName=ThresholdSlider, StringFormat=二值化阈值：{0}}"
+                            ToolTip="指定使用二值化时，最小的灰度值。处理后图像是白色为选中区域。" />
+                        <Slider
+                            x:Name="ThresholdSlider"
+                            Margin="2"
+                            IsSnapToTickEnabled="True"
+                            Maximum="255"
+                            Minimum="0"
+                            ValueChanged="ThresholdSlider_OnValueChanged" />
+                        <Separator />
+                        <Button
+                            x:Name="ShowContourEnable"
+                            Content="显示二值后轮廓"
+                            Height="25"
+                            Margin="2"
+                            Click="ShowContourEnable_OnClick" />
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="形态学处理">
+                    <StackPanel>
+                        <ComboBox
+                            x:Name="MorphTypeCombox"
+                            Margin="2"
+                            ToolTip="选择形态学处理方式">
+                            <ComboBoxItem
+                                Content="腐蚀"
+                                IsSelected="True"
+                                ToolTip="用于分割独立的图像元素" />
+                            <ComboBoxItem Content="膨胀" ToolTip="用于连接相邻的元素" />
+                            <ComboBoxItem Content="开运算" ToolTip="先腐蚀，再膨胀，可清除一些小东西(亮的)，放大局部低亮度的区域" />
+                            <ComboBoxItem Content="闭运算" ToolTip="先膨胀，再腐蚀，可清除小黑点" />
+                            <ComboBoxItem Content="形态学梯度" ToolTip="膨胀图与腐蚀图之差，提取物体边缘" />
+                            <ComboBoxItem Content="顶帽" ToolTip="原图像-开运算图，突出原图像中比周围亮的区域" />
+                            <ComboBoxItem Content="黑帽" ToolTip="闭运算图-原图像，突出原图像中比周围暗的区域" />
+                            <ComboBoxItem Content="击中击不中" ToolTip="1.使用模板s1腐蚀原图像X。2.使用模板s2（s2为是s1的补）对Y(Y为X的补)进行腐蚀。3.对两个结果进行取交集" />
+                        </ComboBox>
+                        <ComboBox
+                            x:Name="MorphShapeCombox"
+                            Margin="2"
+                            ToolTip="选择结构形状">
+                            <ComboBoxItem
+                                Content="矩形"
+                                IsSelected="True"
+                                ToolTip="结构的形状为矩形" />
+                            <ComboBoxItem Content="十字" ToolTip="结构的形状为十字" />
+                            <ComboBoxItem Content="椭圆" ToolTip="结构的形状为椭圆形" />
+                        </ComboBox>
+                        <StackPanel Margin="2">
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Path=Value, ElementName=MorphologicalElementSizeSlider, StringFormat=形状大小：{0}}"
+                                ToolTip="对源图像进行形态学处理时，结构形状的大小" />
+                            <Slider
+                                x:Name="MorphologicalElementSizeSlider"
+                                Margin="2"
+                                IsSnapToTickEnabled="True"
+                                Maximum="49"
+                                Minimum="3"
+                                TickFrequency="2"
+                                ValueChanged="MorphologicalElementSizeSlider_OnValueChanged"
+                                Value="3" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="筛选条件">
+                    <StackPanel>
+                        <CheckBox
+                            x:Name="ContourSizeSelectEnable"
+                            Content="轮廓大小筛选"
+                            Margin="2" />
+                        <CheckBox
+                            x:Name="ContourAreaSelectEnable"
+                            Content="轮廓面积筛选"
+                            Margin="2" />
+                        <CheckBox
+                            x:Name="ContourLocationSelectEnable"
+                            Content="轮廓位置筛选"
+                            Margin="2" />
+                        <local:SetValueControl
+                            x:Name="ContourSizeMin"
+                            Width="170"
+                            Margin="2"
+                            ParamDescribe="轮廓大小Min："
+                            ToolTip="对轮廓进行筛选时，轮廓外圈像素个数"
+                            ValueChange="ContourSizeMin_OnValueChange"
+                            Visibility="{Binding Path=IsChecked, ElementName=ContourSizeSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <local:SetValueControl
+                            x:Name="ContourSizeMax"
+                            Width="170"
+                            Margin="2"
+                            ParamDescribe="轮廓大小Max："
+                            ToolTip="对轮廓进行筛选时，轮廓外圈像素个数"
+                            ValueChange="ContourSizeMin_OnValueChange"
+                            Visibility="{Binding Path=IsChecked, ElementName=ContourSizeSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <local:SetValueControl
+                            x:Name="ContourAreaMin"
+                            Width="170"
+                            Margin="2"
+                            ParamDescribe="轮廓面积Min："
+                            ToolTip="对轮廓进行筛选时，轮廓面积大小"
+                            ValueChange="ContourSizeMin_OnValueChange"
+                            Visibility="{Binding Path=IsChecked, ElementName=ContourAreaSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <local:SetValueControl
+                            x:Name="ContourAreaMax"
+                            Width="170"
+                            Margin="2"
+                            ParamDescribe="轮廓面积Max："
+                            ToolTip="对轮廓进行筛选时，轮廓面积大小"
+                            ValueChange="ContourSizeMin_OnValueChange"
+                            Visibility="{Binding Path=IsChecked, ElementName=ContourAreaSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <local:SetValueControl
+                            x:Name="ContourXStartPos"
+                            Width="170"
+                            Margin="2"
+                            ParamDescribe="轮廓起始X："
+                            ToolTip="对轮廓进行筛选时，轮廓的起始X坐标"
+                            ValueChange="ContourSizeMin_OnValueChange"
+                            Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <local:SetValueControl
+                            x:Name="ContourXEndPos"
+                            Width="170"
+                            Margin="2"
+                            ParamDescribe="轮廓结束X："
+                            ToolTip="对轮廓进行筛选时，轮廓的结束X坐标"
+                            ValueChange="ContourSizeMin_OnValueChange"
+                            Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <local:SetValueControl
+                            x:Name="ContourYStartPos"
+                            Width="170"
+                            Margin="2"
+                            ParamDescribe="轮廓起始Y："
+                            ToolTip="对轮廓进行筛选时，轮廓的起始Y坐标"
+                            ValueChange="ContourSizeMin_OnValueChange"
+                            Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <local:SetValueControl
+                            x:Name="ContourYEndPos"
+                            Width="170"
+                            Margin="2"
+                            ParamDescribe="轮廓结束Y："
+                            ToolTip="对轮廓进行筛选时，轮廓的结束Y坐标"
+                            ValueChange="ContourSizeMin_OnValueChange"
+                            Visibility="{Binding Path=IsChecked, ElementName=ContourLocationSelectEnable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

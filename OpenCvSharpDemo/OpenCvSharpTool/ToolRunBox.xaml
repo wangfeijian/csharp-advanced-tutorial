@@ -16,7 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <GroupBox Header="工具运行">
+    <GroupBox FontSize="18" Header="工具运行">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -28,36 +28,69 @@
                     AllowDrop="True"
                     DragEnter="ToolTreeView_OnDragEnter"
                     Drop="ToolTreeView_OnDrop"
+                    FontSize="15"
                     MouseMove="ToolTreeView_OnMouseMove" />
             </ScrollViewer>
-            <Separator VerticalAlignment="Bottom" />
-            <Separator Grid.Row="1" />
+            <Separator Grid.Row="0" VerticalAlignment="Bottom" />
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal">
+                <Separator Grid.Row="1" VerticalAlignment="Top" />
+                <Separator Grid.Row="2" VerticalAlignment="Top" />
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <CheckBox
                         x:Name="CheckBoxContinue"
                         Content="连续运行"
                         Margin="5"
                         VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
                         IsChecked="False" />
                     <Button
                         x:Name="ButtonRun"
                         Content="运行"
+                        Grid.Column="1"
                         Margin="5"
                         Click="ButtonRun_OnClick" />
-                </StackPanel>
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Text="间隔时间：" />
+                    <TextBox
+                        x:Name="TimeText"
+                        Grid.Column="1"
+                        Margin="5"
+                        VerticalAlignment="Center" />
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <Button Content="加载" Margin="5" />
-                    <Button Content="保存" Margin="5" />
+                    <Button
+                        Content="保存"
+                        Grid.Column="1"
+                        Margin="5" />
                     <Button
                         Content="删除"
+                        Grid.Column="2"
                         Margin="5"
                         Click="ButtonDelete_Click" />
-                </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
     </GroupBox>

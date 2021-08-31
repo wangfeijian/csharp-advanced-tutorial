@@ -47,6 +47,7 @@ namespace VisionFroOpenCvSharpDll
                         }
                     }
 
+                    info = "采集成功";
                     return mat.ToWriteableBitmap();
                 }
             }

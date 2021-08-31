@@ -37,6 +37,7 @@ namespace OpenCvSharpTool
     /// </summary>
     public class ImageAcquisitionTool : ToolBase
     {
+        public event EventHandler OutputImageChange;
         public ImageGrab ImageGrab { get; set; }
         private TreeViewItem _tree;
         #region InputParams
@@ -57,7 +58,7 @@ namespace OpenCvSharpTool
         public Mat ImageAcquisitionToolOutputMat { get; set; }
         public string Info { get; set; }
         public FileInfo[] FileInfos { get; set; }
-        public int FileIndex { get; set; } 
+        public int FileIndex { get; set; }
 
         #endregion
         public ImageAcquisitionTool()
@@ -70,13 +71,13 @@ namespace OpenCvSharpTool
 
         public override void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-             _tree = sender as TreeViewItem;
+            _tree = sender as TreeViewItem;
             if (_tree == null)
             {
                 return;
             }
-            ToolWindow = new ImageAcquisitionWindow(this) {ToolTreeViewItem = _tree};
-            
+            ToolWindow = new ImageAcquisitionWindow(this) { ToolTreeViewItem = _tree };
+
             base.UIElement_OnPreviewMouseLeftButtonDown(this, e);
         }
 
@@ -89,6 +90,18 @@ namespace OpenCvSharpTool
             {
                 OutputImage = ImageGrab.GetImageFromFile(FileName, ref outputImage, !IsColorImage, ref _info);
                 Info = _info;
+
+                if (ToolRunBox.OutputObjects.ContainsKey("图像采集_" + nameof(OutputImage)))
+                {
+                    ToolRunBox.OutputObjects["图像采集_" + nameof(OutputImage)] = OutputImage;
+                    ToolRunBox.OutputObjects["图像采集_"+Info] = Info;
+                }
+                else
+                {
+                    ToolRunBox.OutputObjects.Add("图像采集_" + nameof(OutputImage), OutputImage);
+                    ToolRunBox.OutputObjects.Add("图像采集_"+nameof(Info), Info);
+                }
+                
                 InitOutputParams();
             }
             else if (InputParams.ContainsKey("DirName"))
@@ -105,6 +118,16 @@ namespace OpenCvSharpTool
 
                 OutputImage = ImageGrab.GetImageFromFile(FileInfos[FileIndex++].FullName, ref outputImage, !IsColorImage, ref _info);
                 Info = _info;
+                if (ToolRunBox.OutputObjects.ContainsKey("图像采集_" + nameof(OutputImage)))
+                {
+                    ToolRunBox.OutputObjects["图像采集_" + nameof(OutputImage)] = OutputImage;
+                    ToolRunBox.OutputObjects["图像采集_" + Info] = Info;
+                }
+                else
+                {
+                    ToolRunBox.OutputObjects.Add("图像采集_" + nameof(OutputImage), OutputImage);
+                    ToolRunBox.OutputObjects.Add("图像采集_" + nameof(Info), Info);
+                }
                 InitOutputParams();
             }
             else if (InputParams.ContainsKey("CameraType"))
@@ -121,11 +144,11 @@ namespace OpenCvSharpTool
             if (_tree != null)
                 foreach (TreeViewItem treeItem in _tree.Items)
                 {
-                        if (treeItem.Header.ToString() == "输出")
-                        {
-                            outputItem = treeItem;
-                            outputItem.Items.Clear();
-                        }
+                    if (treeItem.Header.ToString() == "输出")
+                    {
+                        outputItem = treeItem;
+                        outputItem.Items.Clear();
+                    }
                 }
 
             OutputParams = new Dictionary<string, object>
@@ -141,7 +164,8 @@ namespace OpenCvSharpTool
                     TreeViewItem treeView = new TreeViewItem
                     {
                         Header = runToolOutputParam.Key,
-                        ToolTip = runToolOutputParam.Value
+                        ToolTip = runToolOutputParam.Value,
+                        Tag = runToolOutputParam.Value
                     };
                     outputItem?.Items.Add(treeView);
                 }

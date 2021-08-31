@@ -11,9 +11,28 @@ using System.Windows.Shapes;
 
 namespace OpenCvSharpTool
 {
+    public class BoolToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool result;
+            if (value != null && bool.TryParse(value.ToString(), out result))
+            {
+                return result ? Visibility.Visible : Visibility.Collapsed;
+            }
+
+            return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Visibility result = (Visibility)value;
+            return result == Visibility.Visible;
+        }
+    }
     public class TreeViewLineConverter : IMultiValueConverter
     {
-
+        
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

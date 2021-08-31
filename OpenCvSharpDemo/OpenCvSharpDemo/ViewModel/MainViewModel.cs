@@ -906,10 +906,11 @@ namespace OpenCvSharpDemo.ViewModel
             }
 
             Mat srcMat = MorphologicalEnable ? _morphMat.Clone() : _thresholdMat.Clone();
+            _selectCountourMat = new Mat(srcMat.Size(), MatType.CV_8UC1);
 
             if (ContourSizeSelectEnable)
             {
-                ShowBitmap = _imageBlob.SelectContourOperation(_originalImage, ref srcMat, ref _selectCountourMat,
+                _imageBlob.SelectContourOperation(_originalImage, srcMat, ref _selectCountourMat,
                     SelectContourType.ContourSize, ref _info, ContourMinSize, ContourMaxSize);
                 ProcessInfo = _info;
                 _selectContourImage = ShowBitmap.Clone();
@@ -917,7 +918,7 @@ namespace OpenCvSharpDemo.ViewModel
 
             if (ContourAreaSelectEnable)
             {
-                ShowBitmap = _imageBlob.SelectContourOperation(_originalImage, ref srcMat, ref _selectCountourMat,
+                 _imageBlob.SelectContourOperation(_originalImage, _selectCountourMat, ref _selectCountourMat,
                     SelectContourType.ContourArea, ref _info, ContourMinArea, ContourMaxArea);
                 ProcessInfo = _info;
                 _selectContourImage = ShowBitmap.Clone();
@@ -925,7 +926,7 @@ namespace OpenCvSharpDemo.ViewModel
 
             if (ContourLocationSelectEnable)
             {
-                ShowBitmap = _imageBlob.SelectContourOperation(_originalImage, ref srcMat, ref _selectCountourMat,
+                _imageBlob.SelectContourOperation(_originalImage, _selectCountourMat, ref _selectCountourMat,
                     SelectContourType.ContourLocation, ref _info, ContourXStartPos, ContourXEndPos, ContourYStartPos, ContourYEndPos);
                 ProcessInfo = _info;
                 _selectContourImage = ShowBitmap.Clone();

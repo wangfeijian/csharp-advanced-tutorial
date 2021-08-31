@@ -66,7 +66,8 @@ namespace OpenCvSharpTool
                         TreeViewItem treeView = new TreeViewItem
                         {
                             Header = runToolInputParam.Key,
-                            ToolTip = runToolInputParam.Value
+                            ToolTip = runToolInputParam.Value,
+                            Tag = runToolInputParam.Value
                         };
                         inputItem?.Items.Add(treeView);
                     }

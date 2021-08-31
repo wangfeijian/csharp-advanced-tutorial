@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "10418295",
+      "name": "生成轮廓",
+      "font_class": "shengchenglunkuo",
+      "unicode": "e729",
+      "unicode_decimal": 59177
+    },
+    {
       "icon_id": "15546302",
       "name": "减",
       "font_class": "jian",
