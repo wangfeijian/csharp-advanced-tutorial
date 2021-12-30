@@ -467,7 +467,7 @@ namespace CustomerControl
                 Color c = GetPixel(ShowImageBitmap, (int)XPos, (int)YPos, false);
                 TextBlockPixel.Text = c.B.ToString();
             }
-            else if (ShowImageBitmap.Format == PixelFormats.Bgr24)
+            else
             {
                 Color c = GetPixel(ShowImageBitmap, (int)XPos, (int)YPos);
                 TextBlockPixel.Text = $"R:{c.R},G:{c.G},B:{c.B}";
