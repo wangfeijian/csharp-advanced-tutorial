@@ -203,7 +203,7 @@ namespace VisionFroOpenCvSharpDll
         /// <param name="info">筛选信息</param>
         /// <param name="paramInts">筛选参数</param>
         /// <returns></returns>
-        public void SelectContourOperation(WriteableBitmap originImage, Mat srcMat,ref Mat dstMat,
+        public void SelectContourOperation(WriteableBitmap originImage, Mat srcMat, ref Mat dstMat,
             SelectContourType seletContourType, ref string info, params int[] paramInts)
         {
             if (srcMat == null)
@@ -220,7 +220,7 @@ namespace VisionFroOpenCvSharpDll
                     case SelectContourType.ContourSize:
 
                         //通过轮廓外径筛选
-                        dstMat = SelectContourByCondition(srcMat, paramInts, args => (int)Cv2.ArcLength(args,false));
+                        dstMat = SelectContourByCondition(srcMat, paramInts, args => (int)Cv2.ArcLength(args, false));
                         info = "处理成功";
                         break;
                     //return GetContourToImage(dstMat, originImage, ref info);
@@ -265,7 +265,7 @@ namespace VisionFroOpenCvSharpDll
             HierarchyIndex[] hierarchy;
             Cv2.FindContours(srcMat, out contours, out hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxNone);
 
-            using (Mat originMat =  Mat.Zeros(srcMat.Rows,srcMat.Cols,MatType.CV_8UC1))
+            using (Mat originMat = Mat.Zeros(srcMat.Rows, srcMat.Cols, MatType.CV_8UC1))
             {
                 for (int i = 0; i < contours.Length; i++)
                 {
@@ -295,6 +295,33 @@ namespace VisionFroOpenCvSharpDll
 
         }
 
+        /// <summary>
+        /// 返回轮廓位置和面积
+        /// </summary>
+        /// <param name="srcMat"></param>
+        /// <param name="blobPosList"></param>
+        /// <param name="blobAreaList"></param>
+        public void GetContourAreaAndPosition(Mat srcMat, List<System.Windows.Point> blobPosList, List<double> blobAreaList)
+        {
+            Point[][] contours;
+            HierarchyIndex[] hierarchy;
+            Cv2.FindContours(srcMat, out contours, out hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxNone);
+
+            using (Mat originMat = Mat.Zeros(srcMat.Rows, srcMat.Cols, MatType.CV_8UC1))
+            {
+                for (int i = 0; i < contours.Length; i++)
+                {
+                    double area = Cv2.ContourArea(contours[i]);
+                    var m = Cv2.Moments(contours[i], true);
+                    double xPos = m.M10 / m.M00;
+                    double yPos = m.M01 / m.M00;
+                    System.Windows.Point point = new System.Windows.Point(xPos,yPos);
+                    blobPosList.Add(point);
+                    blobAreaList.Add(area);
+                }
+
+            }
+        }
 
         public WriteableBitmap FitSharpeToImage(WriteableBitmap originImage, ref Mat srcMat, ref Mat dstMat, int index, ref string info)
         {

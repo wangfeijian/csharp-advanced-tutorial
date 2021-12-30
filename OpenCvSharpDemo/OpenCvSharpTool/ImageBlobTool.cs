@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using OpenCvSharp;
 using OpenCvSharpTool;
 using VisionFroOpenCvSharpDll;
+using Point = System.Windows.Point;
 
 namespace OpenCvSharpTool
 {
@@ -55,6 +56,8 @@ namespace OpenCvSharpTool
         public WriteableBitmap OutputImage { get; set; }
         public Mat OutputMat { get; set; }
         public string Info { get; set; }
+        public List<Point> BlobPosList { get; set; }
+        public List<double> BlobAreaList { get; set; }
         #endregion
         public ImageBlobTool()
         {
@@ -97,7 +100,15 @@ namespace OpenCvSharpTool
             ImageBlob.GetThresholdImage(Threshold, InputImage, ref thresholdMat, IsAutoThreshold, ref _info);
             ImageBlob.MorphologicalOperations(InputImage, thresholdMat, ref morphMat, MorphShape,
                 MorphType, MorphElement, ref _info);
+
+            if (morphMat==null)
+            {
+                return;
+            }
+
             Mat srcMat = morphMat.Clone();
+            selectMat = srcMat.Clone();
+
             if ((ContourSelectCondition.ContourSize & SelectCondition) > 0)
             {
                ImageBlob.SelectContourOperation(InputImage, srcMat, ref selectMat,
@@ -122,6 +133,11 @@ namespace OpenCvSharpTool
 
             srcMat.Dispose();
 
+            BlobPosList = new List<Point>();
+            BlobAreaList = new List<double>();
+
+            ImageBlob.GetContourAreaAndPosition(selectMat,BlobPosList, BlobAreaList);
+
             OutputImage = ImageBlob.GetContourToImage(selectMat, InputImage, ref _info);
             OutputMat = selectMat?.Clone();
             Info = _info;
@@ -130,12 +146,16 @@ namespace OpenCvSharpTool
             {
                 ToolRunBox.OutputObjects["Blob分析_" + nameof(OutputImage)] = OutputImage;
                 ToolRunBox.OutputObjects["Blob分析_" + nameof(OutputMat)] = OutputMat;
+                ToolRunBox.OutputObjects["Blob分析_" + nameof(BlobPosList)] = BlobPosList;
+                ToolRunBox.OutputObjects["Blob分析_" + nameof(BlobAreaList)] = BlobAreaList;
                 ToolRunBox.OutputObjects["Blob分析_" + nameof(Info)] = Info;
             }
             else
             {
                 ToolRunBox.OutputObjects.Add("Blob分析_" + nameof(OutputImage), OutputImage);
                 ToolRunBox.OutputObjects.Add("Blob分析_" + nameof(OutputMat), OutputMat);
+                ToolRunBox.OutputObjects.Add("Blob分析_" + nameof(BlobPosList), BlobPosList);
+                ToolRunBox.OutputObjects.Add("Blob分析_" + nameof(BlobAreaList), BlobAreaList);
                 ToolRunBox.OutputObjects.Add("Blob分析_" + nameof(Info), Info);
             }
 
@@ -160,7 +180,10 @@ namespace OpenCvSharpTool
             {
                 {nameof(OutputImage), OutputImage},
                 {nameof(OutputMat), OutputMat },
+                { nameof(BlobPosList),BlobPosList},
+                {nameof(BlobAreaList),BlobAreaList},
                 {nameof(Info), Info},
+
             };
 
             if (OutputParams != null)

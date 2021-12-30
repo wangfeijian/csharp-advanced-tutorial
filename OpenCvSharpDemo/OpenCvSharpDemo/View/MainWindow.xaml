@@ -10,7 +10,7 @@
     xmlns:openCvSharpDemo="clr-namespace:OpenCvSharpDemo"
     xmlns:openCvSharpTool="clr-namespace:OpenCvSharpTool;assembly=OpenCvSharpTool"
     xmlns:view="clr-namespace:OpenCvSharpDemo.View"
-    Title="OpenCVSharpDemo"
+    Title="视觉框架"
     Width="800"
     Height="600"
     WindowStartupLocation="CenterScreen"

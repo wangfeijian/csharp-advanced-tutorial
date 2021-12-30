@@ -15,6 +15,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <FontFamily x:Key="iconfont">/CustomerControl;component/Fonts/#IconFont</FontFamily>
+    <FontFamily x:Key="robotfont">/CustomerControl;component/Fonts/Roboto-Light.ttf #Roboto</FontFamily>
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
     <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
     <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
@@ -38,7 +40,7 @@
     <Style x:Key="LabelListViewStyle" TargetType="{x:Type Label}">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#IconFont" />
+        <Setter Property="FontFamily" Value="{StaticResource iconfont}" />
         <Setter Property="FontSize" Value="40" />
         <Setter Property="Height" Value="50" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -48,7 +50,7 @@
             <ContentPresenter
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                TextBlock.FontFamily="pack://application:,,,/Fonts/#IconFont" />
+                TextBlock.FontFamily="{StaticResource iconfont}" />
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsDefaulted" Value="true">
@@ -105,7 +107,7 @@
             <ContentPresenter
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                TextBlock.FontFamily="pack://application:,,,/Fonts/#IconFont" />
+                TextBlock.FontFamily="/CustomerControl;component/Fonts/#IconFont" />
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="True">
@@ -126,7 +128,7 @@
             <ContentPresenter
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                TextBlock.FontFamily="pack://application:,,,/Fonts/#IconFont" />
+                TextBlock.FontFamily="{StaticResource iconfont}" />
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="True">
@@ -186,7 +188,7 @@
     </Style>
     <Style x:Key="FontStyle" TargetType="TextBlock">
 
-        <Setter Property="FontFamily" Value="../Fonts/Roboto-Light.ttf #Roboto" />
+        <Setter Property="FontFamily" Value="{StaticResource robotfont}" />
 
         <Setter Property="VerticalAlignment" Value="Center" />
 
@@ -209,7 +211,7 @@
         <Setter Property="Background" Value="#4A5668" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Foreground" Value="White" />
-        <Setter Property="FontFamily" Value="../Fonts/Roboto-Light.ttf #Roboto" />
+        <Setter Property="FontFamily" Value="{StaticResource robotfont}" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="PlacementRectangle" Value="60,0,0,0" />
         <Setter Property="HorizontalOffset" Value="15" />

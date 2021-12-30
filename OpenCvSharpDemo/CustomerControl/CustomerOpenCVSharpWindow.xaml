@@ -275,7 +275,7 @@
             ClipToBounds="True"
             MouseEnter="ShowBorder_OnMouseEnter">
             <Border.ContextMenu>
-                <ContextMenu Name="BorderMenu">
+                <ContextMenu Name="BorderMenu" FontFamily="{StaticResource iconfont}">
                     <MenuItem
                         x:Name="MenuItemPoint"
                         Click="MenuItem_OnClick"

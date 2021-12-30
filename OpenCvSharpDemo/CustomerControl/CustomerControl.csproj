@@ -84,7 +84,27 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Fonts\cursor.cur" />
+    <Content Include="Fonts\demo.css" />
+    <Content Include="Fonts\demo_index.html" />
+    <Content Include="Fonts\iconfont.css" />
+    <Content Include="Fonts\iconfont.js" />
+    <Content Include="Fonts\抓手128.png" />
+    <Content Include="Fonts\抓手16.png" />
+    <Content Include="Fonts\抓手32.png" />
+    <Content Include="Fonts\抓手64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Fonts\download.zip" />
+    <None Include="Fonts\iconfont.json" />
+    <Resource Include="Fonts\iconfont.ttf" />
+    <None Include="Fonts\iconfont.woff" />
+    <None Include="Fonts\iconfont.woff2" />
+    <Resource Include="Fonts\Roboto-Light.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -177,11 +177,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Fonts\cursor.cur" />
     <Content Include="Fonts\demo.css" />
     <Content Include="Fonts\demo_index.html" />
     <Content Include="Fonts\iconfont.css" />
     <Content Include="Fonts\iconfont.js" />
-    <Resource Include="icon.ico" />
+    <Resource Include="Fonts\抓手128.png" />
+    <Resource Include="Fonts\抓手16.png" />
+    <Resource Include="Fonts\抓手32.png" />
+    <Resource Include="Fonts\抓手64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
