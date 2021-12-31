@@ -162,9 +162,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomerControl\CustomerControl.csproj">
+    <ProjectReference Include="..\ImageDisplay\ImageDisplay.csproj">
       <Project>{4a09f00d-79db-4d6d-b242-d3b6b87ee904}</Project>
-      <Name>CustomerControl</Name>
+      <Name>ImageDisplay</Name>
     </ProjectReference>
     <ProjectReference Include="..\OpenCvSharpTool\OpenCvSharpTool.csproj">
       <Project>{15903311-c7ac-48d2-8581-4c56f5365a75}</Project>

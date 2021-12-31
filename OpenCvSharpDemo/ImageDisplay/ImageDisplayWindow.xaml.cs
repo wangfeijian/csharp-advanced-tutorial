@@ -27,7 +27,7 @@ using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Point = System.Drawing.Point;
 using StrokeCollection = System.Windows.Ink.StrokeCollection;
 
-namespace CustomerControl
+namespace ImageDisplay
 {
     /// <summary>
     /// 绘制模式
@@ -54,7 +54,7 @@ namespace CustomerControl
     /// <summary>
     /// CustomerOpenCVSharpWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class CustomerOpenCVSharpWindow : UserControl
+    public partial class ImageDisplayWindow : UserControl
     {
         private System.Windows.Controls.Image movingObject;  // 记录当前被拖拽移动的图片
         private System.Windows.Point StartPosition; // 本次移动开始时的坐标点位置
@@ -65,7 +65,7 @@ namespace CustomerControl
         private bool _isMove;
         private Stroke _stroke;
 
-        public CustomerOpenCVSharpWindow()
+        public ImageDisplayWindow()
         {
             InitializeComponent();
             StrokeCollections = new StrokeCollection();
@@ -104,7 +104,7 @@ namespace CustomerControl
 
         // Using a DependencyProperty as the backing store for StrokeCollections.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StrokeCollectionsProperty =
-            DependencyProperty.Register(nameof(StrokeCollection), typeof(StrokeCollection), typeof(CustomerOpenCVSharpWindow));
+            DependencyProperty.Register(nameof(StrokeCollection), typeof(StrokeCollection), typeof(ImageDisplayWindow));
 
 
         public Brush CameraColor
@@ -115,7 +115,7 @@ namespace CustomerControl
 
         // Using a DependencyProperty as the backing store for CameraColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CameraColorProperty =
-            DependencyProperty.Register(nameof(CameraColor), typeof(Brush), typeof(CustomerOpenCVSharpWindow));
+            DependencyProperty.Register(nameof(CameraColor), typeof(Brush), typeof(ImageDisplayWindow));
 
         public WriteableBitmap ShowImageBitmap
         {
@@ -125,7 +125,7 @@ namespace CustomerControl
 
         // Using a DependencyProperty as the backing store for ShowImageBitmap.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowImageBitmapProperty =
-            DependencyProperty.Register(nameof(ShowImageBitmap), typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
+            DependencyProperty.Register(nameof(ShowImageBitmap), typeof(WriteableBitmap), typeof(ImageDisplayWindow));
 
         public WriteableBitmap SaveImageBitmap
         {
@@ -135,7 +135,7 @@ namespace CustomerControl
 
         // Using a DependencyProperty as the backing store for SaveImageBitmap.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SaveImageBitmapProperty =
-            DependencyProperty.Register(nameof(SaveImageBitmap), typeof(WriteableBitmap), typeof(CustomerOpenCVSharpWindow));
+            DependencyProperty.Register(nameof(SaveImageBitmap), typeof(WriteableBitmap), typeof(ImageDisplayWindow));
 
 
         private void ShowBorder_OnMouseEnter(object sender, MouseEventArgs e)

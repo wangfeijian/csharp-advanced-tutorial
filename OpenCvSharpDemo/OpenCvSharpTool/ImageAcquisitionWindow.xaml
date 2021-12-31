@@ -2,7 +2,7 @@
     x:Class="OpenCvSharpTool.ImageAcquisitionWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:customerControl="clr-namespace:CustomerControl;assembly=CustomerControl"
+    xmlns:customerControl="clr-namespace:ImageDisplay;assembly=ImageDisplay"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:OpenCvSharpTool"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -22,7 +22,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border BorderBrush="Gainsboro" BorderThickness="1">
-                <customerControl:CustomerOpenCVSharpWindow x:Name="ShowImageWindow" CameraColor="#27D0D8" />
+                <customerControl:ImageDisplayWindow x:Name="ShowImageWindow" CameraColor="#27D0D8" />
             </Border>
             <Grid Grid.Row="1">
                 <StackPanel
