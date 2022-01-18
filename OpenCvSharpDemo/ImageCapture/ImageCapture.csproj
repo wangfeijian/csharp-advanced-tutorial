@@ -4,18 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A096EF2F-1500-48B5-A656-A4DF1BD4637F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestDemo</RootNamespace>
-    <AssemblyName>TestDemo</AssemblyName>
+    <RootNamespace>ImageCapture</RootNamespace>
+    <AssemblyName>ImageCapture</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,6 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Basler.Pylon, Version=1.1.0.0, Culture=neutral, PublicKeyToken=e389355f398382ab, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Basler.Pylon.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>DLL\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="OpenCvSharp">
       <HintPath>..\..\..\..\..\..\Study\dotNet\csharp-advanced-tutorial\OpenCvSharpDemo\packages\OpenCvSharp4.4.5.3.20210725\lib\net461\OpenCvSharp.dll</HintPath>
     </Reference>
@@ -41,7 +45,7 @@
       <HintPath>..\..\..\..\..\..\Study\dotNet\csharp-advanced-tutorial\OpenCvSharpDemo\packages\OpenCvSharp4.4.5.3.20210725\lib\net461\OpenCvSharp.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="OpenCvSharp.WpfExtensions">
-      <HintPath>..\VisionFroOpenCvSharpDll\bin\Debug\OpenCvSharp.WpfExtensions.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Study\dotNet\csharp-advanced-tutorial\OpenCvSharpDemo\packages\OpenCvSharp4.WpfExtensions.4.5.3.20210725\lib\net461\OpenCvSharp.WpfExtensions.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -56,17 +60,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="CaptureBase.cs" />
+    <Compile Include="CaptureBasler.cs" />
+    <Compile Include="ImageConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ImageCapture\ImageCapture.csproj">
-      <Project>{7bdde773-30d0-428a-b4b3-4314febf47a1}</Project>
-      <Name>ImageCapture</Name>
-    </ProjectReference>
+    <Compile Include="SingleInstanceTemplate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

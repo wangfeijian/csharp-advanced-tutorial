@@ -115,6 +115,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageCapture\ImageCapture.csproj">
+      <Project>{7bdde773-30d0-428a-b4b3-4314febf47a1}</Project>
+      <Name>ImageCapture</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageDisplay\ImageDisplay.csproj">
       <Project>{4a09f00d-79db-4d6d-b242-d3b6b87ee904}</Project>
       <Name>ImageDisplay</Name>

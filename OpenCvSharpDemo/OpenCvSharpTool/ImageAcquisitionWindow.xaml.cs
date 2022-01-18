@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using ImageCapture;
 using Microsoft.Win32;
 
 namespace OpenCvSharpTool
@@ -26,6 +27,8 @@ namespace OpenCvSharpTool
     {
         public ImageAcquisitionTool ImageGrabTool { get; set; }
         public TreeViewItem ToolTreeViewItem { get; set; }
+
+        public CaptureBase CaptureInstance { get; set; }
 
         private int _index;
         private bool _isStop;
