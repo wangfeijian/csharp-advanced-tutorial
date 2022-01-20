@@ -11,7 +11,7 @@ using OpenCvSharp.WpfExtensions;
 
 namespace ImageCapture
 {
-    public class CaptureImageConverter
+    public static class CaptureImageConverter
     {
         /// <summary>
         /// Bitmap转WriteableBitmap
@@ -19,7 +19,7 @@ namespace ImageCapture
         /// <param name="bitmap"></param>
         /// <param name="tempWriteableBitmap"></param>
         /// <returns></returns>
-        public static WriteableBitmap BitmapToWriteableBitmap(Bitmap bitmap)
+        public static WriteableBitmap BitmapToWriteableBitmap(this Bitmap bitmap)
         {
             WriteableBitmap tempWriteableBitmap;
             Mat tempMat = bitmap.ToMat();
@@ -36,7 +36,7 @@ namespace ImageCapture
         /// </summary>
         /// <param name="writeableBitmap"></param>
         /// <returns></returns>
-        public static Bitmap WriteableBitmapToBitmap(WriteableBitmap writeableBitmap)
+        public static Bitmap WriteableBitmapToBitmap(this WriteableBitmap writeableBitmap)
         {
             Bitmap tempBitmap;
             Mat tempMat = writeableBitmap.ToMat();

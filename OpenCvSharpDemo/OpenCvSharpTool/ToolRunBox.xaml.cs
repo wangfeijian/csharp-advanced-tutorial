@@ -133,16 +133,53 @@ namespace OpenCvSharpTool
 
         private void ToolTreeView_OnDrop(object sender, DragEventArgs e)
         {
-            TreeViewItem treeView = (TreeViewItem)e.Data.GetData(typeof(TreeViewItem));
-
             TreeViewItem targetTree = e.Source as TreeViewItem;
-            int index = ToolTreeView.Items.IndexOf(targetTree);
-            if (index > ToolTreeView.Items.Count - 1 || index < 0)
+
+            if (targetTree != null)
             {
-                return;
+                TreeViewItem treeView = (TreeViewItem)e.Data.GetData(typeof(TreeViewItem));
+
+                if (treeView != null)
+                {
+                    int index = ToolTreeView.Items.IndexOf(targetTree);
+                    if (index > ToolTreeView.Items.Count - 1 || index < 0)
+                    {
+                        return;
+                    }
+                    ToolTreeView.Items.Remove(treeView);
+                    ToolTreeView.Items.Insert(index, treeView);
+                }
             }
-            ToolTreeView.Items.Remove(treeView);
-            ToolTreeView.Items.Insert(index, treeView);
+            else
+            {
+                ToolBase tempToolBase = e.Data.GetData("UIElement") as ToolBase;
+                if (tempToolBase != null)
+                {
+                    TreeViewItem tree = CreateTreeView(tempToolBase.ToolDesStr);
+
+                    tempToolBase.ContextMenu = null;
+                    tree.Tag = tempToolBase;
+                    tree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
+                    ToolTreeView.Items.Add(tree);
+                }
+            }
+        }
+
+        private void Tree_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TreeViewItem treeViewItem = sender as TreeViewItem;
+            ToolBase tool = treeViewItem.Tag as ToolBase;
+            tool.UIElement_OnPreviewMouseLeftButtonDown(sender, e);
+        }
+
+        private TreeViewItem CreateTreeView(string name)
+        {
+            TreeViewItem nameItem = new TreeViewItem { Header = name };
+            TreeViewItem inputItem = new TreeViewItem { Header = "输入" };
+            TreeViewItem outputItem = new TreeViewItem { Header = "输出" };
+            nameItem.Items.Add(inputItem);
+            nameItem.Items.Add(outputItem);
+            return nameItem;
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)

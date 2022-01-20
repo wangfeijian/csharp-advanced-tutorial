@@ -66,6 +66,7 @@ namespace OpenCvSharpTool
             InitializeComponent();
             ImageGrab = new ImageGrab();
             ToolDesStr = "图像采集";
+            ToolTip = "图像采集";
             ToolIcon = "\xe967";
         }
 

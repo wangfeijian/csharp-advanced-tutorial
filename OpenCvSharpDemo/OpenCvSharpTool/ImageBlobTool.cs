@@ -64,6 +64,7 @@ namespace OpenCvSharpTool
             InitializeComponent();
             ImageBlob = new ImageBlob();
             ToolDesStr = "Blob分析";
+            ToolTip = "Blob分析";
             ToolIcon = "\xe729";
         }
 

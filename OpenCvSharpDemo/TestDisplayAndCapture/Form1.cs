@@ -79,7 +79,7 @@ namespace TestDisplayAndCapture
             if (_isSingle)
             {
                 _capture.Snap();
-                _tempWriteableBitmap = CaptureImageConverter.BitmapToWriteableBitmap(_capture.GetImage(true));
+                _tempWriteableBitmap = _capture.GetImage(true).BitmapToWriteableBitmap();
                 imageDisplay.ShowImageBitmap = _tempWriteableBitmap;
             }
             else
@@ -103,7 +103,7 @@ namespace TestDisplayAndCapture
             }
 
             _capture.Grab();
-            _tempWriteableBitmap = CaptureImageConverter.BitmapToWriteableBitmap(_capture.GetImage(true));
+            _tempWriteableBitmap = _capture.GetImage(true).BitmapToWriteableBitmap();
             imageDisplay.ShowImageBitmap = _tempWriteableBitmap;
         }
     }

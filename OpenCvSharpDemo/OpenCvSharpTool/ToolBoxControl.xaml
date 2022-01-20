@@ -10,6 +10,14 @@
     Loaded="ToolBoxControl_OnLoaded"
     mc:Ignorable="d">
     <GroupBox FontSize="18" Header="工具箱">
-        <StackPanel x:Name="ToolStackPanel" Margin="2" />
+        <StackPanel
+            x:Name="ToolStackPanel"
+            PreviewMouseLeftButtonDown="ToolStackPanel_OnPreviewMouseLeftButtonDown"
+            PreviewMouseLeftButtonUp="ToolStackPanel_OnMouseLeftButtonUp"
+            PreviewMouseMove="ToolStackPanel_OnPreviewMouseMove"
+            DragEnter="ToolStackPanel_OnDragEnter"
+            Drop="ToolStackPanel_OnDrop"
+            Margin="2"
+            AllowDrop="True" />
     </GroupBox>
 </UserControl>
