@@ -40,6 +40,7 @@
                     Content="&#xe6c8;"
                     Height="20"
                     Margin="2"
+                    Click="RadioButtonPoint_OnClick"
                     FontSize="15"
                     Foreground="#333333"
                     IsChecked="True"
@@ -50,6 +51,7 @@
                     Content="&#xe659;"
                     Height="20"
                     Margin="2"
+                    Click="RadioButtonHand_OnClick"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource RadioButtonTemplate}"
@@ -113,6 +115,7 @@
                     Click="InitInkCanvas"
                     FontSize="15"
                     Foreground="#333333"
+                    IsChecked="False"
                     Template="{StaticResource CheckBoxTemplate}"
                     ToolTip="是否开启ROI绘制" />
                 <RadioButton
@@ -124,6 +127,7 @@
                     FontSize="15"
                     Foreground="#333333"
                     IsChecked="True"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
                     Tag="0"
                     Template="{StaticResource RadioButtonTemplate}"
                     ToolTip="任意绘制" />
@@ -135,6 +139,7 @@
                     Click="DrawModeSelect"
                     FontSize="15"
                     Foreground="#333333"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
                     Tag="1"
                     Template="{StaticResource RadioButtonTemplate}"
                     ToolTip="画线" />
@@ -146,6 +151,7 @@
                     Click="DrawModeSelect"
                     FontSize="15"
                     Foreground="#333333"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
                     Tag="2"
                     Template="{StaticResource RadioButtonTemplate}"
                     ToolTip="画矩形" />
@@ -157,6 +163,7 @@
                     Click="DrawModeSelect"
                     FontSize="15"
                     Foreground="#333333"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
                     Tag="3"
                     Template="{StaticResource RadioButtonTemplate}"
                     ToolTip="画圆" />
@@ -165,6 +172,7 @@
                     Width="12"
                     Height="12"
                     Margin="2"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
                     SelectionChanged="ColorComboBox_OnSelectionChanged"
                     ToolTip="画笔颜色">
                     <ComboBoxItem
@@ -202,7 +210,10 @@
                         Background="Black" />
                 </ComboBox>
             </StackPanel>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <StackPanel
+                Grid.Column="2"
+                IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
+                Orientation="Horizontal">
                 <Separator
                     Width="1"
                     Height="15"
@@ -272,8 +283,7 @@
             Name="ShowBorder"
             Grid.Row="1"
             Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=CameraColor}"
-            ClipToBounds="True"
-            MouseEnter="ShowBorder_OnMouseEnter">
+            ClipToBounds="True">
             <Border.ContextMenu>
                 <ContextMenu Name="BorderMenu" FontFamily="{StaticResource iconfont}">
                     <MenuItem
@@ -416,13 +426,13 @@
                     Width="{Binding Path=ActualWidth, ElementName=ShowImage}"
                     Height="{Binding Path=ActualHeight, ElementName=ShowImage}"
                     Background="{x:Null}"
-                    Cursor="Pen"
+                    EditingMode="None"
                     MouseMove="InkCanvasImage_OnMouseMove"
+                    MouseWheel="ShowImage_OnMouseWheel"
                     PreviewMouseDown="InkCanvasImage_OnMouseDown"
                     PreviewMouseUp="InkCanvasImage_OnMouseUp"
                     Strokes="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=StrokeCollections}"
-                    UseCustomCursor="True"
-                    Visibility="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                    UseCustomCursor="True">
                     <InkCanvas.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform />
@@ -434,7 +444,7 @@
                         <DrawingAttributes
                             Width="1"
                             Height="1"
-                            IgnorePressure="True"
+                            IgnorePressure="False"
                             IsHighlighter="False" />
                     </InkCanvas.DefaultDrawingAttributes>
                 </InkCanvas>

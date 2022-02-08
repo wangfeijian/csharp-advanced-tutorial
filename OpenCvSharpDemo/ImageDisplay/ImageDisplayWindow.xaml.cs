@@ -57,6 +57,7 @@ namespace ImageDisplay
     public partial class ImageDisplayWindow : UserControl
     {
         private System.Windows.Controls.Image movingObject;  // 记录当前被拖拽移动的图片
+        private InkCanvas movingInk;  // 记录当前被拖拽移动的画板
         private System.Windows.Point StartPosition; // 本次移动开始时的坐标点位置
         private System.Windows.Point EndPosition;   // 本次移动结束时的坐标点位置
         private InkCanvasEditingMode _inkCanvasEditingMode;
@@ -338,12 +339,14 @@ namespace ImageDisplay
                 case "指针":
                     RadioButtonPoint.IsChecked = !menu.IsChecked;
                     RadioButtonHand.IsChecked = !RadioButtonPoint.IsChecked;
-                    ShowBorder_OnMouseEnter(null, null);
+                    InkCanvasImage.Cursor = Cursors.Arrow;
+                    //ShowBorder_OnMouseEnter(null, null);
                     break;
                 case "平移":
                     RadioButtonHand.IsChecked = !menu.IsChecked;
                     RadioButtonPoint.IsChecked = !RadioButtonHand.IsChecked;
-                    ShowBorder_OnMouseEnter(null, null);
+                    InkCanvasImage.Cursor = Cursors.Hand;
+                    //ShowBorder_OnMouseEnter(null, null);
                     break;
             }
         }
@@ -596,11 +599,15 @@ namespace ImageDisplay
         /// <param name="e"></param>
         private void InitInkCanvas(object sender, RoutedEventArgs e)
         {
+            //Visibility="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}"
             if (CheckBoxInkCanvasEnable.IsChecked != true)
             {
+                InkCanvasImage.Cursor = Cursors.Arrow;
+                InkCanvasImage.EditingMode = InkCanvasEditingMode.None;
                 return;
             }
 
+            InkCanvasImage.Cursor = Cursors.Pen;
             InkCanvasImage.EditingMode = _inkCanvasEditingMode;
             SetInkCanvasDrawingAttributes();
         }
@@ -641,6 +648,11 @@ namespace ImageDisplay
 
         private void DrawModeSelect(object sender, RoutedEventArgs e)
         {
+            if (CheckBoxInkCanvasEnable.IsChecked != true || RadioButtonHand.IsChecked == true)
+            {
+                return;
+            }
+
             RadioButton radioButton = sender as RadioButton;
 
             if (radioButton.IsChecked == true)
@@ -668,6 +680,11 @@ namespace ImageDisplay
 
         private void InkCanvasEditingModeSelect(object sender, RoutedEventArgs e)
         {
+            if (CheckBoxInkCanvasEnable.IsChecked != true || RadioButtonHand.IsChecked == true)
+            {
+                return;
+            }
+
             RadioButton radioButton = sender as RadioButton;
 
             InkCanvasImage.UseCustomCursor = radioButton.Tag.ToString() == "1";
@@ -682,6 +699,19 @@ namespace ImageDisplay
 
         private void InkCanvasImage_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (RadioButtonHand.IsChecked == true)
+            {
+                InkCanvas inkCanvas = sender as InkCanvas;
+                movingInk = inkCanvas;
+                StartPosition = e.GetPosition(inkCanvas);
+                return;
+            }
+
+            if (CheckBoxInkCanvasEnable.IsChecked != true)
+            {
+                return;
+            }
+
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 _drawPoint = e.GetPosition(InkCanvasImage);
@@ -691,6 +721,38 @@ namespace ImageDisplay
 
         private void InkCanvasImage_OnMouseMove(object sender, MouseEventArgs e)
         {
+            if (RadioButtonHand.IsChecked == true)
+            {
+                InkCanvas img = sender as InkCanvas;
+                if (e.LeftButton == MouseButtonState.Pressed && sender == movingInk)
+                {
+                    EndPosition = e.GetPosition(img);
+
+                    TransformGroup tg = img.RenderTransform as TransformGroup;
+                    var tgnew = tg.CloneCurrentValue();
+                    if (tgnew != null)
+                    {
+                        TranslateTransform tt = tgnew.Children[0] as TranslateTransform;
+
+                        var X = EndPosition.X - StartPosition.X;
+                        var Y = EndPosition.Y - StartPosition.Y;
+                        tt.X += X;
+                        tt.Y += Y;
+                    }
+
+                    // 重新给图像赋值Transform变换属性
+                    img.RenderTransform = tgnew;
+                    ShowImage.RenderTransform = tgnew;
+                }
+
+                return;
+            }
+
+            if (CheckBoxInkCanvasEnable.IsChecked != true || RadioButtonHand.IsChecked == true)
+            {
+                return;
+            }
+
             if (!_isMove || _inkCanvasEditingMode != InkCanvasEditingMode.None)
             {
                 return;
@@ -788,6 +850,16 @@ namespace ImageDisplay
         }
         private void InkCanvasImage_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
+            if (movingInk != null)
+            {
+                movingInk = null;
+            }
+
+            if (CheckBoxInkCanvasEnable.IsChecked != true || RadioButtonHand.IsChecked == true)
+            {
+                return;
+            }
+
             if (_drawMode == DrawMode.Any || _inkCanvasEditingMode != InkCanvasEditingMode.None)
             {
                 return;
@@ -874,5 +946,19 @@ namespace ImageDisplay
             }
         }
 
+        private void RadioButtonPoint_OnClick(object sender, RoutedEventArgs e)
+        {
+            CheckBoxInkCanvasEnable.IsEnabled = true;
+            InkCanvasImage.Cursor = Cursors.Arrow;
+            InkCanvasImage.EditingMode = _inkCanvasEditingMode;
+        }
+
+        private void RadioButtonHand_OnClick(object sender, RoutedEventArgs e)
+        {
+            CheckBoxInkCanvasEnable.IsEnabled = false;
+            CheckBoxInkCanvasEnable.IsChecked = false;
+            InkCanvasImage.Cursor = Cursors.Hand;
+            InkCanvasImage.EditingMode = InkCanvasEditingMode.None;
+        }
     }
 }

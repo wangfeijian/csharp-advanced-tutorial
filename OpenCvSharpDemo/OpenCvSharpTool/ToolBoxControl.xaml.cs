@@ -66,7 +66,7 @@ namespace OpenCvSharpTool
         {
             _isDown = false;
             _isDragging = false;
-            _realDragSource.ReleaseMouseCapture();
+            _realDragSource?.ReleaseMouseCapture();
         }
 
         private void ToolStackPanel_OnPreviewMouseMove(object sender, MouseEventArgs e)
