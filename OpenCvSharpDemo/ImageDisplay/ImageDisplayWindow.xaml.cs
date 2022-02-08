@@ -576,20 +576,46 @@ namespace ImageDisplay
         /// <param name="e"></param>
         private void SaveProcessImage(object sender, RoutedEventArgs e)
         {
-            if (ShowImageBitmap == null)
-            {
-                MessageBox.Show("图片不存在，未加载！");
-                return;
-            }
-
             try
             {
-                SaveImageToFile(ShowImageBitmap);
+                RenderTargetBitmap bmp = new RenderTargetBitmap((int)ShowBorder.ActualWidth, (int)ShowBorder.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
+                bmp.Render(ShowBorder);
+                BitmapSource bmpSource = new CroppedBitmap(BitmapFrame.Create(bmp), new Int32Rect(0, 0, (int)ShowBorder.ActualWidth, (int)ShowBorder.ActualHeight));
+                var bitImg = ImageSourceToBitmap(bmpSource);
+
+                SaveFileDialog sfd = new SaveFileDialog
+                {
+                    DefaultExt = "jpg",
+                    Filter = "jpg files(*.jpg)|*.jpg|png files(*.png)|*.png|bmp files(*.bmp)|*.bmp"
+                };
+
+                if (sfd.ShowDialog() == true)
+                {
+                    //if (ShowImageBitmap == null)
+                    //{
+                    //    MessageBox.Show("图片不存在，未加载！");
+                    //    return;
+                    //}
+
+
+                    bitImg.Save(sfd.FileName);
+                }
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.ToString());
             }
+        }
+
+        private Bitmap ImageSourceToBitmap(ImageSource imageSource)
+        {
+            BitmapSource bitmapSource = (BitmapSource)imageSource;
+            Bitmap bmp = new Bitmap(bitmapSource.PixelWidth, bitmapSource.PixelHeight, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            BitmapData data = bmp.LockBits(
+                new System.Drawing.Rectangle(System.Drawing.Point.Empty, bmp.Size), ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            bitmapSource.CopyPixels(Int32Rect.Empty, data.Scan0, data.Height * data.Stride, data.Stride);
+            bmp.UnlockBits(data);
+            return bmp;
         }
 
         /// <summary>
