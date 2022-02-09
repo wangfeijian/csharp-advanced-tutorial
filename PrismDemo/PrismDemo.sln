@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismDemo", "PrismDemo\PrismDemo.csproj", "{A1A15ADC-B2E6-4BAE-A0F4-EE29B5941D00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismRegionDemo", "PrismRegionDemo\PrismRegionDemo.csproj", "{8C9075FB-056B-4D73-B3A5-57367DB70A26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismModuleA", "PrismModuleA\PrismModuleA.csproj", "{A47FA557-128D-4839-82C0-6F3BE51085E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismModuleB", "PrismModuleB\PrismModuleB.csproj", "{F8DD3880-434D-41D4-A545-F9C40AD7677D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1A15ADC-B2E6-4BAE-A0F4-EE29B5941D00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1A15ADC-B2E6-4BAE-A0F4-EE29B5941D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1A15ADC-B2E6-4BAE-A0F4-EE29B5941D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1A15ADC-B2E6-4BAE-A0F4-EE29B5941D00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C9075FB-056B-4D73-B3A5-57367DB70A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C9075FB-056B-4D73-B3A5-57367DB70A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C9075FB-056B-4D73-B3A5-57367DB70A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C9075FB-056B-4D73-B3A5-57367DB70A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A47FA557-128D-4839-82C0-6F3BE51085E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A47FA557-128D-4839-82C0-6F3BE51085E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A47FA557-128D-4839-82C0-6F3BE51085E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A47FA557-128D-4839-82C0-6F3BE51085E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8DD3880-434D-41D4-A545-F9C40AD7677D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8DD3880-434D-41D4-A545-F9C40AD7677D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8DD3880-434D-41D4-A545-F9C40AD7677D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8DD3880-434D-41D4-A545-F9C40AD7677D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
