@@ -578,10 +578,10 @@ namespace ImageDisplay
         {
             try
             {
-                RenderTargetBitmap bmp = new RenderTargetBitmap((int)ShowBorder.ActualWidth, (int)ShowBorder.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
-                bmp.Render(ShowBorder);
-                BitmapSource bmpSource = new CroppedBitmap(BitmapFrame.Create(bmp), new Int32Rect(0, 0, (int)ShowBorder.ActualWidth, (int)ShowBorder.ActualHeight));
-                var bitImg = ImageSourceToBitmap(bmpSource);
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)SaveCanvas.Width, (int)SaveCanvas.Height, 96, 96,  PixelFormats.Default);
+                rtb.Render(InkCanvasImage);
+                BmpBitmapEncoder encoder = new BmpBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(rtb));
 
                 SaveFileDialog sfd = new SaveFileDialog
                 {
@@ -591,14 +591,10 @@ namespace ImageDisplay
 
                 if (sfd.ShowDialog() == true)
                 {
-                    //if (ShowImageBitmap == null)
-                    //{
-                    //    MessageBox.Show("图片不存在，未加载！");
-                    //    return;
-                    //}
-
-
-                    bitImg.Save(sfd.FileName);
+                    using (Stream stm = File.Create(sfd.FileName))
+                    {
+                        encoder.Save(stm);
+                    }
                 }
             }
             catch (Exception exception)
@@ -747,6 +743,13 @@ namespace ImageDisplay
 
         private void InkCanvasImage_OnMouseMove(object sender, MouseEventArgs e)
         {
+            System.Windows.Point pointP = e.GetPosition(ShowImage);
+            double scale = ShowImage.ActualWidth / ShowImageBitmap.PixelWidth;
+            XPos = pointP.X / scale;
+            YPos = pointP.Y / scale;
+            TextBlockPos.Text = MousePos;
+            ShowPixel();
+
             if (RadioButtonHand.IsChecked == true)
             {
                 InkCanvas img = sender as InkCanvas;
@@ -976,7 +979,7 @@ namespace ImageDisplay
         {
             CheckBoxInkCanvasEnable.IsEnabled = true;
             InkCanvasImage.Cursor = Cursors.Arrow;
-            InkCanvasImage.EditingMode = _inkCanvasEditingMode;
+            InkCanvasImage.EditingMode = InkCanvasEditingMode.None;
         }
 
         private void RadioButtonHand_OnClick(object sender, RoutedEventArgs e)

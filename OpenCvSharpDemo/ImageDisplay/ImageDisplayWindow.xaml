@@ -421,33 +421,42 @@
                         </TransformGroup>
                     </Image.RenderTransform>
                 </Image>
-                <InkCanvas
-                    x:Name="InkCanvasImage"
+                <Canvas
+                    x:Name="SaveCanvas"
                     Width="{Binding Path=ActualWidth, ElementName=ShowImage}"
                     Height="{Binding Path=ActualHeight, ElementName=ShowImage}"
-                    Background="{x:Null}"
-                    EditingMode="None"
-                    MouseMove="InkCanvasImage_OnMouseMove"
-                    MouseWheel="ShowImage_OnMouseWheel"
-                    PreviewMouseDown="InkCanvasImage_OnMouseDown"
-                    PreviewMouseUp="InkCanvasImage_OnMouseUp"
-                    Strokes="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=StrokeCollections}"
-                    UseCustomCursor="True">
-                    <InkCanvas.RenderTransform>
-                        <TransformGroup>
-                            <TranslateTransform />
-                            <ScaleTransform />
-                            <RotateTransform />
-                        </TransformGroup>
-                    </InkCanvas.RenderTransform>
-                    <InkCanvas.DefaultDrawingAttributes>
-                        <DrawingAttributes
-                            Width="1"
-                            Height="1"
-                            IgnorePressure="False"
-                            IsHighlighter="False" />
-                    </InkCanvas.DefaultDrawingAttributes>
-                </InkCanvas>
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <InkCanvas
+                        x:Name="InkCanvasImage"
+                        Width="{Binding Path=ActualWidth, ElementName=ShowImage}"
+                        Height="{Binding Path=ActualHeight, ElementName=ShowImage}"
+                        EditingMode="None"
+                        MouseMove="InkCanvasImage_OnMouseMove"
+                        MouseWheel="ShowImage_OnMouseWheel"
+                        PreviewMouseDown="InkCanvasImage_OnMouseDown"
+                        PreviewMouseUp="InkCanvasImage_OnMouseUp"
+                        Strokes="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=StrokeCollections}"
+                        UseCustomCursor="True">
+                        <InkCanvas.Background>
+                            <ImageBrush ImageSource="{Binding ElementName=ShowImage, Path=Source}" />
+                        </InkCanvas.Background>
+                        <InkCanvas.RenderTransform>
+                            <TransformGroup>
+                                <TranslateTransform />
+                                <ScaleTransform />
+                                <RotateTransform />
+                            </TransformGroup>
+                        </InkCanvas.RenderTransform>
+                        <InkCanvas.DefaultDrawingAttributes>
+                            <DrawingAttributes
+                                Width="1"
+                                Height="1"
+                                IgnorePressure="False"
+                                IsHighlighter="False" />
+                        </InkCanvas.DefaultDrawingAttributes>
+                    </InkCanvas>
+                </Canvas>
             </Grid>
         </Border>
         <Grid Grid.Row="2">
