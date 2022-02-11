@@ -29,7 +29,7 @@ namespace PrismModuleA.ViewModels
 
         private void Cancel()
         {
-            _eventAggregator.GetEvent<MessageEvent>().Publish("Hello");
+            _eventAggregator.GetEvent<MessageEvent>().Publish("publish");
             RequestClose?.Invoke(new DialogResult(ButtonResult.No));
         }
 
