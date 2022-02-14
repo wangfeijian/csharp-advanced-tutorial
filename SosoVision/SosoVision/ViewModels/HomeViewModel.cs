@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Prism.Commands;
+using Prism.DryIoc;
 using Prism.Ioc;
 using SosoVision.Common;
+using SosoVision.Views;
 
 namespace SosoVision.ViewModels
 {
@@ -14,6 +16,7 @@ namespace SosoVision.ViewModels
         private ISosoLogManager _sosoLogManager;
         public HomeViewModel(IContainerProvider containerProvider)
         {
+            
             _sosoLogManager = containerProvider.Resolve<ISosoLogManager>();
             ShowLogCommand = new DelegateCommand<string>(str =>
             {

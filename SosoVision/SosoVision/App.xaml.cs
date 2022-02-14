@@ -11,6 +11,8 @@ using NLog.Targets;
 using Prism.DryIoc;
 using Prism.Events;
 using Prism.Ioc;
+using Prism.Mvvm;
+using Prism.Regions;
 using SosoVision.Common;
 using SosoVision.Extensions;
 using SosoVision.ViewModels;
@@ -23,21 +25,22 @@ namespace SosoVision
     /// </summary>
     public partial class App
     {
-        public SerializationData SerializationData { get; set; }
-
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<ISosoLogManager, SosoLogManager>();
+            containerRegistry.RegisterSingleton<IConfigureService, ConfigureService>();
             containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
-        }
+            containerRegistry.RegisterForNavigation<SettingView, SettingViewModel>();
 
-        protected override void Initialize()
-        {
-            if (File.Exists("config.json"))
+            var configureService = Container.Resolve<IConfigureService>();
+            if (configureService.SerializationData.ProcedureParams != null)
             {
-                SerializationData = JsonConvert.DeserializeObject<SerializationData>(File.ReadAllText("config.json"));
+                foreach (var title in configureService.SerializationData.ProcedureParams)
+                {
+                    containerRegistry.RegisterInstance(typeof(VisionProcessView), new VisionProcessView(), title.Name);
+                    //containerRegistry.RegisterForNavigation<VisionProcessView, VisionProcessViewModel>(title.Name);
+                }
             }
-            base.Initialize();
         }
 
         protected override Window CreateShell()
@@ -51,9 +54,6 @@ namespace SosoVision
             {
                 var service = Current.MainWindow.DataContext as IConfigureService;
                 service?.Configure();
-
-                var viewModel = Current.MainWindow.DataContext as MainViewModel;
-                if (viewModel != null && SerializationData!=null) viewModel.VisionStepCollection = SerializationData.VisionTitle;
             }
 
             base.OnInitialized();

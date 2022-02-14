@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
+using Prism.Ioc;
 using SosoVision.Extensions;
 using SosoVision.ViewModels;
 
@@ -59,16 +60,12 @@ namespace SosoVision.Views
             paletteHelper.SetTheme(theme);
         }
 
-        private void MainView_OnClosing(object sender, CancelEventArgs e)
+        private void DrawerHost_OnDrawerOpened(object sender, DrawerOpenedEventArgs e)
         {
-            var viewModel = DataContext as MainViewModel;
-
-            if (viewModel != null)
+            if (drawerHost.IsLeftDrawerOpen)
             {
-                SerializationData = new SerializationData { VisionTitle = viewModel.VisionStepCollection };
+                DemoItemsListBox.SelectedItem = null;
             }
-
-            File.WriteAllText("config.json", JsonConvert.SerializeObject(SerializationData));
         }
     }
 }

@@ -16,7 +16,6 @@
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="微软雅黑"
     TextElement.FontSize="13"
-    Closing="MainView_OnClosing"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
@@ -29,6 +28,7 @@
         Identifier="Root">
         <materialDesign:DrawerHost
             x:Name="drawerHost"
+            DrawerOpened="DrawerHost_OnDrawerOpened"
             IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}"
             IsRightDrawerOpen="{Binding ElementName=LogToggleButton, Path=IsChecked}">
             <materialDesign:DrawerHost.LeftDrawerContent>
@@ -41,19 +41,6 @@
                         DockPanel.Dock="Top"
                         IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"
                         Style="{StaticResource MaterialDesignActionToggleButton}" />
-
-                    <TextBox
-                        x:Name="DemoItemsSearchBox"
-                        Width="200"
-                        Margin="10"
-                        materialDesign:HintAssist.Hint="输入流程名称，添加删除流程"
-                        materialDesign:HintAssist.IsFloating="True"
-                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
-                        materialDesign:TextFieldAssist.HasClearButton="True"
-                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
-                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
-                        DockPanel.Dock="Top"
-                        Text="{Binding AddVisionKeyWord, UpdateSourceTrigger=PropertyChanged}" />
 
                     <GroupBox Header="视觉处理流程" Style="{DynamicResource MaterialDesignCardGroupBox}">
                         <GroupBox.HeaderTemplate>
@@ -69,7 +56,7 @@
                                         VerticalAlignment="Center"
                                         Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                         Text="{Binding}" />
-                                    <Button
+                                    <!--<Button
                                         Margin="10,0,0,0"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
@@ -89,14 +76,25 @@
                                         Style="{StaticResource MaterialDesignFlatButton}"
                                         ToolTip="删除流程">
                                         -
-                                    </Button>
+                                    </Button>-->
                                 </StackPanel>
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>
                         <ListBox
                             x:Name="DemoItemsListBox"
-                            ItemsSource="{Binding VisionStepCollection}"
-                            PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" />
+                            ItemsSource="{Binding ProcedureParamCollection}"
+                            PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="SelectionChanged">
+                                    <b:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </GroupBox>
 
                 </DockPanel>
@@ -172,8 +170,7 @@
                                 Content="{materialDesign:PackIcon Kind=Home,
                                                                   Size=24}"
                                 materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"
-                                Command="{Binding NavigateCommand}"
-                                CommandParameter="HomeView"
+                                Command="{Binding HomeCommand}"
                                 Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
                                 Style="{DynamicResource MaterialDesignToolButton}"
                                 ToolTip="主页" />
@@ -206,7 +203,7 @@
                                         </StackPanel>
                                     </Button>
 
-                                    <Button>
+                                    <Button Command="{Binding DataContext.ShowDialogCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="SettingView">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Eye" />
                                             <TextBlock Margin="5,0" Text="视觉配置" />
@@ -253,7 +250,10 @@
                     </DockPanel>
                 </materialDesign:ColorZone>
 
-                <ContentControl Grid.Row="1" mvvm:RegionManager.RegionName="{x:Static extension:PrismManager.MainViewRegionName}" />
+                <ContentControl
+                    x:Name="ViewContent"
+                    Grid.Row="1"
+                    mvvm:RegionManager.RegionName="{x:Static extension:PrismManager.MainViewRegionName}" />
             </Grid>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
