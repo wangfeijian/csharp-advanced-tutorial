@@ -115,6 +115,10 @@
     <Compile Include="Views\VisionProcessView.xaml.cs">
       <DependentUpon>VisionProcessView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Theme\TabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

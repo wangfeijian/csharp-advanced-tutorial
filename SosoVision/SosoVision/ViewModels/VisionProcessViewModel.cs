@@ -20,15 +20,15 @@ namespace SosoVision.ViewModels
         public ProcedureParam ProcedureParam
         {
             get { return _procedureParam; }
-            set { _procedureParam = value; RaisePropertyChanged();}
+            set { _procedureParam = value; RaisePropertyChanged(); }
         }
 
         public VisionProcessViewModel()
         {
-            
+
         }
 
-        public VisionProcessViewModel(IContainerProvider containerProvider,string title)
+        public VisionProcessViewModel(IContainerProvider containerProvider, string title)
         {
             var config = containerProvider.Resolve<IConfigureService>();
             foreach (var param in config.SerializationData.ProcedureParams)

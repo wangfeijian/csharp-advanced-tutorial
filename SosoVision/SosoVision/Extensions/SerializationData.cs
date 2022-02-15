@@ -14,5 +14,17 @@ namespace SosoVision.Extensions
     public class SerializationData
     {
         public ObservableCollection<ProcedureParam> ProcedureParams { get; set; }
+        public ObservableCollection<string> ShowListCollection {
+            get
+            {
+                ObservableCollection<string> temp = new ObservableCollection<string>();
+                foreach (var procedureParam in ProcedureParams)
+                {
+                    temp.Add(procedureParam.Name);
+                }
+
+                return temp;
+            }
+        }
     }
 }

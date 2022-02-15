@@ -5,8 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ImTools;
 using Newtonsoft.Json;
+using Prism.DryIoc;
 using Prism.Ioc;
+using Prism.Regions;
 using SosoVision.Extensions;
 using SosoVision.ViewModels;
 using SosoVision.Views;
@@ -15,12 +18,12 @@ namespace SosoVision.Common
 {
     public class ConfigureService : IConfigureService
     {
-        private readonly IContainerProvider _containerProvider;
+        private readonly IRegionManager _regionManager;
         public SerializationData SerializationData { get; set; }
 
-        public ConfigureService(IContainerProvider containerProvider)
+        public ConfigureService(IRegionManager regionManager)
         {
-            _containerProvider = containerProvider;
+            _regionManager = regionManager;
             Configure();
         }
 
@@ -38,18 +41,17 @@ namespace SosoVision.Common
 
                 foreach (var param in SerializationData.ProcedureParams)
                 {
-                    string dir = $"config/Vision/{param.Name}";
-                    if (!Directory.Exists(dir))
-                    {
-                        Directory.CreateDirectory(dir);
-                    }
-
-                    string fileName = $"{dir}/{param.Name}.json";
-
-                    var view = _containerProvider.Resolve(typeof(VisionProcessView), param.Name) as VisionProcessView;
+                    var view = _regionManager.Regions[PrismManager.MainViewRegionName].GetView(param.Name) as VisionProcessView;
                     var viewModel = view?.DataContext as VisionProcessViewModel;
                     if (viewModel != null)
                     {
+                        string dir = $"config/Vision/{param.Name}";
+                        if (!Directory.Exists(dir))
+                        {
+                            Directory.CreateDirectory(dir);
+                        }
+
+                        string fileName = $"{dir}/{param.Name}.json";
                         File.WriteAllText(fileName, JsonConvert.SerializeObject(viewModel));
                     }
                 }

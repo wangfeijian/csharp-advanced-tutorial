@@ -31,7 +31,7 @@ namespace SosoVision.ViewModels
         private readonly IDialogService _dialogService;
 
         private readonly IConfigureService _configureService;
-        public DelegateCommand<ProcedureParam> NavigateCommand { get; }
+        public DelegateCommand<string> NavigateCommand { get; }
         public DelegateCommand<string> ShowDialogCommand { get; }
         public DelegateCommand HomeCommand { get; }
 
@@ -50,6 +50,15 @@ namespace SosoVision.ViewModels
             get { return _procedureParamCollection; }
             set { _procedureParamCollection = value; RaisePropertyChanged(); }
         }
+
+        private ObservableCollection<string> _showListCollection;
+
+        public ObservableCollection<string> ShowListCollection
+        {
+            get { return _showListCollection; }
+            set { _showListCollection = value; RaisePropertyChanged();}
+        }
+
 
 
         public MainViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IContainerProvider containerProvider, IDialogService dialogService)
@@ -72,13 +81,14 @@ namespace SosoVision.ViewModels
                 LogStructs.Add(logStruct);
             });
 
-            NavigateCommand = new DelegateCommand<ProcedureParam>(Navigate);
+            NavigateCommand = new DelegateCommand<string>(Navigate);
             ShowDialogCommand = new DelegateCommand<string>(ShowDialog);
             HomeCommand = new DelegateCommand(() =>
             {
                 _regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("HomeView");
             });
 
+            ShowListCollection = _configureService.SerializationData.ShowListCollection;
             ProcedureParamCollection = _configureService.SerializationData.ProcedureParams;
         }
 
@@ -92,14 +102,20 @@ namespace SosoVision.ViewModels
             _dialogService.ShowDialog(obj);
         }
 
-        private void Navigate(ProcedureParam obj)
+        private void Navigate(string obj)
         {
-            if (obj == null || string.IsNullOrWhiteSpace(obj.Name))
+            if (obj == null || string.IsNullOrWhiteSpace(obj))
             {
                 return;
             }
+            var view = _regionManager.Regions[PrismManager.MainViewRegionName].GetView(obj) as VisionProcessView;
+            if (view == null)
+            {
+                MessageBox.Show("新添加视觉流程后，需要重启软件，才能打开对就的流程窗口");
+                return;
+            }
 
-            _regionManager.Regions[PrismManager.MainViewRegionName].Activate(_containerProvider.Resolve(typeof(VisionProcessView), obj.Name));
+            _regionManager.Regions[PrismManager.MainViewRegionName].Activate(view);
         }
 
         public void Configure(bool isSave = false)
@@ -123,7 +139,7 @@ namespace SosoVision.ViewModels
                         ? JsonConvert.DeserializeObject<VisionProcessViewModel>(File.ReadAllText(file))
                         : new VisionProcessViewModel(_containerProvider, procedureParam.Name);
 
-                    _regionManager.Regions[PrismManager.MainViewRegionName].Add(view);
+                    _regionManager.Regions[PrismManager.MainViewRegionName].Add(view, procedureParam.Name);
                 }
             }
         }

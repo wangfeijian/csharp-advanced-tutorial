@@ -82,7 +82,7 @@
                         </GroupBox.HeaderTemplate>
                         <ListBox
                             x:Name="DemoItemsListBox"
-                            ItemsSource="{Binding ProcedureParamCollection}"
+                            ItemsSource="{Binding ShowListCollection}"
                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="SelectionChanged">
@@ -91,7 +91,7 @@
                             </b:Interaction.Triggers>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text="{Binding}" />
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
