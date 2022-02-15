@@ -9,7 +9,14 @@
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
-    <Grid>
-        <TextBlock FontSize="40" Text="{Binding Title, StringFormat=视觉流程：{0}}" />
-    </Grid>
+    <StackPanel>
+        <TextBlock
+            Margin="5"
+            FontSize="40"
+            Text="{Binding ProcedureParam.Name, StringFormat=视觉流程：{0}}" />
+        <TextBox
+            Margin="5"
+            FontSize="20"
+            Text="{Binding ProcedureParam.Command}" />
+    </StackPanel>
 </UserControl>

@@ -80,8 +80,6 @@ namespace SosoVision.ViewModels
             });
 
             ProcedureParamCollection = _configureService.SerializationData.ProcedureParams;
-
-           
         }
 
         private void ShowDialog(string obj)
@@ -106,15 +104,28 @@ namespace SosoVision.ViewModels
 
         public void Configure(bool isSave = false)
         {
+            _regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("HomeView");
+
+            if (ProcedureParamCollection == null || ProcedureParamCollection.Count <= 0)
+            {
+                return;
+            }
+
             foreach (var procedureParam in ProcedureParamCollection)
             {
                 var view = _containerProvider.Resolve(typeof(VisionProcessView), procedureParam.Name) as VisionProcessView;
-                // todo 这里首先读一下文件，看是否有配置
-                view.DataContext = new VisionProcessViewModel(procedureParam.Name);
-                _regionManager.Regions[PrismManager.MainViewRegionName].Add(view);
-            }
 
-            _regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("HomeView");
+                string file = $"config/Vision/{procedureParam.Name}/{procedureParam.Name}.json";
+
+                if (view != null)
+                {
+                    view.DataContext = File.Exists(file)
+                        ? JsonConvert.DeserializeObject<VisionProcessViewModel>(File.ReadAllText(file))
+                        : new VisionProcessViewModel(_containerProvider, procedureParam.Name);
+
+                    _regionManager.Regions[PrismManager.MainViewRegionName].Add(view);
+                }
+            }
         }
     }
 }

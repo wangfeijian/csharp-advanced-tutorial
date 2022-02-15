@@ -28,7 +28,6 @@ namespace SosoVision.Views
     /// </summary>
     public partial class MainView : Window
     {
-        private SerializationData SerializationData { get; set; }
         public MainView()
         {
             InitializeComponent();

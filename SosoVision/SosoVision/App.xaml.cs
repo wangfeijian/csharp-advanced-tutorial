@@ -38,10 +38,18 @@ namespace SosoVision
                 foreach (var title in configureService.SerializationData.ProcedureParams)
                 {
                     containerRegistry.RegisterInstance(typeof(VisionProcessView), new VisionProcessView(), title.Name);
-                    //containerRegistry.RegisterForNavigation<VisionProcessView, VisionProcessViewModel>(title.Name);
                 }
             }
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            var configureService = Container.Resolve<IConfigureService>();
+            configureService.Configure(true);
+
+            base.OnExit(e);
+        }
+
 
         protected override Window CreateShell()
         {

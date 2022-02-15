@@ -5,25 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using DryIoc;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Regions;
+using SosoVision.Common;
 using SosoVision.Extensions;
 
 namespace SosoVision.ViewModels
 {
     public class VisionProcessViewModel : BindableBase
     {
-        private string _title;
+        private ProcedureParam _procedureParam;
 
-        public string Title
+        public ProcedureParam ProcedureParam
         {
-            get { return _title; }
-            set { _title = value; RaisePropertyChanged(); }
+            get { return _procedureParam; }
+            set { _procedureParam = value; RaisePropertyChanged();}
         }
 
-        public VisionProcessViewModel(string title)
+        public VisionProcessViewModel()
         {
-            Title = title;
+            
+        }
+
+        public VisionProcessViewModel(IContainerProvider containerProvider,string title)
+        {
+            var config = containerProvider.Resolve<IConfigureService>();
+            foreach (var param in config.SerializationData.ProcedureParams)
+            {
+                if (param.Name == title)
+                {
+                    ProcedureParam = param;
+                }
+            }
         }
 
     }
