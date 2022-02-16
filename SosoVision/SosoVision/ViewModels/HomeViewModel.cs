@@ -13,7 +13,7 @@ namespace SosoVision.ViewModels
 {
     public class HomeViewModel
     {
-        private ISosoLogManager _sosoLogManager;
+        private readonly ISosoLogManager _sosoLogManager;
         public HomeViewModel(IContainerProvider containerProvider)
         {
             

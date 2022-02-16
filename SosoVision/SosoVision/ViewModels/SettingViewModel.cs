@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -31,7 +32,7 @@ namespace SosoVision.ViewModels
 
         public DelegateCommand Confim { get; }
         public DelegateCommand Cancel { get; }
-        public DelegateCommand Delete { get; }
+        public DelegateCommand<object> Delete { get; }
 
         public SettingViewModel(IConfigureService configureService)
         {
@@ -39,21 +40,43 @@ namespace SosoVision.ViewModels
             ProcedureParams = _configureService.SerializationData.ProcedureParams;
             Confim = new DelegateCommand(() => { _isOkToClose = true; RequestClose?.Invoke(new DialogResult(ButtonResult.OK)); });
             Cancel = new DelegateCommand(() => { _isOkToClose = false; RequestClose?.Invoke(new DialogResult(ButtonResult.No)); });
-            Delete = new DelegateCommand(()=> {
-                _deleteCount= new List<ProcedureParam>();
-                foreach (var procedureParam in ProcedureParams)
-                {
-                    if (procedureParam.Delete)
-                    {
-                        _deleteCount.Add(procedureParam);
-                    }
-                }
+            Delete = new DelegateCommand<object>(DeleteItems);
+        }
 
-                foreach (var i in _deleteCount)
+        private void DeleteItems(object obj)
+        {
+            var temp = obj as TabControl;
+            if (temp != null)
+            {
+                var item = temp.SelectedItem as TabItem;
+                if (item != null)
+                    switch (item.Header.ToString())
+                    {
+                        case "检测设置":
+                            DeleteProcedureParam();
+                            break;
+                        case "显示设置":
+                            break;
+                        case "标定设置":
+                            break;
+                    }
+            }
+        }
+
+        private void DeleteProcedureParam()
+        {
+            _deleteCount = new List<ProcedureParam>();
+            foreach (var procedureParam in ProcedureParams)
+            {
+                if (procedureParam.Delete)
                 {
-                    ProcedureParams.Remove(i);
+                    _deleteCount.Add(procedureParam);
                 }
-            });
+            }
+            foreach (var i in _deleteCount)
+            {
+                ProcedureParams.Remove(i);
+            }
         }
 
         public bool CanCloseDialog()
@@ -74,7 +97,7 @@ namespace SosoVision.ViewModels
                 ProcedureParams.Clear();
                 foreach (var procedureParam in OldParams)
                 {
-                   ProcedureParams.Add(procedureParam);
+                    ProcedureParams.Add(procedureParam);
                 }
             }
         }

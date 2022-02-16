@@ -1,0 +1,388 @@
+﻿<UserControl
+    x:Class="ImageDisplay.ImageDisplayWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:CustomerControl.Service"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:halcon="clr-namespace:HalconDotNet;assembly=halcondotnet"
+    xmlns:imageDisplay="clr-namespace:ImageDisplay"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    Background="White"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/ButtonStyle.xaml" />
+                <ResourceDictionary Source="Theme/ComboxStyle.xaml" />
+                <ResourceDictionary Source="Theme/FontStyle.xaml" />
+                <ResourceDictionary Source="Theme/TabControlStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converter:ImagePartDecimalPlaceConverter x:Key="ImagePartDecimalPlaceConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton
+                    x:Name="RadioButtonPoint"
+                    Content="&#xe6c8;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsChecked="True"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="指针" />
+                <RadioButton
+                    x:Name="RadioButtonHand"
+                    Content="&#xe659;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsChecked="{Binding ElementName=ShowImage, Path=HMoveContent}"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="抓手" />
+
+                <Separator
+                    Width="1"
+                    Height="15"
+                    Margin="2"
+                    Foreground="#D3D3D3"
+                    Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                <Button
+                    x:Name="ButtonZoom"
+                    Content="&#xe601;"
+                    Height="20"
+                    Margin="2"
+                    Click="ZoomButton_Click"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource ButtonTemplate}"
+                    ToolTip="放大" />
+                <Button
+                    x:Name="ButtonNarrow"
+                    Content="&#xe600;"
+                    Height="20"
+                    Margin="2"
+                    Click="ZoomButton_Click"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource ButtonTemplate}"
+                    ToolTip="缩小" />
+                <Button
+                    Content="&#xe674;"
+                    Height="20"
+                    Margin="2"
+                    Click="FullShowImage"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource ButtonTemplate}"
+                    ToolTip="适应屏幕" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Separator
+                    Width="1"
+                    Height="15"
+                    Margin="2"
+                    Foreground="#D3D3D3"
+                    Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                <CheckBox
+                    x:Name="CheckBoxInkCanvasEnable"
+                    Content="&#xe602;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsChecked="False"
+                    Template="{StaticResource CheckBoxTemplate}"
+                    ToolTip="是否开启ROI绘制" />
+                <RadioButton
+                    x:Name="RadioButtonDrawAny"
+                    Content="&#xe607;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsChecked="True"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
+                    Tag="0"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="任意绘制" />
+                <RadioButton
+                    x:Name="RadioButtonDrawLine"
+                    Content="&#xe610;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
+                    Tag="1"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="画线" />
+                <RadioButton
+                    x:Name="RadioButtonDrawRectangle"
+                    Content="&#xe612;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
+                    Tag="2"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="画矩形" />
+                <RadioButton
+                    x:Name="RadioButtonDrawCircle"
+                    Content="&#xe80c;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
+                    Tag="3"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="画圆" />
+                <ComboBox
+                    x:Name="ColorComboBox"
+                    Width="12"
+                    Height="12"
+                    Margin="2"
+                    IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
+                    ToolTip="画笔颜色">
+                    <ComboBoxItem
+                        Content="红"
+                        Height="20"
+                        Background="#ff0000"
+                        IsSelected="True" />
+                    <ComboBoxItem
+                        Content="绿"
+                        Height="20"
+                        Background="#00ff00" />
+                    <ComboBoxItem
+                        Content="蓝"
+                        Height="20"
+                        Background="#0000ff" />
+                    <ComboBoxItem
+                        Content="黄"
+                        Height="20"
+                        Background="Yellow" />
+                    <ComboBoxItem
+                        Content="紫"
+                        Height="20"
+                        Background="Purple" />
+                    <ComboBoxItem
+                        Content="青"
+                        Height="20"
+                        Background="Cyan" />
+                    <ComboBoxItem
+                        Content="白"
+                        Height="20"
+                        Background="White" />
+                    <ComboBoxItem
+                        Content="黑"
+                        Height="20"
+                        Background="Black" />
+                </ComboBox>
+            </StackPanel>
+            <StackPanel
+                Grid.Column="2"
+                IsEnabled="{Binding ElementName=CheckBoxInkCanvasEnable, Path=IsChecked}"
+                Orientation="Horizontal">
+                <Separator
+                    Width="1"
+                    Height="15"
+                    Margin="2"
+                    Foreground="#D3D3D3"
+                    Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                <RadioButton
+                    x:Name="RadioButtonEdit"
+                    Content="&#xe635;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    IsChecked="True"
+                    Tag="1"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="绘制" />
+                <RadioButton
+                    x:Name="RadioButtonSelect"
+                    Content="&#xe629;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Tag="4"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="选择" />
+                <RadioButton
+                    x:Name="RadioButtonDelete"
+                    Content="&#xe611;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Tag="5"
+                    Template="{StaticResource RadioButtonTemplate}"
+                    ToolTip="擦除" />
+            </StackPanel>
+            <StackPanel
+                Grid.Column="3"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    Content="&#xe62d;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource ButtonTemplate}"
+                    ToolTip="保存原始图片" />
+                <Button
+                    Content="&#xe967;"
+                    Height="20"
+                    Margin="2"
+                    FontSize="15"
+                    Foreground="#333333"
+                    Template="{StaticResource ButtonTemplate}"
+                    ToolTip="保存截图" />
+            </StackPanel>
+        </Grid>
+        <Border
+            Name="ShowBorder"
+            Grid.Row="1"
+            Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=CameraColor}"
+            ClipToBounds="True">
+            <Border.ContextMenu>
+                <ContextMenu Name="BorderMenu" FontFamily="{StaticResource iconfont}">
+                    <MenuItem
+                        x:Name="MenuItemPoint"
+                        Click="MenuItem_OnClick"
+                        Header="指针"
+                        Icon="&#xe6c8;"
+                        IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonPoint}}" />
+                    <MenuItem
+                        x:Name="MenuItemMove"
+                        Click="MenuItem_OnClick"
+                        Header="平移"
+                        Icon="&#xe659;"
+                        IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonHand}}" />
+                    <MenuItem
+                        Click="MenuItem_OnClick"
+                        Header="放大"
+                        Icon="&#xe601;" />
+                    <MenuItem
+                        Click="MenuItem_OnClick"
+                        Header="缩小"
+                        Icon="&#xe600;" />
+                    <Separator />
+                    <MenuItem
+                        x:Name="MenuItemEditRoi"
+                        Header="绘制ROI"
+                        Icon="&#xe602;"
+                        IsChecked="{Binding Path=IsChecked, Source={x:Reference CheckBoxInkCanvasEnable}}" />
+                    <MenuItem Header="绘制" Icon="&#xe635;">
+                        <MenuItem
+                            Header="绘制任意区域"
+                            Icon="&#xe607;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDrawAny}}"
+                            Tag="0" />
+                        <MenuItem
+                            Header="绘制线段"
+                            Icon="&#xe610;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDrawLine}}"
+                            Tag="1" />
+                        <MenuItem
+                            Header="绘制矩形"
+                            Icon="&#xe612;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDrawRectangle}}"
+                            Tag="2" />
+                        <MenuItem
+                            Header="绘制椭圆"
+                            Icon="&#xe80c;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDrawCircle}}"
+                            Tag="3" />
+                    </MenuItem>
+                    <MenuItem Header="选择模式">
+                        <MenuItem
+                            Header="绘制"
+                            Icon="&#xe635;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonEdit}}"
+                            Tag="0" />
+                        <MenuItem
+                            Header="选择 移动"
+                            Icon="&#xe629;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonSelect}}"
+                            Tag="1" />
+                        <MenuItem
+                            Header="擦除"
+                            Icon="&#xe611;"
+                            IsChecked="{Binding Path=IsChecked, Source={x:Reference RadioButtonDelete}}"
+                            Tag="2" />
+                    </MenuItem>
+                </ContextMenu>
+            </Border.ContextMenu>
+            <halcon:HSmartWindowControlWPF
+                x:Name="ShowImage"
+                HMouseMove="ShowImage_OnHMouseMove"
+                HInitWindow="ShowImage_OnHInitWindow"
+                MouseEnter="ShowImage_OnMouseEnter">
+                <halcon:HIconicDisplayObjectWPF IconicObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=DisplayImage, Mode=TwoWay}" />
+                <halcon:HIconicDisplayObjectWPF IconicObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=DisplayRegion, Mode=TwoWay}" />
+            </halcon:HSmartWindowControlWPF>
+        </Border>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                x:Name="TextBlockPos"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                FontSize="10"
+                Foreground="#538A51"
+                Text="未加载图片"
+                ToolTip="坐标" />
+            <Separator
+                Grid.Column="1"
+                Width="1"
+                Height="10"
+                Margin="2"
+                HorizontalAlignment="Left"
+                Foreground="#D3D3D3"
+                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <TextBlock
+                x:Name="TextBlockPixel"
+                Grid.Column="2"
+                HorizontalAlignment="Right "
+                FontSize="10"
+                Foreground="#538A51"
+                Text="255"
+                ToolTip="灰度值/RGB值" />
+            <Separator
+                Grid.Column="2"
+                Width="1"
+                Height="10"
+                Margin="2"
+                HorizontalAlignment="Left"
+                Foreground="#D3D3D3"
+                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+        </Grid>
+    </Grid>
+</UserControl>

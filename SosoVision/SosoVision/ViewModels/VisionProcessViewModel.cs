@@ -20,7 +20,7 @@ namespace SosoVision.ViewModels
         public ProcedureParam ProcedureParam
         {
             get { return _procedureParam; }
-            set { _procedureParam = value; RaisePropertyChanged(); }
+            set { _procedureParam = value; RaisePropertyChanged();}
         }
 
         public VisionProcessViewModel()
