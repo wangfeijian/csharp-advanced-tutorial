@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1045032",
+      "name": "clear",
+      "font_class": "clear",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "11468160",
+      "name": "椭圆",
+      "font_class": "tuoyuan",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "109741",
+      "name": "fill",
+      "font_class": "fill",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "27520548",
+      "name": "区域",
+      "font_class": "quyu",
+      "unicode": "e933",
+      "unicode_decimal": 59699
+    },
+    {
       "icon_id": "10418295",
       "name": "生成轮廓",
       "font_class": "shengchenglunkuo",
