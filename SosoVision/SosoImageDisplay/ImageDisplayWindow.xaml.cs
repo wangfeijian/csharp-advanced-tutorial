@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using HalconDotNet;
+using Microsoft.Win32;
 
 namespace ImageDisplay
 {
-    public partial class ImageDisplayWindow : UserControl
+    public partial class ImageDisplayWindow
     {
         public ImageDisplayWindow()
         {
@@ -72,11 +74,18 @@ namespace ImageDisplay
             _drawObjects = new List<HTuple>();
             ShowImage.HMoveContent = false;
 
-            HWindow h = ShowImage.HalconWindow;
-            if (h != null)
+            try
             {
-                HOperatorSet.SetWindowParam(h, "background_color", CameraColor);
-                HOperatorSet.ClearWindow(h);
+                HWindow h = ShowImage.HalconWindow;
+                if (h != null)
+                {
+                    HOperatorSet.SetWindowParam(h, "background_color", CameraColor);
+                    HOperatorSet.ClearWindow(h);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
             }
         }
 
@@ -151,6 +160,10 @@ namespace ImageDisplay
         private void ZoomButton_Click(object sender, RoutedEventArgs e)
         {
             Button temp = sender as Button;
+            if (temp == null)
+            {
+                return;
+            }
             int scale = temp.ToolTip.ToString() == "放大" ? 10 : -10;
             ShowImage.HZoomWindowContents(ShowImage.ActualWidth / 2, ShowImage.ActualHeight / 2, scale);
             ShowImageScale();
@@ -174,104 +187,113 @@ namespace ImageDisplay
         /// <param name="e"></param>
         private void ShowImage_OnHMouseMove(object sender, HSmartWindowControlWPF.HMouseEventArgsWPF e)
         {
-            if (DisplayImage == null)
+            try
             {
-                return;
+                if (DisplayImage == null)
+                {
+                    return;
+                }
+
+                HTuple homMat2D;
+                HTuple imageX, imageY;
+                HTuple showX = new HTuple { [0] = 0, [1] = 0, [2] = ShowImage.ActualHeight };
+                HTuple showY = new HTuple { [0] = 0, [1] = ShowImage.ActualWidth, [2] = 0 };
+                HTuple partX = new HTuple
+                {
+                    [0] = 0,
+                    [1] = 0,
+                    [2] = ShowImage.HImagePart.Height,
+                };
+                HTuple partY = new HTuple
+                {
+                    [0] = 0,
+                    [1] = ShowImage.HImagePart.Width,
+                    [2] = 0,
+                };
+                HOperatorSet.VectorToHomMat2d(showX, showY, partX, partY, out homMat2D);
+                HOperatorSet.AffineTransPoint2d(homMat2D, e.X, e.Y, out imageX, out imageY);
+
+                int posX = (int)(imageX.D + ShowImage.HImagePart.Left);
+                int posY = (int)(imageY.D + ShowImage.HImagePart.Top);
+                TextBlockPos.Text = $"X:{posX},  Y:{posY}";
+                ShowImageScale();
+
+                HTuple channels;
+                HOperatorSet.CountChannels(DisplayImage, out channels);
+                if (channels[0].I == 1)
+                {
+                    ShowImagePixel(posY, posX, false);
+                }
+                else
+                {
+                    ShowImagePixel(posY, posX);
+                }
+
+                homMat2D.Dispose();
+                imageX.Dispose();
+                imageY.Dispose();
+                showX.Dispose();
+                showY.Dispose();
+                partX.Dispose();
+                partY.Dispose();
+                channels.Dispose();
             }
-
-            HTuple homMat2D = new HTuple();
-            HTuple imageX = new HTuple(), imageY = new HTuple();
-            HTuple showX = new HTuple { [0] = 0, [1] = 0, [2] = ShowImage.ActualHeight };
-            HTuple showY = new HTuple { [0] = 0, [1] = ShowImage.ActualWidth, [2] = 0 };
-            HTuple partX = new HTuple
+            catch (Exception exception)
             {
-                [0] = 0,
-                [1] = 0,
-                [2] = ShowImage.HImagePart.Height,
-            };
-            HTuple partY = new HTuple
-            {
-                [0] = 0,
-                [1] = ShowImage.HImagePart.Width,
-                [2] = 0,
-            };
-            HOperatorSet.VectorToHomMat2d(showX, showY, partX, partY, out homMat2D);
-            HOperatorSet.AffineTransPoint2d(homMat2D, e.X, e.Y, out imageX, out imageY);
-
-            int posX = (int)(imageX.D + ShowImage.HImagePart.Left);
-            int posY = (int)(imageY.D + ShowImage.HImagePart.Top);
-            TextBlockPos.Text = $"X:{posX},  Y:{posY}";
-            ShowImageScale();
-
-            HTuple channels = new HTuple();
-            HOperatorSet.CountChannels(DisplayImage, out channels);
-            if (channels[0].I == 1)
-            {
-                ShowImagePixel(posY, posX, false);
+                MessageBox.Show(exception.ToString());
             }
-            else
-            {
-                ShowImagePixel(posY, posX);
-            }
-
-            homMat2D.Dispose();
-            imageX.Dispose();
-            imageY.Dispose();
-            showX.Dispose();
-            showY.Dispose();
-            partX.Dispose();
-            partY.Dispose();
-            channels.Dispose();
         }
 
         private void ShowImagePixel(int row, int col, bool isColor = true)
         {
-            HTuple width = new HTuple();
-            HTuple height = new HTuple();
-            HOperatorSet.GetImageSize(DisplayImage, out width, out height);
-
-            if (row < 0 || row >= height || col < 0 || col >= width)
+            try
             {
+                HTuple width, height;
+                HOperatorSet.GetImageSize(DisplayImage, out width, out height);
+
+                if (row < 0 || row >= height || col < 0 || col >= width)
+                {
+                    width.Dispose();
+                    height.Dispose();
+                    return;
+                }
+
+                if (isColor)
+                {
+                    HObject rImg, gImg, bImg;
+                    HOperatorSet.Decompose3(DisplayImage, out rImg, out gImg, out bImg);
+
+                    HTuple rVal, gVal, bVal;
+                    HOperatorSet.GetGrayval(rImg, row, col, out rVal);
+                    HOperatorSet.GetGrayval(gImg, row, col, out gVal);
+                    HOperatorSet.GetGrayval(bImg, row, col, out bVal);
+
+                    TextBlockPixel.Text = $"R: {rVal}  G： {gVal}  B: {bVal}";
+
+                    rImg.Dispose();
+                    gImg.Dispose();
+                    bImg.Dispose();
+                    rVal.Dispose();
+                    gVal.Dispose();
+                    bVal.Dispose();
+                }
+                else
+                {
+                    HTuple grayVal;
+                    HOperatorSet.GetGrayval(DisplayImage, row, col, out grayVal);
+
+                    TextBlockPixel.Text = grayVal.ToString();
+
+                    grayVal.Dispose();
+                }
+
                 width.Dispose();
                 height.Dispose();
-                return;
             }
-
-            if (isColor)
+            catch (Exception e)
             {
-                HObject rImg = new HObject();
-                HObject gImg = new HObject();
-                HObject bImg = new HObject();
-                HOperatorSet.Decompose3(DisplayImage, out rImg, out gImg, out bImg);
-
-                HTuple rVal = new HTuple();
-                HTuple gVal = new HTuple();
-                HTuple bVal = new HTuple();
-                HOperatorSet.GetGrayval(rImg, row, col, out rVal);
-                HOperatorSet.GetGrayval(gImg, row, col, out gVal);
-                HOperatorSet.GetGrayval(bImg, row, col, out bVal);
-
-                TextBlockPixel.Text = $"R: {rVal}  G： {gVal}  B: {bVal}";
-
-                rImg.Dispose();
-                gImg.Dispose();
-                bImg.Dispose();
-                rVal.Dispose();
-                gVal.Dispose();
-                bVal.Dispose();
+                MessageBox.Show(e.ToString());
             }
-            else
-            {
-                HTuple grayVal = new HTuple();
-                HOperatorSet.GetGrayval(DisplayImage, row, col, out grayVal);
-
-                TextBlockPixel.Text = grayVal.ToString();
-
-                grayVal.Dispose();
-            }
-
-            width.Dispose();
-            height.Dispose();
         }
 
         private void ShowImageScale()
@@ -289,6 +311,10 @@ namespace ImageDisplay
         private void ButtonDrawLine_OnClick(object sender, RoutedEventArgs e)
         {
             Button temp = sender as Button;
+            if (temp == null)
+            {
+                return;
+            }
             string index = temp.Tag.ToString();
 
             DrawObjectToWindow(index);
@@ -300,33 +326,43 @@ namespace ImageDisplay
         /// <param name="index">类型</param>
         private void DrawObjectToWindow(string index)
         {
-            HTuple draw = new HTuple();
-
-            switch (index)
+            try
             {
-                case "1":
-                    HOperatorSet.CreateDrawingObjectLine(100, 100, 200, 200, out draw);
-                    HOperatorSet.SetDrawingObjectParams(draw, "line_width", 1);
-                    break;
-                case "2":
-                    HOperatorSet.CreateDrawingObjectRectangle2(200, 200, 0, 100, 100, out draw);
-                    break;
-                case "3":
-                    HOperatorSet.CreateDrawingObjectCircle(200, 200, 50, out draw);
-                    break;
-                case "4":
-                    HOperatorSet.CreateDrawingObjectEllipse(200, 200, 0, 100, 60, out draw);
-                    break;
-            }
+                HTuple draw = new HTuple();
 
-            HOperatorSet.AttachDrawingObjectToWindow(ShowImage.HalconWindow, draw);
-            _drawObjects.Add(draw);
+                switch (index)
+                {
+                    case "1":
+                        HOperatorSet.CreateDrawingObjectLine(100, 100, 200, 200, out draw);
+                        HOperatorSet.SetDrawingObjectParams(draw, "line_width", 1);
+                        break;
+                    case "2":
+                        HOperatorSet.CreateDrawingObjectRectangle2(200, 200, 0, 100, 100, out draw);
+                        break;
+                    case "3":
+                        HOperatorSet.CreateDrawingObjectCircle(200, 200, 50, out draw);
+                        break;
+                    case "4":
+                        HOperatorSet.CreateDrawingObjectEllipse(200, 200, 0, 100, 60, out draw);
+                        break;
+                }
+
+                HOperatorSet.AttachDrawingObjectToWindow(ShowImage.HalconWindow, draw);
+                _drawObjects.Add(draw);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
 
         private void MenuItemDraw_OnClick(object sender, RoutedEventArgs e)
         {
             MenuItem temp = sender as MenuItem;
-
+            if (temp == null)
+            {
+                return;
+            }
             string index = temp.Tag.ToString();
 
             DrawObjectToWindow(index);
@@ -340,71 +376,82 @@ namespace ImageDisplay
         private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
         {
             Button temp = sender as Button;
+            if (temp == null)
+            {
+                return;
+            }
             string index = temp.Tag.ToString();
             CollectionEdit(index);
         }
 
         private void CollectionEdit(string index)
         {
-            HTuple param;
-            HObject region;
-            HOperatorSet.GenEmptyObj(out region);
-
-            if (_drawObjects.Count > 0)
+            try
             {
-                foreach (var drawingObject in _drawObjects)
+                HTuple param;
+                HObject region;
+                HOperatorSet.GenEmptyObj(out region);
+
+                if (_drawObjects.Count > 0)
                 {
-                    HObject unionRegion;
-                    HOperatorSet.GenEmptyObj(out unionRegion);
-                    HObject tempRegion;
-                    HOperatorSet.GetDrawingObjectIconic(out tempRegion, drawingObject);
-                    HOperatorSet.GetDrawingObjectParams(drawingObject, "line_width", out param);
-                    if (param == 1)
+                    foreach (var drawingObject in _drawObjects)
                     {
-                        region = tempRegion;
-                        DisplayRegion = region;
-                        param.Dispose();
-                        ClearAllObjects();
-                        return;
-                    }
+                        HObject unionRegion;
+                        HOperatorSet.GenEmptyObj(out unionRegion);
+                        HObject tempRegion;
+                        HOperatorSet.GetDrawingObjectIconic(out tempRegion, drawingObject);
+                        HOperatorSet.GetDrawingObjectParams(drawingObject, "line_width", out param);
+                        if (param == 1)
+                        {
+                            region = tempRegion;
+                            DisplayRegion = region;
+                            param.Dispose();
+                            ClearAllObjects();
+                            return;
+                        }
 
-                    if (index == "0" || index == "2" || index == "3")
-                    {
-                        HOperatorSet.Union2(region, tempRegion, out unionRegion);
-                    }
-                    else
-                    {
-                        HObject equalRegion;
-                        HTuple isEqual;
-                        HOperatorSet.GenEmptyObj(out equalRegion);
-                        HOperatorSet.TestEqualObj(equalRegion, region, out isEqual);
-
-                        if (isEqual)
+                        if (index == "0" || index == "2" || index == "3")
                         {
                             HOperatorSet.Union2(region, tempRegion, out unionRegion);
                         }
                         else
                         {
-                            HOperatorSet.Intersection(region, tempRegion, out unionRegion);
+                            HObject equalRegion;
+                            HTuple isEqual;
+                            HOperatorSet.GenEmptyObj(out equalRegion);
+                            HOperatorSet.TestEqualObj(equalRegion, region, out isEqual);
+
+                            if (isEqual)
+                            {
+                                HOperatorSet.Union2(region, tempRegion, out unionRegion);
+                            }
+                            else
+                            {
+                                HOperatorSet.Intersection(region, tempRegion, out unionRegion);
+                            }
+
                         }
 
+                        region = unionRegion;
+                        DisplayRegion = region;
                     }
 
-                    region = unionRegion;
-                    DisplayRegion = region;
+                    if (index == "3")
+                    {
+                        HObject interRegion;
+                        HOperatorSet.Complement(DisplayRegion, out interRegion);
+                        DisplayRegion = interRegion;
+                    }
                 }
 
-                if (index == "3")
-                {
-                    HObject interRegion;
-                    HOperatorSet.Complement(DisplayRegion, out interRegion);
-                    DisplayRegion = interRegion;
-                }
+                HOperatorSet.Connection(DisplayRegion, out region);
+                DisplayRegion = region;
+                ClearAllObjects();
             }
-
-            HOperatorSet.Connection(DisplayRegion, out region);
-            DisplayRegion = region;
-            ClearAllObjects();
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
 
         private void ClearAllObjects()
@@ -440,17 +487,94 @@ namespace ImageDisplay
         private void MenuItemCollection_OnClick(object sender, RoutedEventArgs e)
         {
             MenuItem temp = sender as MenuItem;
+            if (temp == null)
+            {
+                return;
+            }
             string index = temp.Tag.ToString();
             CollectionEdit(index);
         }
 
         private void ButtonClearRegion_OnClick(object sender, RoutedEventArgs e)
         {
-            HObject tempRegion;
-            HOperatorSet.GenEmptyObj(out tempRegion);
-            DisplayRegion = tempRegion;
+            try
+            {
+                HObject tempRegion;
+                HOperatorSet.GenEmptyObj(out tempRegion);
+                DisplayRegion = tempRegion;
 
-            tempRegion.Dispose();
+                tempRegion.Dispose();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 保存图片到文件
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="fileExt"></param>
+        private bool SaveImageToFile(out string fileName, out string fileExt)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                DefaultExt = "jpg",
+                Filter = "jpeg files(*.jpeg)|*.jpeg|tiff files(*.tiff)|*.tiff|bmp files(*.bmp)|*.bmp"
+            };
+
+            if (sfd.ShowDialog() == true)
+            {
+                fileName = sfd.FileName;
+                fileExt = Path.GetExtension(fileName).Substring(1, Path.GetExtension(fileName).Length - 1);
+                return true;
+            }
+
+            fileName = "";
+            fileExt = "";
+            return false;
+        }
+
+        private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button temp = sender as Button;
+            if (temp == null)
+            {
+                return;
+            }
+
+            if (DisplayImage == null)
+            {
+                MessageBox.Show("未加载任何图片，无法保存");
+                return;
+            }
+
+            string fileName, fileExt;
+            if (!SaveImageToFile(out fileName, out fileExt))
+                return;
+
+            try
+            {
+                if (temp.Name == "ButtonSave")
+                {
+                    HOperatorSet.WriteImage(DisplayImage, fileExt, 0, fileName);
+                }
+                else
+                {
+                    HObject tempObject;
+                    HOperatorSet.DumpWindowImage(out tempObject, ShowImage.HalconWindow);
+                    HOperatorSet.WriteImage(tempObject, fileExt, 0, fileName);
+                    tempObject.Dispose();
+                }
+
+                MessageBox.Show("保存成功！！");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("保存失败！！");
+                MessageBox.Show(exception.ToString());
+            }
         }
     }
 }

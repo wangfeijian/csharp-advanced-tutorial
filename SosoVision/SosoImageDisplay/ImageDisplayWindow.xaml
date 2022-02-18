@@ -253,17 +253,21 @@
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
                 <Button
+                    x:Name="ButtonSave"
                     Content="&#xe62d;"
                     Height="20"
                     Margin="2"
+                    Click="ButtonSave_OnClick"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource ButtonTemplate}"
                     ToolTip="保存原始图片" />
                 <Button
+                    x:Name="ButtonSaveRegion"
                     Content="&#xe967;"
                     Height="20"
                     Margin="2"
+                    Click="ButtonSave_OnClick"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource ButtonTemplate}"
