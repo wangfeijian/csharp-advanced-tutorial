@@ -27,7 +27,6 @@ namespace SosoVision.ViewModels
         public SerializationData SerializationData { get; set; }
 
         private readonly IRegionManager _regionManager;
-        private readonly IContainerProvider _containerProvider;
         private readonly IDialogService _dialogService;
 
         private readonly IConfigureService _configureService;
@@ -56,20 +55,19 @@ namespace SosoVision.ViewModels
         public ObservableCollection<string> ShowListCollection
         {
             get { return _showListCollection; }
-            set { _showListCollection = value; RaisePropertyChanged();}
+            set { _showListCollection = value; RaisePropertyChanged(); }
         }
 
 
 
-        public MainViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IContainerProvider containerProvider, IDialogService dialogService)
+        public MainViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
-            _containerProvider = containerProvider;
             _dialogService = dialogService;
 
             LogStructs = new ObservableCollection<LogStruct>();
 
-            _configureService = containerProvider.Resolve<IConfigureService>();
+            _configureService = ContainerLocator.Container.Resolve<IConfigureService>();
 
             eventAggregator.GetEvent<MessageEvent>().Subscribe((logStruct) =>
             {
@@ -108,7 +106,7 @@ namespace SosoVision.ViewModels
             {
                 return;
             }
-            var view = _regionManager.Regions[PrismManager.MainViewRegionName].GetView(obj) as VisionProcessView;
+            var view = _regionManager.Regions[PrismManager.MainViewRegionName].GetView(obj);
             if (view == null)
             {
                 MessageBox.Show("新添加视觉流程后，需要重启软件，才能打开对就的流程窗口");
@@ -129,16 +127,10 @@ namespace SosoVision.ViewModels
 
             foreach (var procedureParam in ProcedureParamCollection)
             {
-                var view = _containerProvider.Resolve(typeof(VisionProcessView), procedureParam.Name) as VisionProcessView;
-
-                string file = $"config/Vision/{procedureParam.Name}/{procedureParam.Name}.json";
+                var view = ContainerLocator.Container.Resolve(typeof(VisionProcessView), procedureParam.Name);
 
                 if (view != null)
                 {
-                    view.DataContext = File.Exists(file)
-                        ? JsonConvert.DeserializeObject<VisionProcessViewModel>(File.ReadAllText(file))
-                        : new VisionProcessViewModel(_containerProvider, procedureParam.Name);
-
                     _regionManager.Regions[PrismManager.MainViewRegionName].Add(view, procedureParam.Name);
                 }
             }

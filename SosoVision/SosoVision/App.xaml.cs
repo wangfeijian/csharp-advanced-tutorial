@@ -37,7 +37,12 @@ namespace SosoVision
             {
                 foreach (var title in configureService.SerializationData.ProcedureParams)
                 {
-                    containerRegistry.RegisterInstance(typeof(VisionProcessView), new VisionProcessView(), title.Name);
+                    string file = $"config/Vision/{title.Name}/{title.Name}.json";
+                    var viewModel = File.Exists(file)
+                        ? JsonConvert.DeserializeObject<VisionProcessViewModel>(File.ReadAllText(file))
+                        : new VisionProcessViewModel(title.Name);
+                    var view = new VisionProcessView {DataContext = viewModel};
+                    containerRegistry.RegisterInstance(typeof(VisionProcessView), view, title.Name);
                 }
             }
         }

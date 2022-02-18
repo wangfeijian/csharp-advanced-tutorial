@@ -502,8 +502,6 @@ namespace ImageDisplay
                 HObject tempRegion;
                 HOperatorSet.GenEmptyObj(out tempRegion);
                 DisplayRegion = tempRegion;
-
-                tempRegion.Dispose();
             }
             catch (Exception exception)
             {

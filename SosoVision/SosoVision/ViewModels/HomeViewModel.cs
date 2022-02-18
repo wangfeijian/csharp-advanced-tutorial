@@ -14,10 +14,10 @@ namespace SosoVision.ViewModels
     public class HomeViewModel
     {
         private readonly ISosoLogManager _sosoLogManager;
-        public HomeViewModel(IContainerProvider containerProvider)
+        public HomeViewModel()
         {
             
-            _sosoLogManager = containerProvider.Resolve<ISosoLogManager>();
+            _sosoLogManager = ContainerLocator.Container.Resolve<ISosoLogManager>();
             ShowLogCommand = new DelegateCommand<string>(str =>
             {
                 switch (str)
