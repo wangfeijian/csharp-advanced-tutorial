@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,6 +31,21 @@ namespace SosoVision
     /// </summary>
     public partial class App
     {
+        private Mutex mutex;
+        public App()
+        {
+            Startup += (StartupEventHandler)((s, e) =>
+            {
+                bool createdNew;
+                mutex = new Mutex(true, "SosoVision", out createdNew);
+
+                if (!createdNew)
+                {
+                    MessageBox.Show("程序已经运行！！");
+                    Environment.Exit(0);
+                }
+            });
+        }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<ISosoLogManager, SosoLogManager>();
