@@ -51,16 +51,27 @@ namespace SosoVision.Common
                     foreach (var item in toolTreeView.Items)
                     {
                         string dir = $"config/Vision/{param.Name}/Tools";
+                        string dirData = $"config/Vision/{param.Name}/ToolsData";
                         if (!Directory.Exists(dir))
                         {
                             Directory.CreateDirectory(dir);
                         }
 
+                        if (!Directory.Exists(dirData))
+                        {
+                            Directory.CreateDirectory(dirData);
+                        }
+
                         var treeViewItem = item as TreeViewItem;
                         string fileName = $"{dir}/{treeViewItem.Header}.json";
+                        string fileDataName = $"{dirData}/{treeViewItem.Header}.json";
+
                         Type t = treeViewItem.Tag.GetType();
+                        var tool = treeViewItem.Tag as ToolBase;
                         Thread.Sleep(50);
                         File.WriteAllText(fileName, JsonConvert.SerializeObject(t));
+                        if (tool.ToolWindow != null)
+                            File.WriteAllText(fileDataName, JsonConvert.SerializeObject(tool.ToolWindow.DataContext));
                     }
                     if (viewModel != null)
                     {

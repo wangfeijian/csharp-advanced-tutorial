@@ -174,6 +174,7 @@ namespace SosoVisionTool.Views
                     }
 
                     TreeViewItem tree = TreeViewDataAccess.CreateTreeView(head);
+                    tempToolBase.ToolInVision = VisionStep;
 
                     tree.Tag = tempToolBase;
                     tree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
@@ -186,7 +187,7 @@ namespace SosoVisionTool.Views
         {
             TreeViewItem treeViewItem = sender as TreeViewItem;
             ToolBase tool = treeViewItem.Tag as ToolBase;
-            // tool.UIElement_OnPreviewMouseLeftButtonDown(sender, e);
+            tool.UIElement_OnPreviewMouseDoubleClick(sender, e);
         }
 
 
@@ -213,6 +214,10 @@ namespace SosoVisionTool.Views
 
                 if (File.Exists(fileName))
                 {
+                    if (File.Exists(newFileName))
+                    {
+                        File.Delete(newFileName);
+                    }
                     File.Move(fileName, newFileName);
                 }
 

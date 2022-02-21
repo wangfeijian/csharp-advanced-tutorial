@@ -21,6 +21,10 @@ namespace SosoVisionTool.Views
     public abstract partial class ToolBase : UserControl
     {
         /// <summary>
+        /// 工具在哪个视觉流程中
+        /// </summary>
+        public string ToolInVision { get; set; }
+        /// <summary>
         /// 工具描述
         /// </summary>
         public string ToolDesStr
@@ -49,6 +53,18 @@ namespace SosoVisionTool.Views
         public ToolBase()
         {
             InitializeComponent();
+        }
+
+        public virtual void UIElement_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock tempBlock = e.OriginalSource as TextBlock;
+            if (tempBlock != null)
+            {
+                if (tempBlock.Text.Contains(ToolDesStr))
+                {
+                    ToolWindow?.ShowDialog();
+                }
+            }
         }
 
         /// <summary>

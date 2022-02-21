@@ -68,5 +68,10 @@ namespace SosoVision.Views
                 DemoItemsListBox.SelectedItem = null;
             }
         }
+
+        private void MainView_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

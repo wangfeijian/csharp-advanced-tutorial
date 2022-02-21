@@ -16,6 +16,7 @@
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="微软雅黑"
     TextElement.FontSize="13"
+    Closed="MainView_Closed"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"

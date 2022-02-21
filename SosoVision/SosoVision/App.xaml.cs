@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Newtonsoft.Json;
 using NLog.Targets;
 using Prism.DryIoc;
@@ -64,8 +65,10 @@ namespace SosoVision
                                 string head = fileInfo.Name.Substring(0, fileInfo.Name.Length - 5);
                                 var tempTree = TreeViewDataAccess.CreateTreeView(head);
                                 Type t = JsonConvert.DeserializeObject<Type>(File.ReadAllText(fileInfo.FullName));
-                                var tag = Activator.CreateInstance(t);
+                                var tag = Activator.CreateInstance(t) as ToolBase;
+                                tag.ToolInVision = title.Name;
                                 tempTree.Tag = tag;
+                                tempTree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
                                 toolTreeView.Items.Add(tempTree);
                             }
                         }
@@ -73,6 +76,14 @@ namespace SosoVision
                     containerRegistry.RegisterInstance(typeof(VisionProcessView), view, title.Name);
                 }
             }
+        }
+
+        private void Tree_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TreeViewItem treeViewItem = sender as TreeViewItem;
+            ToolBase tool = treeViewItem.Tag as ToolBase;
+
+            tool.UIElement_OnPreviewMouseDoubleClick(sender, e);
         }
 
         protected override void OnExit(ExitEventArgs e)
