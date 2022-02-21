@@ -53,8 +53,6 @@ namespace SosoVision.ViewModels
         }
 
         [Newtonsoft.Json.JsonIgnore]
-        public DelegateCommand LoadImageCommand { get; }
-        [Newtonsoft.Json.JsonIgnore]
         public DelegateCommand LoadedCommand { get; }
 
         /// <summary>
@@ -62,7 +60,6 @@ namespace SosoVision.ViewModels
         /// </summary>
         public VisionProcessViewModel()
         {
-            LoadImageCommand = new DelegateCommand(LoadImage);
             LoadedCommand = new DelegateCommand(LoadWindow);
             _sosoLogManager = ContainerLocator.Container.Resolve<ISosoLogManager>();
         }
@@ -74,31 +71,6 @@ namespace SosoVision.ViewModels
                 FillStyle = FillStyle == "fill" ? "margin" : "fill";
 
                 _isFirstShow = false;
-            }
-        }
-
-        private void LoadImage()
-        {
-            OpenFileDialog ofd = new OpenFileDialog
-            {
-                DefaultExt = "jpg",
-                Filter = "jpg files(*.jpg)|*.jpg|tiff files(*.tiff)|*.tiff|bmp files(*.bmp)|*.bmp"
-            };
-
-            if (!ofd.ShowDialog() == true)
-                return;
-
-            try
-            {
-                HObject tempObject;
-                HOperatorSet.ReadImage(out tempObject, ofd.FileName);
-                DisplayImage = tempObject;
-                _sosoLogManager.ShowLogInfo($"加载图片 {ofd.FileName} 成功");
-            }
-            catch (Exception e)
-            {
-                _sosoLogManager.ShowLogError($"加载图片 {ofd.FileName} 失败");
-
             }
         }
 
@@ -114,7 +86,6 @@ namespace SosoVision.ViewModels
             }
 
             _sosoLogManager = ContainerLocator.Container.Resolve<ISosoLogManager>();
-            LoadImageCommand = new DelegateCommand(LoadImage);
             LoadedCommand = new DelegateCommand(LoadWindow);
         }
     }

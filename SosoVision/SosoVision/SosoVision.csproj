@@ -225,6 +225,10 @@
       <Project>{4a09f00d-79db-4d6d-b242-d3b6b87ee904}</Project>
       <Name>ImageDisplay</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SosoVisionTool\SosoVisionTool.csproj">
+      <Project>{54458898-b5ca-44b8-a2b7-31553cad612f}</Project>
+      <Name>SosoVisionTool</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />

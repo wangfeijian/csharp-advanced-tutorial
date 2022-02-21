@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using ImTools;
 using Newtonsoft.Json;
 using Prism.DryIoc;
@@ -13,6 +15,7 @@ using Prism.Regions;
 using SosoVision.Extensions;
 using SosoVision.ViewModels;
 using SosoVision.Views;
+using SosoVisionTool.Views;
 
 namespace SosoVision.Common
 {
@@ -43,6 +46,22 @@ namespace SosoVision.Common
                 {
                     var view = _regionManager.Regions[PrismManager.MainViewRegionName].GetView(param.Name) as VisionProcessView;
                     var viewModel = view?.DataContext as VisionProcessViewModel;
+                    var toolRun = view.FindName("ToolRun") as ToolRunView;
+                    var toolTreeView = toolRun.FindName("ToolTreeView") as TreeView;
+                    foreach (var item in toolTreeView.Items)
+                    {
+                        string dir = $"config/Vision/{param.Name}/Tools";
+                        if (!Directory.Exists(dir))
+                        {
+                            Directory.CreateDirectory(dir);
+                        }
+
+                        var treeViewItem = item as TreeViewItem;
+                        string fileName = $"{dir}/{treeViewItem.Header}.json";
+                        Type t = treeViewItem.Tag.GetType();
+                        Thread.Sleep(50);
+                        File.WriteAllText(fileName, JsonConvert.SerializeObject(t));
+                    }
                     if (viewModel != null)
                     {
                         string dir = $"config/Vision/{param.Name}";

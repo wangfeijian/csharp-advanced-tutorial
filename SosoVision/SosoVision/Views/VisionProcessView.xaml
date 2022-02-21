@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:SosoVision.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="http://prismlibrary.com/"
+    xmlns:sosoVisionTool="clr-namespace:SosoVisionTool.Views;assembly=SosoVisionTool"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -40,21 +41,27 @@
                 DisplayRegion="{Binding DisplayRegion, Mode=TwoWay}"
                 FillStyle="{Binding FillStyle, Mode=TwoWay}" />
         </Grid>
-
-        <StackPanel Grid.Column="1">
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <TextBlock
                 x:Name="TextBlockVisionName"
                 Margin="5"
                 FontSize="40"
                 Text="{Binding ProcedureParam.Name, StringFormat=视觉流程：{0}}" />
-            <TextBox
+            <TextBlock
+                Grid.Row="1"
                 Margin="5"
                 FontSize="20"
-                Text="{Binding ProcedureParam.Command}" />
-            <Button
-                Content="加载图片"
+                Text="{Binding ProcedureParam.Command, StringFormat=触发命令: {0}}" />
+            <sosoVisionTool:ToolRunView
+                x:Name="ToolRun"
+                Grid.Row="2"
                 Margin="5"
-                Command="{Binding LoadImageCommand}" />
-        </StackPanel>
+                VisionStep="{Binding Path=Text, ElementName=TextBlockVisionName}" />
+        </Grid>
     </Grid>
 </UserControl>
