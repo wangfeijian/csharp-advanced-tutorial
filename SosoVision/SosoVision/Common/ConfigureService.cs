@@ -70,8 +70,7 @@ namespace SosoVision.Common
                         var tool = treeViewItem.Tag as ToolBase;
                         Thread.Sleep(50);
                         File.WriteAllText(fileName, JsonConvert.SerializeObject(t));
-                        if (tool.ToolWindow != null)
-                            File.WriteAllText(fileDataName, JsonConvert.SerializeObject(tool.ToolWindow.DataContext));
+                        File.WriteAllText(fileDataName, JsonConvert.SerializeObject(tool.DataContext));
                     }
                     if (viewModel != null)
                     {

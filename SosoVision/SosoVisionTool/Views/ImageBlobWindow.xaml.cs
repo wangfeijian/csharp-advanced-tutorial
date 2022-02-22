@@ -21,7 +21,6 @@ namespace SosoVisionTool.Views
     /// </summary>
     public partial class ImageBlobWindow : Window
     {
-        public TreeViewItem ToolTreeViewItem { get; set; }
         public ImageBlobTool BlobTool { get; set; }
         public ImageBlobWindow()
         {

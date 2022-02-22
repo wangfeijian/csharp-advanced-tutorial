@@ -28,11 +28,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ComboBox>
-                <ComboBoxItem>image1</ComboBoxItem>
-                <ComboBoxItem>image2</ComboBoxItem>
-                <ComboBoxItem>image3</ComboBoxItem>
-            </ComboBox>
+            <ComboBox
+                DisplayMemberPath="Key"
+                ItemsSource="{Binding ToolRunImage}"
+                SelectedIndex="0"
+                SelectedValue="{Binding DisplayImage, Mode=OneWayToSource}"
+                SelectedValuePath="Value" />
             <imageDisplay:ImageDisplayWindow
                 x:Name="ShowImageWindow"
                 Grid.Row="1"

@@ -17,8 +17,8 @@ namespace SosoVisionTool.Services
     public class TreeViewDataAccess
     {
 
-        public TreeViewDataAccess() 
-        { 
+        public TreeViewDataAccess()
+        {
         }
 
         /// <summary>
@@ -159,31 +159,8 @@ namespace SosoVisionTool.Services
 
         }
 
-        public static TreeViewItem CreateTreeView(string name)
-        {
+        
 
-            TreeViewItem nameItem = new TreeViewItem { Header = name };
-            TreeViewItem inputItem = new TreeViewItem { Header = AddInOutTreeViewItem(true) };
-            TreeViewItem outputItem = new TreeViewItem { Header = AddInOutTreeViewItem(false) };
-            nameItem.Items.Add(inputItem);
-            nameItem.Items.Add(outputItem);
-            return nameItem;
-        }
-
-        public static object AddInOutTreeViewItem(bool isIn)
-        {
-            StackPanel stackPanel = new StackPanel();
-            stackPanel.Orientation = Orientation.Horizontal;
-            PackIcon packIcon = new PackIcon();
-            packIcon.Kind = isIn ? PackIconKind.ArrowRight : PackIconKind.ArrowLeft;
-            packIcon.VerticalAlignment = VerticalAlignment.Center;
-            TextBlock textBlock = new TextBlock();
-            textBlock.Margin = new Thickness(10, 0, 0, 0);
-            textBlock.VerticalAlignment = VerticalAlignment.Center;
-            textBlock.Text = isIn ? "输入" : "输出";
-            stackPanel.Children.Add(packIcon);
-            stackPanel.Children.Add(textBlock);
-            return stackPanel;
-        }
+       
     }
 }

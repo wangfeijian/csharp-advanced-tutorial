@@ -19,6 +19,7 @@ using Prism.Services.Dialogs;
 using SosoVision.Common;
 using SosoVision.Extensions;
 using SosoVision.Views;
+using SosoVisionTool.Tools;
 
 namespace SosoVision.ViewModels
 {
@@ -112,7 +113,6 @@ namespace SosoVision.ViewModels
                 MessageBox.Show("新添加视觉流程后，需要重启软件，才能打开对就的流程窗口");
                 return;
             }
-
             _regionManager.Regions[PrismManager.MainViewRegionName].Activate(view);
         }
 

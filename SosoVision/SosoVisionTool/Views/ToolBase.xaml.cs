@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using SosoVisionTool.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +22,10 @@ namespace SosoVisionTool.Views
     /// </summary>
     public abstract partial class ToolBase : UserControl
     {
+        public TreeViewItem ToolItem { get; set; }
+        public TreeViewItem ToolInputItem { get; set; }
+        public TreeViewItem ToolOutputItem { get; set; }
+
         /// <summary>
         /// 工具在哪个视觉流程中
         /// </summary>
@@ -75,9 +81,71 @@ namespace SosoVisionTool.Views
         /// <summary>
         /// 工具运行
         /// </summary>
-        public virtual void Run()
+        public void Run(ToolBase tool, ref bool result)
         {
+            var viewModel = DataContext as IToolBaseViewModel;
+            viewModel?.Run(tool, ref result);
+        }
 
+        /// <summary>
+        /// 创建输入输出参数
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public abstract TreeViewItem CreateTreeView(string name);
+
+        public abstract object GetDataContext(string file);
+
+        /// <summary>
+        /// 添加输入输出
+        /// </summary>
+        /// <param name="item"></param>
+        public void AddInputOutputTree(TreeViewItem item, bool isInput)
+        {
+            if (isInput)
+            {
+                foreach (var input in ToolInputItem.Items)
+                {
+                    var inItem = input as TreeViewItem;
+                    if (inItem.Header == item.Header)
+                    {
+
+                        inItem.ToolTip = item.ToolTip;
+                        return;
+                    }
+                }
+                ToolInputItem.Items.Add(item);
+            }
+            else
+            {
+                foreach (var output in ToolOutputItem.Items)
+                {
+                    var outItem = output as TreeViewItem;
+                    if (outItem.Header == item.Header)
+                    {
+
+                        outItem.ToolTip = item.ToolTip;
+                        return;
+                    }
+                }
+                ToolOutputItem.Items.Add(item);
+            }
+        }
+
+        public object AddInOutTreeViewItem(bool isIn)
+        {
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Orientation = Orientation.Horizontal;
+            PackIcon packIcon = new PackIcon();
+            packIcon.Kind = isIn ? PackIconKind.ArrowRight : PackIconKind.ArrowLeft;
+            packIcon.VerticalAlignment = VerticalAlignment.Center;
+            TextBlock textBlock = new TextBlock();
+            textBlock.Margin = new Thickness(10, 0, 0, 0);
+            textBlock.VerticalAlignment = VerticalAlignment.Center;
+            textBlock.Text = isIn ? "输入" : "输出";
+            stackPanel.Children.Add(packIcon);
+            stackPanel.Children.Add(textBlock);
+            return stackPanel;
         }
     }
 }

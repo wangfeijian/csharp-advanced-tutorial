@@ -8,17 +8,20 @@ using DryIoc;
 using HalconDotNet;
 using Microsoft.Win32;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Regions;
 using SosoVision.Common;
 using SosoVision.Extensions;
+using SosoVisionTool.Tools;
 
 namespace SosoVision.ViewModels
 {
     public class VisionProcessViewModel : BindableBase
     {
         private readonly ISosoLogManager _sosoLogManager;
+        private readonly IEventAggregator _eventAggregator;
         private ProcedureParam _procedureParam;
 
         [Newtonsoft.Json.JsonIgnore]
@@ -52,6 +55,14 @@ namespace SosoVision.ViewModels
             set { _fillStyle = value; RaisePropertyChanged(); }
         }
 
+        private Dictionary<string, HObject> _toolRunImage;
+
+        public Dictionary<string, HObject> ToolRunImage
+        {
+            get { return _toolRunImage; }
+            set { _toolRunImage = value; RaisePropertyChanged(); }
+        }
+
         [Newtonsoft.Json.JsonIgnore]
         public DelegateCommand LoadedCommand { get; }
 
@@ -60,8 +71,21 @@ namespace SosoVision.ViewModels
         /// </summary>
         public VisionProcessViewModel()
         {
+            _eventAggregator = ContainerLocator.Container.Resolve<IEventAggregator>();
             LoadedCommand = new DelegateCommand(LoadWindow);
             _sosoLogManager = ContainerLocator.Container.Resolve<ISosoLogManager>();
+
+            _eventAggregator.GetEvent<HObjectEvent>().Subscribe((obj) =>
+            {
+                DisplayImage = obj.Image;
+                if (ToolRunImage.ContainsKey(obj.ImageKey))
+                {
+                    ToolRunImage[obj.ImageKey] = obj.Image;
+                }
+                else
+                    ToolRunImage.Add(obj.ImageKey, obj.Image);
+            }, ThreadOption.UIThread, true,
+                              companySymbol => companySymbol.VisionStep == ProcedureParam.Name);
         }
 
         private void LoadWindow()
@@ -84,9 +108,23 @@ namespace SosoVision.ViewModels
                     ProcedureParam = param;
                 }
             }
-
+            ToolRunImage = new Dictionary<string, HObject>();
+            _eventAggregator = ContainerLocator.Container.Resolve<IEventAggregator>();
             _sosoLogManager = ContainerLocator.Container.Resolve<ISosoLogManager>();
             LoadedCommand = new DelegateCommand(LoadWindow);
+
+            _eventAggregator.GetEvent<HObjectEvent>().Subscribe((obj) =>
+           {
+               DisplayImage = obj.Image;
+               if (ToolRunImage.ContainsKey(obj.ImageKey))
+               {
+                   ToolRunImage[obj.ImageKey] = obj.Image;
+               }
+               else
+                   ToolRunImage.Add(obj.ImageKey, obj.Image);
+           }, ThreadOption.UIThread, true,
+                             companySymbol => companySymbol.VisionStep == ProcedureParam.Name);
+
         }
     }
 }

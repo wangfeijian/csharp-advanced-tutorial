@@ -12,5 +12,6 @@ namespace SosoVision.Views
         {
             InitializeComponent();
         }
+        
     }
 }

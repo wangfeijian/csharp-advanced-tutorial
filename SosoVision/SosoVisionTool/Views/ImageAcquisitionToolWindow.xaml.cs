@@ -21,13 +21,11 @@ namespace SosoVisionTool.Views
     /// </summary>
     public partial class ImageAcquisitionToolWindow : Window
     {
-        public TreeViewItem ToolTreeViewItem { get; set; }
         public ImageAcquisitionTool AcquisitionTool { get; set; }
         public ImageAcquisitionToolWindow()
         {
             InitializeComponent();
         }
-
         protected override void OnClosing(CancelEventArgs e)
         {
             e.Cancel = true;

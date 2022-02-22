@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace SosoVision.Common
+namespace SosoVisionTool.Tools
 {
     public enum LogLevel
     {

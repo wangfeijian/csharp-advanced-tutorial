@@ -1,12 +1,103 @@
-﻿<Window x:Class="SosoVisionTool.Views.ImageAcquisitionToolWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SosoVisionTool.Views"
-        mc:Ignorable="d"
-        Title="ImageAcquisitionToolWindow" Height="450" Width="800">
+﻿<Window
+    x:Class="SosoVisionTool.Views.ImageAcquisitionToolWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:SosoVisionTool.Services"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:imageDisplay="clr-namespace:ImageDisplay;assembly=ImageDisplay"
+    xmlns:local="clr-namespace:SosoVisionTool.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ImageAcquisitionToolWindow"
+    Width="600"
+    Height="450"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <GroupBox
+            materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+            Header="图像显示"
+            Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <materialDesign:PackIcon
+                            Width="32"
+                            Height="32"
+                            VerticalAlignment="Center"
+                            Kind="ImageArea" />
+                        <TextBlock
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                            Text="{Binding}" />
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            Visibility="{Binding Path=IsChecked, ElementName=RadioButtonDir, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Button
+                                Width="80"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Foreground="Black"
+                                Style="{StaticResource MaterialDesignFlatButton}">
+                                上一张
+                            </Button>
+                            <Button
+                                Width="80"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Foreground="Black"
+                                Style="{StaticResource MaterialDesignFlatButton}">
+                                下一张
+                            </Button>
+                        </StackPanel>
+                    </DockPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <imageDisplay:ImageDisplayWindow
+                x:Name="ShowImageWindow"
+                Grid.Row="1"
+                CameraColor="#aeea00"
+                DisplayImage="{Binding DisplayImage, Mode=TwoWay}" />
+        </GroupBox>
+        <StackPanel Grid.Column="1" Margin="5,0,0,0">
+            <GroupBox
+                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                Header="图像源选择"
+                Style="{DynamicResource MaterialDesignGroupBox}">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton
+                        x:Name="RadioButtonFile"
+                        Command="{Binding CaptureTypeChangeCommand}"
+                        CommandParameter="file"
+                        Content="文件"
+                        IsChecked="True" />
+                    <RadioButton
+                        x:Name="RadioButtonDir"
+                        Margin="5,0,0,0"
+                        Command="{Binding CaptureTypeChangeCommand}"
+                        CommandParameter="dir"
+                        Content="文件夹" />
+                    <RadioButton
+                        x:Name="RadioButtonCamera"
+                        Margin="5,0,0,0"
+                        Command="{Binding CaptureTypeChangeCommand}"
+                        CommandParameter="camera"
+                        Content="相机" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+
     </Grid>
 </Window>

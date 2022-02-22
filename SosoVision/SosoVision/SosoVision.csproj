@@ -157,10 +157,6 @@
     </Compile>
     <Compile Include="Common\ConfigureService.cs" />
     <Compile Include="Common\IConfigureService.cs" />
-    <Compile Include="Common\ISosoLogManager.cs" />
-    <Compile Include="Common\LogStruct.cs" />
-    <Compile Include="Common\MessageEvent.cs" />
-    <Compile Include="Common\SosoLogManager.cs" />
     <Compile Include="Extensions\PrismManager.cs" />
     <Compile Include="Extensions\SerializationData.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />

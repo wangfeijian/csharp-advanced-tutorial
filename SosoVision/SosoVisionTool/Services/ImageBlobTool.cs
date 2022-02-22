@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SosoVisionTool.ViewModels;
 using SosoVisionTool.Views;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,6 @@ namespace SosoVisionTool.Services
 {
     public class ImageBlobTool : ToolBase
     {
-        private TreeViewItem _tree;
-
         public ImageBlobTool()
         {
             ToolDesStr = "Blob分析";
@@ -22,23 +21,41 @@ namespace SosoVisionTool.Services
             ToolIcon = "\xe729";
         }
 
+        public override TreeViewItem CreateTreeView(string name)
+        {
+            ToolItem = new TreeViewItem { Header = name };
+            ToolInputItem = new TreeViewItem { Header = AddInOutTreeViewItem(true) };
+            ToolItem.Items.Add(ToolInputItem);
+            ToolOutputItem = new TreeViewItem { Header = AddInOutTreeViewItem(false) };
+            ToolItem.Items.Add(ToolOutputItem);
+            return ToolItem;
+        }
+
+        public override object GetDataContext(string file)
+        {
+           return JsonConvert.DeserializeObject<ImageBlobToolViewModel>(File.ReadAllText(file));
+        }
+
         public override void UIElement_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            _tree = sender as TreeViewItem;
+            TreeViewItem _tree = sender as TreeViewItem;
             string fileName = $"config/Vision/{ToolInVision}/ToolsData/{_tree.Header}.json";
             if (_tree == null)
             {
                 return;
             }
 
-            if (ToolWindow == null && File.Exists(fileName))
+            if (ToolWindow == null && DataContext == null)
             {
-                ToolWindow = new ImageBlobWindow() { ToolTreeViewItem = _tree, BlobTool = this ,Title=_tree.Header.ToString()};
-                var viewModel = JsonConvert.DeserializeObject<object>(File.ReadAllText(fileName));
-                ToolWindow.DataContext = viewModel;
+                ToolWindow = new ImageBlobWindow() { BlobTool = this, Title = _tree.Header.ToString() };
+                DataContext = new ImageBlobToolViewModel();
+                ToolWindow.DataContext = DataContext;
             }
             else if (ToolWindow == null)
-                ToolWindow = new ImageBlobWindow() { ToolTreeViewItem = _tree, BlobTool = this ,Title=_tree.Header.ToString()};
+            {
+                ToolWindow = new ImageBlobWindow() { BlobTool = this, Title = _tree.Header.ToString() };
+                ToolWindow.DataContext = DataContext;
+            }
 
 
             base.UIElement_OnPreviewMouseDoubleClick(sender, e);

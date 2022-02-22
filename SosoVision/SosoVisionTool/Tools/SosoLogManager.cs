@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Prism.Events;
 
-namespace SosoVision.Common
+namespace SosoVisionTool.Tools
 {
     public class SosoLogManager : ISosoLogManager
     {

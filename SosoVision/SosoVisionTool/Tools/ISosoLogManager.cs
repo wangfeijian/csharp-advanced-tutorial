@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SosoVision.Common
+namespace SosoVisionTool.Tools
 {
-    interface ISosoLogManager
+    public interface ISosoLogManager
     {
         void ShowLogInfo(string msg);
 

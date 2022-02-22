@@ -21,6 +21,7 @@ using SosoVision.Extensions;
 using SosoVision.ViewModels;
 using SosoVision.Views;
 using SosoVisionTool.Services;
+using SosoVisionTool.Tools;
 using SosoVisionTool.ViewModels;
 using SosoVisionTool.Views;
 
@@ -75,14 +76,18 @@ namespace SosoVision
                         if (files.Length > 0)
                         {
                             Array.Sort(files, (x, y) => { return x.LastWriteTime.CompareTo(y.LastWriteTime); });
-
+                            string dir = $"config/Vision/{title.Name}/ToolsData";
                             foreach (var fileInfo in files)
                             {
                                 string head = fileInfo.Name.Substring(0, fileInfo.Name.Length - 5);
-                                var tempTree = TreeViewDataAccess.CreateTreeView(head);
                                 Type t = JsonConvert.DeserializeObject<Type>(File.ReadAllText(fileInfo.FullName));
                                 var tag = Activator.CreateInstance(t) as ToolBase;
+                                var tempTree = tag.CreateTreeView(head);
                                 tag.ToolInVision = title.Name;
+                                if (File.Exists($"{dir}/{fileInfo.Name}"))
+                                {
+                                    tag.DataContext = tag.GetDataContext($"{dir}/{fileInfo.Name}");
+                                }
                                 tempTree.Tag = tag;
                                 tempTree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
                                 toolTreeView.Items.Add(tempTree);

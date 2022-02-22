@@ -34,7 +34,7 @@ namespace SosoVisionTool.Views
             set { SetValue(VisionStepProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ToolDesStr.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for VisionStep.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty VisionStepProperty =
             DependencyProperty.Register(nameof(VisionStep), typeof(string), typeof(ToolRunView));
 
@@ -45,8 +45,6 @@ namespace SosoVisionTool.Views
 
         private void ButtonRun_OnClick(object sender, RoutedEventArgs e)
         {
-            CancellationTokenSource clt = new CancellationTokenSource();
-            CancellationToken cls = clt.Token;
             ButtonRun.IsEnabled = false;
 
             int time;
@@ -57,28 +55,6 @@ namespace SosoVisionTool.Views
                 time = 20;
             }
 
-            Task.Run(() =>
-           {
-               while (true)
-               {
-                   DispatcherHelper.Delay(10);
-                   Dispatcher.Invoke(delegate
-                   {
-                       TreeViewItem tree = ToolTreeView.Items[ToolTreeView.Items.Count - 1] as TreeViewItem;
-                       ToolBase tool = tree.Tag as ToolBase;
-
-                       //if (tool != null && tool.OutputParams.ContainsKey("OutputImage"))
-                       //{
-                       //    OutputBitmap = tool.OutputParams["OutputImage"] as WriteableBitmap;
-                       //}
-                   });
-
-                   if (cls.IsCancellationRequested)
-                   {
-                       return;
-                   }
-               }
-           }, cls);
 
             if (CheckBoxContinue.IsChecked == true)
             {
@@ -89,23 +65,42 @@ namespace SosoVisionTool.Views
                     {
                         TreeViewItem tree = child as TreeViewItem;
                         ToolBase tool = tree.Tag as ToolBase;
-                        tool?.Run();
+                        tree.Background = Brushes.Transparent;
+                        bool result = false;
+                        tool?.Run(tool, ref result);
+                        if (!result)
+                        {
+                            tree.Background = Brushes.Red;
+                            ButtonRun.IsEnabled = true;
+                            return;
+                        }
                     }
                 }
-                clt.Cancel();
                 ButtonRun.IsEnabled = true;
             }
             else
             {
-                foreach (var child in ToolTreeView.Items)
-                {
-                    TreeViewItem tree = child as TreeViewItem;
-                    ToolBase tool = tree.Tag as ToolBase;
-                    tool?.Run();
-                }
+                Run();
 
-                clt.Cancel();
                 ButtonRun.IsEnabled = true;
+            }
+        }
+
+        public void Run()
+        {
+            foreach (var child in ToolTreeView.Items)
+            {
+                TreeViewItem tree = child as TreeViewItem;
+                ToolBase tool = tree.Tag as ToolBase;
+                tree.Background = Brushes.Transparent;
+                bool result = false;
+                tool?.Run(tool, ref result);
+                if (!result)
+                {
+                    tree.Background = Brushes.Red;
+                    ButtonRun.IsEnabled = true;
+                    return;
+                }
             }
         }
 
@@ -174,7 +169,7 @@ namespace SosoVisionTool.Views
                         return;
                     }
 
-                    TreeViewItem tree = TreeViewDataAccess.CreateTreeView(head);
+                    TreeViewItem tree = tempToolBase.CreateTreeView(head);
                     tempToolBase.ToolInVision = VisionStep;
 
                     tree.Tag = tempToolBase;
@@ -269,7 +264,7 @@ namespace SosoVisionTool.Views
                     DirectoryInfo theFolder = new DirectoryInfo(foldPath);
                     FileInfo[] dirInfo = theFolder.GetFiles();
 
-                    if (dirInfo.Length<=0)
+                    if (dirInfo.Length <= 0)
                     {
                         MessageBox.Show("文件夹中没有备份程序！");
                         return;
@@ -278,14 +273,14 @@ namespace SosoVisionTool.Views
                     //遍历文件夹，检查加载的文件夹中保存的配置是否正确
                     foreach (FileInfo file in dirInfo)
                     {
-                        if (file.Extension!=".json")
+                        if (file.Extension != ".json")
                         {
                             MessageBox.Show("请确定此文件夹是否为软件备份的视觉流程文件夹！");
                             return;
                         }
 
                         Type t = JsonConvert.DeserializeObject<Type>(File.ReadAllText(file.FullName));
-                        if (t==null)
+                        if (t == null)
                         {
                             MessageBox.Show("请确定此文件夹是否为软件备份的视觉流程文件夹！");
                             return;
@@ -298,9 +293,9 @@ namespace SosoVisionTool.Views
                     foreach (var fileInfo in dirInfo)
                     {
                         string head = fileInfo.Name.Substring(0, fileInfo.Name.Length - 5);
-                        var tempTree = TreeViewDataAccess.CreateTreeView(head);
                         Type t = JsonConvert.DeserializeObject<Type>(File.ReadAllText(fileInfo.FullName));
                         var tag = Activator.CreateInstance(t) as ToolBase;
+                        var tempTree = tag.CreateTreeView(head);
                         tag.ToolInVision = VisionStep;
                         tempTree.Tag = tag;
                         tempTree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
