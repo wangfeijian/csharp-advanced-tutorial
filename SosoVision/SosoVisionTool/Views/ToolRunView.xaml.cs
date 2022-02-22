@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Newtonsoft.Json;
 using SosoVisionTool.Services;
 using System;
 using System.Collections.Generic;
@@ -203,7 +204,7 @@ namespace SosoVisionTool.Views
             if (MessageBox.Show("是否删除该工具，删除后将无法恢复！", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
             {
                 var tree = ToolTreeView.SelectedItem as TreeViewItem;
-                string name = VisionStep.Substring(5,VisionStep.Length - 5);
+                string name = VisionStep.Substring(5, VisionStep.Length - 5);
                 string fileName = $"config/Vision/{name}/Tools/{tree.Header}.json";
                 string newDirName = $"config/Vision/{name}/Tools/backup/";
                 string newFileName = $"config/Vision/{name}/Tools/backup/{tree.Header}.json";
@@ -222,6 +223,91 @@ namespace SosoVisionTool.Views
                 }
 
                 ToolTreeView.Items.Remove(ToolTreeView.SelectedItem);
+            }
+        }
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (ToolTreeView.Items.Count <= 0)
+            {
+                MessageBox.Show("流程中没有工具，无法保存！");
+                return;
+            }
+
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.Description = "请选择文件夹路径";
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string foldPath = dialog.SelectedPath;
+
+                var tree = ToolTreeView.SelectedItem as TreeViewItem;
+
+                foreach (var item in ToolTreeView.Items)
+                {
+                    var saveTree = item as TreeViewItem;
+                    string fileName = saveTree.Header.ToString() + ".json";
+                    Type t = saveTree.Tag.GetType();
+
+                    File.WriteAllText($"{foldPath}/{fileName}", JsonConvert.SerializeObject(t));
+                }
+            }
+            MessageBox.Show("保存成功！！");
+        }
+
+        private void ButtonLoad_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("加载后将删除当前流程中所有的工具且不可恢复，是否加载！！", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+            {
+                System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+                dialog.Description = "请选择文件夹路径";
+
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string foldPath = dialog.SelectedPath;
+
+                    DirectoryInfo theFolder = new DirectoryInfo(foldPath);
+                    FileInfo[] dirInfo = theFolder.GetFiles();
+
+                    if (dirInfo.Length<=0)
+                    {
+                        MessageBox.Show("文件夹中没有备份程序！");
+                        return;
+                    }
+
+                    //遍历文件夹，检查加载的文件夹中保存的配置是否正确
+                    foreach (FileInfo file in dirInfo)
+                    {
+                        if (file.Extension!=".json")
+                        {
+                            MessageBox.Show("请确定此文件夹是否为软件备份的视觉流程文件夹！");
+                            return;
+                        }
+
+                        Type t = JsonConvert.DeserializeObject<Type>(File.ReadAllText(file.FullName));
+                        if (t==null)
+                        {
+                            MessageBox.Show("请确定此文件夹是否为软件备份的视觉流程文件夹！");
+                            return;
+                        }
+                    }
+
+                    ToolTreeView.Items.Clear();
+
+                    Array.Sort(dirInfo, (x, y) => { return x.LastWriteTime.CompareTo(y.LastWriteTime); });
+                    foreach (var fileInfo in dirInfo)
+                    {
+                        string head = fileInfo.Name.Substring(0, fileInfo.Name.Length - 5);
+                        var tempTree = TreeViewDataAccess.CreateTreeView(head);
+                        Type t = JsonConvert.DeserializeObject<Type>(File.ReadAllText(fileInfo.FullName));
+                        var tag = Activator.CreateInstance(t) as ToolBase;
+                        tag.ToolInVision = VisionStep;
+                        tempTree.Tag = tag;
+                        tempTree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
+                        ToolTreeView.Items.Add(tempTree);
+                    }
+                    MessageBox.Show("保存成功");
+                }
             }
         }
     }

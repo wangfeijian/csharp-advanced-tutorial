@@ -80,10 +80,11 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button Margin="5" Content="加载" />
+                    <Button Margin="5" Click="ButtonLoad_Click" Content="加载" />
                     <Button
                         Grid.Column="1"
                         Margin="5"
+                        Click="ButtonSave_Click"
                         Content="保存" />
                     <Button
                         Grid.Column="2"
