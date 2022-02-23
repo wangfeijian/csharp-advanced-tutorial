@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SosoVisionTool.Tools
+namespace SosoVisionCommonTool.Log
 {
     public interface ISosoLogManager
     {

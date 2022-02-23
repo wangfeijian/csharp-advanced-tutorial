@@ -19,6 +19,8 @@ using Prism.Services.Dialogs;
 using SosoVision.Common;
 using SosoVision.Extensions;
 using SosoVision.Views;
+using SosoVisionCommonTool.ConfigData;
+using SosoVisionCommonTool.Log;
 using SosoVisionTool.Tools;
 
 namespace SosoVision.ViewModels

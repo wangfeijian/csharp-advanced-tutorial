@@ -24,6 +24,9 @@ using SosoVisionTool.Services;
 using SosoVisionTool.Tools;
 using SosoVisionTool.ViewModels;
 using SosoVisionTool.Views;
+using ImageCapture;
+using System.Reflection;
+using SosoVisionCommonTool.Log;
 
 namespace SosoVision
 {
@@ -54,17 +57,41 @@ namespace SosoVision
             containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
             containerRegistry.RegisterForNavigation<SettingView, SettingViewModel>();
             containerRegistry.RegisterForNavigation<ToolControlBoxView, ToolControlBoxViewModel>();
-            containerRegistry.RegisterForNavigation<ToolRunView, ToolRunViewModel>();
-
             var configureService = Container.Resolve<IConfigureService>();
+
+            Assembly cameraAssembly = Assembly.Load("ImageCapture");
+
+            if (configureService.SerializationData.CameraParams != null)
+                foreach (var item in configureService.SerializationData.CameraParams)
+                {
+                    string typeName = $"ImageCapture.{ item.CameraBand}";
+                    Type camera = cameraAssembly.GetType(typeName);
+                    var cameraInstance = Activator.CreateInstance(camera, item.CameraIP, false);
+                    containerRegistry.RegisterInstance(typeof(CaptureBase), cameraInstance, item.CameraId.ToString());
+                }
+
             if (configureService.SerializationData.ProcedureParams != null)
             {
                 foreach (var title in configureService.SerializationData.ProcedureParams)
                 {
                     string file = $"config/Vision/{title.Name}/{title.Name}.json";
+                    string fileData = $"config/Vision/{title.Name}/{title.Name}_Data.json";
                     var viewModel = File.Exists(file)
                         ? JsonConvert.DeserializeObject<VisionProcessViewModel>(File.ReadAllText(file))
                         : new VisionProcessViewModel(title.Name);
+
+                    var toolRunData = File.Exists(fileData)
+                        ? JsonConvert.DeserializeObject<ToolRunViewData>(File.ReadAllText(fileData))
+                        : new ToolRunViewData
+                        {
+                            ToolOutputDoubleValue = new Dictionary<string, double>(),
+                            ToolOutputImage = new Dictionary<string, HalconDotNet.HObject>(),
+                            ToolOutputIntValue = new Dictionary<string, double>(),
+                            ToolOutputRegion = new Dictionary<string, HalconDotNet.HObject>()
+                        };
+
+                    containerRegistry.RegisterInstance(typeof(ToolRunViewData), toolRunData, title.Name);
+
                     var view = new VisionProcessView { DataContext = viewModel };
                     var toolRun = view.FindName("ToolRun") as ToolRunView;
                     var toolTreeView = toolRun.FindName("ToolTreeView") as TreeView;
@@ -84,9 +111,14 @@ namespace SosoVision
                                 var tag = Activator.CreateInstance(t) as ToolBase;
                                 var tempTree = tag.CreateTreeView(head);
                                 tag.ToolInVision = title.Name;
+                                tag.CameraId = title.CameraId.ToString();
                                 if (File.Exists($"{dir}/{fileInfo.Name}"))
                                 {
                                     tag.DataContext = tag.GetDataContext($"{dir}/{fileInfo.Name}");
+                                    var tempDataContext = tag.DataContext as IToolBaseViewModel;
+                                    tempDataContext.ToolRunData = ContainerLocator.Container.Resolve<ToolRunViewData>(tag.ToolInVision);
+                                    tempDataContext.Capture = ContainerLocator.Container.Resolve<CaptureBase>(tag.CameraId);
+                                    tempDataContext.Param = title;
                                 }
                                 tempTree.Tag = tag;
                                 tempTree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;

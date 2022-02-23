@@ -14,6 +14,8 @@ using Prism.Mvvm;
 using Prism.Regions;
 using SosoVision.Common;
 using SosoVision.Extensions;
+using SosoVisionCommonTool.ConfigData;
+using SosoVisionCommonTool.Log;
 using SosoVisionTool.Tools;
 
 namespace SosoVision.ViewModels

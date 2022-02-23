@@ -33,7 +33,7 @@ namespace SosoVisionTool.Services
 
         public override object GetDataContext(string file)
         {
-           return JsonConvert.DeserializeObject<ImageBlobToolViewModel>(File.ReadAllText(file));
+            return JsonConvert.DeserializeObject<ImageBlobToolViewModel>(File.ReadAllText(file));
         }
 
         public override void UIElement_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -48,13 +48,21 @@ namespace SosoVisionTool.Services
             if (ToolWindow == null && DataContext == null)
             {
                 ToolWindow = new ImageBlobWindow() { BlobTool = this, Title = _tree.Header.ToString() };
-                DataContext = new ImageBlobToolViewModel();
+                DataContext = new ImageBlobToolViewModel(ToolInVision);
                 ToolWindow.DataContext = DataContext;
             }
             else if (ToolWindow == null)
             {
                 ToolWindow = new ImageBlobWindow() { BlobTool = this, Title = _tree.Header.ToString() };
-                ToolWindow.DataContext = DataContext;
+                if (DataContext is ImageBlobToolViewModel)
+                {
+                    ToolWindow.DataContext = DataContext;
+                }
+                else
+                {
+                    DataContext = new ImageBlobToolViewModel(ToolInVision);
+                    ToolWindow.DataContext = DataContext;
+                }
             }
 
 

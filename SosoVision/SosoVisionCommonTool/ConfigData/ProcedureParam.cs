@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Prism.Mvvm;
 
-namespace SosoVision.Extensions
+namespace SosoVisionCommonTool.ConfigData
 {
     public class ProcedureParam : BindableBase
     {
@@ -77,12 +77,12 @@ namespace SosoVision.Extensions
         /// <summary>
         /// 曝光时间
         /// </summary>
-        private double _exposureTIme;
+        private double _exposureTime;
 
-        public double ExposureTIme
+        public double ExposureTime
         {
-            get { return _exposureTIme; }
-            set { _exposureTIme = value; RaisePropertyChanged(); }
+            get { return _exposureTime; }
+            set { _exposureTime = value; RaisePropertyChanged(); }
         }
 
         /// <summary>

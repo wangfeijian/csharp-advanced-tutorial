@@ -1,11 +1,15 @@
 ﻿using System;
 using Prism.Mvvm;
+using Prism.Ioc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SosoVisionTool.Views;
 using System.Windows.Controls;
+using SosoVisionTool.Services;
+using ImageCapture;
+using SosoVisionCommonTool.ConfigData;
 
 namespace SosoVisionTool.ViewModels
 {
@@ -13,8 +17,19 @@ namespace SosoVisionTool.ViewModels
     {
         public ImageBlobToolViewModel()
         {
-
         }
+
+        public ImageBlobToolViewModel(string visionStep)
+        {
+            VisionStep = visionStep;   
+            ToolRunData = ContainerLocator.Container.Resolve<ToolRunViewData>(VisionStep);
+        }
+        [Newtonsoft.Json.JsonIgnore]
+        public ToolRunViewData ToolRunData { get; set; }
+        public string VisionStep { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        public CaptureBase Capture { get; set; }
+        public ProcedureParam Param { get; set; }
 
         public void Run(ToolBase tool, ref bool result)
         {

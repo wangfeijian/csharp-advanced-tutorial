@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageDisplayTests", "ImageD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SosoVisionTool", "SosoVisionTool\SosoVisionTool.csproj", "{54458898-B5CA-44B8-A2B7-31553CAD612F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageCapture", "ImageCapture\ImageCapture.csproj", "{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SosoVisionCommonTool", "SosoVisionCommonTool\SosoVisionCommonTool.csproj", "{2534031E-6BF3-423F-A3DF-D413E5D2EB74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,22 @@ Global
 		{54458898-B5CA-44B8-A2B7-31553CAD612F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{54458898-B5CA-44B8-A2B7-31553CAD612F}.Release|x64.ActiveCfg = Release|Any CPU
 		{54458898-B5CA-44B8-A2B7-31553CAD612F}.Release|x64.Build.0 = Release|Any CPU
+		{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}.Debug|x64.Build.0 = Debug|Any CPU
+		{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}.Release|x64.ActiveCfg = Release|Any CPU
+		{7BDDE773-30D0-428A-B4B3-4314FEBF47A1}.Release|x64.Build.0 = Release|Any CPU
+		{2534031E-6BF3-423F-A3DF-D413E5D2EB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2534031E-6BF3-423F-A3DF-D413E5D2EB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2534031E-6BF3-423F-A3DF-D413E5D2EB74}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2534031E-6BF3-423F-A3DF-D413E5D2EB74}.Debug|x64.Build.0 = Debug|Any CPU
+		{2534031E-6BF3-423F-A3DF-D413E5D2EB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2534031E-6BF3-423F-A3DF-D413E5D2EB74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2534031E-6BF3-423F-A3DF-D413E5D2EB74}.Release|x64.ActiveCfg = Release|Any CPU
+		{2534031E-6BF3-423F-A3DF-D413E5D2EB74}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

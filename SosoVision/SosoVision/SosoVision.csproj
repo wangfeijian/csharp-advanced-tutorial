@@ -130,7 +130,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Extensions\ProcedureParam.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\VisionProcessViewModel.cs" />
     <Compile Include="Views\SettingView.xaml.cs">
@@ -217,9 +216,17 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageCapture\ImageCapture.csproj">
+      <Project>{7bdde773-30d0-428a-b4b3-4314febf47a1}</Project>
+      <Name>ImageCapture</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SosoImageDisplay\ImageDisplay.csproj">
       <Project>{4a09f00d-79db-4d6d-b242-d3b6b87ee904}</Project>
       <Name>ImageDisplay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SosoVisionCommonTool\SosoVisionCommonTool.csproj">
+      <Project>{2534031E-6BF3-423F-A3DF-D413E5D2EB74}</Project>
+      <Name>SosoVisionCommonTool</Name>
     </ProjectReference>
     <ProjectReference Include="..\SosoVisionTool\SosoVisionTool.csproj">
       <Project>{54458898-b5ca-44b8-a2b7-31553cad612f}</Project>

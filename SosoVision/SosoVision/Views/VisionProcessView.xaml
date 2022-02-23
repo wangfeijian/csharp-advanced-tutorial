@@ -29,6 +29,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <ComboBox
+                Margin="5"
                 DisplayMemberPath="Key"
                 ItemsSource="{Binding ToolRunImage}"
                 SelectedIndex="0"
@@ -62,7 +63,8 @@
                 x:Name="ToolRun"
                 Grid.Row="2"
                 Margin="5"
-                VisionStep="{Binding Path=Text, ElementName=TextBlockVisionName}" />
+                CameraID="{Binding ProcedureParam.CameraId}"
+                VisionStep="{Binding ProcedureParam.Name}" />
         </Grid>
     </Grid>
 </UserControl>

@@ -37,7 +37,6 @@ namespace SosoVisionTool.Services
         public override void UIElement_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             TreeViewItem _tree = sender as TreeViewItem;
-            string fileName = $"config/Vision/{ToolInVision}/ToolsData/{_tree.Header}.json";
             if (_tree == null)
             {
                 return;
@@ -46,7 +45,7 @@ namespace SosoVisionTool.Services
             if (ToolWindow == null && DataContext == null)
             {
                 ToolWindow = new ImageAcquisitionToolWindow() { AcquisitionTool = this, Title = _tree.Header.ToString() };
-                DataContext = new ImageAcquisitionToolViewModel();
+                DataContext = new ImageAcquisitionToolViewModel(ToolInVision,CameraId);
                 ToolWindow.DataContext = DataContext;
             }
             else if (ToolWindow == null)
@@ -58,7 +57,7 @@ namespace SosoVisionTool.Services
                 }
                 else
                 {
-                    DataContext = new ImageAcquisitionToolViewModel();
+                    DataContext = new ImageAcquisitionToolViewModel(ToolInVision,CameraId);
                     ToolWindow.DataContext = DataContext;
                 }
             }

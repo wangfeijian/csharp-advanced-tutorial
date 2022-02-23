@@ -39,9 +39,9 @@
             <StackPanel Orientation="Horizontal">
                 <RadioButton
                     x:Name="RadioButtonPoint"
-                    Content="&#xe6c8;"
                     Height="20"
                     Margin="2"
+                    Content="&#xe6c8;"
                     FontSize="15"
                     Foreground="#333333"
                     IsChecked="True"
@@ -49,9 +49,9 @@
                     ToolTip="指针" />
                 <RadioButton
                     x:Name="RadioButtonHand"
-                    Content="&#xe659;"
                     Height="20"
                     Margin="2"
+                    Content="&#xe659;"
                     FontSize="15"
                     Foreground="#333333"
                     IsChecked="{Binding ElementName=ShowImage, Path=HMoveContent}"
@@ -66,29 +66,29 @@
                     Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                 <Button
                     x:Name="ButtonZoom"
-                    Content="&#xe601;"
                     Height="20"
                     Margin="2"
                     Click="ZoomButton_Click"
+                    Content="&#xe601;"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource ButtonTemplate}"
                     ToolTip="放大" />
                 <Button
                     x:Name="ButtonNarrow"
-                    Content="&#xe600;"
                     Height="20"
                     Margin="2"
                     Click="ZoomButton_Click"
+                    Content="&#xe600;"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource ButtonTemplate}"
                     ToolTip="缩小" />
                 <Button
-                    Content="&#xe674;"
                     Height="20"
                     Margin="2"
                     Click="FullShowImage"
+                    Content="&#xe674;"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource ButtonTemplate}"
@@ -103,10 +103,10 @@
                     Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                 <CheckBox
                     x:Name="CheckBoxDrawEnable"
-                    Content="&#xe602;"
                     Height="20"
                     Margin="2"
                     Click="CheckBoxDrawEnable_OnClick"
+                    Content="&#xe602;"
                     FontSize="15"
                     Foreground="#333333"
                     IsChecked="False"
@@ -114,10 +114,10 @@
                     ToolTip="是否开启ROI绘制" />
                 <Button
                     x:Name="ButtonDrawLine"
-                    Content="&#xe610;"
                     Height="20"
                     Margin="2"
                     Click="ButtonDrawLine_OnClick"
+                    Content="&#xe610;"
                     FontSize="15"
                     Foreground="#333333"
                     IsEnabled="{Binding ElementName=CheckBoxDrawEnable, Path=IsChecked}"
@@ -126,10 +126,10 @@
                     ToolTip="画线" />
                 <Button
                     x:Name="ButtonDrawRectangle"
-                    Content="&#xe612;"
                     Height="20"
                     Margin="2"
                     Click="ButtonDrawLine_OnClick"
+                    Content="&#xe612;"
                     FontSize="15"
                     Foreground="#333333"
                     IsEnabled="{Binding ElementName=CheckBoxDrawEnable, Path=IsChecked}"
@@ -138,10 +138,10 @@
                     ToolTip="画矩形" />
                 <Button
                     x:Name="ButtonDrawCircle"
-                    Content="&#xe80c;"
                     Height="20"
                     Margin="2"
                     Click="ButtonDrawLine_OnClick"
+                    Content="&#xe80c;"
                     FontSize="15"
                     Foreground="#333333"
                     IsEnabled="{Binding ElementName=CheckBoxDrawEnable, Path=IsChecked}"
@@ -150,10 +150,10 @@
                     ToolTip="画圆" />
                 <Button
                     x:Name="ButtonDrawEllipse"
-                    Content="&#xe614;"
                     Height="20"
                     Margin="2"
                     Click="ButtonDrawLine_OnClick"
+                    Content="&#xe614;"
                     FontSize="15"
                     Foreground="#333333"
                     IsEnabled="{Binding ElementName=CheckBoxDrawEnable, Path=IsChecked}"
@@ -162,10 +162,10 @@
                     ToolTip="画椭圆" />
                 <RadioButton
                     x:Name="RadioButtonFill"
-                    Content="&#xe61c;"
                     Height="20"
                     Margin="2"
                     Click="RadioButtonFill_OnClick"
+                    Content="&#xe61c;"
                     FontSize="15"
                     Foreground="#333333"
                     IsChecked="True"
@@ -173,10 +173,10 @@
                     ToolTip="区域填充" />
                 <RadioButton
                     x:Name="RadioButtonMargin"
-                    Content="&#xe933;"
                     Height="20"
                     Margin="2"
                     Click="RadioButtonFill_OnClick"
+                    Content="&#xe933;"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource RadioButtonTemplate}"
@@ -194,10 +194,10 @@
                     Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                 <Button
                     x:Name="ButtonEdit"
-                    Content="&#xe635;"
                     Height="20"
                     Margin="2"
                     Click="ButtonEdit_OnClick"
+                    Content="&#xe635;"
                     FontSize="15"
                     Foreground="#333333"
                     Tag="0"
@@ -205,10 +205,10 @@
                     ToolTip="绘制" />
                 <Button
                     x:Name="ButtonIntersection"
-                    Content="&#xe603;"
                     Height="20"
                     Margin="2"
                     Click="ButtonEdit_OnClick"
+                    Content="&#xe603;"
                     FontSize="15"
                     Foreground="#333333"
                     Tag="1"
@@ -216,10 +216,10 @@
                     ToolTip="交集" />
                 <Button
                     x:Name="ButtonAnd"
-                    Content="&#xe719;"
                     Height="20"
                     Margin="2"
                     Click="ButtonEdit_OnClick"
+                    Content="&#xe719;"
                     FontSize="15"
                     Foreground="#333333"
                     Tag="2"
@@ -227,10 +227,10 @@
                     ToolTip="并集" />
                 <Button
                     x:Name="ButtonComplementary"
-                    Content="&#xe604;"
                     Height="20"
                     Margin="2"
                     Click="ButtonEdit_OnClick"
+                    Content="&#xe604;"
                     FontSize="15"
                     Foreground="#333333"
                     Tag="3"
@@ -238,10 +238,10 @@
                     ToolTip="补集" />
                 <Button
                     x:Name="ButtonClearRegion"
-                    Content="&#xe63b;"
                     Height="20"
                     Margin="2"
                     Click="ButtonClearRegion_OnClick"
+                    Content="&#xe63b;"
                     FontSize="15"
                     Foreground="#333333"
                     Tag="0"
@@ -254,20 +254,20 @@
                 Orientation="Horizontal">
                 <Button
                     x:Name="ButtonSave"
-                    Content="&#xe62d;"
                     Height="20"
                     Margin="2"
                     Click="ButtonSave_OnClick"
+                    Content="&#xe62d;"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource ButtonTemplate}"
                     ToolTip="保存原始图片" />
                 <Button
                     x:Name="ButtonSaveRegion"
-                    Content="&#xe967;"
                     Height="20"
                     Margin="2"
                     Click="ButtonSave_OnClick"
+                    Content="&#xe967;"
                     FontSize="15"
                     Foreground="#333333"
                     Template="{StaticResource ButtonTemplate}"

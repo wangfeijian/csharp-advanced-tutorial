@@ -31,6 +31,10 @@ namespace SosoVisionTool.Views
         /// </summary>
         public string ToolInVision { get; set; }
         /// <summary>
+        /// 相机ID
+        /// </summary>
+        public string CameraId { get; set; }
+        /// <summary>
         /// 工具描述
         /// </summary>
         public string ToolDesStr

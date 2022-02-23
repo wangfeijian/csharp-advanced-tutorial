@@ -9,8 +9,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="ImageAcquisitionToolWindow"
-    Width="600"
-    Height="450"
+    Width="720"
+    Height="480"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -47,8 +47,10 @@
                                 Width="80"
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
+                                Command="{Binding DataContext.PreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 FontWeight="Bold"
                                 Foreground="Black"
+                                IsEnabled="{Binding DataContext.ButtonPreviewIsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 Style="{StaticResource MaterialDesignFlatButton}">
                                 上一张
                             </Button>
@@ -56,8 +58,10 @@
                                 Width="80"
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
+                                Command="{Binding DataContext.NextCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 FontWeight="Bold"
                                 Foreground="Black"
+                                IsEnabled="{Binding DataContext.ButtonNextIsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 Style="{StaticResource MaterialDesignFlatButton}">
                                 下一张
                             </Button>
@@ -73,30 +77,80 @@
         </GroupBox>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
             <GroupBox
+                Margin="5,0"
                 materialDesign:ColorZoneAssist.Mode="SecondaryMid"
                 Header="图像源选择"
                 Style="{DynamicResource MaterialDesignGroupBox}">
                 <StackPanel Orientation="Horizontal">
                     <RadioButton
                         x:Name="RadioButtonFile"
+                        Margin="0,5"
                         Command="{Binding CaptureTypeChangeCommand}"
                         CommandParameter="file"
                         Content="文件"
-                        IsChecked="True" />
+                        IsChecked="{Binding RadioButtonFileChecked}" />
                     <RadioButton
                         x:Name="RadioButtonDir"
-                        Margin="5,0,0,0"
+                        Margin="0,5"
                         Command="{Binding CaptureTypeChangeCommand}"
                         CommandParameter="dir"
-                        Content="文件夹" />
+                        Content="文件夹"
+                        IsChecked="{Binding RadioButtonDirChecked}" />
                     <RadioButton
                         x:Name="RadioButtonCamera"
-                        Margin="5,0,0,0"
+                        Margin="0,5"
                         Command="{Binding CaptureTypeChangeCommand}"
                         CommandParameter="camera"
-                        Content="相机" />
+                        Content="相机"
+                        IsChecked="{Binding RadioButtonCameraChecked}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox
+                Margin="5"
+                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                Header="相机采集模式"
+                IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonCamera}"
+                Style="{DynamicResource MaterialDesignGroupBox}">
+                <StackPanel>
+                    <RadioButton
+                        Margin="0,5"
+                        Content="单张触发"
+                        IsChecked="True" />
+                    <RadioButton Margin="0,5" Content="连续采集" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Margin="5"
+                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                Header="相机参数设置"
+                IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonCamera}"
+                Style="{DynamicResource MaterialDesignGroupBox}">
+                <StackPanel>
+                    <TextBox
+                        Margin="2"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="设置曝光"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding Param.ExposureTime}" />
+                    <TextBox
+                        Margin="2"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="设置亮度"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding Param.Brightness}" />
+                    <TextBox
+                        Margin="2"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="设置对比度"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding Param.Contrast}" />
+                </StackPanel>
+            </GroupBox>
+            <Button
+                Margin="5"
+                Command="{Binding TestCommand}"
+                Content="测试"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}" />
         </StackPanel>
 
     </Grid>

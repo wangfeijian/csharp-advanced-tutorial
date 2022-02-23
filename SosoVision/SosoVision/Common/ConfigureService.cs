@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using ImageCapture;
 using ImTools;
 using Newtonsoft.Json;
 using Prism.DryIoc;
@@ -15,6 +16,8 @@ using Prism.Regions;
 using SosoVision.Extensions;
 using SosoVision.ViewModels;
 using SosoVision.Views;
+using SosoVisionCommonTool.ConfigData;
+using SosoVisionTool.Services;
 using SosoVisionTool.Views;
 
 namespace SosoVision.Common
@@ -36,15 +39,22 @@ namespace SosoVision.Common
             {
                 SerializationData = File.Exists("config/config.json") ?
                     JsonConvert.DeserializeObject<SerializationData>(File.ReadAllText("config/config.json"))
-                    : new SerializationData { ProcedureParams = new ObservableCollection<ProcedureParam>() };
+                    : new SerializationData { ProcedureParams = new ObservableCollection<ProcedureParam>(),CameraParams = new ObservableCollection<CameraParam>() };
             }
             else
             {
                 File.WriteAllText("config/config.json", JsonConvert.SerializeObject(SerializationData));
 
+                foreach (var item in SerializationData.CameraParams)
+                {
+                    var capture = ContainerLocator.Container.Resolve<CaptureBase>(item.CameraId.ToString());
+                    capture.Close();
+                }
+
                 foreach (var param in SerializationData.ProcedureParams)
                 {
                     var view = _regionManager.Regions[PrismManager.MainViewRegionName].GetView(param.Name) as VisionProcessView;
+                    if (view == null) return;
                     var viewModel = view?.DataContext as VisionProcessViewModel;
                     var toolRun = view.FindName("ToolRun") as ToolRunView;
                     var toolTreeView = toolRun.FindName("ToolTreeView") as TreeView;
@@ -81,7 +91,9 @@ namespace SosoVision.Common
                         }
 
                         string fileName = $"{dir}/{param.Name}.json";
+                        string fileDataName = $"{dir}/{param.Name}_Data.json";
                         File.WriteAllText(fileName, JsonConvert.SerializeObject(viewModel));
+                        File.WriteAllText(fileDataName,JsonConvert.SerializeObject(ContainerLocator.Container.Resolve<ToolRunViewData>(param.Name)));
                     }
                 }
             }

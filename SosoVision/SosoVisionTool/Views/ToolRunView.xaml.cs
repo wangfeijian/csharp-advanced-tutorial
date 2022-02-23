@@ -38,6 +38,19 @@ namespace SosoVisionTool.Views
         public static readonly DependencyProperty VisionStepProperty =
             DependencyProperty.Register(nameof(VisionStep), typeof(string), typeof(ToolRunView));
 
+        /// <summary>
+        /// 相机ID
+        /// </summary>
+        public string CameraID
+        {
+            get { return (string)GetValue(CameraIDProperty); }
+            set { SetValue(CameraIDProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CameraID.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CameraIDProperty =
+            DependencyProperty.Register(nameof(CameraID), typeof(string), typeof(ToolRunView));
+
         public ToolRunView()
         {
             InitializeComponent();
@@ -171,6 +184,7 @@ namespace SosoVisionTool.Views
 
                     TreeViewItem tree = tempToolBase.CreateTreeView(head);
                     tempToolBase.ToolInVision = VisionStep;
+                    tempToolBase.CameraId = CameraID;
 
                     tree.Tag = tempToolBase;
                     tree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
@@ -199,10 +213,9 @@ namespace SosoVisionTool.Views
             if (MessageBox.Show("是否删除该工具，删除后将无法恢复！", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
             {
                 var tree = ToolTreeView.SelectedItem as TreeViewItem;
-                string name = VisionStep.Substring(5, VisionStep.Length - 5);
-                string fileName = $"config/Vision/{name}/Tools/{tree.Header}.json";
-                string newDirName = $"config/Vision/{name}/Tools/backup/";
-                string newFileName = $"config/Vision/{name}/Tools/backup/{tree.Header}.json";
+                string fileName = $"config/Vision/{VisionStep}/Tools/{tree.Header}.json";
+                string newDirName = $"config/Vision/{VisionStep}/Tools/backup/";
+                string newFileName = $"config/Vision/{VisionStep}/Tools/backup/{tree.Header}.json";
                 if (!Directory.Exists(newDirName))
                 {
                     Directory.CreateDirectory(newDirName);
@@ -297,6 +310,7 @@ namespace SosoVisionTool.Views
                         var tag = Activator.CreateInstance(t) as ToolBase;
                         var tempTree = tag.CreateTreeView(head);
                         tag.ToolInVision = VisionStep;
+                        tag.CameraId = CameraID;
                         tempTree.Tag = tag;
                         tempTree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
                         ToolTreeView.Items.Add(tempTree);

@@ -13,6 +13,7 @@ using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using SosoVision.Common;
 using SosoVision.Extensions;
+using SosoVisionCommonTool.ConfigData;
 
 namespace SosoVision.ViewModels
 {
@@ -20,6 +21,7 @@ namespace SosoVision.ViewModels
     {
         private readonly IConfigureService _configureService;
         private ObservableCollection<ProcedureParam> _procedureParams;
+        private ObservableCollection<CameraParam> _cameraParams;
         private bool _isOkToClose;
         private List<ProcedureParam> _deleteCount;
         public ObservableCollection<ProcedureParam> ProcedureParams
@@ -30,6 +32,13 @@ namespace SosoVision.ViewModels
 
         public ObservableCollection<ProcedureParam> OldParams { get; set; }
 
+        public ObservableCollection<CameraParam> CameraParams
+        {
+            get { return _cameraParams; }
+            set { _cameraParams = value; }
+        }
+
+        public ObservableCollection<CameraParam> OldCameraParams { get; set; }
         public DelegateCommand Confim { get; }
         public DelegateCommand Cancel { get; }
         public DelegateCommand<object> Delete { get; }
@@ -38,6 +47,7 @@ namespace SosoVision.ViewModels
         {
             _configureService = configureService;
             ProcedureParams = _configureService.SerializationData.ProcedureParams;
+            CameraParams = _configureService.SerializationData.CameraParams;
             Confim = new DelegateCommand(() => { _isOkToClose = true; RequestClose?.Invoke(new DialogResult(ButtonResult.OK)); });
             Cancel = new DelegateCommand(() => { _isOkToClose = false; RequestClose?.Invoke(new DialogResult(ButtonResult.No)); });
             Delete = new DelegateCommand<object>(DeleteItems);
@@ -89,7 +99,8 @@ namespace SosoVision.ViewModels
             if (_isOkToClose)
             {
                 string file = $"config/backup_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}.json";
-                File.WriteAllText(file, JsonConvert.SerializeObject(OldParams));
+                SerializationData serialization = new SerializationData { CameraParams = OldCameraParams, ProcedureParams = OldParams};
+                File.WriteAllText(file, JsonConvert.SerializeObject(serialization));
                 MessageBox.Show($"配置已备份到{file}文件中");
             }
             else
@@ -98,6 +109,12 @@ namespace SosoVision.ViewModels
                 foreach (var procedureParam in OldParams)
                 {
                     ProcedureParams.Add(procedureParam);
+                }
+
+                CameraParams.Clear();
+                foreach (var procedureParam in OldCameraParams)
+                {
+                    CameraParams.Add(procedureParam);
                 }
             }
         }
@@ -109,6 +126,11 @@ namespace SosoVision.ViewModels
             ProcedureParam[] temp = new ProcedureParam[ProcedureParams.Count];
             ProcedureParams.CopyTo(temp, 0);
             temp.ToList().ForEach(p => OldParams.Add(p));
+
+            OldCameraParams = new ObservableCollection<CameraParam>();
+            CameraParam[] tempCamera = new CameraParam[CameraParams.Count];
+            CameraParams.CopyTo(tempCamera, 0);
+            tempCamera.ToList().ForEach(p => OldCameraParams.Add(p));
         }
 
         public string Title { get; } = "视觉配置";

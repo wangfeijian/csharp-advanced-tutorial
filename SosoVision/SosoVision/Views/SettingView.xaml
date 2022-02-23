@@ -42,6 +42,17 @@
                     Style="{StaticResource TabControlStyle}">
                     <TabItem
                         Foreground="{DynamicResource MaterialDesignBody}"
+                        Header="相机设置"
+                        Style="{StaticResource TabItemStyle}">
+                        <DataGrid
+                            CanUserAddRows="True"
+                            CanUserDeleteRows="True"
+                            ItemsSource="{Binding CameraParams}"
+                            SelectionMode="Extended"
+                            SelectionUnit="Cell" />
+                    </TabItem>
+                    <TabItem
+                        Foreground="{DynamicResource MaterialDesignBody}"
                         Header="显示设置"
                         Style="{StaticResource TabItemStyle}">
                         <TextBlock>
@@ -77,6 +88,7 @@
                             SelectionMode="Extended"
                             SelectionUnit="Cell" />
                     </TabItem>
+
                 </TabControl>
             </ScrollViewer>
         </Grid>
@@ -87,17 +99,17 @@
             Background="Transparent"
             Orientation="Horizontal">
             <Button
-                Content="删除选中行"
                 Margin="0,0,10,0"
                 Command="{Binding Delete}"
                 CommandParameter="{Binding ElementName=ConfigTab}"
+                Content="删除选中行"
                 Style="{StaticResource MaterialDesignOutlinedButton}" />
             <Button
-                Content="取消"
                 Margin="0,0,10,0"
                 Command="{Binding Cancel}"
+                Content="取消"
                 Style="{StaticResource MaterialDesignOutlinedButton}" />
-            <Button Content="确定" Command="{Binding Confim}" />
+            <Button Command="{Binding Confim}" Content="确定" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -75,6 +75,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -110,18 +111,15 @@
     <Compile Include="Services\CustomerConverter.cs" />
     <Compile Include="Services\ImageAcquisitionTool.cs" />
     <Compile Include="Services\ImageBlobTool.cs" />
+    <Compile Include="Services\ToolRunViewData.cs" />
     <Compile Include="Services\TreeViewDataAccess.cs" />
+    <Compile Include="Tools\HObjectEvent.cs" />
     <Compile Include="Tools\HObjectParams.cs" />
     <Compile Include="Tools\HOperatorSetExtension.cs" />
-    <Compile Include="Tools\ISosoLogManager.cs" />
-    <Compile Include="Tools\LogStruct.cs" />
-    <Compile Include="Tools\MessageEvent.cs" />
-    <Compile Include="Tools\SosoLogManager.cs" />
     <Compile Include="ViewModels\ImageAcquisitionToolViewModel.cs" />
     <Compile Include="ViewModels\ImageBlobToolViewModel.cs" />
     <Compile Include="ViewModels\IToolBaseViewModel.cs" />
     <Compile Include="ViewModels\ToolControlBoxViewModel.cs" />
-    <Compile Include="ViewModels\ToolRunViewModel.cs" />
     <Compile Include="Views\ImageAcquisitionToolWindow.xaml.cs">
       <DependentUpon>ImageAcquisitionToolWindow.xaml</DependentUpon>
     </Compile>
@@ -197,9 +195,17 @@
     <Resource Include="Fonts\抓手64.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageCapture\ImageCapture.csproj">
+      <Project>{7bdde773-30d0-428a-b4b3-4314febf47a1}</Project>
+      <Name>ImageCapture</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SosoImageDisplay\ImageDisplay.csproj">
       <Project>{4a09f00d-79db-4d6d-b242-d3b6b87ee904}</Project>
       <Name>ImageDisplay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SosoVisionCommonTool\SosoVisionCommonTool.csproj">
+      <Project>{2534031E-6BF3-423F-A3DF-D413E5D2EB74}</Project>
+      <Name>SosoVisionCommonTool</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

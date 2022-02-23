@@ -68,8 +68,8 @@
                             KeyboardNavigation.TabNavigation="Local">
                             <ContentPresenter
                                 x:Name="PART_SelectedContentHost"
-                                Content="{TemplateBinding SelectedContent}"
                                 Margin="0"
+                                Content="{TemplateBinding SelectedContent}"
                                 ContentSource="SelectedContent"
                                 ContentStringFormat="{TemplateBinding SelectedContentStringFormat}"
                                 ContentTemplate="{TemplateBinding SelectedContentTemplate}"

@@ -8,6 +8,7 @@ using Prism.DryIoc;
 using Prism.Ioc;
 using SosoVision.Common;
 using SosoVision.Views;
+using SosoVisionCommonTool.Log;
 using SosoVisionTool.Tools;
 
 namespace SosoVision.ViewModels

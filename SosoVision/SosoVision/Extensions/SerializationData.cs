@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Prism.Mvvm;
+using SosoVisionCommonTool.ConfigData;
 
 namespace SosoVision.Extensions
 {
@@ -26,5 +27,7 @@ namespace SosoVision.Extensions
                 return temp;
             }
         }
+
+        public ObservableCollection<CameraParam> CameraParams { get; set; }
     }
 }
