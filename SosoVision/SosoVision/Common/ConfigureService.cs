@@ -39,7 +39,9 @@ namespace SosoVision.Common
             {
                 SerializationData = File.Exists("config/config.json") ?
                     JsonConvert.DeserializeObject<SerializationData>(File.ReadAllText("config/config.json"))
-                    : new SerializationData { ProcedureParams = new ObservableCollection<ProcedureParam>(),CameraParams = new ObservableCollection<CameraParam>() };
+                    : new SerializationData { ProcedureParams = new ObservableCollection<ProcedureParam>(), 
+                                                CameraParams = new ObservableCollection<CameraParam>(), 
+                                                ServerParams = new ObservableCollection<ServerParam>() };
             }
             else
             {
@@ -93,7 +95,7 @@ namespace SosoVision.Common
                         string fileName = $"{dir}/{param.Name}.json";
                         string fileDataName = $"{dir}/{param.Name}_Data.json";
                         File.WriteAllText(fileName, JsonConvert.SerializeObject(viewModel));
-                        File.WriteAllText(fileDataName,JsonConvert.SerializeObject(ContainerLocator.Container.Resolve<ToolRunViewData>(param.Name)));
+                        File.WriteAllText(fileDataName, JsonConvert.SerializeObject(ContainerLocator.Container.Resolve<ToolRunViewData>(param.Name)));
                     }
                 }
             }

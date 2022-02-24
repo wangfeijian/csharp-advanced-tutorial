@@ -39,6 +39,8 @@ namespace SosoVisionTool.ViewModels
         public CaptureBase Capture { get; set; }
         public ProcedureParam Param { get; set; }
 
+        public bool IsContinuousCapture { get; set; }
+        public bool AtCapture { get; set; }
         private bool _radioButtonCameraChecked;
         public bool RadioButtonCameraChecked
         {
@@ -99,6 +101,8 @@ namespace SosoVisionTool.ViewModels
         public DelegateCommand PreviewCommand { get; }
         [Newtonsoft.Json.JsonIgnore]
         public DelegateCommand NextCommand { get; }
+        [Newtonsoft.Json.JsonIgnore]
+        public DelegateCommand ApplyParamCommand { get; }
         public ImageAcquisitionToolViewModel()
         {
             _eventAggregator = ContainerLocator.Container.Resolve<IEventAggregator>();
@@ -106,6 +110,7 @@ namespace SosoVisionTool.ViewModels
             TestCommand = new DelegateCommand(Test);
             PreviewCommand = new DelegateCommand(ButtonPreviewClick);
             NextCommand = new DelegateCommand(ButtonNextClick);
+            ApplyParamCommand = new DelegateCommand(ApplyParam);
         }
 
         public ImageAcquisitionToolViewModel(string visionStep, string cameraId)
@@ -117,6 +122,7 @@ namespace SosoVisionTool.ViewModels
             TestCommand = new DelegateCommand(Test);
             PreviewCommand = new DelegateCommand(ButtonPreviewClick);
             NextCommand = new DelegateCommand(ButtonNextClick);
+            ApplyParamCommand = new DelegateCommand(ApplyParam);
             ToolRunData = ContainerLocator.Container.Resolve<ToolRunViewData>(VisionStep);
             Capture = ContainerLocator.Container.Resolve<CaptureBase>(CameraId);
         }
@@ -144,6 +150,15 @@ namespace SosoVisionTool.ViewModels
                     RadioButtonCameraChecked = true;
                     RadioButtonDirChecked = false;
                     CaptureType = AcquisitionType.Camera;
+                    break;
+                case "single":
+                    IsContinuousCapture = false;
+                    break;
+                case "continuous":
+                    IsContinuousCapture = true;
+                    break;
+                case "stop":
+                    AtCapture = false;
                     break;
             }
         }
@@ -174,16 +189,35 @@ namespace SosoVisionTool.ViewModels
                     DisplayImage = HOperatorSetExtension.ReadImage(FileInfos[FileIndex].FullName);
                     break;
                 case AcquisitionType.Camera:
-                    GrabImage();
+                    if (!AtCapture)
+                    {
+                        GrabImage();
+                    }
                     break;
             }
         }
 
-        private void GrabImage()
+        private void ApplyParam()
         {
             Capture.SetBrightness(Param.Brightness);
             Capture.SetConstract(Param.Contrast);
             Capture.SetExposure(Param.ExposureTime);
+        }
+
+        private void GrabImage(bool isTest = true)
+        {
+            if (IsContinuousCapture && isTest)
+            {
+                AtCapture = true;
+                while (AtCapture)
+                {
+                    DispatcherHelper.Delay(1);
+                    Capture.Grab();
+                    DisplayImage = Capture.GetImage(true);
+                }
+                return;
+            }
+
             Capture.Grab();
             DisplayImage = Capture.GetImage(true);
         }
@@ -256,7 +290,7 @@ namespace SosoVisionTool.ViewModels
                     _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectDir);
                     break;
                 case AcquisitionType.Camera:
-                    GrabImage();
+                    GrabImage(false);
                     AddImageToData(key, DisplayImage);
                     HObjectParams tempHobjectCamera = new HObjectParams { Image = DisplayImage, VisionStep = tool.ToolInVision, ImageKey = key };
                     _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectCamera);

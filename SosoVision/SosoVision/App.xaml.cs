@@ -27,6 +27,7 @@ using SosoVisionTool.Views;
 using ImageCapture;
 using System.Reflection;
 using SosoVisionCommonTool.Log;
+using SosoVision.Server;
 
 namespace SosoVision
 {
@@ -68,6 +69,12 @@ namespace SosoVision
                     Type camera = cameraAssembly.GetType(typeName);
                     var cameraInstance = Activator.CreateInstance(camera, item.CameraIP, false);
                     containerRegistry.RegisterInstance(typeof(CaptureBase), cameraInstance, item.CameraId.ToString());
+                }
+
+            if (configureService.SerializationData.ServerParams != null)
+                foreach (var item in configureService.SerializationData.ServerParams)
+                {
+                    containerRegistry.RegisterInstance(typeof(SosoVisionServerHelper), new SosoVisionServerHelper(item.ServerIp, item.ServerPort));
                 }
 
             if (configureService.SerializationData.ProcedureParams != null)

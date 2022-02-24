@@ -9,8 +9,12 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="ImageAcquisitionToolWindow"
-    Width="720"
-    Height="480"
+    Width="750"
+    Height="500"
+    MinWidth="750"
+    MinHeight="500"
+    MaxWidth="750"
+    MaxHeight="500"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -111,12 +115,18 @@
                 Header="相机采集模式"
                 IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonCamera}"
                 Style="{DynamicResource MaterialDesignGroupBox}">
-                <StackPanel>
+                <StackPanel Orientation="Horizontal">
                     <RadioButton
-                        Margin="0,5"
+                        Margin="5"
+                        Command="{Binding CaptureTypeChangeCommand}"
+                        CommandParameter="single"
                         Content="单张触发"
                         IsChecked="True" />
-                    <RadioButton Margin="0,5" Content="连续采集" />
+                    <RadioButton
+                        Margin="5"
+                        Command="{Binding CaptureTypeChangeCommand}"
+                        CommandParameter="continuous"
+                        Content="连续采集" />
                 </StackPanel>
             </GroupBox>
             <GroupBox
@@ -144,8 +154,31 @@
                         materialDesign:HintAssist.Hint="设置对比度"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         Text="{Binding Param.Contrast}" />
+                    <Button
+                        Margin="2"
+                        Command="{Binding ApplyParamCommand}"
+                        Content="配置参数"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" />
                 </StackPanel>
             </GroupBox>
+            <Grid IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonCamera}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Margin="5,2"
+                    Command="{Binding TestCommand}"
+                    Content="开始采集"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                <Button
+                    Grid.Column="1"
+                    Margin="5,2"
+                    Command="{Binding CaptureTypeChangeCommand}"
+                    CommandParameter="stop"
+                    Content="停止采集"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+            </Grid>
             <Button
                 Margin="5"
                 Command="{Binding TestCommand}"

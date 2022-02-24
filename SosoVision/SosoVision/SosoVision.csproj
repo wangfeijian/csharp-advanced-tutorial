@@ -101,6 +101,9 @@
       <HintPath>..\packages\Prism.Wpf.8.1.97\lib\net461\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SuperSimpleTcp">
+      <HintPath>..\packages\SuperSimpleTcp.2.6.0.5\lib\net461\SuperSimpleTcp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -130,6 +133,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Server\SosoVisionServerHelper.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\VisionProcessViewModel.cs" />
     <Compile Include="Views\SettingView.xaml.cs">

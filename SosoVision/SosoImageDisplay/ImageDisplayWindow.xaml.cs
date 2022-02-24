@@ -6,13 +6,17 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using HalconDotNet;
 using Microsoft.Win32;
+using Prism.Ioc;
+using Prism.Events;
 
 namespace ImageDisplay
 {
     public partial class ImageDisplayWindow
     {
+        public IEventAggregator EventAggregator { get; }
         public ImageDisplayWindow()
         {
+            EventAggregator = ContainerLocator.Container.Resolve<IEventAggregator>();
             InitializeComponent();
         }
 

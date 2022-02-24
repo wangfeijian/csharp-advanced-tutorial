@@ -65,14 +65,24 @@ namespace SosoVisionCommonTool.ConfigData
         }
 
         /// <summary>
-        /// 显示ID
+        /// 显示行号
         /// </summary>
-        private int _showId;
+        private int _showIdRow;
 
-        public int ShowId
+        public int ShowIdRow
         {
-            get { return _showId; }
-            set { _showId = value; RaisePropertyChanged(); }
+            get { return _showIdRow; }
+            set { _showIdRow = value; RaisePropertyChanged(); }
+        }
+        /// <summary>
+        /// 显示列号
+        /// </summary>
+        private int _showIdCol;
+
+        public int ShowIdCol
+        {
+            get { return _showIdCol; }
+            set { _showIdCol = value; RaisePropertyChanged(); }
         }
         /// <summary>
         /// 曝光时间

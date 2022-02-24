@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:imageDisplay="clr-namespace:ImageDisplay;assembly=ImageDisplay"
     xmlns:local="clr-namespace:SosoVision.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -64,11 +65,41 @@
             Margin="0,0,0,32"
             HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
-            HorizontalScrollBarVisibility="Auto"
-            VerticalScrollBarVisibility="Disabled">
-            <Grid>
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:Card
+            HorizontalScrollBarVisibility="Hidden"
+            VerticalScrollBarVisibility="Hidden">
+            <Grid x:Name="ShowGrid">
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="300" />
+                    <RowDefinition Height="300" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                -->
+                <!--<StackPanel Orientation="Horizontal">-->
+                <!--
+                <imageDisplay:ImageDisplayWindow
+                    x:Name="ShowImageWindow"
+                    Margin="4,2,8,16"
+                    CameraColor="#673ab7" />
+                <imageDisplay:ImageDisplayWindow
+                    x:Name="ShowImageWindow1"
+                    Grid.Column="1"
+                    Margin="4,2,8,16"
+                    CameraColor="#673ab7" />
+                <imageDisplay:ImageDisplayWindow
+                    x:Name="ShowImageWindow2"
+                    Grid.Row="1"
+                    Margin="4,2,8,16"
+                    CameraColor="#673ab7" />
+                <imageDisplay:ImageDisplayWindow
+                    x:Name="ShowImageWindow3"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="4,2,8,16"
+                    CameraColor="#673ab7" />-->
+                <!--<materialDesign:Card
                         Width="420"
                         Height="270"
                         Margin="4,2,8,16">
@@ -243,8 +274,8 @@
                                 </DockPanel>
                             </Border>
                         </Grid>
-                    </materialDesign:Card>
-                </StackPanel>
+                    </materialDesign:Card>-->
+                <!--</StackPanel>-->
             </Grid>
         </ScrollViewer>
 
@@ -256,28 +287,28 @@
             Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}">
             <StackPanel>
                 <Button
-                    Content="{materialDesign:PackIcon Kind=Information,
-                                                      Size=25}"
                     Background="Green"
                     Command="{Binding ShowLogCommand}"
                     CommandParameter="info"
+                    Content="{materialDesign:PackIcon Kind=Information,
+                                                      Size=25}"
                     Foreground="White"
                     ToolTip="测试正常LOG" />
 
                 <Button
-                    Content="{materialDesign:PackIcon Kind=AlertOutline,
-                                                      Size=25}"
                     Background="Yellow"
                     Command="{Binding ShowLogCommand}"
                     CommandParameter="warn"
+                    Content="{materialDesign:PackIcon Kind=AlertOutline,
+                                                      Size=25}"
                     ToolTip="测试警告LOG" />
 
                 <Button
-                    Content="{materialDesign:PackIcon Kind=Error,
-                                                      Size=25}"
                     Background="Red"
                     Command="{Binding ShowLogCommand}"
                     CommandParameter="error"
+                    Content="{materialDesign:PackIcon Kind=Error,
+                                                      Size=25}"
                     Foreground="White"
                     ToolTip="测试错误LOG" />
             </StackPanel>

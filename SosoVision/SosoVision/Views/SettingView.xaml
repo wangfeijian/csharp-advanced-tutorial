@@ -53,16 +53,14 @@
                     </TabItem>
                     <TabItem
                         Foreground="{DynamicResource MaterialDesignBody}"
-                        Header="显示设置"
+                        Header="通讯设置"
                         Style="{StaticResource TabItemStyle}">
-                        <TextBlock>
-                            <Run Text="tab 1 content. Default look and behaviors." />
-                            <LineBreak />
-                            <LineBreak />
-                            <Run FontStyle="Italic">
-                                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-                            </Run>
-                        </TextBlock>
+                        <DataGrid
+                            CanUserAddRows="True"
+                            CanUserDeleteRows="True"
+                            ItemsSource="{Binding ServerParams}"
+                            SelectionMode="Extended"
+                            SelectionUnit="Cell" />
                     </TabItem>
                     <TabItem
                         Foreground="{DynamicResource MaterialDesignBody}"
@@ -98,6 +96,18 @@
             HorizontalAlignment="Right"
             Background="Transparent"
             Orientation="Horizontal">
+            <TextBox
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                materialDesign:HintAssist.Hint="显示行数量"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding Row}" />
+            <TextBox
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                materialDesign:HintAssist.Hint="显示列数量"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding Col}" />
             <Button
                 Margin="0,0,10,0"
                 Command="{Binding Delete}"

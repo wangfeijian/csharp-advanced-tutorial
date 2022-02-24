@@ -22,8 +22,13 @@ namespace SosoVision.ViewModels
         private readonly IConfigureService _configureService;
         private ObservableCollection<ProcedureParam> _procedureParams;
         private ObservableCollection<CameraParam> _cameraParams;
+        private ObservableCollection<ServerParam> _serverParams;
         private bool _isOkToClose;
-        private List<ProcedureParam> _deleteCount;
+        private List<ProcedureParam> _deleteProcedureParamCount;
+        private List<CameraParam> _deleteCameraParamCount;
+        private List<ServerParam> _deleteServerParamCount;
+        public int Row { get; set; }
+        public int Col { get; set; }
         public ObservableCollection<ProcedureParam> ProcedureParams
         {
             get { return _procedureParams; }
@@ -39,6 +44,14 @@ namespace SosoVision.ViewModels
         }
 
         public ObservableCollection<CameraParam> OldCameraParams { get; set; }
+
+        public ObservableCollection<ServerParam> ServerParams
+        {
+            get { return _serverParams; }
+            set { _serverParams = value; }
+        }
+
+        public ObservableCollection<ServerParam> OldServerParams { get; set; }
         public DelegateCommand Confim { get; }
         public DelegateCommand Cancel { get; }
         public DelegateCommand<object> Delete { get; }
@@ -48,6 +61,9 @@ namespace SosoVision.ViewModels
             _configureService = configureService;
             ProcedureParams = _configureService.SerializationData.ProcedureParams;
             CameraParams = _configureService.SerializationData.CameraParams;
+            ServerParams = _configureService.SerializationData.ServerParams;
+            Row = _configureService.SerializationData.Row;
+            Col = _configureService.SerializationData.Col;
             Confim = new DelegateCommand(() => { _isOkToClose = true; RequestClose?.Invoke(new DialogResult(ButtonResult.OK)); });
             Cancel = new DelegateCommand(() => { _isOkToClose = false; RequestClose?.Invoke(new DialogResult(ButtonResult.No)); });
             Delete = new DelegateCommand<object>(DeleteItems);
@@ -65,9 +81,13 @@ namespace SosoVision.ViewModels
                         case "检测设置":
                             DeleteProcedureParam();
                             break;
-                        case "显示设置":
+                        case "相机设置":
+                            DeleteCameraParam();
                             break;
                         case "标定设置":
+                            break;
+                        case "通讯设置":
+                            DeleteServerParam();
                             break;
                     }
             }
@@ -75,17 +95,49 @@ namespace SosoVision.ViewModels
 
         private void DeleteProcedureParam()
         {
-            _deleteCount = new List<ProcedureParam>();
+            _deleteProcedureParamCount = new List<ProcedureParam>();
             foreach (var procedureParam in ProcedureParams)
             {
                 if (procedureParam.Delete)
                 {
-                    _deleteCount.Add(procedureParam);
+                    _deleteProcedureParamCount.Add(procedureParam);
                 }
             }
-            foreach (var i in _deleteCount)
+            foreach (var i in _deleteProcedureParamCount)
             {
                 ProcedureParams.Remove(i);
+            }
+        }
+
+        private void DeleteCameraParam()
+        {
+            _deleteCameraParamCount = new List<CameraParam>();
+            foreach (var cameraParam in CameraParams)
+            {
+                if (cameraParam.Delete)
+                {
+                    _deleteCameraParamCount.Add(cameraParam);
+                }
+            }
+            foreach (var i in _deleteCameraParamCount)
+            {
+                CameraParams.Remove(i);
+            }
+        }
+
+        private void DeleteServerParam()
+        {
+            _deleteServerParamCount = new List<ServerParam>();
+            foreach (var serverParam in ServerParams)
+            {
+                if (serverParam.Delete)
+                {
+                    _deleteServerParamCount.Add(serverParam);
+                }
+            }
+            foreach (var i in _deleteServerParamCount)
+            {
+                ServerParams.Remove(i);
             }
         }
 
@@ -99,8 +151,10 @@ namespace SosoVision.ViewModels
             if (_isOkToClose)
             {
                 string file = $"config/backup_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}.json";
-                SerializationData serialization = new SerializationData { CameraParams = OldCameraParams, ProcedureParams = OldParams};
+                SerializationData serialization = new SerializationData { CameraParams = OldCameraParams, ProcedureParams = OldParams, ServerParams = OldServerParams, Row = Row, Col = Col };
                 File.WriteAllText(file, JsonConvert.SerializeObject(serialization));
+                _configureService.SerializationData.Row = Row;
+                _configureService.SerializationData.Col = Col;
                 MessageBox.Show($"配置已备份到{file}文件中");
             }
             else
@@ -112,9 +166,15 @@ namespace SosoVision.ViewModels
                 }
 
                 CameraParams.Clear();
-                foreach (var procedureParam in OldCameraParams)
+                foreach (var cameraParam in OldCameraParams)
                 {
-                    CameraParams.Add(procedureParam);
+                    CameraParams.Add(cameraParam);
+                }
+
+                ServerParams.Clear();
+                foreach (var serverParam in OldServerParams)
+                {
+                    ServerParams.Add(serverParam);
                 }
             }
         }
@@ -131,6 +191,11 @@ namespace SosoVision.ViewModels
             CameraParam[] tempCamera = new CameraParam[CameraParams.Count];
             CameraParams.CopyTo(tempCamera, 0);
             tempCamera.ToList().ForEach(p => OldCameraParams.Add(p));
+
+            OldServerParams = new ObservableCollection<ServerParam>();
+            ServerParam[] tempServer = new ServerParam[ServerParams.Count];
+            ServerParams.CopyTo(tempServer, 0);
+            tempServer.ToList().ForEach(p => OldServerParams.Add(p));
         }
 
         public string Title { get; } = "视觉配置";

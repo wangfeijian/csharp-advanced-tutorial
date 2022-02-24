@@ -99,7 +99,7 @@ namespace SosoVisionTool.Views
             }
         }
 
-        public void Run()
+        public bool Run(params string[] param)
         {
             foreach (var child in ToolTreeView.Items)
             {
@@ -112,9 +112,10 @@ namespace SosoVisionTool.Views
                 {
                     tree.Background = Brushes.Red;
                     ButtonRun.IsEnabled = true;
-                    return;
+                    return false;
                 }
             }
+            return true;
         }
 
         private void ToolTreeView_OnMouseMove(object sender, MouseEventArgs e)
