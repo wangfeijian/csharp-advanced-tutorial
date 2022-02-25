@@ -1,0 +1,214 @@
+﻿<Window
+    x:Class="SosoVisionTool.Views.ImageMatchToolWindw"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:SosoVisionTool.Services"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:imageDisplay="clr-namespace:ImageDisplay;assembly=ImageDisplay"
+    xmlns:local="clr-namespace:SosoVisionTool.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ImageMatchToolWindw"
+    MinWidth="750"
+    MinHeight="500"
+    MaxWidth="850"
+    MaxHeight="700"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+        <GroupBox
+            materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+            Header="图像显示"
+            Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <materialDesign:PackIcon
+                            Width="32"
+                            Height="32"
+                            VerticalAlignment="Center"
+                            Kind="ImageArea" />
+                        <TextBlock
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                            Text="{Binding}" />
+                    </DockPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <imageDisplay:ImageDisplayWindow
+                x:Name="ShowImageWindow"
+                Grid.Row="1"
+                CameraColor="#aeea00"
+                DisplayImage="{Binding DisplayImage, Mode=TwoWay}"
+                DisplayRegion="{Binding DisplayRegion, Mode=TwoWay}" />
+        </GroupBox>
+        <StackPanel Grid.Column="1" Margin="5,0,0,0">
+            <GroupBox
+                Margin="5,0"
+                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                Header="图像源选择"
+                Style="{DynamicResource MaterialDesignGroupBox}">
+                <ComboBox
+                    materialDesign:HintAssist.Hint="图像来源"
+                    DisplayMemberPath="Key"
+                    ItemsSource="{Binding ToolRunData.ToolOutputImage}"
+                    SelectedValue="{Binding ImageSourceKey, Mode=TwoWay}"
+                    SelectedValuePath="Key"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+            </GroupBox>
+            <GroupBox
+                Margin="5"
+                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                Header="模板参数"
+                Style="{DynamicResource MaterialDesignGroupBox}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.6*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox
+                        Grid.Column="1"
+                        Margin="5"
+                        materialDesign:HintAssist.Hint="金字塔层级"
+                        ItemsSource="{Binding NumLevelList}"
+                        SelectedItem="{Binding NumLevels}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    <ComboBox
+                        Margin="5"
+                        materialDesign:HintAssist.Hint="阈值"
+                        ItemsSource="{Binding ContrastList}"
+                        SelectedItem="{Binding Contrast}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    <TextBox
+                        Grid.Row="2"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="起始角度"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding AngleStart}" />
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="结束角度"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding AngleExtent}" />
+                    <ComboBox
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Margin="5"
+                        materialDesign:HintAssist.Hint="模板生成算法"
+                        ItemsSource="{Binding OptimizationList}"
+                        SelectedItem="{Binding Optimization}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    <ComboBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="5"
+                        materialDesign:HintAssist.Hint="匹配算法"
+                        ItemsSource="{Binding MetricList}"
+                        SelectedItem="{Binding Metric}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    <TextBox
+                        Grid.Row="1"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="最小阈值"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding MinContrast}" />
+                    <Button
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"
+                        Command="{Binding CreateModelCommand}"
+                        Content="制作模板"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                </Grid>
+            </GroupBox>
+            <GroupBox
+                Margin="5"
+                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                Header="运行参数"
+                Style="{DynamicResource MaterialDesignGroupBox}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="最小分数"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding MinScore}" />
+                    <TextBox
+                        Grid.Column="1"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="匹配数量"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding NumMatches}" />
+                    <TextBox
+                        Grid.Row="1"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="模板重合度"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding MaxOverlap}" />
+                    <ComboBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5"
+                        materialDesign:HintAssist.Hint="亚像素精度 "
+                        ItemsSource="{Binding SubPixelList}"
+                        SelectedItem="{Binding SubPixel}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    <ComboBox
+                        Grid.Row="2"
+                        Margin="5"
+                        materialDesign:HintAssist.Hint="使用层级"
+                        ItemsSource="{Binding UseLevelList}"
+                        SelectedItem="{Binding UseLevels}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    <TextBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="贪婪性"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding Greediness}" />
+                    <Button
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Command="{Binding TestCommand}"
+                        Content="测试找模板"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                </Grid>
+            </GroupBox>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

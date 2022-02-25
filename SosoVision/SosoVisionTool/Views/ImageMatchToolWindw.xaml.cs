@@ -17,14 +17,15 @@ using System.Windows.Shapes;
 namespace SosoVisionTool.Views
 {
     /// <summary>
-    /// Interaction logic for ImageAcquisitionToolWindow.xaml
+    /// Interaction logic for ImageMatchToolWindw.xaml
     /// </summary>
-    public partial class ImageAcquisitionToolWindow : Window
+    public partial class ImageMatchToolWindw : Window
     {
-        public ImageAcquisitionToolWindow()
+        public ImageMatchToolWindw()
         {
             InitializeComponent();
         }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             e.Cancel = true;

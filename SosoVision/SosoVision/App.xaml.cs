@@ -93,7 +93,7 @@ namespace SosoVision
                         {
                             ToolOutputDoubleValue = new Dictionary<string, double>(),
                             ToolOutputImage = new Dictionary<string, HalconDotNet.HObject>(),
-                            ToolOutputIntValue = new Dictionary<string, double>(),
+                            ToolOutputIntValue = new Dictionary<string, int>(),
                             ToolOutputRegion = new Dictionary<string, HalconDotNet.HObject>()
                         };
 

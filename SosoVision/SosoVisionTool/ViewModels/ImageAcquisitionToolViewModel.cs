@@ -213,13 +213,13 @@ namespace SosoVisionTool.ViewModels
                 {
                     DispatcherHelper.Delay(1);
                     Capture.Grab();
-                    DisplayImage = Capture.GetImage(true);
+                    DisplayImage = Capture.GetImage();
                 }
                 return;
             }
 
             Capture.Grab();
-            DisplayImage = Capture.GetImage(true);
+            DisplayImage = Capture.GetImage();
         }
 
         private void ButtonPreviewClick()
@@ -282,7 +282,7 @@ namespace SosoVisionTool.ViewModels
                     DisplayImage = HOperatorSetExtension.ReadImage(FileInfos[FileIndex++].FullName);
                     if (DisplayImage == null)
                     {
-                        result = true;
+                        result = false;
                         return;
                     }
                     AddImageToData(key, DisplayImage);
@@ -309,7 +309,7 @@ namespace SosoVisionTool.ViewModels
                 return;
             }
 
-            ToolRunData.ToolOutputImage.Add(key, DisplayImage);
+            ToolRunData.ToolOutputImage.Add(key, image);
         }
         private void GetFilePath(bool flag = true)
         {

@@ -18,5 +18,6 @@ namespace SosoVisionTool.ViewModels
 
         CaptureBase Capture { get; set; }
         void Run(ToolBase tool, ref bool result);
+
     }
 }

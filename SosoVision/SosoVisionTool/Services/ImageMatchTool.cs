@@ -12,19 +12,19 @@ using System.Windows.Input;
 
 namespace SosoVisionTool.Services
 {
-    public class ImageAcquisitionTool : ToolBase
+    public class ImageMatchTool : ToolBase
     {
-        public ImageAcquisitionTool()
+        public ImageMatchTool()
         {
-            ToolDesStr = "图像采集";
-            ToolTip = "图像采集";
-            ToolIcon = "\xe967";
+            ToolDesStr = "模板匹配";
+            ToolTip = "模板匹配";
+            ToolIcon = "\xe729";
         }
-
         public override TreeViewItem CreateTreeView(string name)
         {
             ToolItem = new TreeViewItem { Header = name };
-
+            ToolInputItem = new TreeViewItem { Header = AddInOutTreeViewItem(true) };
+            ToolItem.Items.Add(ToolInputItem);
             ToolOutputItem = new TreeViewItem { Header = AddInOutTreeViewItem(false) };
             ToolItem.Items.Add(ToolOutputItem);
             return ToolItem;
@@ -32,11 +32,13 @@ namespace SosoVisionTool.Services
 
         public override object GetDataContext(string file)
         {
-            return JsonConvert.DeserializeObject<ImageAcquisitionToolViewModel>(File.ReadAllText(file));
+            return JsonConvert.DeserializeObject<ImageMatchToolViewModel>(File.ReadAllText(file));
         }
+
         public override void UIElement_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             TreeViewItem _tree = sender as TreeViewItem;
+            string fileName = $"config/Vision/{ToolInVision}/ToolsData/{_tree.Header}.json";
             if (_tree == null)
             {
                 return;
@@ -44,20 +46,20 @@ namespace SosoVisionTool.Services
 
             if (ToolWindow == null && DataContext == null)
             {
-                ToolWindow = new ImageAcquisitionToolWindow() { Title = _tree.Header.ToString() };
-                DataContext = new ImageAcquisitionToolViewModel(ToolInVision, CameraId);
+                ToolWindow = new ImageMatchToolWindw() { Title = _tree.Header.ToString() };
+                DataContext = new ImageMatchToolViewModel(ToolInVision);
                 ToolWindow.DataContext = DataContext;
             }
             else if (ToolWindow == null)
             {
-                ToolWindow = new ImageAcquisitionToolWindow() { Title = _tree.Header.ToString() };
-                if (DataContext is ImageAcquisitionToolViewModel)
+                ToolWindow = new ImageMatchToolWindw() { Title = _tree.Header.ToString() };
+                if (DataContext is ImageMatchToolViewModel)
                 {
                     ToolWindow.DataContext = DataContext;
                 }
                 else
                 {
-                    DataContext = new ImageAcquisitionToolViewModel(ToolInVision, CameraId);
+                    DataContext = new ImageMatchToolViewModel(ToolInVision);
                     ToolWindow.DataContext = DataContext;
                 }
             }

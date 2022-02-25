@@ -16,14 +16,14 @@ namespace ImageCapture
     public class BaslerManger : SingleInstanceTemplate<BaslerManger>
     {
         private Dictionary<string, ICameraInfo> _dictDeviceInfo = new Dictionary<string, ICameraInfo>();
-       
+
         /// <summary>
         /// 相机初始化
         /// </summary>
         public void Init()
         {
             _dictDeviceInfo.Clear();
-            
+
             try
             {
                 List<ICameraInfo> allCameras = CameraFinder.Enumerate();
@@ -108,6 +108,9 @@ namespace ImageCapture
 
                         _camera = new Camera(stDevInfo);
 
+                        // todo
+                        _camera.StreamGrabber.ImageGrabbed += OnImageGrabbed;
+
                         _camera.Close();
 
                         _camera.Open();
@@ -126,6 +129,9 @@ namespace ImageCapture
                             _camera.Parameters[PLCamera.TriggerSource].TrySetValue(PLCamera.TriggerSource.Software);
 
                             _camera.Parameters[PLCamera.AcquisitionMode].SetValue(PLCamera.AcquisitionMode.Continuous);
+
+                            // todo
+                            _camera.StreamGrabber.Start(GrabStrategy.OneByOne, GrabLoop.ProvidedByStreamGrabber);
                         }
 
                     }
@@ -166,6 +172,37 @@ namespace ImageCapture
                 {
                     ContainerLocator.Container.Resolve<ISosoLogManager>().ShowLogError($"Error: {grabResult.ErrorCode} {grabResult.ErrorDescription}");
                 }
+            }
+        }
+
+        private void OnImageGrabbed(Object sender, ImageGrabbedEventArgs e)
+        {
+            HObject image;
+            try
+            {
+                // Get the grab result.
+                IGrabResult grabResult = e.GrabResult;
+
+                // Check if the image can be displayed.
+                if (grabResult.IsValid)
+                {
+                    HOperatorSet.GenImage1(out image, "byte", grabResult.Width, grabResult.Height, grabResult.PixelDataPointer);
+                    OnHandlerImage(new[] { image });
+                }
+                else
+                {
+                    ContainerLocator.Container.Resolve<ISosoLogManager>().ShowLogError($"Error: {grabResult.ErrorCode} {grabResult.ErrorDescription}");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ContainerLocator.Container.Resolve<ISosoLogManager>().ShowLogError(ex.Message);
+            }
+            finally
+            {
+                // Dispose the grab result if needed for returning it to the grab loop.
+                e.DisposeGrabResultIfClone();
             }
         }
 
@@ -219,7 +256,9 @@ namespace ImageCapture
                         {
                             ClearBuffer();
 
-                            ImageGrab();
+                            // todo
+                            _camera.ExecuteSoftwareTrigger();
+                            //ImageGrab();
                         }
 
                         if (!WaitOne(TimeOut))
@@ -261,7 +300,9 @@ namespace ImageCapture
                 {
                     ClearBuffer();
 
-                    ImageGrab();
+                    // todo
+                    _camera.ExecuteSoftwareTrigger();
+                    //ImageGrab();
 
                     if (!WaitOne(5000))
                     {

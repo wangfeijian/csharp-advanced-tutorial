@@ -63,6 +63,7 @@ namespace SosoVision.Views
                 imageDisplayWindow.EventAggregator.GetEvent<HObjectEvent>().Subscribe((obj) =>
                  {
                      imageDisplayWindow.DisplayImage = obj.Image;
+                     imageDisplayWindow.DisplayRegion = obj.Region;
                  }, ThreadOption.UIThread, true,
                              companySymbol => companySymbol.VisionStep == item.Name);
 

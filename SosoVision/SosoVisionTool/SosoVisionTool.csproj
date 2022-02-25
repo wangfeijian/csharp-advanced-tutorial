@@ -111,6 +111,7 @@
     <Compile Include="Services\CustomerConverter.cs" />
     <Compile Include="Services\ImageAcquisitionTool.cs" />
     <Compile Include="Services\ImageBlobTool.cs" />
+    <Compile Include="Services\ImageMatchTool.cs" />
     <Compile Include="Services\ToolRunViewData.cs" />
     <Compile Include="Services\TreeViewDataAccess.cs" />
     <Compile Include="Tools\HObjectEvent.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Tools\HOperatorSetExtension.cs" />
     <Compile Include="ViewModels\ImageAcquisitionToolViewModel.cs" />
     <Compile Include="ViewModels\ImageBlobToolViewModel.cs" />
+    <Compile Include="ViewModels\ImageMatchToolViewModel.cs" />
     <Compile Include="ViewModels\IToolBaseViewModel.cs" />
     <Compile Include="ViewModels\ToolControlBoxViewModel.cs" />
     <Compile Include="Views\ImageAcquisitionToolWindow.xaml.cs">
@@ -125,6 +127,9 @@
     </Compile>
     <Compile Include="Views\ImageBlobWindow.xaml.cs">
       <DependentUpon>ImageBlobWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageMatchToolWindw.xaml.cs">
+      <DependentUpon>ImageMatchToolWindw.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ToolBase.xaml.cs">
       <DependentUpon>ToolBase.xaml</DependentUpon>
@@ -165,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ImageBlobWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageMatchToolWindw.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

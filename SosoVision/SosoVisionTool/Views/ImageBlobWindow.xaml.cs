@@ -21,7 +21,6 @@ namespace SosoVisionTool.Views
     /// </summary>
     public partial class ImageBlobWindow : Window
     {
-        public ImageBlobTool BlobTool { get; set; }
         public ImageBlobWindow()
         {
             InitializeComponent();

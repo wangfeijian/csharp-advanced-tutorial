@@ -47,13 +47,13 @@ namespace SosoVisionTool.Services
 
             if (ToolWindow == null && DataContext == null)
             {
-                ToolWindow = new ImageBlobWindow() { BlobTool = this, Title = _tree.Header.ToString() };
+                ToolWindow = new ImageBlobWindow() { Title = _tree.Header.ToString() };
                 DataContext = new ImageBlobToolViewModel(ToolInVision);
                 ToolWindow.DataContext = DataContext;
             }
             else if (ToolWindow == null)
             {
-                ToolWindow = new ImageBlobWindow() { BlobTool = this, Title = _tree.Header.ToString() };
+                ToolWindow = new ImageBlobWindow() { Title = _tree.Header.ToString() };
                 if (DataContext is ImageBlobToolViewModel)
                 {
                     ToolWindow.DataContext = DataContext;

@@ -65,6 +65,14 @@ namespace SosoVision.ViewModels
             set { _toolRunImage = value; RaisePropertyChanged(); }
         }
 
+        private Dictionary<string, HObject> _toolRunRegion;
+
+        public Dictionary<string, HObject> ToolRunRegion
+        {
+            get { return _toolRunRegion; }
+            set { _toolRunRegion = value; RaisePropertyChanged(); }
+        }
+
         [Newtonsoft.Json.JsonIgnore]
         public DelegateCommand LoadedCommand { get; }
 
@@ -77,17 +85,35 @@ namespace SosoVision.ViewModels
             LoadedCommand = new DelegateCommand(LoadWindow);
             _sosoLogManager = ContainerLocator.Container.Resolve<ISosoLogManager>();
 
-            _eventAggregator.GetEvent<HObjectEvent>().Subscribe((obj) =>
-            {
-                DisplayImage = obj.Image;
-                if (ToolRunImage.ContainsKey(obj.ImageKey))
-                {
-                    ToolRunImage[obj.ImageKey] = obj.Image;
-                }
-                else
-                    ToolRunImage.Add(obj.ImageKey, obj.Image);
-            }, ThreadOption.UIThread, true,
+            _eventAggregator.GetEvent<HObjectEvent>().Subscribe(SubscribeHObjectParam, ThreadOption.UIThread, true,
                               companySymbol => companySymbol.VisionStep == ProcedureParam.Name);
+        }
+
+        private void SubscribeHObjectParam(HObjectParams obj)
+        {
+            DisplayImage = obj.Image;
+
+            if (obj.Image == null)
+                return;
+
+            if (ToolRunImage.ContainsKey(obj.ImageKey))
+            {
+                ToolRunImage[obj.ImageKey] = obj.Image;
+            }
+            else
+                ToolRunImage.Add(obj.ImageKey, obj.Image);
+
+            DisplayRegion = obj.Region;
+
+            if (obj.Region == null)
+                return;
+
+            if (ToolRunRegion.ContainsKey(obj.RegionKey))
+            {
+                ToolRunRegion[obj.RegionKey] = obj.Region;
+            }
+            else
+                ToolRunRegion.Add(obj.RegionKey, obj.Region);
         }
 
         private void LoadWindow()
@@ -111,20 +137,12 @@ namespace SosoVision.ViewModels
                 }
             }
             ToolRunImage = new Dictionary<string, HObject>();
+            ToolRunRegion = new Dictionary<string, HObject>();
             _eventAggregator = ContainerLocator.Container.Resolve<IEventAggregator>();
             _sosoLogManager = ContainerLocator.Container.Resolve<ISosoLogManager>();
             LoadedCommand = new DelegateCommand(LoadWindow);
 
-            _eventAggregator.GetEvent<HObjectEvent>().Subscribe((obj) =>
-           {
-               DisplayImage = obj.Image;
-               if (ToolRunImage.ContainsKey(obj.ImageKey))
-               {
-                   ToolRunImage[obj.ImageKey] = obj.Image;
-               }
-               else
-                   ToolRunImage.Add(obj.ImageKey, obj.Image);
-           }, ThreadOption.UIThread, true,
+            _eventAggregator.GetEvent<HObjectEvent>().Subscribe(SubscribeHObjectParam, ThreadOption.UIThread, true,
                              companySymbol => companySymbol.VisionStep == ProcedureParam.Name);
 
         }

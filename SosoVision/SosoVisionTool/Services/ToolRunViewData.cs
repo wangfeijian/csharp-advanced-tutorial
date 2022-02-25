@@ -24,6 +24,6 @@ namespace SosoVisionTool.Services
         /// <summary>
         /// 工具运行后得到的int结果
         /// </summary>
-        public Dictionary<string, double> ToolOutputIntValue { get; set; }
+        public Dictionary<string, int> ToolOutputIntValue { get; set; }
     }
 }

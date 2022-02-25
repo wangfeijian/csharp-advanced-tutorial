@@ -6,6 +6,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:imageDisplay="clr-namespace:ImageDisplay;assembly=ImageDisplay"
     xmlns:local="clr-namespace:SosoVision.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="http://prismlibrary.com/"
     xmlns:sosoVisionTool="clr-namespace:SosoVisionTool.Views;assembly=SosoVisionTool"
@@ -28,13 +29,33 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ComboBox
-                Margin="5"
-                DisplayMemberPath="Key"
-                ItemsSource="{Binding ToolRunImage}"
-                SelectedIndex="0"
-                SelectedValue="{Binding DisplayImage, Mode=OneWayToSource}"
-                SelectedValuePath="Value" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ComboBox
+                    Margin="5"
+                    materialDesign:HintAssist.Hint="工具运行图片结果"
+                    DisplayMemberPath="Key"
+                    ItemsSource="{Binding ToolRunImage}"
+                    SelectedIndex="0"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    SelectedValue="{Binding DisplayImage, Mode=OneWayToSource}"
+                    SelectedValuePath="Value"
+                    ToolTip="运行图片结果" />
+                <ComboBox
+                    Grid.Column="1"
+                    Margin="5"
+                    DisplayMemberPath="Key"
+                    materialDesign:HintAssist.Hint="工具运行区域结果"
+                    ItemsSource="{Binding ToolRunRegion}"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    SelectedIndex="0"
+                    SelectedValue="{Binding DisplayRegion, Mode=OneWayToSource}"
+                    SelectedValuePath="Value"
+                    ToolTip="运行区域结果" />
+            </Grid>
             <imageDisplay:ImageDisplayWindow
                 x:Name="ShowImageWindow"
                 Grid.Row="1"
