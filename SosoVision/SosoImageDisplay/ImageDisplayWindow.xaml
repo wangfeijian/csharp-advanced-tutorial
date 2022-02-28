@@ -169,6 +169,7 @@
                     FontSize="15"
                     Foreground="#333333"
                     IsChecked="True"
+                    IsEnabled="{Binding ElementName=CheckBoxDrawEnable, Path=IsChecked}"
                     Template="{StaticResource RadioButtonTemplate}"
                     ToolTip="区域填充" />
                 <RadioButton
@@ -179,6 +180,7 @@
                     Content="&#xe933;"
                     FontSize="15"
                     Foreground="#333333"
+                    IsEnabled="{Binding ElementName=CheckBoxDrawEnable, Path=IsChecked}"
                     Template="{StaticResource RadioButtonTemplate}"
                     ToolTip="区域边框" />
             </StackPanel>
@@ -350,6 +352,30 @@
                             Tag="4" />
                     </MenuItem>
                     <MenuItem
+                        x:Name="MenuItemRegionColor"
+                        Header="区域颜色"
+                        Icon="&#xe760;"
+                        IsEnabled="False">
+                        <MenuItem
+                            Margin="2"
+                            Background="Red"
+                            Click="MenuItemRegionColor_OnClick"
+                            Header="red"
+                            Tag="1" />
+                        <MenuItem
+                            Margin="2"
+                            Background="Green"
+                            Click="MenuItemRegionColor_OnClick"
+                            Header="green"
+                            Tag="2" />
+                        <MenuItem
+                            Margin="2"
+                            Background="Blue"
+                            Click="MenuItemRegionColor_OnClick"
+                            Header="blue"
+                            Tag="3" />
+                    </MenuItem>
+                    <MenuItem
                         x:Name="MenuItemEdit"
                         Header="操作区域"
                         Icon="&#xe607;"
@@ -389,7 +415,7 @@
                 MouseEnter="ShowImage_OnMouseEnter">
                 <halcon:HIconicDisplayObjectWPF IconicObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=DisplayImage, Mode=TwoWay}" />
                 <halcon:HIconicDisplayObjectWPF
-                    HColored="12"
+                    HColor="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=RegionColor, Mode=TwoWay}"
                     HDraw="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=FillStyle, Mode=TwoWay}"
                     IconicObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=imageDisplay:ImageDisplayWindow}, Path=DisplayRegion, Mode=TwoWay}" />
             </halcon:HSmartWindowControlWPF>

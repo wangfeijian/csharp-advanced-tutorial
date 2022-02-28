@@ -27,6 +27,14 @@ namespace ImageDisplayTests
             InitializeComponent();
             HOperatorSet.ReadImage(out testHObject, "D:/Desktop Image/1.jpg");
             //HOperatorSet.ReadImage(out testHObject,"D:/Project/2021/08/彩色标签/20210830/Pic_2021_08_30_111241_blockId#8542.bmp");
+           // ShowImage.DisplayImage = testHObject;
+           
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            HObject temp;
+            HOperatorSet.GenEmptyObj(out temp);
             ShowImage.DisplayImage = testHObject;
         }
     }

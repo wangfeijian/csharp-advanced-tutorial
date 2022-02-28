@@ -9,6 +9,7 @@
     Title="MainWindow"
     Width="525"
     Height="350"
+    Loaded="WindowLoaded"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>

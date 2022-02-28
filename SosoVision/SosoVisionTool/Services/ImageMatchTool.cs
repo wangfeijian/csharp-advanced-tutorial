@@ -18,7 +18,7 @@ namespace SosoVisionTool.Services
         {
             ToolDesStr = "模板匹配";
             ToolTip = "模板匹配";
-            ToolIcon = "\xe729";
+            ToolIcon = "\xe60a";
         }
         public override TreeViewItem CreateTreeView(string name)
         {

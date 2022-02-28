@@ -40,29 +40,30 @@
                     DisplayMemberPath="Key"
                     ItemsSource="{Binding ToolRunImage}"
                     SelectedIndex="0"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                     SelectedValue="{Binding DisplayImage, Mode=OneWayToSource}"
                     SelectedValuePath="Value"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                     ToolTip="运行图片结果" />
                 <ComboBox
                     Grid.Column="1"
                     Margin="5"
-                    DisplayMemberPath="Key"
                     materialDesign:HintAssist.Hint="工具运行区域结果"
+                    DisplayMemberPath="Key"
                     ItemsSource="{Binding ToolRunRegion}"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                     SelectedIndex="0"
                     SelectedValue="{Binding DisplayRegion, Mode=OneWayToSource}"
                     SelectedValuePath="Value"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                     ToolTip="运行区域结果" />
             </Grid>
             <imageDisplay:ImageDisplayWindow
                 x:Name="ShowImageWindow"
                 Grid.Row="1"
                 CameraColor="#673ab7"
+                RegionColor="green"
                 DisplayImage="{Binding DisplayImage, Mode=TwoWay}"
                 DisplayRegion="{Binding DisplayRegion, Mode=TwoWay}"
-                FillStyle="{Binding FillStyle, Mode=TwoWay}" />
+                FillStyle="{Binding FillStyle, Mode=TwoWay}"/>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

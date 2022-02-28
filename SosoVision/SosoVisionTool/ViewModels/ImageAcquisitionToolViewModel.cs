@@ -73,6 +73,22 @@ namespace SosoVisionTool.ViewModels
             set { _displayImage = value; RaisePropertyChanged(); }
         }
 
+        private string _displayMessage;
+
+        public string DisplayMessage
+        {
+            get { return _displayMessage; }
+            set { _displayMessage = value; RaisePropertyChanged(); }
+        }
+
+        private string _messageColor;
+
+        public string MessageColor
+        {
+            get { return _messageColor; }
+            set { _messageColor = value; RaisePropertyChanged(); }
+        }
+
         private bool buttonPreviewIsEnabled = true;
         /// <summary>
         /// 上一张图片按钮是否启用
@@ -162,22 +178,33 @@ namespace SosoVisionTool.ViewModels
                     break;
             }
         }
+
+        private void ShowRunInfo(string message, bool IsOk = true)
+        {
+            MessageColor = IsOk ? "green" : "red";
+            DisplayMessage = message;
+        }
+
         private void Test()
         {
+            DisplayMessage = "";
             switch (CaptureType)
             {
                 case AcquisitionType.File:
                     if (string.IsNullOrWhiteSpace(CapturePath))
                     {
                         MessageBox.Show("请先配置采集源");
+                        ShowRunInfo("采集失败！", false);
                         return;
                     }
                     DisplayImage = HOperatorSetExtension.ReadImage(CapturePath);
+                    ShowRunInfo("采集成功！");
                     break;
                 case AcquisitionType.Dir:
                     if (string.IsNullOrWhiteSpace(CapturePath))
                     {
                         MessageBox.Show("请先配置采集源");
+                        ShowRunInfo("采集失败！",false);
                         return;
                     }
                     FileInfos = new DirectoryInfo(CapturePath).GetFiles();
@@ -187,6 +214,7 @@ namespace SosoVisionTool.ViewModels
                         FileIndex = 0;
                     }
                     DisplayImage = HOperatorSetExtension.ReadImage(FileInfos[FileIndex].FullName);
+                    ShowRunInfo("采集成功！");
                     break;
                 case AcquisitionType.Camera:
                     if (!AtCapture)
@@ -204,7 +232,7 @@ namespace SosoVisionTool.ViewModels
             Capture.SetExposure(Param.ExposureTime);
         }
 
-        private void GrabImage(bool isTest = true)
+        private bool GrabImage(bool isTest = true)
         {
             if (IsContinuousCapture && isTest)
             {
@@ -212,14 +240,31 @@ namespace SosoVisionTool.ViewModels
                 while (AtCapture)
                 {
                     DispatcherHelper.Delay(1);
-                    Capture.Grab();
-                    DisplayImage = Capture.GetImage();
+                    if (Capture.Grab() == 1)
+                    {
+                        DisplayImage = Capture.GetImage();
+                        ShowRunInfo("采集成功！");
+                    }
+                    else
+                    {
+                        ShowRunInfo("采集失败！",false);
+                        return false;
+                    }
                 }
-                return;
+                return true;
             }
 
-            Capture.Grab();
-            DisplayImage = Capture.GetImage();
+            if (Capture.Grab() == 1)
+            {
+                DisplayImage = Capture.GetImage();
+                ShowRunInfo("采集成功！");
+                return true;
+            }
+            else
+            {
+                ShowRunInfo("采集失败！",false);
+                return false;
+            }
         }
 
         private void ButtonPreviewClick()
@@ -251,6 +296,7 @@ namespace SosoVisionTool.ViewModels
 
         public void Run(ToolBase tool, ref bool result)
         {
+            DisplayMessage = "";
             string key = $"{tool.ToolInVision}_{tool.ToolItem.Header}";
             switch (CaptureType)
             {
@@ -258,10 +304,12 @@ namespace SosoVisionTool.ViewModels
                     if (string.IsNullOrWhiteSpace(CapturePath))
                     {
                         MessageBox.Show("请先配置采集源");
-                        result = true;
+                        result = false;
+                        ShowRunInfo("采集失败！",false);
                         return;
                     }
                     DisplayImage = HOperatorSetExtension.ReadImage(CapturePath);
+                    ShowRunInfo("采集成功！");
                     AddImageToData(key, DisplayImage);
                     HObjectParams tempHobject = new HObjectParams { Image = DisplayImage, VisionStep = tool.ToolInVision, ImageKey = key };
                     _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobject);
@@ -270,7 +318,8 @@ namespace SosoVisionTool.ViewModels
                     if (string.IsNullOrWhiteSpace(CapturePath))
                     {
                         MessageBox.Show("请先配置采集源");
-                        result = true;
+                        ShowRunInfo("采集失败！",false);
+                        result = false;
                         return;
                     }
                     FileInfos = new DirectoryInfo(CapturePath).GetFiles();
@@ -283,17 +332,26 @@ namespace SosoVisionTool.ViewModels
                     if (DisplayImage == null)
                     {
                         result = false;
+                        ShowRunInfo("采集失败！",false);
                         return;
                     }
                     AddImageToData(key, DisplayImage);
+                    ShowRunInfo("采集成功！");
                     HObjectParams tempHobjectDir = new HObjectParams { Image = DisplayImage, VisionStep = tool.ToolInVision, ImageKey = key };
                     _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectDir);
                     break;
                 case AcquisitionType.Camera:
-                    GrabImage(false);
-                    AddImageToData(key, DisplayImage);
-                    HObjectParams tempHobjectCamera = new HObjectParams { Image = DisplayImage, VisionStep = tool.ToolInVision, ImageKey = key };
-                    _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectCamera);
+                    if (GrabImage(false))
+                    {
+                        AddImageToData(key, DisplayImage);
+                        HObjectParams tempHobjectCamera = new HObjectParams { Image = DisplayImage, VisionStep = tool.ToolInVision, ImageKey = key };
+                        _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectCamera);
+                    }
+                    else
+                    {
+                        result = false;
+                        return;
+                    }
                     break;
             }
             TreeViewItem temp = new TreeViewItem { Header = nameof(DisplayImage), ToolTip = DisplayImage.ToString() };

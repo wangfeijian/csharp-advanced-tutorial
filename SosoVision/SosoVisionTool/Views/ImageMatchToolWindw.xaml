@@ -48,7 +48,8 @@
                 Grid.Row="1"
                 CameraColor="#aeea00"
                 DisplayImage="{Binding DisplayImage, Mode=TwoWay}"
-                DisplayRegion="{Binding DisplayRegion, Mode=TwoWay}" />
+                DisplayRegion="{Binding DisplayRegion, Mode=TwoWay}"
+                RegionColor="green" />
         </GroupBox>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
             <GroupBox

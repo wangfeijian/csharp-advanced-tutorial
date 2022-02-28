@@ -296,23 +296,36 @@ namespace ImageCapture
 
                 }
 
-                if (_isGrab)
+                try
                 {
-                    ClearBuffer();
 
-                    // todo
-                    _camera.ExecuteSoftwareTrigger();
-                    //ImageGrab();
-
-                    if (!WaitOne(5000))
+                    if (_isGrab)
                     {
-                        return 0;
+                        ClearBuffer();
+
+                        // todo
+                        _camera.ExecuteSoftwareTrigger();
+                        //ImageGrab();
+
+                        if (!WaitOne(5000))
+                        {
+                            return 0;
+                        }
+
+                        HObject image = GetImage();
+
+                        return image == null ? 0 : 1;
+
                     }
+                }
+                catch (Exception e)
 
-                    HObject image = GetImage();
+                {
+                    System.Diagnostics.Debug.WriteLine(e.ToString());
 
-                    return image == null ? 0 : 1;
+                    ContainerLocator.Container.Resolve<ISosoLogManager>().ShowLogError($"相机{CaptureName}采集失败" + " - " + e.Message);
 
+                    return 0;
                 }
             }
             return 1;

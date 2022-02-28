@@ -59,7 +59,7 @@ namespace SosoVision.Views
                 var viewModel = view.DataContext as VisionProcessViewModel;
 
                 GroupBox groupBox = new GroupBox() { Header = item.Name, Margin = new Thickness(4, 2, 8, 16) };
-                ImageDisplay.ImageDisplayWindow imageDisplayWindow = new ImageDisplay.ImageDisplayWindow() { CameraColor = "#673ab7"};
+                ImageDisplay.ImageDisplayWindow imageDisplayWindow = new ImageDisplay.ImageDisplayWindow() { CameraColor = "#673ab7", RegionColor = "green" };
                 imageDisplayWindow.EventAggregator.GetEvent<HObjectEvent>().Subscribe((obj) =>
                  {
                      imageDisplayWindow.DisplayImage = obj.Image;
@@ -70,7 +70,7 @@ namespace SosoVision.Views
                 groupBox.Content = imageDisplayWindow;
 
                 ShowGrid.Children.Add(groupBox);
-                Grid.SetColumn(groupBox,item.ShowIdCol);
+                Grid.SetColumn(groupBox, item.ShowIdCol);
                 Grid.SetRow(groupBox, item.ShowIdRow);
             }
         }

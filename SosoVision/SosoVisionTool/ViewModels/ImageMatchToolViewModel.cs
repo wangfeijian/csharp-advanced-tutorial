@@ -351,14 +351,15 @@ namespace SosoVisionTool.ViewModels
                     return false;
                 }
 
-                HObject temp, region;
+                HObject temp;
                 HOperatorSet.GenEmptyObj(out temp);
                 for (int i = 0; i < row.Length; i++)
                 {
+                    HObject xldTemp;
                     HOperatorSet.VectorAngleToRigid(0, 0, 0, row[i], col[i], angle[i], out homMat2D);
                     HOperatorSet.AffineTransContourXld(modelContours, out contoursAffineTrans, homMat2D);
-                    HOperatorSet.GenRegionContourXld(contoursAffineTrans, out region, "margin");
-                    HOperatorSet.Union2(temp, region, out temp);
+                    HOperatorSet.ConcatObj(contoursAffineTrans, temp, out xldTemp);
+                    temp = xldTemp;
                     
                 }
                 DisplayRegion = temp;
