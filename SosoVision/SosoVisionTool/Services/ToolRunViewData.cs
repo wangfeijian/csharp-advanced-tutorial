@@ -10,6 +10,11 @@ namespace SosoVisionTool.Services
     public class ToolRunViewData
     {
         /// <summary>
+        /// 从tcp接收的输入数据
+        /// </summary>
+        public Dictionary<string, string> ToolInputReceiveStringValue { get; set; }
+
+        /// <summary>
         /// 工具运行后图片
         /// </summary>
         public Dictionary<string, HObject> ToolOutputImage { get; set; }
@@ -25,5 +30,10 @@ namespace SosoVisionTool.Services
         /// 工具运行后得到的int结果
         /// </summary>
         public Dictionary<string, int> ToolOutputIntValue { get; set; }
+
+        /// <summary>
+        /// 工具运行后得到的string结果
+        /// </summary>
+        public Dictionary<string, string> ToolOutputStringValue { get; set; }
     }
 }

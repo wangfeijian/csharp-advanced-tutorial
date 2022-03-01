@@ -109,10 +109,12 @@
     </Compile>
     <Compile Include="Services\DispatcherHelper.cs" />
     <Compile Include="Services\CustomerConverter.cs" />
-    <Compile Include="Services\ImageAcquisitionTool.cs" />
-    <Compile Include="Services\ImageBlobTool.cs" />
-    <Compile Include="Services\ImageMatchTool.cs" />
+    <Compile Include="Services\Tools\ImageAcquisitionTool.cs" />
+    <Compile Include="Services\Tools\ImageBlobTool.cs" />
+    <Compile Include="Services\Tools\ImageMatchTool.cs" />
     <Compile Include="Services\ToolRunViewData.cs" />
+    <Compile Include="Services\Tools\OutputParamSetTool.cs" />
+    <Compile Include="Services\Tools\InputParamSetTool.cs" />
     <Compile Include="Services\TreeViewDataAccess.cs" />
     <Compile Include="Tools\HObjectEvent.cs" />
     <Compile Include="Tools\HObjectParams.cs" />
@@ -120,6 +122,8 @@
     <Compile Include="ViewModels\ImageAcquisitionToolViewModel.cs" />
     <Compile Include="ViewModels\ImageBlobToolViewModel.cs" />
     <Compile Include="ViewModels\ImageMatchToolViewModel.cs" />
+    <Compile Include="ViewModels\OutputParamSetToolViewModel.cs" />
+    <Compile Include="ViewModels\InputParamSetToolViewModel.cs" />
     <Compile Include="ViewModels\IToolBaseViewModel.cs" />
     <Compile Include="ViewModels\ToolControlBoxViewModel.cs" />
     <Compile Include="Views\ImageAcquisitionToolWindow.xaml.cs">
@@ -130,6 +134,12 @@
     </Compile>
     <Compile Include="Views\ImageMatchToolWindw.xaml.cs">
       <DependentUpon>ImageMatchToolWindw.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InputParamSetToolWindow.xaml.cs">
+      <DependentUpon>InputParamSetToolWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OutputParamSetToolWindow.xaml.cs">
+      <DependentUpon>OutputParamSetToolWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ToolBase.xaml.cs">
       <DependentUpon>ToolBase.xaml</DependentUpon>
@@ -174,6 +184,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ImageMatchToolWindw.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InputParamSetToolWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OutputParamSetToolWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

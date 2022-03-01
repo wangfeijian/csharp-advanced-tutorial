@@ -10,21 +10,19 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SosoVisionTool.Services
+namespace SosoVisionTool.Services.Tools
 {
-    public class ImageAcquisitionTool : ToolBase
+    public class OutParamSetTool : ToolBase
     {
-        public ImageAcquisitionTool()
+        public OutParamSetTool()
         {
-            ToolDesStr = "图像采集";
-            ToolTip = "图像采集";
-            ToolIcon = "\xe967";
+            ToolDesStr = "输出参数";
+            ToolTip = "输出参数";
+            ToolIcon = "\xe60a";
         }
-
         public override TreeViewItem CreateTreeView(string name)
         {
             ToolItem = new TreeViewItem { Header = name };
-
             ToolOutputItem = new TreeViewItem { Header = AddInOutTreeViewItem(false) };
             ToolItem.Items.Add(ToolOutputItem);
             return ToolItem;
@@ -32,11 +30,13 @@ namespace SosoVisionTool.Services
 
         public override object GetDataContext(string file)
         {
-            return JsonConvert.DeserializeObject<ImageAcquisitionToolViewModel>(File.ReadAllText(file));
+            return JsonConvert.DeserializeObject<OutputParamSetToolViewModel>(File.ReadAllText(file));
         }
+
         public override void UIElement_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             TreeViewItem _tree = sender as TreeViewItem;
+            string fileName = $"config/Vision/{ToolInVision}/ToolsData/{_tree.Header}.json";
             if (_tree == null)
             {
                 return;
@@ -44,20 +44,20 @@ namespace SosoVisionTool.Services
 
             if (ToolWindow == null && DataContext == null)
             {
-                ToolWindow = new ImageAcquisitionToolWindow() { Title = _tree.Header.ToString() };
-                DataContext = new ImageAcquisitionToolViewModel(ToolInVision, CameraId);
+                ToolWindow = new OutputParamSetToolWindow() { Title = _tree.Header.ToString() };
+                DataContext = new OutputParamSetToolViewModel(ToolInVision);
                 ToolWindow.DataContext = DataContext;
             }
             else if (ToolWindow == null)
             {
-                ToolWindow = new ImageAcquisitionToolWindow() { Title = _tree.Header.ToString() };
-                if (DataContext is ImageAcquisitionToolViewModel)
+                ToolWindow = new OutputParamSetToolWindow() { Title = _tree.Header.ToString() };
+                if (DataContext is OutputParamSetToolViewModel)
                 {
                     ToolWindow.DataContext = DataContext;
                 }
                 else
                 {
-                    DataContext = new ImageAcquisitionToolViewModel(ToolInVision, CameraId);
+                    DataContext = new OutputParamSetToolViewModel(ToolInVision);
                     ToolWindow.DataContext = DataContext;
                 }
             }

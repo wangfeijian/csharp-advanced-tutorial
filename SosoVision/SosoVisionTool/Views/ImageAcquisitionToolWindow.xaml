@@ -24,7 +24,9 @@
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
         <GroupBox
-            materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+            materialDesign:ColorZoneAssist.Background="Black"
+            materialDesign:ColorZoneAssist.Foreground="White"
+            materialDesign:ColorZoneAssist.Mode="Custom"
             Header="图像显示"
             Style="{DynamicResource MaterialDesignCardGroupBox}">
             <GroupBox.HeaderTemplate>
@@ -74,7 +76,7 @@
             <imageDisplay:ImageDisplayWindow
                 x:Name="ShowImageWindow"
                 Grid.Row="1"
-                CameraColor="#aeea00"
+                CameraColor="#320b86"
                 DisplayImage="{Binding DisplayImage, Mode=TwoWay}"
                 DisplayMessage="{Binding DisplayMessage, Mode=TwoWay}"
                 MessageColor="{Binding MessageColor, Mode=TwoWay}"
@@ -83,7 +85,9 @@
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
             <GroupBox
                 Margin="5,0"
-                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Mode="Custom"
                 Header="图像源选择"
                 Style="{DynamicResource MaterialDesignGroupBox}">
                 <StackPanel Orientation="Horizontal">
@@ -112,7 +116,9 @@
             </GroupBox>
             <GroupBox
                 Margin="5"
-                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Mode="Custom"
                 Header="相机采集模式"
                 IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonCamera}"
                 Style="{DynamicResource MaterialDesignGroupBox}">
@@ -132,7 +138,9 @@
             </GroupBox>
             <GroupBox
                 Margin="5"
-                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Mode="Custom"
                 Header="相机参数设置"
                 IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonCamera}"
                 Style="{DynamicResource MaterialDesignGroupBox}">
@@ -159,7 +167,7 @@
                         Margin="2"
                         Command="{Binding ApplyParamCommand}"
                         Content="配置参数"
-                        Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                        Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
                 </StackPanel>
             </GroupBox>
             <Grid IsEnabled="{Binding Path=IsChecked, ElementName=RadioButtonCamera}">
@@ -171,20 +179,20 @@
                     Margin="5,2"
                     Command="{Binding TestCommand}"
                     Content="开始采集"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                    Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
                 <Button
                     Grid.Column="1"
                     Margin="5,2"
                     Command="{Binding CaptureTypeChangeCommand}"
                     CommandParameter="stop"
                     Content="停止采集"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                    Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
             </Grid>
             <Button
                 Margin="5"
                 Command="{Binding TestCommand}"
                 Content="测试"
-                Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
         </StackPanel>
 
     </Grid>

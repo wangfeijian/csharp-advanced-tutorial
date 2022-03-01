@@ -18,7 +18,7 @@ using System.Windows.Controls;
 
 namespace SosoVisionTool.ViewModels
 {
-    internal class ImageMatchToolViewModel : BindableBase, IToolBaseViewModel
+    public class ImageMatchToolViewModel : BindableBase, IToolBaseViewModel
     {
         [Newtonsoft.Json.JsonIgnore]
         public ToolRunViewData ToolRunData { get; set; }
@@ -219,6 +219,22 @@ namespace SosoVisionTool.ViewModels
             }
         }
 
+        private string _displayMessage;
+
+        public string DisplayMessage
+        {
+            get { return _displayMessage; }
+            set { _displayMessage = value; RaisePropertyChanged(); }
+        }
+
+        private string _messageColor;
+
+        public string MessageColor
+        {
+            get { return _messageColor; }
+            set { _messageColor = value; RaisePropertyChanged(); }
+        }
+
         public List<int> NumLevelList { get; set; }
         public List<int> UseLevelList { get; set; }
         public List<int> ContrastList { get; set; }
@@ -248,18 +264,44 @@ namespace SosoVisionTool.ViewModels
             TestCommand = new DelegateCommand(Test);
             CreateModelCommand = new DelegateCommand(CreateModel);
         }
+
+        private void ShowRunInfo(string message, bool IsOk = true)
+        {
+            DisplayMessage = "";
+            MessageColor = IsOk ? "green" : "red";
+            DisplayMessage = message;
+        }
+
         public void Run(ToolBase tool, ref bool result)
         {
             DisplayRegion = null;
             string key = $"{tool.ToolInVision}_{tool.ToolItem.Header}";
             HTuple row, col, angle, score;
             bool tempResult = FindModel(out row, out col, out angle, out score, false);
+
+            string rowStr = SetMessage(nameof(row), row.ToString());
+            string colStr = SetMessage(nameof(col), col.ToString());
+            string angleStr = SetMessage(nameof(angle), angle.ToString());
+            string scoreStr = SetMessage(nameof(score), score.ToString());
+
+            string message;
+            if (tempResult)
+            {
+                message = string.Join("\n","OK",rowStr, colStr, angleStr, scoreStr);
+                ShowRunInfo(message);
+            }
+            else
+            {
+                message = string.Join("\n","NG",rowStr, colStr, angleStr, scoreStr);
+                ShowRunInfo(message, false);
+            }
+
             AddImageToData(key, DisplayImage);
             AddRegionToData(key, DisplayRegion);
-            AddDoubleToData($"{key}_{nameof(row)}", row);
-            AddDoubleToData($"{key}_{nameof(col)}", col);
-            AddDoubleToData($"{key}_{nameof(angle)}", angle);
-            AddDoubleToData($"{key}_{nameof(score)}", score);
+            AddDoubleToData($"{key}_{nameof(row)}", rowStr);
+            AddDoubleToData($"{key}_{nameof(col)}", colStr);
+            AddDoubleToData($"{key}_{nameof(angle)}", angleStr);
+            AddDoubleToData($"{key}_{nameof(score)}", scoreStr);
             HObjectParams tempHobjectCamera = new HObjectParams { Image = DisplayImage, VisionStep = tool.ToolInVision, ImageKey = key, Region = DisplayRegion, RegionKey = key };
             _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectCamera);
 
@@ -279,6 +321,42 @@ namespace SosoVisionTool.ViewModels
             tool.AddInputOutputTree(temp, false);
 
             result = tempResult;
+        }
+
+        private string SetMessage(string name, string value)
+        {
+            string temp=string.Empty;
+
+            if (value.Contains("["))
+            {
+                temp = value.Substring(1, value.Length - 2);
+            }
+
+            if (!string.IsNullOrWhiteSpace(temp) && temp.Contains(","))
+            {
+                var strArray = temp.Split(',');
+
+                for (int i = 0; i < strArray.Length; i++)
+                {
+                    if (strArray[i].Contains("."))
+                    {
+                        strArray[i] = strArray[i].Substring(0, strArray[i].IndexOf('.') + 4);
+                    }
+                }
+
+                return $"{name}: {string.Join(",", strArray)}";
+            }
+
+            if (value.Contains("."))
+            {
+                temp = value.Substring(0, value.IndexOf('.') + 3);
+            }
+            else
+            {
+                temp = value;
+            }
+
+            return $"{name}: {temp}";
         }
 
         private void AddImageToData(string key, HObject image)
@@ -303,15 +381,38 @@ namespace SosoVisionTool.ViewModels
             ToolRunData.ToolOutputRegion.Add(key, region);
         }
 
-        private void AddDoubleToData(string key, double value)
+        private void AddStringToData(string key, string value)
         {
-            if (ToolRunData.ToolOutputDoubleValue.ContainsKey(key))
+            if (ToolRunData.ToolOutputStringValue.ContainsKey(key))
             {
-                ToolRunData.ToolOutputDoubleValue[key] = value;
+                ToolRunData.ToolOutputStringValue[key] = value;
                 return;
             }
 
-            ToolRunData.ToolOutputDoubleValue.Add(key, value);
+            ToolRunData.ToolOutputStringValue.Add(key, value);
+        }
+
+        private void AddDoubleToData(string key, string value)
+        {
+            string temp = value.Substring(value.IndexOf(":")+1,value.Length -1- value.IndexOf(":"));
+            double result;
+
+            if (temp.Contains(","))
+            {
+                AddStringToData(key, temp);
+                return;
+            }
+
+            if(!double.TryParse(temp, out result))
+                result = 999.99;
+
+            if (ToolRunData.ToolOutputDoubleValue.ContainsKey(key))
+            {
+                ToolRunData.ToolOutputDoubleValue[key] = result;
+                return;
+            }
+
+            ToolRunData.ToolOutputDoubleValue.Add(key, result);
         }
 
         private bool FindModel(out HTuple row, out HTuple col, out HTuple angle, out HTuple score, bool isTest = true)
@@ -360,7 +461,7 @@ namespace SosoVisionTool.ViewModels
                     HOperatorSet.AffineTransContourXld(modelContours, out contoursAffineTrans, homMat2D);
                     HOperatorSet.ConcatObj(contoursAffineTrans, temp, out xldTemp);
                     temp = xldTemp;
-                    
+
                 }
                 DisplayRegion = temp;
                 return true;
@@ -375,7 +476,24 @@ namespace SosoVisionTool.ViewModels
         private void Test()
         {
             HTuple row, col, angle, score;
-            FindModel(out row, out col, out angle, out score);
+            bool tempResult = FindModel(out row, out col, out angle, out score);
+
+            string rowStr = SetMessage(nameof(row), row.ToString());
+            string colStr = SetMessage(nameof(col), col.ToString());
+            string angleStr = SetMessage(nameof(angle), angle.ToString());
+            string scoreStr = SetMessage(nameof(score), score.ToString());
+
+            string message;
+            if (tempResult)
+            {
+                message = string.Join("\n", "OK", rowStr, colStr, angleStr, scoreStr);
+                ShowRunInfo(message);
+            }
+            else
+            {
+                message = string.Join("\n", "NG", rowStr, colStr, angleStr, scoreStr);
+                ShowRunInfo(message, false);
+            }
         }
 
         private void CreateModel()

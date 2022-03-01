@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SosoVisionTool.Services
+namespace SosoVisionTool.Services.Tools
 {
     public class ImageMatchTool : ToolBase
     {

@@ -24,7 +24,9 @@
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
         <GroupBox
-            materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+            materialDesign:ColorZoneAssist.Background="Black"
+            materialDesign:ColorZoneAssist.Foreground="White"
+            materialDesign:ColorZoneAssist.Mode="Custom"
             Header="图像显示"
             Style="{DynamicResource MaterialDesignCardGroupBox}">
             <GroupBox.HeaderTemplate>
@@ -46,15 +48,19 @@
             <imageDisplay:ImageDisplayWindow
                 x:Name="ShowImageWindow"
                 Grid.Row="1"
-                CameraColor="#aeea00"
+                CameraColor="#320b86"
                 DisplayImage="{Binding DisplayImage, Mode=TwoWay}"
+                DisplayMessage="{Binding DisplayMessage, Mode=TwoWay}"
                 DisplayRegion="{Binding DisplayRegion, Mode=TwoWay}"
+                MessageColor="{Binding MessageColor, Mode=TwoWay}"
                 RegionColor="green" />
         </GroupBox>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
             <GroupBox
                 Margin="5,0"
-                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Mode="Custom"
                 Header="图像源选择"
                 Style="{DynamicResource MaterialDesignGroupBox}">
                 <ComboBox
@@ -67,7 +73,9 @@
             </GroupBox>
             <GroupBox
                 Margin="5"
-                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Mode="Custom"
                 Header="模板参数"
                 Style="{DynamicResource MaterialDesignGroupBox}">
                 <Grid>
@@ -138,12 +146,14 @@
                         Grid.ColumnSpan="2"
                         Command="{Binding CreateModelCommand}"
                         Content="制作模板"
-                        Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                        Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
                 </Grid>
             </GroupBox>
             <GroupBox
                 Margin="5"
-                materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Mode="Custom"
                 Header="运行参数"
                 Style="{DynamicResource MaterialDesignGroupBox}">
                 <Grid>
@@ -205,7 +215,7 @@
                         Grid.ColumnSpan="2"
                         Command="{Binding TestCommand}"
                         Content="测试找模板"
-                        Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                        Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
                 </Grid>
             </GroupBox>
 

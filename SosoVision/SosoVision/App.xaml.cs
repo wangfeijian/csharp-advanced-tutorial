@@ -53,88 +53,100 @@ namespace SosoVision
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<ISosoLogManager, SosoLogManager>();
-            containerRegistry.RegisterSingleton<IConfigureService, ConfigureService>();
-            containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
-            containerRegistry.RegisterForNavigation<SettingView, SettingViewModel>();
-            containerRegistry.RegisterForNavigation<ToolControlBoxView, ToolControlBoxViewModel>();
-            var configureService = Container.Resolve<IConfigureService>();
-
-            Assembly cameraAssembly = Assembly.Load("ImageCapture");
-
-            if (configureService.SerializationData.CameraParams != null)
-                foreach (var item in configureService.SerializationData.CameraParams)
-                {
-                    string typeName = $"ImageCapture.{ item.CameraBand}";
-                    Type camera = cameraAssembly.GetType(typeName);
-                    var cameraInstance = Activator.CreateInstance(camera, item.CameraIP, false);
-                    containerRegistry.RegisterInstance(typeof(CaptureBase), cameraInstance, item.CameraId.ToString());
-                }
-
-            if (configureService.SerializationData.ServerParams != null)
-                foreach (var item in configureService.SerializationData.ServerParams)
-                {
-                    containerRegistry.RegisterInstance(typeof(SosoVisionServerHelper), new SosoVisionServerHelper(item.ServerIp, item.ServerPort));
-                }
-
-            if (configureService.SerializationData.ProcedureParams != null)
+            try
             {
-                foreach (var title in configureService.SerializationData.ProcedureParams)
-                {
-                    string file = $"config/Vision/{title.Name}/{title.Name}.json";
-                    string fileData = $"config/Vision/{title.Name}/{title.Name}_Data.json";
-                    var viewModel = File.Exists(file)
-                        ? JsonConvert.DeserializeObject<VisionProcessViewModel>(File.ReadAllText(file))
-                        : new VisionProcessViewModel(title.Name);
 
-                    var toolRunData = File.Exists(fileData)
-                        ? JsonConvert.DeserializeObject<ToolRunViewData>(File.ReadAllText(fileData))
-                        : new ToolRunViewData
-                        {
-                            ToolOutputDoubleValue = new Dictionary<string, double>(),
-                            ToolOutputImage = new Dictionary<string, HalconDotNet.HObject>(),
-                            ToolOutputIntValue = new Dictionary<string, int>(),
-                            ToolOutputRegion = new Dictionary<string, HalconDotNet.HObject>()
-                        };
 
-                    containerRegistry.RegisterInstance(typeof(ToolRunViewData), toolRunData, title.Name);
+                containerRegistry.RegisterSingleton<ISosoLogManager, SosoLogManager>();
+                containerRegistry.RegisterSingleton<IConfigureService, ConfigureService>();
+                containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
+                containerRegistry.RegisterForNavigation<SettingView, SettingViewModel>();
+                containerRegistry.RegisterForNavigation<ToolControlBoxView, ToolControlBoxViewModel>();
+                var configureService = Container.Resolve<IConfigureService>();
 
-                    var view = new VisionProcessView { DataContext = viewModel };
-                    var toolRun = view.FindName("ToolRun") as ToolRunView;
-                    var toolTreeView = toolRun.FindName("ToolTreeView") as TreeView;
+                Assembly cameraAssembly = Assembly.Load("ImageCapture");
 
-                    if (Directory.Exists($"config/Vision/{title.Name}/Tools"))
+                if (configureService.SerializationData.CameraParams != null)
+                    foreach (var item in configureService.SerializationData.CameraParams)
                     {
-                        DirectoryInfo directory = new DirectoryInfo($"config/Vision/{title.Name}/Tools");
-                        var files = directory.GetFiles();
-                        if (files.Length > 0)
-                        {
-                            Array.Sort(files, (x, y) => { return x.LastWriteTime.CompareTo(y.LastWriteTime); });
-                            string dir = $"config/Vision/{title.Name}/ToolsData";
-                            foreach (var fileInfo in files)
+                        string typeName = $"ImageCapture.{ item.CameraBand}";
+                        Type camera = cameraAssembly.GetType(typeName);
+                        var cameraInstance = Activator.CreateInstance(camera, item.CameraIP, false);
+                        containerRegistry.RegisterInstance(typeof(CaptureBase), cameraInstance, item.CameraId.ToString());
+                    }
+
+                if (configureService.SerializationData.ServerParams != null)
+                    foreach (var item in configureService.SerializationData.ServerParams)
+                    {
+                        containerRegistry.RegisterInstance(typeof(SosoVisionServerHelper), new SosoVisionServerHelper(item.ServerIp, item.ServerPort));
+                    }
+
+                if (configureService.SerializationData.ProcedureParams != null)
+                {
+                    foreach (var title in configureService.SerializationData.ProcedureParams)
+                    {
+                        string file = $"config/Vision/{title.Name}/{title.Name}.json";
+                        string fileData = $"config/Vision/{title.Name}/{title.Name}_Data.json";
+                        var viewModel = File.Exists(file)
+                            ? JsonConvert.DeserializeObject<VisionProcessViewModel>(File.ReadAllText(file))
+                            : new VisionProcessViewModel(title.Name);
+
+                        var toolRunData = File.Exists(fileData)
+                            ? JsonConvert.DeserializeObject<ToolRunViewData>(File.ReadAllText(fileData))
+                            : new ToolRunViewData
                             {
-                                string head = fileInfo.Name.Substring(0, fileInfo.Name.Length - 5);
-                                Type t = JsonConvert.DeserializeObject<Type>(File.ReadAllText(fileInfo.FullName));
-                                var tag = Activator.CreateInstance(t) as ToolBase;
-                                var tempTree = tag.CreateTreeView(head);
-                                tag.ToolInVision = title.Name;
-                                tag.CameraId = title.CameraId.ToString();
-                                if (File.Exists($"{dir}/{fileInfo.Name}"))
+                                ToolOutputDoubleValue = new Dictionary<string, double>(),
+                                ToolOutputImage = new Dictionary<string, HalconDotNet.HObject>(),
+                                ToolOutputIntValue = new Dictionary<string, int>(),
+                                ToolOutputRegion = new Dictionary<string, HalconDotNet.HObject>(),
+                                ToolOutputStringValue= new Dictionary<string, string>(),
+                                ToolInputReceiveStringValue = new Dictionary<string, string>(),
+                            };
+
+                        containerRegistry.RegisterInstance(typeof(ToolRunViewData), toolRunData, title.Name);
+
+                        var view = new VisionProcessView { DataContext = viewModel };
+                        var toolRun = view.FindName("ToolRun") as ToolRunView;
+                        var toolTreeView = toolRun.FindName("ToolTreeView") as TreeView;
+
+                        if (Directory.Exists($"config/Vision/{title.Name}/Tools"))
+                        {
+                            DirectoryInfo directory = new DirectoryInfo($"config/Vision/{title.Name}/Tools");
+                            var files = directory.GetFiles();
+                            if (files.Length > 0)
+                            {
+                                Array.Sort(files, (x, y) => { return x.LastWriteTime.CompareTo(y.LastWriteTime); });
+                                string dir = $"config/Vision/{title.Name}/ToolsData";
+                                foreach (var fileInfo in files)
                                 {
-                                    tag.DataContext = tag.GetDataContext($"{dir}/{fileInfo.Name}");
-                                    var tempDataContext = tag.DataContext as IToolBaseViewModel;
-                                    tempDataContext.ToolRunData = ContainerLocator.Container.Resolve<ToolRunViewData>(tag.ToolInVision);
-                                    tempDataContext.Capture = ContainerLocator.Container.Resolve<CaptureBase>(tag.CameraId);
-                                    tempDataContext.Param = title;
+                                    string head = fileInfo.Name.Substring(0, fileInfo.Name.Length - 5);
+                                    Type t = JsonConvert.DeserializeObject<Type>(File.ReadAllText(fileInfo.FullName));
+                                    var tag = Activator.CreateInstance(t) as ToolBase;
+                                    var tempTree = tag.CreateTreeView(head);
+                                    tag.ToolInVision = title.Name;
+                                    tag.CameraId = title.CameraId.ToString();
+                                    if (File.Exists($"{dir}/{fileInfo.Name}"))
+                                    {
+                                        tag.DataContext = tag.GetDataContext($"{dir}/{fileInfo.Name}");
+                                        var tempDataContext = tag.DataContext as IToolBaseViewModel;
+                                        tempDataContext.ToolRunData = ContainerLocator.Container.Resolve<ToolRunViewData>(tag.ToolInVision);
+                                        tempDataContext.Capture = ContainerLocator.Container.Resolve<CaptureBase>(tag.CameraId);
+                                        tempDataContext.Param = title;
+                                    }
+                                    tempTree.Tag = tag;
+                                    tempTree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
+                                    toolTreeView.Items.Add(tempTree);
                                 }
-                                tempTree.Tag = tag;
-                                tempTree.PreviewMouseDoubleClick += Tree_PreviewMouseDoubleClick;
-                                toolTreeView.Items.Add(tempTree);
                             }
                         }
+                        containerRegistry.RegisterInstance(typeof(VisionProcessView), view, title.Name);
                     }
-                    containerRegistry.RegisterInstance(typeof(VisionProcessView), view, title.Name);
                 }
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message, "提示！");
             }
         }
 
@@ -157,7 +169,7 @@ namespace SosoVision
 
         protected override Window CreateShell()
         {
-            return Container.Resolve<MainView>();
+                return Container.Resolve<MainView>();
         }
 
         protected override void OnInitialized()
