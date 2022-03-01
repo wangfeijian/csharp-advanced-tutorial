@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Prism.Mvvm;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prism.Mvvm;
 using SosoVisionTool.Views;
 using System.Windows.Controls;
 using Prism.Commands;
@@ -16,7 +11,6 @@ using System.IO;
 using Prism.Events;
 using SosoVisionTool.Services;
 using ImageCapture;
-using System.Drawing;
 using SosoVisionCommonTool.ConfigData;
 
 namespace SosoVisionTool.ViewModels

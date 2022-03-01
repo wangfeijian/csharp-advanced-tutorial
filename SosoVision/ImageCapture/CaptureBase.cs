@@ -1,10 +1,7 @@
 ﻿using HalconDotNet;
 using System;
-using System.CodeDom;
 using System.Collections.Concurrent;
-using System.Drawing;
 using System.Threading;
-using System.Windows.Media.Imaging;
 
 namespace ImageCapture
 {

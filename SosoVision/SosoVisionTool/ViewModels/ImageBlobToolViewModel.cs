@@ -1,10 +1,5 @@
-﻿using System;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Prism.Ioc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SosoVisionTool.Views;
 using System.Windows.Controls;
 using SosoVisionTool.Services;

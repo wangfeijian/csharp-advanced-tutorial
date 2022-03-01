@@ -4,12 +4,7 @@ using Prism.Mvvm;
 using SosoVisionCommonTool.ConfigData;
 using SosoVisionTool.Services;
 using SosoVisionTool.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Prism.Ioc;
-using System.Threading.Tasks;
 
 namespace SosoVisionTool.ViewModels
 {

@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using DryIoc;
-using ImTools;
-using Newtonsoft.Json;
 using Prism.Commands;
-using Prism.DryIoc;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
@@ -21,7 +12,6 @@ using SosoVision.Extensions;
 using SosoVision.Views;
 using SosoVisionCommonTool.ConfigData;
 using SosoVisionCommonTool.Log;
-using SosoVisionTool.Tools;
 
 namespace SosoVision.ViewModels
 {

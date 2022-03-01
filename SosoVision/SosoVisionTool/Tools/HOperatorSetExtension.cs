@@ -1,10 +1,6 @@
 ﻿using HalconDotNet;
 using System;
 using Prism.Ioc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SosoVisionCommonTool.Log;
 using System.Drawing;
 using System.Drawing.Imaging;

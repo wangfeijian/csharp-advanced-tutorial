@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Basler.Pylon;
 using Prism.Ioc;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Windows;
 using SosoVisionCommonTool.Log;
 using HalconDotNet;

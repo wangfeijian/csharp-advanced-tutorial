@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SosoVisionTool.ViewModels;
 using SosoVisionTool.Views;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -18,7 +13,7 @@ namespace SosoVisionTool.Services.Tools
         {
             ToolDesStr = "输出参数";
             ToolTip = "输出参数";
-            ToolIcon = "\xe60a";
+            ToolIcon = "\xe60b";
         }
         public override TreeViewItem CreateTreeView(string name)
         {

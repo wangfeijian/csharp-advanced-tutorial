@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Prism.Commands;
-using Prism.DryIoc;
+﻿using Prism.Commands;
 using Prism.Ioc;
-using SosoVision.Common;
-using SosoVision.Views;
 using SosoVisionCommonTool.Log;
-using SosoVisionTool.Tools;
 
 namespace SosoVision.ViewModels
 {
