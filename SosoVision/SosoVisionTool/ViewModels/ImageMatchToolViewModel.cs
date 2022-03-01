@@ -104,7 +104,7 @@ namespace SosoVisionTool.ViewModels
             }
         }
 
-        private int _angleExtent;
+        private int _angleExtent = 360;
 
         public int AngleExtent
         {
@@ -120,7 +120,7 @@ namespace SosoVisionTool.ViewModels
             }
         }
 
-        private int _minContrast;
+        private int _minContrast = 10;
 
         public int MinContrast
         {
@@ -284,12 +284,12 @@ namespace SosoVisionTool.ViewModels
             string message;
             if (tempResult)
             {
-                message = string.Join("\n","OK",rowStr, colStr, angleStr, scoreStr);
+                message = string.Join("\n", "OK", rowStr, colStr, angleStr, scoreStr);
                 ShowRunInfo(message);
             }
             else
             {
-                message = string.Join("\n","NG",rowStr, colStr, angleStr, scoreStr);
+                message = string.Join("\n", "NG", rowStr, colStr, angleStr, scoreStr);
                 ShowRunInfo(message, false);
             }
 
@@ -322,7 +322,7 @@ namespace SosoVisionTool.ViewModels
 
         private string SetMessage(string name, string value)
         {
-            string temp=string.Empty;
+            string temp = string.Empty;
 
             if (value.Contains("["))
             {
@@ -391,7 +391,7 @@ namespace SosoVisionTool.ViewModels
 
         private void AddDoubleToData(string key, string value)
         {
-            string temp = value.Substring(value.IndexOf(":")+1,value.Length -1- value.IndexOf(":"));
+            string temp = value.Substring(value.IndexOf(":") + 1, value.Length - 1 - value.IndexOf(":"));
             double result;
 
             if (temp.Contains(","))
@@ -400,7 +400,7 @@ namespace SosoVisionTool.ViewModels
                 return;
             }
 
-            if(!double.TryParse(temp, out result))
+            if (!double.TryParse(temp, out result))
                 result = 999.99;
 
             if (ToolRunData.ToolOutputDoubleValue.ContainsKey(key))

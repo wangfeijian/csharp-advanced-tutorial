@@ -107,6 +107,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Services\AllVisionRunData.cs" />
     <Compile Include="Services\DispatcherHelper.cs" />
     <Compile Include="Services\CustomerConverter.cs" />
     <Compile Include="Services\Tools\ImageAcquisitionTool.cs" />

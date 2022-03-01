@@ -29,6 +29,9 @@ namespace SosoVisionTool.ViewModels
         [Newtonsoft.Json.JsonIgnore]
         public CaptureBase Capture { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
+        public AllVisionRunData VisionRunData { get; set; }
+
         public void Run(ToolBase tool, ref bool result)
         {
             result = true;

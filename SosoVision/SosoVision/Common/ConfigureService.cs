@@ -39,14 +39,31 @@ namespace SosoVision.Common
             }
             else
             {
+                // 保存config到文件
+                if (!Directory.Exists("config"))
+                {
+                    Directory.CreateDirectory("config");
+                }
+
                 File.WriteAllText("config/config.json", JsonConvert.SerializeObject(SerializationData));
 
+                // 保存全局数据到文件
+                if (!Directory.Exists("config/Vision"))
+                {
+                    Directory.CreateDirectory("config/Vision");
+                }
+
+                var globalData = ContainerLocator.Container.Resolve<AllVisionRunData>("GlobalData");
+                File.WriteAllText("config/Vision/data.json", JsonConvert.SerializeObject(globalData));
+
+                // 释放相机
                 foreach (var item in SerializationData.CameraParams)
                 {
                     var capture = ContainerLocator.Container.Resolve<CaptureBase>(item.CameraId.ToString());
                     capture.Close();
                 }
 
+                // 保存所有参数
                 foreach (var param in SerializationData.ProcedureParams)
                 {
                     var view = _regionManager.Regions[PrismManager.MainViewRegionName].GetView(param.Name) as VisionProcessView;
