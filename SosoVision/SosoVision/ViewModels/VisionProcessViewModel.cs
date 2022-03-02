@@ -65,6 +65,24 @@ namespace SosoVision.ViewModels
             set { _toolRunRegion = value; RaisePropertyChanged(); }
         }
 
+
+        private string _displayMessage;
+
+        public string DisplayMessage
+        {
+            get { return _displayMessage; }
+            set { _displayMessage = value; RaisePropertyChanged(); }
+        }
+
+        private string _messageColor;
+
+        public string MessageColor
+        {
+            get { return _messageColor; }
+            set { _messageColor = value; RaisePropertyChanged(); }
+        }
+
+        public string ResultStr { get; set; }
         [Newtonsoft.Json.JsonIgnore]
         public DelegateCommand LoadedCommand { get; }
 
@@ -83,6 +101,18 @@ namespace SosoVision.ViewModels
 
         private void SubscribeHObjectParam(HObjectParams obj)
         {
+            if (!string.IsNullOrWhiteSpace(obj.Result))
+            {
+                ResultStr = obj.Result;
+                ShowVisionRunResult(obj.Result, obj.ShowMessage);
+                return;
+            }
+            else
+            {
+                ResultStr = string.Empty;
+                DisplayMessage = string.Empty;
+            }
+
             DisplayImage = obj.Image;
 
             if (obj.Image == null)
@@ -106,6 +136,32 @@ namespace SosoVision.ViewModels
             }
             else
                 ToolRunRegion.Add(obj.RegionKey, obj.Region);
+
+        }
+
+        private void ShowVisionRunResult(string result, string message)
+        {
+            var results = result.Split(',');
+            var messages = message.Split(',');
+            string[] tempStr = new string[results.Length];
+
+            if (results.Length != messages.Length || results.Length <= 0)
+                return;
+
+            for (int i = 0; i < results.Length; i++)
+            {
+                tempStr[i] = $"{messages[i]}: {results[i]}";
+            }
+
+            string temp = string.Join("\n", tempStr);
+            if (result.Contains("999"))
+            {
+                DisplayMessage = $"NG\n{temp}";
+            }
+            else
+            {
+                DisplayMessage = $"OK\n{temp}";
+            }
         }
 
         private void LoadWindow()

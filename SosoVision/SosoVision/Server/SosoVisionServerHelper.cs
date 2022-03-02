@@ -3,6 +3,8 @@ using System.Text;
 using Prism.Ioc;
 using SosoVisionCommonTool.Log;
 using SosoVision.Views;
+using SosoVision.ViewModels;
+using SosoVisionTool.Services;
 
 namespace SosoVision.Server
 {
@@ -50,19 +52,39 @@ namespace SosoVision.Server
                     _sosoLogManager.ShowLogError($"{data} from {e.IpPort} client error");
                     return;
                 }
-                string[] receive = data.Substring(0,data.Length-2).Split(',');
+                string[] receive = data.Substring(0, data.Length - 2).Split(',');
                 var view = ContainerLocator.Container.Resolve<VisionProcessView>(receive[0]);
-                if(view==null)
+
+                var VisionRunData = ContainerLocator.Container.Resolve<AllVisionRunData>("GlobalData");
+
+                if (receive.Length > 1)
+                {
+                    for (int i = 1; i < receive.Length; i++)
+                    {
+                        string key = $"{receive[0]}_param_{i}";
+                        if (VisionRunData.VisionRunStringValue.ContainsKey(key))
+                        {
+                            VisionRunData.VisionRunStringValue[key] = receive[i];
+                        }
+                        else
+                        {
+                            VisionRunData.VisionRunStringValue.Add(key, receive[i]);
+                        }
+                    }
+                }
+
+                if (view == null)
                 {
                     _sosoVisionServer.Send(e.IpPort, $"{receive[0]},0");
                     _sosoLogManager.ShowLogError($"View 不存在");
                     return;
                 }
 
+                var viewModel = view.DataContext as VisionProcessViewModel;
                 if (view.ToolRun.Run())
                 {
-                    _sosoVisionServer.Send(e.IpPort, $"{receive[0]},1");
-                    _sosoLogManager.ShowLogInfo($"Send {receive[0]},1 to {e.IpPort} client");
+                    _sosoVisionServer.Send(e.IpPort, $"{receive[0]},1,{viewModel.ResultStr}");
+                    _sosoLogManager.ShowLogInfo($"Send {receive[0]},1,{viewModel.ResultStr} to {e.IpPort} client");
                 }
                 else
                 {

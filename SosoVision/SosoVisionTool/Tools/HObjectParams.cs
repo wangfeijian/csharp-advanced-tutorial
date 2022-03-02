@@ -9,5 +9,7 @@ namespace SosoVisionTool.Tools
         public string ImageKey { get; set; }
         public HObject Region { get; set; }
         public string RegionKey { get; set; }
+        public string Result { get; set; }
+        public string ShowMessage { get; set; }
     }
 }
