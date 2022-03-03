@@ -110,6 +110,7 @@
     <Compile Include="Services\AllVisionRunData.cs" />
     <Compile Include="Services\DispatcherHelper.cs" />
     <Compile Include="Services\CustomerConverter.cs" />
+    <Compile Include="Services\Tools\FindLineTool.cs" />
     <Compile Include="Services\Tools\ImageAcquisitionTool.cs" />
     <Compile Include="Services\Tools\ImageBlobTool.cs" />
     <Compile Include="Services\Tools\ImageMatchTool.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Tools\HObjectEvent.cs" />
     <Compile Include="Tools\HObjectParams.cs" />
     <Compile Include="Tools\HOperatorSetExtension.cs" />
+    <Compile Include="ViewModels\FindLineToolViewModel.cs" />
     <Compile Include="ViewModels\ImageAcquisitionToolViewModel.cs" />
     <Compile Include="ViewModels\ImageBlobToolViewModel.cs" />
     <Compile Include="ViewModels\ImageMatchToolViewModel.cs" />
@@ -127,6 +129,9 @@
     <Compile Include="ViewModels\InputParamSetToolViewModel.cs" />
     <Compile Include="ViewModels\IToolBaseViewModel.cs" />
     <Compile Include="ViewModels\ToolControlBoxViewModel.cs" />
+    <Compile Include="Views\FindLineToolWindow.xaml.cs">
+      <DependentUpon>FindLineToolWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ImageAcquisitionToolWindow.xaml.cs">
       <DependentUpon>ImageAcquisitionToolWindow.xaml</DependentUpon>
     </Compile>
@@ -175,6 +180,10 @@
     <Page Include="Theme\TreeViewStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindLineToolWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ImageAcquisitionToolWindow.xaml">
       <SubType>Designer</SubType>

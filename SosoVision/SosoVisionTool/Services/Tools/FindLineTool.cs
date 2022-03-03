@@ -7,12 +7,12 @@ using System.Windows.Input;
 
 namespace SosoVisionTool.Services.Tools
 {
-    public class ImageMatchTool : ToolBase
+    public class FindLineTool : ToolBase
     {
-        public ImageMatchTool()
+        public FindLineTool()
         {
-            ToolDesStr = "模板匹配";
-            ToolTip = "模板匹配";
+            ToolDesStr = "找线工具";
+            ToolTip = "找线工具";
             ToolIcon = "\xe60a";
         }
         public override TreeViewItem CreateTreeView(string name)
@@ -27,7 +27,7 @@ namespace SosoVisionTool.Services.Tools
 
         public override object GetDataContext(string file)
         {
-            return JsonConvert.DeserializeObject<ImageMatchToolViewModel>(File.ReadAllText(file));
+             return JsonConvert.DeserializeObject<FindLineToolViewModel>(File.ReadAllText(file));
         }
 
         public override void UIElement_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -41,20 +41,20 @@ namespace SosoVisionTool.Services.Tools
 
             if (ToolWindow == null && DataContext == null)
             {
-                ToolWindow = new ImageMatchToolWindw() { Title = _tree.Header.ToString() };
-                DataContext = new ImageMatchToolViewModel(ToolInVision);
+                ToolWindow = new FindLineToolWindow() { Title = _tree.Header.ToString() };
+                DataContext = new FindLineToolViewModel(ToolInVision);
                 ToolWindow.DataContext = DataContext;
             }
             else if (ToolWindow == null)
             {
-                ToolWindow = new ImageMatchToolWindw() { Title = _tree.Header.ToString() };
-                if (DataContext is ImageMatchToolViewModel)
+                ToolWindow = new FindLineToolWindow() { Title = _tree.Header.ToString() };
+                if (DataContext is FindLineToolViewModel)
                 {
                     ToolWindow.DataContext = DataContext;
                 }
                 else
                 {
-                    DataContext = new ImageMatchToolViewModel(ToolInVision);
+                    DataContext = new FindLineToolViewModel(ToolInVision);
                     ToolWindow.DataContext = DataContext;
                 }
             }
