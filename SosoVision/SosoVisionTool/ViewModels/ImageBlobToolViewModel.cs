@@ -26,7 +26,7 @@ namespace SosoVisionTool.ViewModels
         public CaptureBase Capture { get; set; }
         public ProcedureParam Param { get; set; }
 
-        public void Run(ToolBase tool, ref bool result)
+        public void Run(ToolBase tool, ref bool result, ref string strResult)
         {
             TreeViewItem temp = new TreeViewItem { Header = "input", ToolTip = "input" };
             tool.AddInputOutputTree(temp, true);

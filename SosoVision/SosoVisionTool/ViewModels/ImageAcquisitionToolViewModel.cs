@@ -288,7 +288,7 @@ namespace SosoVisionTool.ViewModels
             Test();
         }
 
-        public void Run(ToolBase tool, ref bool result)
+        public void Run(ToolBase tool, ref bool result, ref string strResult)
         {
             DisplayMessage = "";
             string key = $"{tool.ToolInVision}_{tool.ToolItem.Header}";

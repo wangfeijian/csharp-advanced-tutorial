@@ -60,10 +60,12 @@
                 x:Name="ShowImageWindow"
                 Grid.Row="1"
                 CameraColor="#673ab7"
-                RegionColor="green"
                 DisplayImage="{Binding DisplayImage, Mode=TwoWay}"
+                DisplayMessage="{Binding DisplayMessage, Mode=TwoWay}"
                 DisplayRegion="{Binding DisplayRegion, Mode=TwoWay}"
-                FillStyle="{Binding FillStyle, Mode=TwoWay}"/>
+                FillStyle="{Binding FillStyle, Mode=TwoWay}"
+                MessageColor="{Binding MessageColor, Mode=TwoWay}"
+                RegionColor="green" />
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

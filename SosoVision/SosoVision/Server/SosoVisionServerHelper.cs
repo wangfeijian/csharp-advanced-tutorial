@@ -43,7 +43,7 @@ namespace SosoVision.Server
 
         private void DataReceived(object sender, DataReceivedEventArgs e)
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate ()
+            System.Windows.Application.Current.Dispatcher.InvokeAsync(delegate ()
             {
                 string data = Encoding.UTF8.GetString(e.Data);
                 _sosoLogManager.ShowLogInfo($"Receive {data} from {e.IpPort} client");
@@ -79,12 +79,11 @@ namespace SosoVision.Server
                     _sosoLogManager.ShowLogError($"View 不存在");
                     return;
                 }
-
-                var viewModel = view.DataContext as VisionProcessViewModel;
-                if (view.ToolRun.Run())
+                string result = string.Empty;
+                if (view.ToolRun.Run(ref result))
                 {
-                    _sosoVisionServer.Send(e.IpPort, $"{receive[0]},1,{viewModel.ResultStr}");
-                    _sosoLogManager.ShowLogInfo($"Send {receive[0]},1,{viewModel.ResultStr} to {e.IpPort} client");
+                    _sosoVisionServer.Send(e.IpPort, $"{receive[0]},1,{result}");
+                    _sosoLogManager.ShowLogInfo($"Send {receive[0]},1,{result} to {e.IpPort} client");
                 }
                 else
                 {

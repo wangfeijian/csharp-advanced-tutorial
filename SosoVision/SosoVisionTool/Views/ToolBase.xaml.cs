@@ -74,10 +74,10 @@ namespace SosoVisionTool.Views
         /// <summary>
         /// 工具运行
         /// </summary>
-        public void Run(ToolBase tool, ref bool result)
+        public void Run(ToolBase tool, ref bool result, ref string strResult)
         {
             var viewModel = DataContext as IToolBaseViewModel;
-            viewModel?.Run(tool, ref result);
+            viewModel?.Run(tool, ref result, ref strResult);
         }
 
         /// <summary>

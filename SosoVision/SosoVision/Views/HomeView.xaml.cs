@@ -48,6 +48,39 @@ namespace SosoVision.Views
                 ImageDisplay.ImageDisplayWindow imageDisplayWindow = new ImageDisplay.ImageDisplayWindow() { CameraColor = "#673ab7", RegionColor = "green" };
                 imageDisplayWindow.EventAggregator.GetEvent<HObjectEvent>().Subscribe((obj) =>
                  {
+                     if (!string.IsNullOrWhiteSpace(obj.Result))
+                     {
+                         imageDisplayWindow.DisplayMessage = "";
+                         var results = obj.Result.Split(',');
+                         var messages = obj.ShowMessage.Split(',');
+                         string[] tempStr = new string[results.Length];
+
+                         if (results.Length != messages.Length || results.Length <= 0)
+                             return;
+
+                         for (int i = 0; i < results.Length; i++)
+                         {
+                             tempStr[i] = $"{messages[i]}: {results[i]}";
+                         }
+
+                         string temp = string.Join("\n", tempStr);
+                         if (obj.Result.Contains("999"))
+                         {
+                            imageDisplayWindow.MessageColor = "red";
+                             imageDisplayWindow.DisplayMessage = $"NG\n{temp}";
+                         }
+                         else
+                         {
+                             imageDisplayWindow.MessageColor = "green";
+                             imageDisplayWindow.DisplayMessage = $"OK\n{temp}";
+                         }
+                         return;
+                     }
+                     else
+                     {
+                         imageDisplayWindow.DisplayMessage = string.Empty;
+                     }
+
                      imageDisplayWindow.DisplayImage = obj.Image;
                      imageDisplayWindow.DisplayRegion = obj.Region;
                  }, ThreadOption.UIThread, true,

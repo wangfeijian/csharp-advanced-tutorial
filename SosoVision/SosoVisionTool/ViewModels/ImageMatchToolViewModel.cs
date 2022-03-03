@@ -31,7 +31,7 @@ namespace SosoVisionTool.ViewModels
 
         public DelegateCommand CreateModelCommand { get; }
 
-        public HTuple ModelId { get; set; }
+        public HShapeModel ModelId { get; set; }
 
         private HObject _displayImage;
 
@@ -269,8 +269,14 @@ namespace SosoVisionTool.ViewModels
             DisplayMessage = message;
         }
 
-        public void Run(ToolBase tool, ref bool result)
+        public void Run(ToolBase tool, ref bool result, ref string strResult)
         {
+            if(DisplayImage == null)
+            {
+                result = false;
+                return;
+            }
+
             DisplayRegion = null;
             string key = $"{tool.ToolInVision}_{tool.ToolItem.Header}";
             HTuple row, col, angle, score;
@@ -511,15 +517,19 @@ namespace SosoVisionTool.ViewModels
             try
             {
                 HObject imageReduced, modelImages, modelRegions;
-                HTuple angleStart, angleExtent, modelID;
+                HTuple angleStart, angleExtent;
                 HOperatorSet.TupleRad(AngleStart, out angleStart);
                 HOperatorSet.TupleRad(AngleExtent, out angleExtent);
 
                 HOperatorSet.ReduceDomain(DisplayImage, DrawRoi, out imageReduced);
                 HOperatorSet.InspectShapeModel(imageReduced, out modelImages, out modelRegions, NumLevels, Contrast);
                 DisplayRegion = modelRegions;
-                HOperatorSet.CreateShapeModel(imageReduced, NumLevels, angleStart, angleExtent, "auto", Optimization, Metric, Contrast, MinContrast, out modelID);
-                ModelId = modelID.Clone();
+                HShapeModel hShapeModel = new HShapeModel();
+                HImage modelImage = new HImage(imageReduced);
+                hShapeModel.CreateShapeModel(modelImage, NumLevels, AngleStart, AngleExtent, "auto", Optimization, Metric, Contrast, MinContrast);
+                ModelId = hShapeModel.Clone();
+                //HOperatorSet.CreateShapeModel(imageReduced, NumLevels, angleStart, angleExtent, "auto", Optimization, Metric, Contrast, MinContrast, out modelID);
+                //ModelId = new HTuple(modelID);
                 MessageBox.Show("模板制作完成！", "提示");
             }
             catch (Exception ex)

@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Prism.Events;
 using SosoVisionTool.Services;
+using SosoVisionTool.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using Prism.Ioc;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -15,6 +18,7 @@ namespace SosoVisionTool.Views
     /// </summary>
     public partial class ToolRunView : UserControl
     {
+        private readonly IEventAggregator _eventAggregator;
         /// <summary>
         /// 工具描述
         /// </summary>
@@ -43,6 +47,7 @@ namespace SosoVisionTool.Views
 
         public ToolRunView()
         {
+            _eventAggregator = _eventAggregator = ContainerLocator.Container.Resolve<IEventAggregator>();
             InitializeComponent();
         }
 
@@ -70,10 +75,13 @@ namespace SosoVisionTool.Views
                         ToolBase tool = tree.Tag as ToolBase;
                         tree.Background = Brushes.Transparent;
                         bool result = false;
-                        tool?.Run(tool, ref result);
+                        string strResult = string.Empty;
+                        tool?.Run(tool, ref result, ref strResult);
                         if (!result)
                         {
                             tree.Background = Brushes.Red;
+                            HObjectParams tempHobjectCamera = new HObjectParams { Result =  $"{tool.ToolInVision}_{tree.Header}:999", VisionStep = tool.ToolInVision, ShowMessage = "Error" };
+                            _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectCamera);
                             ButtonRun.IsEnabled = true;
                             return;
                         }
@@ -83,13 +91,14 @@ namespace SosoVisionTool.Views
             }
             else
             {
-                Run();
+                string temp = string.Empty;
+                Run(ref temp);
 
                 ButtonRun.IsEnabled = true;
             }
         }
 
-        public bool Run(params string[] param)
+        public bool Run(ref string strResult, params string[] param)
         {
             foreach (var child in ToolTreeView.Items)
             {
@@ -97,10 +106,12 @@ namespace SosoVisionTool.Views
                 ToolBase tool = tree.Tag as ToolBase;
                 tree.Background = Brushes.Transparent;
                 bool result = false;
-                tool?.Run(tool, ref result);
+                tool?.Run(tool, ref result, ref strResult);
                 if (!result)
                 {
                     tree.Background = Brushes.Red;
+                    HObjectParams tempHobjectCamera = new HObjectParams { Result = $"{tool.ToolInVision}_{tree.Header}:999", VisionStep = tool.ToolInVision, ShowMessage = "Error" };
+                    _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectCamera);
                     ButtonRun.IsEnabled = true;
                     return false;
                 }

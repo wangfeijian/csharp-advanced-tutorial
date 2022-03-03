@@ -1,8 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Media.Imaging;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
-using OpenCvSharp.WpfExtensions;
+using System.Windows.Media;
+using System;
 
 namespace ImageCapture
 {
@@ -16,14 +15,56 @@ namespace ImageCapture
         /// <returns></returns>
         public static WriteableBitmap BitmapToWriteableBitmap(this Bitmap bitmap)
         {
-            WriteableBitmap tempWriteableBitmap;
-            Mat tempMat = bitmap.ToMat();
-            using (tempMat)
+            var wb = CreateCompatibleWriteableBitemap(bitmap);
+            System.Drawing.Imaging.PixelFormat format = bitmap.PixelFormat;
+
+            if (wb == null)
             {
-                tempWriteableBitmap = tempMat.ToWriteableBitmap();
+                wb = new WriteableBitmap(bitmap.Width, bitmap.Height, 0, 0, PixelFormats.Bgra32, null);
+                format = System.Drawing.Imaging.PixelFormat.Format32bppArgb;
             }
 
-            return tempWriteableBitmap;
+            BitmapCopyToWriteableBitmap(bitmap, wb, new Rectangle(0, 0, bitmap.Width, bitmap.Height), 0, 0, format);
+            return wb;
+        }
+
+        public static WriteableBitmap CreateCompatibleWriteableBitemap(Bitmap src)
+        {
+            System.Windows.Media.PixelFormat format;
+
+            switch (src.PixelFormat)
+            {
+                case System.Drawing.Imaging.PixelFormat.Format16bppRgb555:
+                    format = System.Windows.Media.PixelFormats.Bgr555;
+                    break;
+                case System.Drawing.Imaging.PixelFormat.Format16bppRgb565:
+                    format = System.Windows.Media.PixelFormats.Bgr565;
+                    break;
+                case System.Drawing.Imaging.PixelFormat.Format24bppRgb:
+                    format = System.Windows.Media.PixelFormats.Bgr24;
+                    break;
+                case System.Drawing.Imaging.PixelFormat.Format32bppRgb:
+                    format = System.Windows.Media.PixelFormats.Bgr32;
+                    break;
+                case System.Drawing.Imaging.PixelFormat.Format32bppPArgb:
+                    format = System.Windows.Media.PixelFormats.Pbgra32;
+                    break;
+                case System.Drawing.Imaging.PixelFormat.Format32bppArgb:
+                    format = System.Windows.Media.PixelFormats.Bgra32;
+                    break;
+                default:
+                    return null;
+            }
+
+            return new WriteableBitmap(src.Width, src.Height, 0, 0, format, null);
+        }
+
+        public static void BitmapCopyToWriteableBitmap(Bitmap src, WriteableBitmap dst, Rectangle srcRect, int destinationX, int destinationY, System.Drawing.Imaging.PixelFormat srcPixeFormat)
+        {
+            var data = src.LockBits(new Rectangle(new Point(0, 0), src.Size), System.Drawing.Imaging.ImageLockMode.ReadOnly, srcPixeFormat);
+            dst.WritePixels(new System.Windows.Int32Rect(srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height), data.Scan0, data.Height * data.Stride, data.Stride, destinationX, destinationY);
+            src.UnlockBits(data);
+
         }
 
         /// <summary>
@@ -33,13 +74,44 @@ namespace ImageCapture
         /// <returns></returns>
         public static Bitmap WriteableBitmapToBitmap(this WriteableBitmap writeableBitmap)
         {
-            Bitmap tempBitmap;
-            Mat tempMat = writeableBitmap.ToMat();
-            using (tempMat)
+            //System.Drawing.Imaging.PixelFormat format;
+            
+            //switch (writeableBitmap)
+            //{
+            //    case PixelFormats.Bgr555:
+            //        format =  System.Drawing.Imaging.PixelFormat.Format16bppRgb555;
+            //        break;
+            //    case PixelFormats.Bgr565:
+            //        format = System.Drawing.Imaging.PixelFormat.Format16bppRgb565;
+            //        break;
+            //    case System.Windows.Media.PixelFormats.Bgr24:
+            //        format = System.Drawing.Imaging.PixelFormat.Format24bppRgb;
+            //        break;
+            //    case System.Windows.Media.PixelFormats.Bgr32:
+            //        format = System.Drawing.Imaging.PixelFormat.Format32bppRgb;
+            //        break;
+            //    case System.Windows.Media.PixelFormats.Pbgra32:
+            //        format = System.Drawing.Imaging.PixelFormat.Format32bppPArgb;
+            //        break;
+            //    case System.Windows.Media.PixelFormats.Bgra32:
+            //        format = System.Drawing.Imaging.PixelFormat.Format32bppArgb;
+            //        break;
+            //    default:
+            //        return null;
+            //}
+
+            Bitmap tempBitmap = new Bitmap(writeableBitmap.PixelWidth,writeableBitmap.PixelHeight);
+            int rPixelBytes = writeableBitmap.BackBufferStride * writeableBitmap.PixelHeight;
+            System.Drawing.Imaging.BitmapData data = tempBitmap.LockBits(new Rectangle(0, 0, writeableBitmap.PixelWidth, writeableBitmap.PixelHeight), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            writeableBitmap.Lock();
+            unsafe
             {
-                tempBitmap = tempMat.ToBitmap();
+                Buffer.MemoryCopy(writeableBitmap.BackBuffer.ToPointer(),data.Scan0.ToPointer(),rPixelBytes,rPixelBytes);
             }
 
+            writeableBitmap.AddDirtyRect(new System.Windows.Int32Rect(0,0,(int)writeableBitmap.Width,(int)writeableBitmap.Height));
+            writeableBitmap.Unlock();
+            tempBitmap.UnlockBits(data);
             return tempBitmap;
         }
     }

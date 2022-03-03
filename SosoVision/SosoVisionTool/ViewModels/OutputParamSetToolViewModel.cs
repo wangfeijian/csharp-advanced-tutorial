@@ -10,6 +10,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SosoVisionTool.Tools;
+using System.Windows.Controls;
 
 namespace SosoVisionTool.ViewModels
 {
@@ -30,6 +31,7 @@ namespace SosoVisionTool.ViewModels
         }
         public OutputParamSetToolViewModel(string visionStep)
         {
+            OutputDataKeyAndType = new ObservableCollection<DataKeyAndType>();
             VisionStep = visionStep;
             ToolRunData = ContainerLocator.Container.Resolve<ToolRunViewData>(VisionStep);
             _eventAggregator = ContainerLocator.Container.Resolve<IEventAggregator>();
@@ -102,7 +104,7 @@ namespace SosoVisionTool.ViewModels
             set { _outputDataKeyAndTypeSelected = value; RaisePropertyChanged(); }
         }
 
-        public void Run(ToolBase tool, ref bool result)
+        public void Run(ToolBase tool, ref bool result, ref string strResult)
         {
             VisionRunData = ContainerLocator.Container.Resolve<AllVisionRunData>("GlobalData");
 
@@ -118,7 +120,7 @@ namespace SosoVisionTool.ViewModels
             foreach (var item in OutputDataKeyAndType)
             {
                 string tempKey = item.DataKey.Substring(item.DataKey.LastIndexOf('_') + 1, item.DataKey.Length - item.DataKey.LastIndexOf('_') - 1);
-               
+
 
                 switch (item.DataType)
                 {
@@ -137,6 +139,8 @@ namespace SosoVisionTool.ViewModels
                         {
                             VisionRunData.VisionRunImage.Add(item.DataKey, ToolRunData.ToolOutputImage[item.DataKey]);
                         }
+                        TreeViewItem tempImage = new TreeViewItem { Header = item.DataKey, ToolTip = ToolRunData.ToolOutputImage[item.DataKey].ToString() };
+                        tool.AddInputOutputTree(tempImage, false);
                         break;
                     case "Region":
                         if (!ToolRunData.ToolOutputRegion.ContainsKey(item.DataKey))
@@ -153,6 +157,8 @@ namespace SosoVisionTool.ViewModels
                         {
                             VisionRunData.VisionRunRegion.Add(item.DataKey, ToolRunData.ToolOutputRegion[item.DataKey]);
                         }
+                        TreeViewItem tempRegion = new TreeViewItem { Header = item.DataKey, ToolTip = ToolRunData.ToolOutputRegion[item.DataKey].ToString() };
+                        tool.AddInputOutputTree(tempRegion, false);
                         break;
                     case "Double":
                         if (!ToolRunData.ToolOutputDoubleValue.ContainsKey(item.DataKey))
@@ -180,6 +186,8 @@ namespace SosoVisionTool.ViewModels
                             tempMessage = $"{tempMessage},{tempKey}";
                             tempResult = $"{tempResult},{ToolRunData.ToolOutputDoubleValue[item.DataKey]}";
                         }
+                        TreeViewItem tempDouble = new TreeViewItem { Header = item.DataKey, ToolTip = ToolRunData.ToolOutputDoubleValue[item.DataKey].ToString() };
+                        tool.AddInputOutputTree(tempDouble, false);
                         break;
                     case "Int":
                         if (!ToolRunData.ToolOutputIntValue.ContainsKey(item.DataKey))
@@ -205,8 +213,10 @@ namespace SosoVisionTool.ViewModels
                         else
                         {
                             tempMessage = $"{tempMessage},{tempKey}";
-                             tempResult = $"{tempResult},{ToolRunData.ToolOutputIntValue[item.DataKey]}";
+                            tempResult = $"{tempResult},{ToolRunData.ToolOutputIntValue[item.DataKey]}";
                         }
+                        TreeViewItem tempInt = new TreeViewItem { Header = item.DataKey, ToolTip = ToolRunData.ToolOutputIntValue[item.DataKey].ToString() };
+                        tool.AddInputOutputTree(tempInt, false);
                         break;
                     case "String":
                         if (!ToolRunData.ToolOutputStringValue.ContainsKey(item.DataKey))
@@ -234,13 +244,16 @@ namespace SosoVisionTool.ViewModels
                             tempMessage = $"{tempMessage},{tempKey}";
                             tempResult = $"{tempResult},{ToolRunData.ToolOutputStringValue[item.DataKey]}";
                         }
+                        TreeViewItem tempString = new TreeViewItem { Header = item.DataKey, ToolTip = ToolRunData.ToolOutputStringValue[item.DataKey].ToString() };
+                        tool.AddInputOutputTree(tempString, false);
                         break;
                 }
             }
 
-            HObjectParams tempHobjectCamera = new HObjectParams { Result = tempResult ,ShowMessage = tempMessage};
+            HObjectParams tempHobjectCamera = new HObjectParams { Result = tempResult, VisionStep = tool.ToolInVision, ShowMessage = tempMessage };
             _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectCamera);
 
+            strResult = tempResult;
             result = true;
         }
 
@@ -266,7 +279,7 @@ namespace SosoVisionTool.ViewModels
                     var addImageDataKey = from key in OutputDataKeyAndType
                                           where key.DataKey == AddImageDataKey
                                           select key;
-                    if (addImageDataKey != null)
+                    if (addImageDataKey.ToList().Count == 1)
                     {
                         MessageBox.Show($"输入参数中已经存在{addImageDataKey}", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -283,7 +296,7 @@ namespace SosoVisionTool.ViewModels
                     var addRegionDataKey = from key in OutputDataKeyAndType
                                            where key.DataKey == AddRegionDataKey
                                            select key;
-                    if (addRegionDataKey != null)
+                    if (addRegionDataKey.ToList().Count == 1)
                     {
                         MessageBox.Show($"输入参数中已经存在{addRegionDataKey}", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -301,7 +314,7 @@ namespace SosoVisionTool.ViewModels
                     var addDoubleDataKey = from key in OutputDataKeyAndType
                                            where key.DataKey == AddDoubleDataKey
                                            select key;
-                    if (addDoubleDataKey != null)
+                    if (addDoubleDataKey.ToList().Count == 1)
                     {
                         MessageBox.Show($"输入参数中已经存在{addDoubleDataKey}", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -319,7 +332,7 @@ namespace SosoVisionTool.ViewModels
                     var addIntDataKey = from key in OutputDataKeyAndType
                                         where key.DataKey == AddIntDataKey
                                         select key;
-                    if (addIntDataKey != null)
+                    if (addIntDataKey.ToList().Count == 1)
                     {
                         MessageBox.Show($"输入参数中已经存在{addIntDataKey}", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -337,7 +350,7 @@ namespace SosoVisionTool.ViewModels
                     var addStringDataKey = from key in OutputDataKeyAndType
                                            where key.DataKey == AddStringDataKey
                                            select key;
-                    if (addStringDataKey != null)
+                    if (addStringDataKey.ToList().Count == 1)
                     {
                         MessageBox.Show($"输入参数中已经存在{addStringDataKey}", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;

@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,15 +39,6 @@
     <Reference Include="halcondotnet, Version=20.5.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files\MVTec\HALCON-18.11-Progress\bin\dotnet35\halcondotnet.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenCvSharp">
-      <HintPath>..\..\..\..\..\..\Study\dotNet\csharp-advanced-tutorial\OpenCvSharpDemo\packages\OpenCvSharp4.4.5.3.20210725\lib\net461\OpenCvSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenCvSharp.Extensions">
-      <HintPath>..\..\..\..\..\..\Study\dotNet\csharp-advanced-tutorial\OpenCvSharpDemo\packages\OpenCvSharp4.4.5.3.20210725\lib\net461\OpenCvSharp.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenCvSharp.WpfExtensions">
-      <HintPath>..\..\..\..\..\..\Study\dotNet\csharp-advanced-tutorial\OpenCvSharpDemo\packages\OpenCvSharp4.WpfExtensions.4.5.3.20210725\lib\net461\OpenCvSharp.WpfExtensions.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

@@ -141,6 +141,7 @@ namespace SosoVision.ViewModels
 
         private void ShowVisionRunResult(string result, string message)
         {
+            DisplayMessage = "";
             var results = result.Split(',');
             var messages = message.Split(',');
             string[] tempStr = new string[results.Length];
@@ -156,10 +157,12 @@ namespace SosoVision.ViewModels
             string temp = string.Join("\n", tempStr);
             if (result.Contains("999"))
             {
+                MessageColor = "red";
                 DisplayMessage = $"NG\n{temp}";
             }
             else
             {
+                MessageColor = "green";
                 DisplayMessage = $"OK\n{temp}";
             }
         }

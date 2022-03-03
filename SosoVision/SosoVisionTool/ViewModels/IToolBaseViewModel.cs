@@ -12,7 +12,7 @@ namespace SosoVisionTool.ViewModels
         ProcedureParam Param { get; set; }
 
         CaptureBase Capture { get; set; }
-        void Run(ToolBase tool, ref bool result);
+        void Run(ToolBase tool, ref bool result, ref string strResult);
 
     }
 }
