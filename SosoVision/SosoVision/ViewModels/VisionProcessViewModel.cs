@@ -103,6 +103,10 @@ namespace SosoVision.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(obj.Result))
             {
+                if (obj.Region!=null)
+                {
+                    DisplayRegion = obj.Region;
+                }
                 ResultStr = obj.Result;
                 ShowVisionRunResult(obj.Result, obj.ShowMessage);
                 return;

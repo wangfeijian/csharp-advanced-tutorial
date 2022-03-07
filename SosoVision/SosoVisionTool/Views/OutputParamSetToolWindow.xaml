@@ -135,22 +135,24 @@
             materialDesign:ColorZoneAssist.Mode="Custom"
             Header="输出参数"
             Style="{DynamicResource MaterialDesignGroupBox}">
-            <StackPanel>
-                <ListView ItemsSource="{Binding OutputDataKeyAndType}" SelectedItem="{Binding OutputDataKeyAndTypeSelected}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding DataType}" Header="类型" />
-                            <GridViewColumn DisplayMemberBinding="{Binding DataKey}" Header="Key值" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Button
-                    Height="45"
-                    Margin="0,5"
-                    Command="{Binding DeleteParamCommand}"
-                    Content="删除选中项"
-                    Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
-            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <ListView ItemsSource="{Binding OutputDataKeyAndType}" SelectedItem="{Binding OutputDataKeyAndTypeSelected}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding DataType}" Header="类型" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DataKey}" Header="Key值" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button
+                        Height="45"
+                        Margin="0,5"
+                        Command="{Binding DeleteParamCommand}"
+                        Content="删除选中项"
+                        Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
+                </StackPanel>
+            </ScrollViewer>
         </GroupBox>
     </Grid>
 </Window>

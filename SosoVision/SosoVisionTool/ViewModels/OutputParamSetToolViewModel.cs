@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using SosoVisionTool.Tools;
 using System.Windows.Controls;
+using HalconDotNet;
 
 namespace SosoVisionTool.ViewModels
 {
@@ -116,6 +117,10 @@ namespace SosoVisionTool.ViewModels
 
             string tempResult = string.Empty;
             string tempMessage = string.Empty;
+            string key = $"{tool.ToolInVision}_{tool.ToolItem.Header}";
+
+            HObject temp;
+            HOperatorSet.GenEmptyObj(out temp);
 
             foreach (var item in OutputDataKeyAndType)
             {
@@ -159,6 +164,9 @@ namespace SosoVisionTool.ViewModels
                         }
                         TreeViewItem tempRegion = new TreeViewItem { Header = item.DataKey, ToolTip = ToolRunData.ToolOutputRegion[item.DataKey].ToString() };
                         tool.AddInputOutputTree(tempRegion, false);
+                        HObject xldTemp;
+                        HOperatorSet.ConcatObj(ToolRunData.ToolOutputRegion[item.DataKey], temp, out xldTemp);
+                        temp = xldTemp;
                         break;
                     case "Double":
                         if (!ToolRunData.ToolOutputDoubleValue.ContainsKey(item.DataKey))
@@ -250,7 +258,7 @@ namespace SosoVisionTool.ViewModels
                 }
             }
 
-            HObjectParams tempHobjectCamera = new HObjectParams { Result = tempResult, VisionStep = tool.ToolInVision, ShowMessage = tempMessage };
+            HObjectParams tempHobjectCamera = new HObjectParams { Region = temp, RegionKey = key, Result = tempResult, VisionStep = tool.ToolInVision, ShowMessage = tempMessage };
             _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectCamera);
 
             strResult = tempResult;

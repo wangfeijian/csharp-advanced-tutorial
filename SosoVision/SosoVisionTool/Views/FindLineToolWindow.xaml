@@ -75,9 +75,10 @@
                         x:Name="OutlinedComboBoxEnabledCheckBox"
                         Margin="0,5"
                         Content="启用矩阵跟随"
-                        IsChecked="True" />
+                        IsChecked="{Binding EnableMat, Mode=TwoWay}" />
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
@@ -88,6 +89,7 @@
                             DisplayMemberPath="Key"
                             IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
                             ItemsSource="{Binding ToolRunData.ToolOutputDoubleValue}"
+                            SelectedValue="{Binding RowSourceKey, Mode=TwoWay}"
                             SelectedValuePath="Key"
                             Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
                         <ComboBox
@@ -97,6 +99,7 @@
                             DisplayMemberPath="Key"
                             IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
                             ItemsSource="{Binding ToolRunData.ToolOutputDoubleValue}"
+                            SelectedValue="{Binding ColSourceKey, Mode=TwoWay}"
                             SelectedValuePath="Key"
                             Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
                         <ComboBox
@@ -106,8 +109,14 @@
                             DisplayMemberPath="Key"
                             IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
                             ItemsSource="{Binding ToolRunData.ToolOutputDoubleValue}"
+                            SelectedValue="{Binding AngleSourceKey, Mode=TwoWay}"
                             SelectedValuePath="Key"
                             Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                        <Button
+                            Grid.Row="3"
+                            Command="{Binding AddRoiCommand}"
+                            Content="添加ROI"
+                            Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
                     </Grid>
 
                 </StackPanel>
@@ -118,7 +127,7 @@
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White"
                 materialDesign:ColorZoneAssist.Mode="Custom"
-                Header="模板参数"
+                Header="卡尺参数"
                 Style="{DynamicResource MaterialDesignGroupBox}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -129,132 +138,57 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.6*" />
+                        <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <ComboBox
+                    <TextBox
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="卡尺长度"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding MeasureLength}" />
+                    <TextBox
                         Grid.Column="1"
                         Margin="5"
-                        materialDesign:HintAssist.Hint="金字塔层级"
-                        ItemsSource="{Binding NumLevelList}"
-                        SelectedItem="{Binding NumLevels}"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
-                    <ComboBox
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="卡尺宽度"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding MeasureWidth}" />
+                    <TextBox
+                        Grid.Row="1"
                         Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="平滑系数"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding MeasureSigma}" />
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5"
+                        VerticalAlignment="Center"
                         materialDesign:HintAssist.Hint="阈值"
-                        ItemsSource="{Binding ContrastList}"
-                        SelectedItem="{Binding Contrast}"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding MeasureThreshold}" />
                     <TextBox
                         Grid.Row="2"
                         Margin="5"
                         VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="起始角度"
+                        materialDesign:HintAssist.Hint="卡尺数量"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding AngleStart}" />
-                    <TextBox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="结束角度"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding AngleExtent}" />
-                    <ComboBox
-                        Grid.Row="3"
-                        Grid.ColumnSpan="2"
-                        Margin="5"
-                        materialDesign:HintAssist.Hint="模板生成算法"
-                        ItemsSource="{Binding OptimizationList}"
-                        SelectedItem="{Binding Optimization}"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                        Text="{Binding MeasureNum}" />
                     <ComboBox
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="5"
-                        materialDesign:HintAssist.Hint="匹配算法"
-                        ItemsSource="{Binding MetricList}"
-                        SelectedItem="{Binding Metric}"
+                        materialDesign:HintAssist.Hint="边缘极性"
+                        ItemsSource="{Binding MeasureTransitionList}"
+                        SelectedItem="{Binding MeasureTransition, Mode=TwoWay}"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
-                    <TextBox
-                        Grid.Row="1"
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="最小阈值"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding MinContrast}" />
                     <Button
                         Grid.Row="4"
                         Grid.ColumnSpan="2"
-                        Content="制作模板"
-                        Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
-                </Grid>
-            </GroupBox>
-            <GroupBox
-                Margin="5"
-                materialDesign:ColorZoneAssist.Background="Black"
-                materialDesign:ColorZoneAssist.Foreground="White"
-                materialDesign:ColorZoneAssist.Mode="Custom"
-                Header="运行参数"
-                Style="{DynamicResource MaterialDesignGroupBox}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBox
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="最小分数"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding MinScore}" />
-                    <TextBox
-                        Grid.Column="1"
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="匹配数量"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding NumMatches}" />
-                    <TextBox
-                        Grid.Row="1"
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="模板重合度"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding MaxOverlap}" />
-                    <ComboBox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="5"
-                        materialDesign:HintAssist.Hint="亚像素精度 "
-                        ItemsSource="{Binding SubPixelList}"
-                        SelectedItem="{Binding SubPixel}"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
-                    <ComboBox
-                        Grid.Row="2"
-                        Margin="5"
-                        materialDesign:HintAssist.Hint="使用层级"
-                        ItemsSource="{Binding UseLevelList}"
-                        SelectedItem="{Binding UseLevels}"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
-                    <TextBox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="贪婪性"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding Greediness}" />
-                    <Button
-                        Grid.Row="3"
-                        Grid.ColumnSpan="2"
-                        Content="测试找模板"
+                        Command="{Binding TestCommand}"
+                        Content="测试找直线"
                         Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
                 </Grid>
             </GroupBox>

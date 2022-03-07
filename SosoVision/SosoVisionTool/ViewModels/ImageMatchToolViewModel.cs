@@ -28,7 +28,7 @@ namespace SosoVisionTool.ViewModels
         public CaptureBase Capture { get; set; }
         [Newtonsoft.Json.JsonIgnore]
         public DelegateCommand TestCommand { get; }
-
+        [Newtonsoft.Json.JsonIgnore]
         public DelegateCommand CreateModelCommand { get; }
 
         public HShapeModel ModelId { get; set; }

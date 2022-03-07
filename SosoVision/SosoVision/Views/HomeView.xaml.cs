@@ -50,6 +50,10 @@ namespace SosoVision.Views
                  {
                      if (!string.IsNullOrWhiteSpace(obj.Result))
                      {
+                         if(obj.Region != null)
+                         {
+                             imageDisplayWindow.DisplayRegion = obj.Region;
+                         }
                          imageDisplayWindow.DisplayMessage = "";
                          var results = obj.Result.Split(',');
                          var messages = obj.ShowMessage.Split(',');
