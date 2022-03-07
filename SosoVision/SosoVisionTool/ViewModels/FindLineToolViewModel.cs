@@ -217,25 +217,27 @@ namespace SosoVisionTool.ViewModels
 
             DisplayRegion = null;
             string key = $"{tool.ToolInVision}_{tool.ToolItem.Header}";
-            HTuple rowBegin, colBegin, rowEnd, colEnd, angle;
+            HTuple rowBegin, colBegin, rowEnd, colEnd, rowCenter, colCenter, angle;
             HObject outLine;
-            bool tempResult = FindLine(out rowBegin, out colBegin, out rowEnd, out colEnd, out angle,out outLine, false);
+            bool tempResult = FindLine(out rowBegin, out colBegin, out rowEnd, out colEnd, out angle, out rowCenter, out colCenter, out outLine, false);
 
             string rowBeginStr = SetMessage(nameof(rowBegin), rowBegin.ToString());
             string colBeginStr = SetMessage(nameof(colBegin), colBegin.ToString());
             string rowEndStr = SetMessage(nameof(rowEnd), rowEnd.ToString());
             string colEndStr = SetMessage(nameof(colEnd), colEnd.ToString());
+            string rowCenterStr = SetMessage(nameof(rowCenter), rowCenter.ToString());
+            string colCenterStr = SetMessage(nameof(colCenter), colCenter.ToString());
             string angleStr = SetMessage(nameof(angle), angle.ToString());
 
             string message;
             if (tempResult)
             {
-                message = string.Join("\n", "OK", rowBeginStr, colBeginStr, rowEndStr, colEndStr,angleStr);
+                message = string.Join("\n", "OK", rowBeginStr, colBeginStr, rowEndStr, colEndStr, rowCenterStr, colCenterStr, angleStr);
                 ShowRunInfo(message);
             }
             else
             {
-                message = string.Join("\n", "NG", rowBeginStr, colBeginStr, rowEndStr, colEndStr,angleStr);
+                message = string.Join("\n", "NG", rowBeginStr, colBeginStr, rowEndStr, colEndStr, rowCenterStr, colCenterStr, angleStr);
                 ShowRunInfo(message, false);
             }
 
@@ -246,6 +248,8 @@ namespace SosoVisionTool.ViewModels
             AddDoubleToData($"{key}_{nameof(colBegin)}", colBeginStr);
             AddDoubleToData($"{key}_{nameof(rowEnd)}", rowEndStr);
             AddDoubleToData($"{key}_{nameof(colEnd)}", colEndStr);
+            AddDoubleToData($"{key}_{nameof(rowCenter)}", rowCenterStr);
+            AddDoubleToData($"{key}_{nameof(colCenter)}", colCenterStr);
             AddDoubleToData($"{key}_{nameof(angle)}", angleStr);
 
             HObjectParams tempHobjectCamera = new HObjectParams { Image = DisplayImage, VisionStep = tool.ToolInVision, ImageKey = key, Region = DisplayRegion, RegionKey = key };
@@ -254,13 +258,13 @@ namespace SosoVisionTool.ViewModels
             TreeViewItem temp = new TreeViewItem { Header = nameof(DisplayImage), ToolTip = DisplayImage.ToString() };
             tool.AddInputOutputTree(temp, true);
 
-            temp = new TreeViewItem { Header = nameof(RowSourceKey), ToolTip = ToolRunData.ToolOutputDoubleValue[RowSourceKey].ToString()};
+            temp = new TreeViewItem { Header = nameof(RowSourceKey), ToolTip = ToolRunData.ToolOutputDoubleValue[RowSourceKey].ToString() };
             tool.AddInputOutputTree(temp, true);
 
-            temp = new TreeViewItem { Header = nameof(ColSourceKey), ToolTip = ToolRunData.ToolOutputDoubleValue[ColSourceKey].ToString()};
+            temp = new TreeViewItem { Header = nameof(ColSourceKey), ToolTip = ToolRunData.ToolOutputDoubleValue[ColSourceKey].ToString() };
             tool.AddInputOutputTree(temp, true);
 
-            temp = new TreeViewItem { Header = nameof(AngleSourceKey), ToolTip = ToolRunData.ToolOutputDoubleValue[AngleSourceKey]};
+            temp = new TreeViewItem { Header = nameof(AngleSourceKey), ToolTip = ToolRunData.ToolOutputDoubleValue[AngleSourceKey] };
             tool.AddInputOutputTree(temp, true);
 
             temp = new TreeViewItem { Header = nameof(rowBegin), ToolTip = rowBegin.ToString() };
@@ -273,6 +277,12 @@ namespace SosoVisionTool.ViewModels
             tool.AddInputOutputTree(temp, false);
 
             temp = new TreeViewItem { Header = nameof(colEnd), ToolTip = colEnd.ToString() };
+            tool.AddInputOutputTree(temp, false);
+
+            temp = new TreeViewItem { Header = nameof(rowCenter), ToolTip = rowCenter.ToString() };
+            tool.AddInputOutputTree(temp, false);
+
+            temp = new TreeViewItem { Header = nameof(colCenter), ToolTip = colCenter.ToString() };
             tool.AddInputOutputTree(temp, false);
 
             temp = new TreeViewItem { Header = nameof(angle), ToolTip = angle.ToString() };
@@ -315,7 +325,7 @@ namespace SosoVisionTool.ViewModels
                 return $"{name}: {string.Join(",", strArray)}";
             }
 
-            if (value.Contains("."))
+            if (value.Contains(".") && value.Length >= (value.IndexOf('.') + 3))
             {
                 temp = value.Substring(0, value.IndexOf('.') + 3);
             }
@@ -402,9 +412,9 @@ namespace SosoVisionTool.ViewModels
 
         private void Test()
         {
-            HTuple rowBegin, colBegin, rowEnd, colEnd, angle;
+            HTuple rowBegin, colBegin, rowEnd, colEnd, rowCenter, colCenter, angle;
             HObject line;
-            bool tempResult = FindLine(out rowBegin, out colBegin, out rowEnd, out colEnd, out angle, out line);
+            bool tempResult = FindLine(out rowBegin, out colBegin, out rowEnd, out colEnd, out angle, out rowCenter, out colCenter, out line);
 
             string rowBeginStr = SetMessage(nameof(rowBegin), rowBegin.ToString());
             string colBeginStr = SetMessage(nameof(colBegin), colBegin.ToString());
@@ -425,9 +435,9 @@ namespace SosoVisionTool.ViewModels
             }
         }
 
-        private bool FindLine(out HTuple rowBegin, out HTuple colBegin, out HTuple rowEnd, out HTuple colEnd, out HTuple angle,out HObject line, bool isTest = true)
+        private bool FindLine(out HTuple rowBegin, out HTuple colBegin, out HTuple rowEnd, out HTuple colEnd, out HTuple angle, out HTuple rowCenter, out HTuple colCenter, out HObject line, bool isTest = true)
         {
-            rowBegin = colBegin = rowEnd = colEnd = angle = 999;
+            rowBegin = colBegin = rowEnd = colEnd = angle = rowCenter = colCenter = 999;
             line = null;
 
             if (ImageSourceKey == null)
@@ -523,7 +533,21 @@ namespace SosoVisionTool.ViewModels
                 HTuple fitLineRow = new HTuple(rowBegin, rowEnd);
                 HTuple fitLineCol = new HTuple(colBegin, colEnd);
                 HOperatorSet.GenContourPolygonXld(out fitLine, fitLineRow, fitLineCol);
-                line = fitLine.Clone();
+
+                // 生成延长线
+                HObject region;
+                HTuple area, ra, rb, phi;
+                HOperatorSet.GenRegionContourXld(fitLine, out region, "filled");
+                HOperatorSet.AreaCenter(region, out area, out rowCenter, out colCenter);
+                HOperatorSet.EllipticAxisPointsXld(fitLine, out ra, out rb, out phi);
+                HTuple lineLength = 10000;
+                HTuple rowStart = rowCenter - new HTuple(phi + 1.5708).TupleCos() * lineLength;
+                HTuple colStart = colCenter - new HTuple(phi + 1.5708).TupleSin() * lineLength;
+                HTuple rowEnds = rowCenter - new HTuple(phi - 1.5708).TupleCos() * lineLength;
+                HTuple colEnds = colCenter - new HTuple(phi - 1.5708).TupleSin() * lineLength;
+                HOperatorSet.GenContourPolygonXld(out region, new HTuple(rowStart, rowEnds), new HTuple(colStart, colEnds));
+
+                line = region.Clone();
 
                 // 求线的角度
                 HTuple atan, deg;
@@ -540,7 +564,7 @@ namespace SosoVisionTool.ViewModels
                 temp = showTemp;
                 HOperatorSet.ConcatObj(crossContours, temp, out showTemp);
                 temp = showTemp;
-                HOperatorSet.ConcatObj(fitLine, temp, out showTemp);
+                HOperatorSet.ConcatObj(line, temp, out showTemp);
 
                 DisplayRegion = showTemp.Clone();
 

@@ -79,16 +79,23 @@ namespace SosoVision.Server
                     _sosoLogManager.ShowLogError($"View 不存在");
                     return;
                 }
-                string result = string.Empty;
-                if (view.ToolRun.Run(ref result))
+                try
                 {
-                    _sosoVisionServer.Send(e.IpPort, $"{receive[0]},1,{result}");
-                    _sosoLogManager.ShowLogInfo($"Send {receive[0]},1,{result} to {e.IpPort} client");
+                    string result = string.Empty;
+                    if (view.ToolRun.Run(ref result))
+                    {
+                        _sosoVisionServer.Send(e.IpPort, $"{receive[0]},1,{result}");
+                        _sosoLogManager.ShowLogInfo($"Send {receive[0]},1,{result} to {e.IpPort} client");
+                    }
+                    else
+                    {
+                        _sosoVisionServer.Send(e.IpPort, $"{receive[0]},0");
+                        _sosoLogManager.ShowLogInfo($"Send {receive[0]},0 to {e.IpPort} client");
+                    }
                 }
-                else
+                catch (System.Exception ex)
                 {
-                    _sosoVisionServer.Send(e.IpPort, $"{receive[0]},0");
-                    _sosoLogManager.ShowLogInfo($"Send {receive[0]},0 to {e.IpPort} client");
+                    _sosoLogManager.ShowLogError($"工具运行失败_{ex.Message}");
                 }
             });
         }

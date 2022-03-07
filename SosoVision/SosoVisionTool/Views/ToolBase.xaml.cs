@@ -1,7 +1,9 @@
 ﻿using MaterialDesignThemes.Wpf;
+using SosoVisionCommonTool.Log;
 using SosoVisionTool.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using Prism.Ioc;
 using System.Windows.Input;
 
 namespace SosoVisionTool.Views
@@ -76,8 +78,15 @@ namespace SosoVisionTool.Views
         /// </summary>
         public void Run(ToolBase tool, ref bool result, ref string strResult)
         {
-            var viewModel = DataContext as IToolBaseViewModel;
-            viewModel?.Run(tool, ref result, ref strResult);
+            try
+            {
+                var viewModel = DataContext as IToolBaseViewModel;
+                viewModel?.Run(tool, ref result, ref strResult);
+            }
+            catch (System.Exception ex)
+            {
+                ContainerLocator.Container.Resolve<ISosoLogManager>().ShowLogError($"工具运行失败_{ex.Message}");
+            }
         }
 
         /// <summary>
