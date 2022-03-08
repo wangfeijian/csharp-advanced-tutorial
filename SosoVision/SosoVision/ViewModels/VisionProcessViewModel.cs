@@ -161,6 +161,7 @@ namespace SosoVision.ViewModels
             string temp = string.Join("\n", tempStr);
             if (result.Contains("999"))
             {
+                DisplayRegion = null;
                 MessageColor = "red";
                 DisplayMessage = $"NG\n{temp}";
             }

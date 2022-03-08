@@ -7,12 +7,12 @@ using System.Windows.Input;
 
 namespace SosoVisionTool.Services.Tools
 {
-    public class FindLineTool : ToolBase
+    public class FindCircleTool : ToolBase
     {
-        public FindLineTool()
+        public FindCircleTool()
         {
-            ToolDesStr = "找线工具";
-            ToolTip = "找线工具";
+            ToolDesStr = "找圆工具";
+            ToolTip = "找圆工具";
             ToolIcon = "\xe60a";
         }
         public override TreeViewItem CreateTreeView(string name)
@@ -27,7 +27,7 @@ namespace SosoVisionTool.Services.Tools
 
         public override object GetDataContext(string file)
         {
-             return JsonConvert.DeserializeObject<FindLineToolViewModel>(File.ReadAllText(file));
+             return JsonConvert.DeserializeObject<FindCircleToolViewModel>(File.ReadAllText(file));
         }
 
         public override void UIElement_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -42,19 +42,19 @@ namespace SosoVisionTool.Services.Tools
             if (ToolWindow == null && DataContext == null)
             {
                 ToolWindow = new FindCircleToolWindow() { Title = _tree.Header.ToString() };
-                DataContext = new FindLineToolViewModel(ToolInVision);
+                DataContext = new FindCircleToolViewModel(ToolInVision);
                 ToolWindow.DataContext = DataContext;
             }
             else if (ToolWindow == null)
             {
                 ToolWindow = new FindCircleToolWindow() { Title = _tree.Header.ToString() };
-                if (DataContext is FindLineToolViewModel)
+                if (DataContext is FindCircleToolViewModel)
                 {
                     ToolWindow.DataContext = DataContext;
                 }
                 else
                 {
-                    DataContext = new FindLineToolViewModel(ToolInVision);
+                    DataContext = new FindCircleToolViewModel(ToolInVision);
                     ToolWindow.DataContext = DataContext;
                 }
             }

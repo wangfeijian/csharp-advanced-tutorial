@@ -15,7 +15,7 @@ using System.Windows.Controls;
 
 namespace SosoVisionTool.ViewModels
 {
-    public class FindLineToolViewModel : BindableBase, IToolBaseViewModel
+    public class FindCircleToolViewModel : BindableBase, IToolBaseViewModel
     {
         [Newtonsoft.Json.JsonIgnore]
         public ToolRunViewData ToolRunData { get; set; }
@@ -30,10 +30,9 @@ namespace SosoVisionTool.ViewModels
         [Newtonsoft.Json.JsonIgnore]
         public CaptureBase Capture { get; set; }
         public bool RoiAdded { get; set; }
-        public double RowStart { get; set; }
-        public double ColStart { get; set; }
-        public double RowEnd { get; set; }
-        public double ColEnd { get; set; }
+        public double Row { get; set; }
+        public double Col { get; set; }
+        public double Radius { get; set; }
 
         private HObject _displayImage;
 
@@ -190,17 +189,8 @@ namespace SosoVisionTool.ViewModels
             set { _colSourceKey = value; RaisePropertyChanged(); }
         }
 
-        private string _angleSourceKey;
-
-        public string AngleSourceKey
-        {
-            get { return _angleSourceKey; }
-            set { _angleSourceKey = value; RaisePropertyChanged(); }
-        }
-
         public double MatRow { get; set; }
         public double MatCol { get; set; }
-        public double MatAngle { get; set; }
         public HObject DrawRoi { get; set; }
         public List<string> MeasureTransitionList { get; set; }
 
@@ -214,40 +204,32 @@ namespace SosoVisionTool.ViewModels
 
             DisplayRegion = null;
             string key = $"{tool.ToolInVision}_{tool.ToolItem.Header}";
-            HTuple rowBegin, colBegin, rowEnd, colEnd, rowCenter, colCenter, angle;
-            HObject outLine;
-            bool tempResult = FindLine(out rowBegin, out colBegin, out rowEnd, out colEnd, out angle, out rowCenter, out colCenter, out outLine, false);
+            HTuple row, col, radius;
+            HObject outCircle;
+            bool tempResult = FindCircle(out row, out col, out radius, out outCircle, false);
 
-            string rowBeginStr = SetMessage(nameof(rowBegin), rowBegin.ToString());
-            string colBeginStr = SetMessage(nameof(colBegin), colBegin.ToString());
-            string rowEndStr = SetMessage(nameof(rowEnd), rowEnd.ToString());
-            string colEndStr = SetMessage(nameof(colEnd), colEnd.ToString());
-            string rowCenterStr = SetMessage(nameof(rowCenter), rowCenter.ToString());
-            string colCenterStr = SetMessage(nameof(colCenter), colCenter.ToString());
-            string angleStr = SetMessage(nameof(angle), angle.ToString());
+            string rowStr = SetMessage(nameof(row), row.ToString());
+            string colStr = SetMessage(nameof(col), col.ToString());
+            string radiusStr = SetMessage(nameof(radius), radius.ToString());
 
             string message;
             if (tempResult)
             {
-                message = string.Join("\n", "OK", rowBeginStr, colBeginStr, rowEndStr, colEndStr, rowCenterStr, colCenterStr, angleStr);
+                message = string.Join("\n", "OK", rowStr, colStr, radiusStr);
                 ShowRunInfo(message);
             }
             else
             {
-                message = string.Join("\n", "NG", rowBeginStr, colBeginStr, rowEndStr, colEndStr, rowCenterStr, colCenterStr, angleStr);
+                message = string.Join("\n", "NG", rowStr, colStr, radiusStr);
                 ShowRunInfo(message, false);
             }
 
             AddImageToData(key, DisplayImage);
             AddRegionToData(key, DisplayRegion);
-            AddRegionToData($"{key}_{nameof(outLine)}", outLine);
-            AddDoubleToData($"{key}_{nameof(rowBegin)}", rowBeginStr);
-            AddDoubleToData($"{key}_{nameof(colBegin)}", colBeginStr);
-            AddDoubleToData($"{key}_{nameof(rowEnd)}", rowEndStr);
-            AddDoubleToData($"{key}_{nameof(colEnd)}", colEndStr);
-            AddDoubleToData($"{key}_{nameof(rowCenter)}", rowCenterStr);
-            AddDoubleToData($"{key}_{nameof(colCenter)}", colCenterStr);
-            AddDoubleToData($"{key}_{nameof(angle)}", angleStr);
+            AddRegionToData($"{key}_{nameof(outCircle)}", outCircle);
+            AddDoubleToData($"{key}_{nameof(row)}", rowStr);
+            AddDoubleToData($"{key}_{nameof(col)}", colStr);
+            AddDoubleToData($"{key}_{nameof(radius)}", radiusStr);
 
             HObjectParams tempHobjectCamera = new HObjectParams { Image = DisplayImage, VisionStep = tool.ToolInVision, ImageKey = key, Region = DisplayRegion, RegionKey = key };
             _eventAggregator.GetEvent<HObjectEvent>().Publish(tempHobjectCamera);
@@ -261,31 +243,13 @@ namespace SosoVisionTool.ViewModels
             temp = new TreeViewItem { Header = nameof(ColSourceKey), ToolTip = ToolRunData.ToolOutputDoubleValue[ColSourceKey].ToString() };
             tool.AddInputOutputTree(temp, true);
 
-            temp = new TreeViewItem { Header = nameof(AngleSourceKey), ToolTip = ToolRunData.ToolOutputDoubleValue[AngleSourceKey] };
-            tool.AddInputOutputTree(temp, true);
-
-            temp = new TreeViewItem { Header = nameof(rowBegin), ToolTip = rowBegin.ToString() };
+            temp = new TreeViewItem { Header = nameof(row), ToolTip = row.ToString() };
             tool.AddInputOutputTree(temp, false);
 
-            temp = new TreeViewItem { Header = nameof(colBegin), ToolTip = colBegin.ToString() };
+            temp = new TreeViewItem { Header = nameof(col), ToolTip = col.ToString() };
             tool.AddInputOutputTree(temp, false);
 
-            temp = new TreeViewItem { Header = nameof(rowEnd), ToolTip = rowEnd.ToString() };
-            tool.AddInputOutputTree(temp, false);
-
-            temp = new TreeViewItem { Header = nameof(colEnd), ToolTip = colEnd.ToString() };
-            tool.AddInputOutputTree(temp, false);
-
-            temp = new TreeViewItem { Header = nameof(rowCenter), ToolTip = rowCenter.ToString() };
-            tool.AddInputOutputTree(temp, false);
-
-            temp = new TreeViewItem { Header = nameof(colCenter), ToolTip = colCenter.ToString() };
-            tool.AddInputOutputTree(temp, false);
-
-            temp = new TreeViewItem { Header = nameof(angle), ToolTip = angle.ToString() };
-            tool.AddInputOutputTree(temp, false);
-
-            temp = new TreeViewItem { Header = nameof(outLine), ToolTip = outLine.ToString() };
+            temp = new TreeViewItem { Header = nameof(radius), ToolTip = radius.ToString() };
             tool.AddInputOutputTree(temp, false);
 
             result = tempResult;
@@ -390,13 +354,13 @@ namespace SosoVisionTool.ViewModels
             ToolRunData.ToolOutputDoubleValue.Add(key, result);
         }
 
-        public FindLineToolViewModel()
+        public FindCircleToolViewModel()
         {
             _eventAggregator = ContainerLocator.Container.Resolve<IEventAggregator>();
             TestCommand = new DelegateCommand(Test);
             AddRoiCommand = new DelegateCommand(AddRoi);
         }
-        public FindLineToolViewModel(string visionStep)
+        public FindCircleToolViewModel(string visionStep)
         {
             VisionStep = visionStep;
             ToolRunData = ContainerLocator.Container.Resolve<ToolRunViewData>(VisionStep);
@@ -409,33 +373,31 @@ namespace SosoVisionTool.ViewModels
 
         private void Test()
         {
-            HTuple rowBegin, colBegin, rowEnd, colEnd, rowCenter, colCenter, angle;
-            HObject line;
-            bool tempResult = FindLine(out rowBegin, out colBegin, out rowEnd, out colEnd, out angle, out rowCenter, out colCenter, out line);
+            HTuple row, col, radius;
+            HObject circle;
+            bool tempResult = FindCircle(out row, out col, out radius, out circle);
 
-            string rowBeginStr = SetMessage(nameof(rowBegin), rowBegin.ToString());
-            string colBeginStr = SetMessage(nameof(colBegin), colBegin.ToString());
-            string rowEndStr = SetMessage(nameof(rowEnd), rowEnd.ToString());
-            string colEndStr = SetMessage(nameof(colEnd), colEnd.ToString());
-            string angleStr = SetMessage(nameof(angle), angle.ToString());
+            string rowStr = SetMessage(nameof(row), row.ToString());
+            string colStr = SetMessage(nameof(col), col.ToString());
+            string radiusStr = SetMessage(nameof(radius), radius.ToString());
 
             string message;
             if (tempResult)
             {
-                message = string.Join("\n", "OK", rowBeginStr, colBeginStr, rowEndStr, colEndStr, angleStr);
+                message = string.Join("\n", "OK", rowStr, colStr, radiusStr);
                 ShowRunInfo(message);
             }
             else
             {
-                message = string.Join("\n", "NG", rowBeginStr, colBeginStr, rowEndStr, colEndStr, angleStr);
+                message = string.Join("\n", "NG", rowStr, colStr, radiusStr);
                 ShowRunInfo(message, false);
             }
         }
 
-        private bool FindLine(out HTuple rowBegin, out HTuple colBegin, out HTuple rowEnd, out HTuple colEnd, out HTuple angle, out HTuple rowCenter, out HTuple colCenter, out HObject line, bool isTest = true)
+        private bool FindCircle(out HTuple row, out HTuple col, out HTuple radius, out HObject circle, bool isTest = true)
         {
-            rowBegin = colBegin = rowEnd = colEnd = angle = rowCenter = colCenter = 999;
-            line = null;
+            row = col = radius = 999;
+            circle = null;
 
             if (ImageSourceKey == null)
             {
@@ -454,15 +416,15 @@ namespace SosoVisionTool.ViewModels
             }
 
             if (EnableMat)
-                if (string.IsNullOrWhiteSpace(RowSourceKey) || string.IsNullOrWhiteSpace(ColSourceKey) || string.IsNullOrWhiteSpace(AngleSourceKey))
+                if (string.IsNullOrWhiteSpace(RowSourceKey) || string.IsNullOrWhiteSpace(ColSourceKey))
                 {
                     if (isTest)
-                        MessageBox.Show("请先绘制一条直线", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("请先绘制一个圆", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
 
             HTuple homMat2D, metrologyHandle, index, measureRow, measureCol, usedRow, usedCol;
-            HObject measureContours, crossContours, tempContours, fitLine;
+            HObject measureContours, crossContours, tempContours, cross;
             HOperatorSet.CreateMetrologyModel(out metrologyHandle);
 
             try
@@ -470,26 +432,24 @@ namespace SosoVisionTool.ViewModels
                 if (EnableMat)
                 {
                     // 通过仿射拿到跟随的直线
-                    HTuple startRow, startCol, endRow, endCol, lineParam = new HTuple();
-                    HOperatorSet.VectorAngleToRigid(MatRow, MatCol, MatAngle, ToolRunData.ToolOutputDoubleValue[RowSourceKey], ToolRunData.ToolOutputDoubleValue[ColSourceKey], ToolRunData.ToolOutputDoubleValue[AngleSourceKey], out homMat2D);
+                    HTuple circleRow, circleCol, circleParam = new HTuple();
+                    HOperatorSet.VectorAngleToRigid(MatRow, MatCol, 0, ToolRunData.ToolOutputDoubleValue[RowSourceKey], ToolRunData.ToolOutputDoubleValue[ColSourceKey],0, out homMat2D);
 
-                    HOperatorSet.AffineTransPixel(homMat2D, RowStart, ColStart, out startRow, out startCol);
-                    HOperatorSet.AffineTransPixel(homMat2D, RowEnd, ColEnd, out endRow, out endCol);
+                    HOperatorSet.AffineTransPixel(homMat2D, Row, Col, out circleRow, out circleCol);
 
-                    lineParam[0] = startRow;
-                    lineParam[1] = startCol;
-                    lineParam[2] = endRow;
-                    lineParam[3] = endCol;
+                    circleParam[0] = circleRow;
+                    circleParam[1] = circleCol;
+                    circleParam[2] = Radius;
 
                     // 添加测量参数
-                    HOperatorSet.AddMetrologyObjectGeneric(metrologyHandle, "line", lineParam, MeasureLength, MeasureWidth, MeasureSigma, MeasureThreshold, new HTuple("num_measures").TupleConcat("measure_transition"), new HTuple(MeasureNum).TupleConcat(MeasureTransition), out index);
+                    HOperatorSet.AddMetrologyObjectGeneric(metrologyHandle, "circle", circleParam, MeasureLength, MeasureWidth, MeasureSigma, MeasureThreshold, new HTuple("num_measures").TupleConcat("measure_transition"), new HTuple(MeasureNum).TupleConcat(MeasureTransition), out index);
                 }
                 else
                 {
-                    HTuple tempLineParma = new HTuple(RowStart, ColStart, RowEnd, ColEnd);
+                    HTuple tempCircleParma = new HTuple(Row, Col, Radius);
 
                     // 添加测量参数
-                    HOperatorSet.AddMetrologyObjectGeneric(metrologyHandle, "line", tempLineParma, MeasureLength, MeasureWidth, MeasureSigma, MeasureThreshold, new HTuple("num_measures").TupleConcat("measure_transition"), new HTuple(MeasureNum).TupleConcat(MeasureTransition), out index);
+                    HOperatorSet.AddMetrologyObjectGeneric(metrologyHandle, "circle", tempCircleParma, MeasureLength, MeasureWidth, MeasureSigma, MeasureThreshold, new HTuple("num_measures").TupleConcat("measure_transition"), new HTuple(MeasureNum).TupleConcat(MeasureTransition), out index);
                 }
 
                 // 应用到相关图像
@@ -501,7 +461,7 @@ namespace SosoVisionTool.ViewModels
                 if (measureRow.Length == 0 || measureCol.Length == 0)
                 {
                     if (isTest)
-                        MessageBox.Show("未找到线", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("未找到圆", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
 
@@ -523,36 +483,15 @@ namespace SosoVisionTool.ViewModels
                 // 获取测量得到的轮廓
                 HOperatorSet.GenContourPolygonXld(out tempContours, usedRow, usedCol);
 
-                // 拟合直线
-                HTuple nr, nc, dist;
-                HOperatorSet.FitLineContourXld(tempContours, "tukey", MeasureNum * 0.9, 0, 15, 5, out rowBegin, out colBegin, out rowEnd, out colEnd, out nr, out nc, out dist);
+                // 获取圆的圆心和半径
+                HOperatorSet.GetMetrologyObjectResult(metrologyHandle, "all", "all", "result_type", "radius", out radius);
+                HOperatorSet.GetMetrologyObjectResult(metrologyHandle, "all", "all", "result_type", "row", out row);
+                HOperatorSet.GetMetrologyObjectResult(metrologyHandle, "all", "all", "result_type", "column", out col);
 
-                HTuple fitLineRow = new HTuple(rowBegin, rowEnd);
-                HTuple fitLineCol = new HTuple(colBegin, colEnd);
-                HOperatorSet.GenContourPolygonXld(out fitLine, fitLineRow, fitLineCol);
+                // 画圆和圆心
+                HOperatorSet.GenCrossContourXld(out cross, row, col, 10, new HTuple(45).TupleRad());
+                HOperatorSet.GenCircleContourXld(out circle, row, col, radius, 0, new HTuple(360).TupleRad(), "positive", 1);
 
-                // 生成延长线
-                HObject region;
-                HTuple area, ra, rb, phi;
-                HOperatorSet.GenRegionContourXld(fitLine, out region, "filled");
-                HOperatorSet.AreaCenter(region, out area, out rowCenter, out colCenter);
-                HOperatorSet.EllipticAxisPointsXld(fitLine, out ra, out rb, out phi);
-                HTuple lineLength = 10000;
-                HTuple rowStart = rowCenter - new HTuple(phi + 1.5708).TupleCos() * lineLength;
-                HTuple colStart = colCenter - new HTuple(phi + 1.5708).TupleSin() * lineLength;
-                HTuple rowEnds = rowCenter - new HTuple(phi - 1.5708).TupleCos() * lineLength;
-                HTuple colEnds = colCenter - new HTuple(phi - 1.5708).TupleSin() * lineLength;
-                HOperatorSet.GenContourPolygonXld(out region, new HTuple(rowStart, rowEnds), new HTuple(colStart, colEnds));
-
-                line = region.Clone();
-
-                // 求线的角度
-                HTuple atan, deg;
-                HTuple offsetX = colEnd - colBegin;
-                HTuple offsetY = rowEnd - rowBegin;
-                HOperatorSet.TupleAtan2(offsetY, offsetX, out atan);
-                HOperatorSet.TupleDeg(atan, out deg);
-                angle = 180 - deg;
 
                 HObject temp, showTemp;
                 HOperatorSet.GenEmptyObj(out temp);
@@ -561,7 +500,9 @@ namespace SosoVisionTool.ViewModels
                 temp = showTemp;
                 HOperatorSet.ConcatObj(crossContours, temp, out showTemp);
                 temp = showTemp;
-                HOperatorSet.ConcatObj(line, temp, out showTemp);
+                HOperatorSet.ConcatObj(circle, temp, out showTemp);
+                temp = showTemp;
+                HOperatorSet.ConcatObj(cross, temp, out showTemp);
 
                 DisplayRegion = showTemp.Clone();
 
@@ -595,12 +536,11 @@ namespace SosoVisionTool.ViewModels
             {
                 MatRow = ToolRunData.ToolOutputDoubleValue[RowSourceKey];
                 MatCol = ToolRunData.ToolOutputDoubleValue[ColSourceKey];
-                MatAngle = ToolRunData.ToolOutputDoubleValue[AngleSourceKey];
             }
 
             try
             {
-                GetRegionLineParam(DrawRoi, true);
+                GetRegionLineParam(DrawRoi);
             }
             catch (Exception ex)
             {
@@ -608,28 +548,15 @@ namespace SosoVisionTool.ViewModels
             }
         }
 
-        private void GetRegionLineParam(HObject roi, bool isAdd)
+        private void GetRegionLineParam(HObject roi)
         {
-            HTuple rows, cols;
-            HObject skeleton, endPoints, juncPoints, region;
-            HOperatorSet.GenEmptyObj(out skeleton);
-            HOperatorSet.GenEmptyObj(out endPoints);
-            HOperatorSet.GenEmptyObj(out juncPoints);
-            HOperatorSet.GenRegionContourXld(roi, out region, "filled");
-            HOperatorSet.Skeleton(region, out skeleton);
-            HOperatorSet.JunctionsSkeleton(skeleton, out endPoints, out juncPoints);
-            HOperatorSet.GetRegionPoints(endPoints, out rows, out cols);
-            if (isAdd)
-                if (rows.Length != 2)
-                {
-                    MessageBox.Show("请绘制一条直线！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+            HTuple row, col, area;
+            HOperatorSet.AreaCenter(roi, out area, out row, out col);
 
-            RowStart = rows[0];
-            ColStart = cols[0];
-            RowEnd = rows[1];
-            ColEnd = cols[1];
+            Row = row;
+            Col = col;
+            Radius = Math.Sqrt(area / Math.PI);
+
             RoiAdded = true;
 
             MessageBox.Show("完成模板原始位置及Roi的添加");
