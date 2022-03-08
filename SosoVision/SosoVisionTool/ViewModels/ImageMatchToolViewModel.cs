@@ -324,6 +324,10 @@ namespace SosoVisionTool.ViewModels
             tool.AddInputOutputTree(temp, false);
 
             result = tempResult;
+            row.Dispose();
+            col.Dispose();
+            angle.Dispose();
+            score.Dispose();
         }
 
         private string SetMessage(string name, string value)
@@ -464,9 +468,16 @@ namespace SosoVisionTool.ViewModels
                     HOperatorSet.AffineTransContourXld(modelContours, out contoursAffineTrans, homMat2D);
                     HOperatorSet.ConcatObj(contoursAffineTrans, temp, out xldTemp);
                     temp = xldTemp;
-
+                    contoursAffineTrans.Dispose();
+                    homMat2D.Dispose();
                 }
-                DisplayRegion = temp;
+                DisplayRegion = temp.Clone();
+
+                modelContours.Dispose();
+                temp.Dispose();
+                angleStart.Dispose();
+                angleExtent.Dispose();
+
                 return true;
             }
             catch (Exception ex)
@@ -497,6 +508,11 @@ namespace SosoVisionTool.ViewModels
                 message = string.Join("\n", "NG", rowStr, colStr, angleStr, scoreStr);
                 ShowRunInfo(message, false);
             }
+
+            row.Dispose();
+            col.Dispose();
+            angle.Dispose();
+            score.Dispose();
         }
 
         private void CreateModel()
@@ -523,7 +539,7 @@ namespace SosoVisionTool.ViewModels
 
                 HOperatorSet.ReduceDomain(DisplayImage, DrawRoi, out imageReduced);
                 HOperatorSet.InspectShapeModel(imageReduced, out modelImages, out modelRegions, NumLevels, Contrast);
-                DisplayRegion = modelRegions;
+                DisplayRegion = modelRegions.Clone();
                 HShapeModel hShapeModel = new HShapeModel();
                 HImage modelImage = new HImage(imageReduced);
                 hShapeModel.CreateShapeModel(modelImage, NumLevels, AngleStart, AngleExtent, "auto", Optimization, Metric, Contrast, MinContrast);
@@ -531,6 +547,13 @@ namespace SosoVisionTool.ViewModels
                 //HOperatorSet.CreateShapeModel(imageReduced, NumLevels, angleStart, angleExtent, "auto", Optimization, Metric, Contrast, MinContrast, out modelID);
                 //ModelId = new HTuple(modelID);
                 MessageBox.Show("模板制作完成！", "提示");
+
+                hShapeModel.Dispose();
+                imageReduced.Dispose();
+                modelImages.Dispose();
+                modelRegions.Dispose();
+                angleStart.Dispose();
+                angleExtent.Dispose();
             }
             catch (Exception ex)
             {

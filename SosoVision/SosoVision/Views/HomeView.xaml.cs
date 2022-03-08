@@ -50,7 +50,7 @@ namespace SosoVision.Views
                  {
                      if (!string.IsNullOrWhiteSpace(obj.Result))
                      {
-                         if(obj.Region != null)
+                         if (obj.Region != null)
                          {
                              imageDisplayWindow.DisplayRegion = obj.Region;
                          }
@@ -70,7 +70,8 @@ namespace SosoVision.Views
                          string temp = string.Join("\n", tempStr);
                          if (obj.Result.Contains("999"))
                          {
-                            imageDisplayWindow.MessageColor = "red";
+                             imageDisplayWindow.DisplayRegion = null;
+                             imageDisplayWindow.MessageColor = "red";
                              imageDisplayWindow.DisplayMessage = $"NG\n{temp}";
                          }
                          else

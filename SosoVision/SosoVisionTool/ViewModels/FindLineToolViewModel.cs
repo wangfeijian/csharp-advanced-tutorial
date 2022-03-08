@@ -240,7 +240,7 @@ namespace SosoVisionTool.ViewModels
 
             AddImageToData(key, DisplayImage);
             AddRegionToData(key, DisplayRegion);
-            AddRegionToData($"{key}_{nameof(outLine)}", outLine);
+            AddRegionToData($"{key}_{nameof(outLine)}", outLine.Clone());
             AddDoubleToData($"{key}_{nameof(rowBegin)}", rowBeginStr);
             AddDoubleToData($"{key}_{nameof(colBegin)}", colBeginStr);
             AddDoubleToData($"{key}_{nameof(rowEnd)}", rowEndStr);
@@ -289,6 +289,15 @@ namespace SosoVisionTool.ViewModels
             tool.AddInputOutputTree(temp, false);
 
             result = tempResult;
+
+            rowBegin.Dispose();
+            colBegin.Dispose();
+            rowEnd.Dispose();
+            colEnd.Dispose();
+            rowCenter.Dispose();
+            colCenter.Dispose();
+            angle.Dispose();
+            outLine.Dispose();
         }
 
         private void ShowRunInfo(string message, bool IsOk = true)
@@ -430,6 +439,15 @@ namespace SosoVisionTool.ViewModels
                 message = string.Join("\n", "NG", rowBeginStr, colBeginStr, rowEndStr, colEndStr, angleStr);
                 ShowRunInfo(message, false);
             }
+
+            rowBegin.Dispose();
+            colBegin.Dispose();
+            rowEnd.Dispose();
+            colEnd.Dispose();
+            rowCenter.Dispose();
+            colCenter.Dispose();
+            angle.Dispose();
+            line.Dispose();
         }
 
         private bool FindLine(out HTuple rowBegin, out HTuple colBegin, out HTuple rowEnd, out HTuple colEnd, out HTuple angle, out HTuple rowCenter, out HTuple colCenter, out HObject line, bool isTest = true)
@@ -483,6 +501,8 @@ namespace SosoVisionTool.ViewModels
 
                     // 添加测量参数
                     HOperatorSet.AddMetrologyObjectGeneric(metrologyHandle, "line", lineParam, MeasureLength, MeasureWidth, MeasureSigma, MeasureThreshold, new HTuple("num_measures").TupleConcat("measure_transition"), new HTuple(MeasureNum).TupleConcat(MeasureTransition), out index);
+
+                    homMat2D.Dispose();
                 }
                 else
                 {
@@ -566,6 +586,16 @@ namespace SosoVisionTool.ViewModels
                 DisplayRegion = showTemp.Clone();
 
                 HOperatorSet.ClearMetrologyObject(metrologyHandle, "all");
+
+                index.Dispose();
+                measureRow.Dispose();
+                measureCol.Dispose();
+                usedRow.Dispose();
+                usedCol.Dispose();
+                measureContours.Dispose();
+                crossContours.Dispose();
+                tempContours.Dispose();
+                fitLine.Dispose();
             }
             catch (Exception ex)
             {
@@ -632,6 +662,12 @@ namespace SosoVisionTool.ViewModels
             ColEnd = cols[1];
             RoiAdded = true;
 
+            rows.Dispose();
+            cols.Dispose();
+            skeleton.Dispose();
+            endPoints.Dispose();
+            juncPoints.Dispose();
+            region.Dispose();
             MessageBox.Show("完成模板原始位置及Roi的添加");
         }
     }

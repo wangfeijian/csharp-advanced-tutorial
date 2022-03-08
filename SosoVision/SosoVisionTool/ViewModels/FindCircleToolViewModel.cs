@@ -226,7 +226,7 @@ namespace SosoVisionTool.ViewModels
 
             AddImageToData(key, DisplayImage);
             AddRegionToData(key, DisplayRegion);
-            AddRegionToData($"{key}_{nameof(outCircle)}", outCircle);
+            AddRegionToData($"{key}_{nameof(outCircle)}", outCircle.Clone());
             AddDoubleToData($"{key}_{nameof(row)}", rowStr);
             AddDoubleToData($"{key}_{nameof(col)}", colStr);
             AddDoubleToData($"{key}_{nameof(radius)}", radiusStr);
@@ -253,6 +253,11 @@ namespace SosoVisionTool.ViewModels
             tool.AddInputOutputTree(temp, false);
 
             result = tempResult;
+
+            row.Dispose();
+            col.Dispose();
+            radius.Dispose();
+            outCircle.Dispose();
         }
 
         private void ShowRunInfo(string message, bool IsOk = true)
@@ -392,6 +397,11 @@ namespace SosoVisionTool.ViewModels
                 message = string.Join("\n", "NG", rowStr, colStr, radiusStr);
                 ShowRunInfo(message, false);
             }
+
+            row.Dispose();
+            col.Dispose();
+            radius.Dispose();
+            circle.Dispose();
         }
 
         private bool FindCircle(out HTuple row, out HTuple col, out HTuple radius, out HObject circle, bool isTest = true)
@@ -443,6 +453,7 @@ namespace SosoVisionTool.ViewModels
 
                     // 添加测量参数
                     HOperatorSet.AddMetrologyObjectGeneric(metrologyHandle, "circle", circleParam, MeasureLength, MeasureWidth, MeasureSigma, MeasureThreshold, new HTuple("num_measures").TupleConcat("measure_transition"), new HTuple(MeasureNum).TupleConcat(MeasureTransition), out index);
+                    homMat2D.Dispose();
                 }
                 else
                 {
@@ -507,6 +518,16 @@ namespace SosoVisionTool.ViewModels
                 DisplayRegion = showTemp.Clone();
 
                 HOperatorSet.ClearMetrologyObject(metrologyHandle, "all");
+
+                index.Dispose();
+                measureRow.Dispose();
+                measureCol.Dispose();
+                usedRow.Dispose();
+                usedCol.Dispose();
+                measureContours.Dispose();
+                crossContours.Dispose();
+                tempContours.Dispose();
+                cross.Dispose();
             }
             catch (Exception ex)
             {
@@ -559,6 +580,9 @@ namespace SosoVisionTool.ViewModels
 
             RoiAdded = true;
 
+            row.Dispose();
+            col.Dispose();
+            area.Dispose(); 
             MessageBox.Show("完成模板原始位置及Roi的添加");
         }
     }
