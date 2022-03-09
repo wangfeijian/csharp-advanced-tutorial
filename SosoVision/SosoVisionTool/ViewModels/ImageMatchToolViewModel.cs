@@ -467,9 +467,10 @@ namespace SosoVisionTool.ViewModels
                     HOperatorSet.VectorAngleToRigid(0, 0, 0, row[i], col[i], angle[i], out homMat2D);
                     HOperatorSet.AffineTransContourXld(modelContours, out contoursAffineTrans, homMat2D);
                     HOperatorSet.ConcatObj(contoursAffineTrans, temp, out xldTemp);
-                    temp = xldTemp;
+                    temp = xldTemp.Clone();
                     contoursAffineTrans.Dispose();
                     homMat2D.Dispose();
+                    xldTemp.Dispose();
                 }
                 DisplayRegion = temp.Clone();
 

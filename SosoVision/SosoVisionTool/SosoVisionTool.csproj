@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files\MVTec\HALCON-18.11-Progress\bin\dotnet35\halcondotnet.dll</HintPath>
     </Reference>
+    <Reference Include="hdevenginedotnet">
+      <HintPath>..\..\..\..\..\Program Files\MVTec\HALCON-18.11-Progress\bin\dotnet35\hdevenginedotnet.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.4.3, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.4\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -113,7 +116,7 @@
     <Compile Include="Services\Tools\FindCircleTool.cs" />
     <Compile Include="Services\Tools\FindLineTool.cs" />
     <Compile Include="Services\Tools\ImageAcquisitionTool.cs" />
-    <Compile Include="Services\Tools\ImageBlobTool.cs" />
+    <Compile Include="Services\Tools\ScriptTool.cs" />
     <Compile Include="Services\Tools\ImageMatchTool.cs" />
     <Compile Include="Services\ToolRunViewData.cs" />
     <Compile Include="Services\Tools\OutputParamSetTool.cs" />
@@ -125,7 +128,7 @@
     <Compile Include="ViewModels\FindCircleToolViewModel.cs" />
     <Compile Include="ViewModels\FindLineToolViewModel.cs" />
     <Compile Include="ViewModels\ImageAcquisitionToolViewModel.cs" />
-    <Compile Include="ViewModels\ImageBlobToolViewModel.cs" />
+    <Compile Include="ViewModels\ScriptToolViewModel.cs" />
     <Compile Include="ViewModels\ImageMatchToolViewModel.cs" />
     <Compile Include="ViewModels\OutputParamSetToolViewModel.cs" />
     <Compile Include="ViewModels\InputParamSetToolViewModel.cs" />
@@ -140,8 +143,8 @@
     <Compile Include="Views\ImageAcquisitionToolWindow.xaml.cs">
       <DependentUpon>ImageAcquisitionToolWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ImageBlobWindow.xaml.cs">
-      <DependentUpon>ImageBlobWindow.xaml</DependentUpon>
+    <Compile Include="Views\ScriptToolWindow.xaml.cs">
+      <DependentUpon>ScriptToolWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ImageMatchToolWindw.xaml.cs">
       <DependentUpon>ImageMatchToolWindw.xaml</DependentUpon>
@@ -198,7 +201,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ImageBlobWindow.xaml">
+    <Page Include="Views\ScriptToolWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

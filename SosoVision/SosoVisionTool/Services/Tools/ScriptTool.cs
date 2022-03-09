@@ -7,13 +7,13 @@ using System.Windows.Input;
 
 namespace SosoVisionTool.Services.Tools
 {
-    public class ImageBlobTool : ToolBase
+    public class ScriptTool : ToolBase
     {
-        public ImageBlobTool()
+        public ScriptTool()
         {
-            ToolDesStr = "Blob分析";
-            ToolTip = "Blob分析";
-            ToolIcon = "\xe729";
+            ToolDesStr = "脚本工具";
+            ToolTip = "脚本工具";
+            ToolIcon = "\xe7dd";
         }
 
         public override TreeViewItem CreateTreeView(string name)
@@ -28,7 +28,7 @@ namespace SosoVisionTool.Services.Tools
 
         public override object GetDataContext(string file)
         {
-            return JsonConvert.DeserializeObject<ImageBlobToolViewModel>(File.ReadAllText(file));
+            return JsonConvert.DeserializeObject<ScriptToolViewModel>(File.ReadAllText(file));
         }
 
         public override void UIElement_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -42,20 +42,20 @@ namespace SosoVisionTool.Services.Tools
 
             if (ToolWindow == null && DataContext == null)
             {
-                ToolWindow = new ImageBlobWindow() { Title = _tree.Header.ToString() };
-                DataContext = new ImageBlobToolViewModel(ToolInVision);
+                ToolWindow = new ScriptToolWindow() { Title = _tree.Header.ToString() };
+                DataContext = new ScriptToolViewModel(ToolInVision);
                 ToolWindow.DataContext = DataContext;
             }
             else if (ToolWindow == null)
             {
-                ToolWindow = new ImageBlobWindow() { Title = _tree.Header.ToString() };
-                if (DataContext is ImageBlobToolViewModel)
+                ToolWindow = new ScriptToolWindow() { Title = _tree.Header.ToString() };
+                if (DataContext is ScriptToolViewModel)
                 {
                     ToolWindow.DataContext = DataContext;
                 }
                 else
                 {
-                    DataContext = new ImageBlobToolViewModel(ToolInVision);
+                    DataContext = new ScriptToolViewModel(ToolInVision);
                     ToolWindow.DataContext = DataContext;
                 }
             }

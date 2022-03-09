@@ -6,9 +6,9 @@ namespace SosoVisionTool.Views
     /// <summary>
     /// Interaction logic for ImageBlobWindow.xaml
     /// </summary>
-    public partial class ImageBlobWindow : Window
+    public partial class ScriptToolWindow : Window
     {
-        public ImageBlobWindow()
+        public ScriptToolWindow()
         {
             InitializeComponent();
         }

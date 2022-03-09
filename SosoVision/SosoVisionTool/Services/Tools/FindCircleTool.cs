@@ -13,7 +13,7 @@ namespace SosoVisionTool.Services.Tools
         {
             ToolDesStr = "找圆工具";
             ToolTip = "找圆工具";
-            ToolIcon = "\xe60a";
+            ToolIcon = "\xe72a";
         }
         public override TreeViewItem CreateTreeView(string name)
         {

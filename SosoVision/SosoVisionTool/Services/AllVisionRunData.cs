@@ -34,4 +34,18 @@ namespace SosoVisionTool.Services
 
         public string DataKey { get; set; }
     }
+
+    public class ScriptInputData
+    {
+        public string DataName { get; set; }
+        public string DataType { get; set; }
+        public string DataKey { get; set; }
+    }
+
+    public class ScriptOutputData
+    {
+        public string DataName { get; set; }
+        public string DataType { get; set; }
+        public object Value { get; set; }
+    }
 }

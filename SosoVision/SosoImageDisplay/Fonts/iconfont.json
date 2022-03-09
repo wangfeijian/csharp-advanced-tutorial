@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "18493474",
+      "name": "脚本管理",
+      "font_class": "jiaobenguanli",
+      "unicode": "e7dd",
+      "unicode_decimal": 59357
+    },
+    {
+      "icon_id": "17544324",
+      "name": "线条",
+      "font_class": "xiantiao",
+      "unicode": "e701",
+      "unicode_decimal": 59137
+    },
+    {
+      "icon_id": "26385789",
+      "name": "找圆",
+      "font_class": "zhaoyuan",
+      "unicode": "e72a",
+      "unicode_decimal": 59178
+    },
+    {
       "icon_id": "5978732",
       "name": "input-data",
       "font_class": "shuchushuju",
