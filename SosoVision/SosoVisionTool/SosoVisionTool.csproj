@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\APP\Dll\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,7 +41,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DryIoc, Version=4.7.7.0, Culture=neutral, PublicKeyToken=dfbf2bd50fcf7768, processorArchitecture=MSIL">
-      <HintPath>..\packages\DryIoc.dll.4.7.7\lib\net45\DryIoc.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DryIoc.dll.4.8.6\lib\net45\DryIoc.dll</HintPath>
     </Reference>
     <Reference Include="halcondotnet, Version=20.5.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

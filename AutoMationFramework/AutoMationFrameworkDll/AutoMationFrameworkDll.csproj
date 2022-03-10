@@ -107,6 +107,17 @@
   <ItemGroup>
     <Resource Include="Resources\info.png" />
   </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MMC20">
+      <Guid>{8E80422B-CAC4-472B-B272-9635F1DFEF3B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

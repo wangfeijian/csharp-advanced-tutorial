@@ -88,6 +88,7 @@
                 Grid.Row="2"
                 Margin="5"
                 CameraID="{Binding ProcedureParam.CameraId}"
+                IsEnabled="{Binding IsNotOpModel, Mode=TwoWay}"
                 VisionStep="{Binding ProcedureParam.Name}" />
         </Grid>
     </Grid>

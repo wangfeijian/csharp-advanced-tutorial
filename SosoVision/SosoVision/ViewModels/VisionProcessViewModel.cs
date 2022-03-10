@@ -6,6 +6,7 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
 using SosoVision.Common;
+using SosoVisionCommonTool.Authority;
 using SosoVisionCommonTool.ConfigData;
 using SosoVisionCommonTool.Log;
 using SosoVisionTool.Tools;
@@ -82,6 +83,15 @@ namespace SosoVision.ViewModels
             set { _messageColor = value; RaisePropertyChanged(); }
         }
 
+        private bool _isNotOpModel;
+
+        [Newtonsoft.Json.JsonIgnore]
+        public bool IsNotOpModel
+        {
+            get { return _isNotOpModel; }
+            set { _isNotOpModel = value; RaisePropertyChanged(); }
+        }
+
         public string ResultStr { get; set; }
         [Newtonsoft.Json.JsonIgnore]
         public DelegateCommand LoadedCommand { get; }
@@ -97,6 +107,9 @@ namespace SosoVision.ViewModels
 
             _eventAggregator.GetEvent<HObjectEvent>().Subscribe(SubscribeHObjectParam, ThreadOption.UIThread, true,
                               companySymbol => companySymbol.VisionStep == ProcedureParam.Name);
+
+            AuthorityTool.ModeChangedEvent += ModeChanged;
+            ModeChanged();
         }
 
         private void SubscribeHObjectParam(HObjectParams obj)
@@ -201,6 +214,13 @@ namespace SosoVision.ViewModels
             _eventAggregator.GetEvent<HObjectEvent>().Subscribe(SubscribeHObjectParam, ThreadOption.UIThread, true,
                              companySymbol => companySymbol.VisionStep == ProcedureParam.Name);
 
+            AuthorityTool.ModeChangedEvent += ModeChanged;
+            ModeChanged();
+        }
+
+        private void ModeChanged()
+        {
+            IsNotOpModel = AuthorityTool.GetUserMode() == UserMode.Operator ? false : true;
         }
     }
 }

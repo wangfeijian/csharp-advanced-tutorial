@@ -421,7 +421,7 @@ namespace AutoMationFrameworkDll
             }
         }
 
-        public ObservableDictionary<int, PointInfo> DicPoint
+        public Dictionary<int, PointInfo> DicPoint
         {
             get
             {

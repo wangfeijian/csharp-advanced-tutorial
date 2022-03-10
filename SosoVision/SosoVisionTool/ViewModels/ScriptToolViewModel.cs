@@ -51,7 +51,9 @@ namespace SosoVisionTool.ViewModels
             TestCommand = new DelegateCommand(Test);
             ScriptEngine = new HDevEngine();
             ScriptEngine.SetProcedurePath(ProcedureDir.Replace("\\", "/"));
+            
         }
+
         public ScriptToolViewModel(string visionStep)
         {
             VisionStep = visionStep;
@@ -68,6 +70,7 @@ namespace SosoVisionTool.ViewModels
             ScriptEngine = new HDevEngine();
             ScriptEngine.SetProcedurePath(ProcedureDir.Replace("\\", "/"));
         }
+
 
         private HObject _displayImage;
 
@@ -443,6 +446,7 @@ namespace SosoVisionTool.ViewModels
                     MessageBox.Show($"脚本文件名不能为空，请重新配置", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
+                return false;
             }
 
             try

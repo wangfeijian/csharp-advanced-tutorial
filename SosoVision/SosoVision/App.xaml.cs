@@ -17,6 +17,8 @@ using ImageCapture;
 using System.Reflection;
 using SosoVisionCommonTool.Log;
 using SosoVision.Server;
+using System.Runtime.InteropServices;
+using SosoVisionCommonTool.Authority;
 
 namespace SosoVision
 {
@@ -26,10 +28,26 @@ namespace SosoVision
     public partial class App
     {
         private Mutex mutex;
+
+        [DllImport("Kernel32.dll")]
+        public static extern bool SetDllDirectory(string lpPathName);
         public App()
         {
+            var directoryInfo = AppDomain.CurrentDomain.BaseDirectory + "Dll";
+            if (directoryInfo != null)
+                SetDllDirectory(directoryInfo);
+
             Startup += (StartupEventHandler)((s, e) =>
             {
+                if (e.Args.Length == 2)
+                {
+                    AuthorityTool.ChangeEngMode(e.Args[1]);
+                }
+                else
+                {
+                    AuthorityTool.ChangeOpMode();
+                }
+
                 bool createdNew;
                 mutex = new Mutex(true, "SosoVision", out createdNew);
 
@@ -39,6 +57,8 @@ namespace SosoVision
                     Environment.Exit(0);
                 }
             });
+
+
         }
 
         /// <summary>
@@ -223,7 +243,6 @@ namespace SosoVision
 
             base.OnExit(e);
         }
-
 
         protected override Window CreateShell()
         {
