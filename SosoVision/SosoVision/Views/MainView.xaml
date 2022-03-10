@@ -184,6 +184,7 @@
                                 Content="{materialDesign:PackIcon Kind=Tools,
                                                                   Size=20}"
                                 Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                IsEnabled="{Binding IsNotOpModel, Mode=TwoWay}"
                                 Style="{DynamicResource MaterialDesignToolButton}"
                                 ToolTip="视觉工具" />
                             <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
@@ -199,27 +200,30 @@
 
                                     <Separator />
 
-                                    <Button>
+                                    <Button IsEnabled="{Binding IsNotOpModel, Mode=TwoWay}">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Settings" />
                                             <TextBlock Margin="5,0" Text="系统设置" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Command="{Binding DataContext.ShowDialogCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="SettingView">
+                                    <Button
+                                        Command="{Binding DataContext.ShowDialogCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                        CommandParameter="SettingView"
+                                        IsEnabled="{Binding IsNotOpModel, Mode=TwoWay}">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Eye" />
                                             <TextBlock Margin="5,0" Text="视觉配置" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button>
+                                    <Button Command="{Binding DataContext.ShowDialogCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="LoginView">
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="Camera" />
+                                            <materialDesign:PackIcon Kind="Login" />
                                             <TextBlock
                                                 Margin="5,0"
                                                 VerticalAlignment="Top"
-                                                Text="相机" />
+                                                Text="登陆" />
                                         </StackPanel>
                                     </Button>
 

@@ -19,6 +19,7 @@ using SosoVisionCommonTool.Log;
 using SosoVision.Server;
 using System.Runtime.InteropServices;
 using SosoVisionCommonTool.Authority;
+using System.Threading.Tasks;
 
 namespace SosoVision
 {
@@ -37,7 +38,7 @@ namespace SosoVision
             if (directoryInfo != null)
                 SetDllDirectory(directoryInfo);
 
-            Startup += (StartupEventHandler)((s, e) =>
+            Startup += (s, e) =>
             {
                 if (e.Args.Length == 2)
                 {
@@ -56,8 +57,20 @@ namespace SosoVision
                     MessageBox.Show("程序已经运行！！");
                     Environment.Exit(0);
                 }
-            });
+            };
 
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(500);
+                    bool result = AuthorityTool.GetLastInputTime() / 1000 < 600 || AuthorityTool.IsOpMode();
+                    if (!result)
+                    {
+                        AuthorityTool.ChangeOpMode();
+                    }
+                }
+            });
 
         }
 
@@ -71,6 +84,7 @@ namespace SosoVision
             containerRegistry.RegisterSingleton<IConfigureService, ConfigureService>();
             containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
             containerRegistry.RegisterForNavigation<SettingView, SettingViewModel>();
+            containerRegistry.RegisterForNavigation<LoginView, LoginViewModel>();
             containerRegistry.RegisterForNavigation<ToolControlBoxView, ToolControlBoxViewModel>();
         }
 

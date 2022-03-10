@@ -1,6 +1,6 @@
-﻿using SosoVisionCommonTool.Log;
+﻿using System;
 using System.Runtime.InteropServices;
-using Prism.Ioc;
+using System.Runtime.InteropServices;
 
 namespace SosoVisionCommonTool.Authority
 {
@@ -139,6 +139,13 @@ namespace SosoVisionCommonTool.Authority
         /// <returns></returns>
         public static bool ChangeUserMode(UserMode newMode, string strPassword)
         {
+            if (newMode == UserMode.Operator)
+            {
+                _userMode = newMode;
+                ModeChangedEvent?.Invoke();
+                return true;
+            }
+
             if (ChangeUser((int)newMode, strPassword) != 1)
                 return false;
 
@@ -146,6 +153,29 @@ namespace SosoVisionCommonTool.Authority
 
             ModeChangedEvent?.Invoke();
             return true;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct LASTINPUTINFO
+        {
+            // 设置结构体块容量 
+            [MarshalAs(UnmanagedType.U4)]
+            public int cbSize;
+            // 捕获的时间 
+            [MarshalAs(UnmanagedType.U4)]
+            public uint dwTime;
+        }
+        [DllImport("user32.dll")]
+        private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+        public static long GetLastInputTime()
+        {
+            LASTINPUTINFO vLastInputInfo = new LASTINPUTINFO();
+            vLastInputInfo.cbSize = Marshal.SizeOf(vLastInputInfo);
+            // 捕获时间 
+            if (!GetLastInputInfo(ref vLastInputInfo))
+                return 0;
+            else
+                return Environment.TickCount - (long)vLastInputInfo.dwTime;
         }
     }
 }

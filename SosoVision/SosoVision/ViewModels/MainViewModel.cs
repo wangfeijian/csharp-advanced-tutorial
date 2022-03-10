@@ -10,6 +10,7 @@ using Prism.Services.Dialogs;
 using SosoVision.Common;
 using SosoVision.Extensions;
 using SosoVision.Views;
+using SosoVisionCommonTool.Authority;
 using SosoVisionCommonTool.ConfigData;
 using SosoVisionCommonTool.Log;
 
@@ -51,7 +52,14 @@ namespace SosoVision.ViewModels
             set { _showListCollection = value; RaisePropertyChanged(); }
         }
 
+        private bool _isNotOpModel;
 
+        [Newtonsoft.Json.JsonIgnore]
+        public bool IsNotOpModel
+        {
+            get { return _isNotOpModel; }
+            set { _isNotOpModel = value; RaisePropertyChanged(); }
+        }
 
         public MainViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
@@ -81,6 +89,14 @@ namespace SosoVision.ViewModels
 
             ShowListCollection = _configureService.SerializationData.ShowListCollection;
             ProcedureParamCollection = _configureService.SerializationData.ProcedureParams;
+
+            AuthorityTool.ModeChangedEvent += ModeChanged;
+            ModeChanged();
+        }
+
+        private void ModeChanged()
+        {
+            IsNotOpModel = AuthorityTool.GetUserMode() == UserMode.Operator ? false : true;
         }
 
         private void ShowDialog(string obj)
