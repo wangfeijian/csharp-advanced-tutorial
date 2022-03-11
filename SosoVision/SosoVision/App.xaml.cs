@@ -29,6 +29,7 @@ namespace SosoVision
     public partial class App
     {
         private Mutex mutex;
+        private StartupWindow startupWindow;
 
         [DllImport("Kernel32.dll")]
         public static extern bool SetDllDirectory(string lpPathName);
@@ -57,6 +58,15 @@ namespace SosoVision
                     MessageBox.Show("程序已经运行！！");
                     Environment.Exit(0);
                 }
+
+                Thread thread = new Thread(() =>
+                {
+                    startupWindow = new StartupWindow();
+                    startupWindow.ShowDialog();
+                });
+
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
             };
 
             Task.Run(() =>
@@ -72,6 +82,32 @@ namespace SosoVision
                 }
             });
 
+        }
+
+        private void SetValue(int value)
+        {
+            if (startupWindow == null)
+            {
+                return;
+            }
+
+            if (value == 100)
+            {
+                startupWindow.Dispatcher.Invoke(() =>
+                {
+                    startupWindow.StartBar.Value = value;
+                    Thread.Sleep(1000);
+                    startupWindow.Close();
+                });
+            }
+            else
+            {
+                startupWindow.Dispatcher.Invoke(() =>
+               {
+                   startupWindow.StartBar.Value = value;
+                   Thread.Sleep(500);
+               });
+            }
         }
 
         /// <summary>
@@ -219,21 +255,27 @@ namespace SosoVision
             {
                 // 注册程序实例
                 RegisterInstance(containerRegistry);
+                SetValue(15);
 
                 // 获取配置服务对象
                 var configureService = Container.Resolve<IConfigureService>();
+                SetValue(25);
 
                 // 注册相机对象
                 RegisterCameraInstance(containerRegistry, configureService);
+                SetValue(35);
 
                 // 注册服务对象
                 RegisterServerInstance(containerRegistry, configureService);
+                SetValue(45);
 
                 // 注册全局数据
                 RegisterGlobalData(containerRegistry);
+                SetValue(75);
 
                 // 注册流程及工具数据
                 RegisterVisionInstance(containerRegistry, configureService);
+                SetValue(85);
             }
             catch (Exception e)
             {
@@ -252,14 +294,22 @@ namespace SosoVision
 
         protected override void OnExit(ExitEventArgs e)
         {
-            var configureService = Container.Resolve<IConfigureService>();
-            configureService.Configure(true);
+            try
+            {
+                var configureService = Container.Resolve<IConfigureService>();
+                configureService.Configure(true);
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             base.OnExit(e);
         }
 
         protected override Window CreateShell()
         {
+            SetValue(100);
             return Container.Resolve<MainView>();
         }
 

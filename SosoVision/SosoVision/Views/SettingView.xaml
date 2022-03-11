@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dialogs="http://prismlibrary.com/"
+    xmlns:domain="clr-namespace:SosoVisionCommonTool.ConfigData;assembly=SosoVisionCommonTool"
     xmlns:local="clr-namespace:SosoVision.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -45,11 +46,42 @@
                         Header="相机设置"
                         Style="{StaticResource TabItemStyle}">
                         <DataGrid
+                            AutoGenerateColumns="False"
                             CanUserAddRows="True"
                             CanUserDeleteRows="True"
                             ItemsSource="{Binding CameraParams}"
                             SelectionMode="Extended"
-                            SelectionUnit="Cell" />
+                            SelectionUnit="Cell">
+                            <DataGrid.Resources>
+                                <domain:BindingProxy x:Key="DataContextProxy" Data="{Binding}" />
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn
+                                    Binding="{Binding Delete, UpdateSourceTrigger=PropertyChanged}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                    Header="选择" />
+                                <DataGridTextColumn
+                                    Binding="{Binding CameraId}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="序号" />
+                                <DataGridTextColumn
+                                    Binding="{Binding CameraName}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="名称" />
+                                <DataGridTextColumn
+                                    Binding="{Binding CameraIP}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="IP" />
+                                <materialDesign:DataGridComboBoxColumn
+                                    Header="品牌"
+                                    ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.CameraBands}"
+                                    SelectedValueBinding="{Binding CameraBand, Mode=TwoWay}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </TabItem>
                     <TabItem
                         Foreground="{DynamicResource MaterialDesignBody}"
@@ -66,14 +98,38 @@
                         Foreground="{DynamicResource MaterialDesignBody}"
                         Header="标定设置"
                         Style="{StaticResource TabItemStyle}">
-                        <TextBlock>
-                            <Run Text="tab 2 content. Default look and behaviors." />
-                            <LineBreak />
-                            <LineBreak />
-                            <Run FontStyle="Italic">
-                                Praesent sed dui arcu. Vivamus porta auctor sagittis
-                            </Run>
-                        </TextBlock>
+                        <DataGrid
+                            AutoGenerateColumns="False"
+                            CanUserAddRows="True"
+                            CanUserDeleteRows="True"
+                            ItemsSource="{Binding CalibParams}"
+                            SelectionMode="Extended"
+                            SelectionUnit="Cell">
+                            <DataGrid.Resources>
+                                <domain:BindingProxy x:Key="DataContextProxy" Data="{Binding}" />
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn
+                                    Binding="{Binding Delete, UpdateSourceTrigger=PropertyChanged}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                    Header="选择" />
+                                <DataGridTextColumn
+                                    Binding="{Binding CalibId}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="序号" />
+                                <DataGridTextColumn
+                                    Binding="{Binding CalibName}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="名称" />
+                                <materialDesign:DataGridComboBoxColumn
+                                    Header="类型"
+                                    ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.CalibTypes}"
+                                    SelectedValueBinding="{Binding CalibType, Mode=TwoWay}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </TabItem>
                     <TabItem
                         Foreground="{DynamicResource MaterialDesignBody}"

@@ -106,7 +106,6 @@ namespace ImageCapture
 
                         _camera = new Camera(stDevInfo);
 
-                        // todo
                         _camera.StreamGrabber.ImageGrabbed += OnImageGrabbed;
 
                         _camera.Close();

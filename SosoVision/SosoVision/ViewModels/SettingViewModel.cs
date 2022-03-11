@@ -21,10 +21,12 @@ namespace SosoVision.ViewModels
         private ObservableCollection<ProcedureParam> _procedureParams;
         private ObservableCollection<CameraParam> _cameraParams;
         private ObservableCollection<ServerParam> _serverParams;
+        private ObservableCollection<CalibrationParam> _calibParams;
         private bool _isOkToClose;
         private List<ProcedureParam> _deleteProcedureParamCount;
         private List<CameraParam> _deleteCameraParamCount;
         private List<ServerParam> _deleteServerParamCount;
+        private List<CalibrationParam> _deleteCalibParamCount;
         public int Row { get; set; }
         public int Col { get; set; }
         public ObservableCollection<ProcedureParam> ProcedureParams
@@ -49,6 +51,16 @@ namespace SosoVision.ViewModels
             set { _serverParams = value; }
         }
 
+        public ObservableCollection<CalibrationParam> OldCalibParams { get; set; }
+
+        public ObservableCollection<CalibrationParam> CalibParams
+        {
+            get { return _calibParams; }
+            set { _calibParams = value; }
+        }
+
+        public IEnumerable<string> CameraBands => new[] { "CaptureBasler", "CaptureHik"};
+        public IEnumerable<string> CalibTypes => new[] { "单相机标定", "上下相机映射","多点标定","偏移标定"};
         public ObservableCollection<ServerParam> OldServerParams { get; set; }
         public DelegateCommand Confim { get; }
         public DelegateCommand Cancel { get; }
@@ -60,6 +72,7 @@ namespace SosoVision.ViewModels
             ProcedureParams = _configureService.SerializationData.ProcedureParams;
             CameraParams = _configureService.SerializationData.CameraParams;
             ServerParams = _configureService.SerializationData.ServerParams;
+            CalibParams = _configureService.SerializationData.CalibParams;
             Row = _configureService.SerializationData.Row;
             Col = _configureService.SerializationData.Col;
             Confim = new DelegateCommand(() => { _isOkToClose = true; RequestClose?.Invoke(new DialogResult(ButtonResult.OK)); });
@@ -83,6 +96,7 @@ namespace SosoVision.ViewModels
                             DeleteCameraParam();
                             break;
                         case "标定设置":
+                            DeleteCalibParam();
                             break;
                         case "通讯设置":
                             DeleteServerParam();
@@ -91,6 +105,21 @@ namespace SosoVision.ViewModels
             }
         }
 
+        private void DeleteCalibParam()
+        {
+            _deleteCalibParamCount = new List<CalibrationParam>();
+            foreach (var calibParam in CalibParams)
+            {
+                if (calibParam.Delete)
+                {
+                    _deleteCalibParamCount.Add(calibParam);
+                }
+            }
+            foreach (var i in _deleteCalibParamCount)
+            {
+                CalibParams.Remove(i);
+            }
+        }
         private void DeleteProcedureParam()
         {
             _deleteProcedureParamCount = new List<ProcedureParam>();
@@ -148,8 +177,15 @@ namespace SosoVision.ViewModels
         {
             if (_isOkToClose)
             {
-                string file = $"config/backup_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}.json";
-                SerializationData serialization = new SerializationData { CameraParams = OldCameraParams, ProcedureParams = OldParams, ServerParams = OldServerParams, Row = Row, Col = Col };
+                string dir = "config";
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+
+
+                string file = $"{dir}/backup_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}.json";
+                SerializationData serialization = new SerializationData { CameraParams = OldCameraParams, ProcedureParams = OldParams, ServerParams = OldServerParams,CalibParams = OldCalibParams, Row = Row, Col = Col };
                 File.WriteAllText(file, JsonConvert.SerializeObject(serialization));
                 _configureService.SerializationData.Row = Row;
                 _configureService.SerializationData.Col = Col;
@@ -174,6 +210,12 @@ namespace SosoVision.ViewModels
                 {
                     ServerParams.Add(serverParam);
                 }
+
+                CalibParams.Clear();
+                foreach (var calibParam in OldCalibParams)
+                {
+                    CalibParams.Add(calibParam);
+                }
             }
         }
 
@@ -194,6 +236,11 @@ namespace SosoVision.ViewModels
             ServerParam[] tempServer = new ServerParam[ServerParams.Count];
             ServerParams.CopyTo(tempServer, 0);
             tempServer.ToList().ForEach(p => OldServerParams.Add(p));
+
+            OldCalibParams = new ObservableCollection<CalibrationParam>();
+            CalibrationParam[] tempCalib = new CalibrationParam[CalibParams.Count];
+            CalibParams.CopyTo(tempCalib, 0);
+            tempCalib.ToList().ForEach(p => OldCalibParams.Add(p));
         }
 
         public string Title { get; } = "视觉配置";

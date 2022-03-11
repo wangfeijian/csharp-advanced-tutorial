@@ -33,9 +33,13 @@ namespace SosoVision.Common
             {
                 SerializationData = File.Exists("config/config.json") ?
                     JsonConvert.DeserializeObject<SerializationData>(File.ReadAllText("config/config.json"))
-                    : new SerializationData { ProcedureParams = new ObservableCollection<ProcedureParam>(), 
-                                                CameraParams = new ObservableCollection<CameraParam>(), 
-                                                ServerParams = new ObservableCollection<ServerParam>() };
+                    : new SerializationData
+                    {
+                        ProcedureParams = new ObservableCollection<ProcedureParam>(),
+                        CameraParams = new ObservableCollection<CameraParam>(),
+                        ServerParams = new ObservableCollection<ServerParam>(),
+                        CalibParams = new ObservableCollection<CalibrationParam>()
+                    };
             }
             else
             {
@@ -60,7 +64,8 @@ namespace SosoVision.Common
                 foreach (var item in SerializationData.CameraParams)
                 {
                     var capture = ContainerLocator.Container.Resolve<CaptureBase>(item.CameraId.ToString());
-                    capture.Close();
+                    if (capture != null)
+                        capture.Close();
                 }
 
                 // 保存所有参数
@@ -93,6 +98,7 @@ namespace SosoVision.Common
                         var tool = treeViewItem.Tag as ToolBase;
                         Thread.Sleep(50);
                         File.WriteAllText(fileName, JsonConvert.SerializeObject(t));
+                        Thread.Sleep(50);
                         File.WriteAllText(fileDataName, JsonConvert.SerializeObject(tool.DataContext));
                     }
                     if (viewModel != null)
