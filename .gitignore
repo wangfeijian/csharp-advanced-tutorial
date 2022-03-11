@@ -4,7 +4,6 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 bin/
-APP/
 
 # Other files and folders
 .settings/
@@ -12,6 +11,7 @@ APP/
 .*/.vs/
 */packages/
 */*/bin/
+APP/
 
 # Executables
 *.swf
