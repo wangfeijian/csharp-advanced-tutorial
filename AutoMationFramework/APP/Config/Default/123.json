@@ -1,1 +1,0 @@
-{"ParameterInfos":[{"KeyValue":"RunParam","CurrentValue":null,"Unit":null,"ParamDesc":"运行参数设置","EnglishDesc":"Operation parameter setting","MinValue":null,"MaxValue":null,"Authority":"1"},{"KeyValue":"AxisXSpeed","CurrentValue":"0.1","Unit":"%","ParamDesc":"X轴速度百分比","EnglishDesc":"X-axis speed (speed percentage)","MinValue":"0.1","MaxValue":"100","Authority":"2"}]}

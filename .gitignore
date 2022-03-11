@@ -11,7 +11,7 @@ bin/
 .*/.vs/
 */packages/
 */*/bin/
-APP/
+*/APP/
 
 # Executables
 *.swf
