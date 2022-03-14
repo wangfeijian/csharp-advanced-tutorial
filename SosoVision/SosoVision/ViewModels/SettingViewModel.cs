@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -17,6 +18,9 @@ namespace SosoVision.ViewModels
 {
     public class SettingViewModel : BindableBase, IDialogAware
     {
+        static readonly System.Collections.Specialized.NameValueCollection CaptureStr = ConfigurationManager.AppSettings;
+        static readonly string CaptureKey = CaptureStr["Capture"];
+
         private readonly IConfigureService _configureService;
         private ObservableCollection<ProcedureParam> _procedureParams;
         private ObservableCollection<CameraParam> _cameraParams;
@@ -59,7 +63,23 @@ namespace SosoVision.ViewModels
             set { _calibParams = value; }
         }
 
-        public IEnumerable<string> CameraBands => new[] { "CaptureBasler", "CaptureHik"};
+        private IEnumerable<string> _cameraBands;
+
+        public IEnumerable<string> CameraBands
+        {
+            get 
+            {
+                List<string> temp = new List<string>();
+                foreach (var item in CaptureKey.Split(','))
+                {
+                    temp.Add(item);
+                }
+
+                _cameraBands = temp;
+                return _cameraBands;
+            }
+        }
+
         public IEnumerable<string> CalibTypes => new[] { "单相机标定", "上下相机映射","多点标定","偏移标定"};
         public ObservableCollection<ServerParam> OldServerParams { get; set; }
         public DelegateCommand Confim { get; }
