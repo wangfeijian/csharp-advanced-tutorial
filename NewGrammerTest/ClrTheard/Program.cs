@@ -29,7 +29,7 @@ if (_threadTest)
 
 #endregion
 
-#region CancellationToken Test
+#region CancellationToken Test/
 if (_cancellationTokenTest)
 {
     CancellationTokenSource cts = new CancellationTokenSource();
