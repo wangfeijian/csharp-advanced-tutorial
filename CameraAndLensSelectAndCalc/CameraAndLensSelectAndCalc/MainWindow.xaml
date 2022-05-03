@@ -1,0 +1,388 @@
+﻿<Window
+    x:Class="CameraAndLensSelectAndCalc.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CameraAndLensSelectAndCalc"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="相机镜头选型工具"
+    Width="928"
+    Height="450"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <TabControl materialDesign:ColorZoneAssist.Mode="SecondaryMid" Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
+        <TabItem
+            Header="{materialDesign:PackIcon Kind=HomeFloor0,
+                                             Size=24}"
+            Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+            ToolTip="预估相机型号">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <GroupBox
+                    Margin="5"
+                    materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                    Style="{DynamicResource MaterialDesignGroupBox}">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="32"
+                                    Height="32"
+                                    VerticalAlignment="Center"
+                                    Kind="Numeric1Box" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                    Text="第一步" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            FontSize="20"
+                            Text="首先，确定设备所要达到的精度。输入精度到下面的输入框中，单位为毫米。"
+                            TextWrapping="Wrap" />
+                        <TextBox
+                            Grid.Row="1"
+                            Width="120"
+                            Padding="8"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            materialDesign:HintAssist.Hint="精度(mm)"
+                            BorderBrush="#aeea00"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox
+                    Grid.Column="1"
+                    Margin="5"
+                    materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                    Style="{DynamicResource MaterialDesignGroupBox}">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="32"
+                                    Height="32"
+                                    VerticalAlignment="Center"
+                                    Kind="Numeric2Box" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                    Text="第二步" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.5*" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            FontSize="20"
+                            Text="然后，确定被测物体的大小，确定视场大小。输入视场的宽高到下面的输入框中，单位为毫米。"
+                            TextWrapping="Wrap" />
+                        <TextBox
+                            Grid.Row="1"
+                            Width="120"
+                            Padding="8"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            materialDesign:HintAssist.Hint="宽度(mm)"
+                            BorderBrush="#aeea00"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        <TextBox
+                            Grid.Row="1"
+                            Width="120"
+                            Margin="130,0"
+                            Padding="8"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            materialDesign:HintAssist.Hint="高度(mm)"
+                            BorderBrush="#aeea00"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox
+                    Grid.Row="1"
+                    Margin="5"
+                    materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                    Style="{DynamicResource MaterialDesignGroupBox}">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="32"
+                                    Height="32"
+                                    VerticalAlignment="Center"
+                                    Kind="Numeric3Box" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                    Text="第三步" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.8*" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            FontSize="18"
+                            Text="再根据设备的类型确定一个安全系数，一般设备建议值为5，精度高的设备建议值为10。输入安全系数到下面的输入框中，单位为毫米。"
+                            TextWrapping="Wrap" />
+                        <TextBox
+                            Grid.Row="1"
+                            Width="120"
+                            Padding="8"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            materialDesign:HintAssist.Hint="安全系数"
+                            BorderBrush="#aeea00"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5"
+                    materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+                    Style="{DynamicResource MaterialDesignGroupBox}">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="32"
+                                    Height="32"
+                                    VerticalAlignment="Center"
+                                    Kind="Numeric4Box" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                    Text="第四步" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.8*" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            FontSize="18"
+                            Text="最后，通过前面定义的参数，计算出大概的相机分辨率。点击下方的计算按钮即可，选择左侧的第二个选项卡查看推荐的相机型号。"
+                            TextWrapping="Wrap" />
+                        <Button
+                            Grid.Row="1"
+                            Width="120"
+                            HorizontalAlignment="Right"
+                            Content="计算结果"
+                            Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </TabItem>
+        <TabItem
+            Header="{materialDesign:PackIcon Kind=HomeFloor1,
+                                             Size=24}"
+            Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+            ToolTip="根据前面的计算，显示匹配的相机型号">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Margin="5"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Text="匹配的相机型号" />
+                <DataGrid
+                    Grid.Row="1"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="品牌" />
+                        <DataGridTextColumn
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="型号" />
+                        <DataGridTextColumn
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="曝光类型" />
+                        <DataGridTextColumn
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="芯片大小" />
+                        <DataGridTextColumn
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="像素大小" />
+                        <DataGridTextColumn
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="帧率" />
+                        <DataGridTextColumn
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="颜色" />
+                        <DataGridTextColumn
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="接口" />
+                        <DataGridTextColumn
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="像素" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </TabItem>
+        <TabItem
+            Header="{materialDesign:PackIcon Kind=HomeFloor2,
+                                             Size=24}"
+            Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+            ToolTip="根据所选相机镜头，计算精确物距、视场大小、像素精度等">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="0.1*" />
+                </Grid.RowDefinitions>
+                <Border>
+                    <Border.Background>
+                        <ImageBrush ImageSource="./img/main.png" />
+                    </Border.Background>
+                </Border>
+                <ComboBox
+                    Width="200"
+                    Margin="10"
+                    Padding="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="相机型号"
+                    BorderBrush="#fa6400"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                <TextBox
+                    Width="200"
+                    Margin="10,60"
+                    Padding="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="镜头型号"
+                    BorderBrush="#fa6400"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <TextBox
+                    Width="120"
+                    Margin="0,0,180,60"
+                    Padding="8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    materialDesign:HintAssist.Hint="工作距离(mm)"
+                    Background="CornflowerBlue"
+                    BorderBrush="DarkBlue"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <TextBox
+                    Width="120"
+                    Margin="0,0,-20,315"
+                    Padding="8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    materialDesign:HintAssist.Hint="视场宽度(mm)"
+                    Background="LightBlue"
+                    BorderBrush="Blue"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <TextBox
+                    Width="120"
+                    Margin="0,0,-110,165"
+                    Padding="8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    materialDesign:HintAssist.Hint="视场高度(mm)"
+                    Background="LightBlue"
+                    BorderBrush="Blue"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <TextBox
+                    Width="120"
+                    Margin="0,0,-60,50"
+                    Padding="8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    materialDesign:HintAssist.Hint="放大倍率"
+                    Background="LightBlue"
+                    BorderBrush="Blue"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <TextBox
+                    Width="120"
+                    Margin="0,0,220,125"
+                    Padding="8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    materialDesign:HintAssist.Hint="水平视角"
+                    Background="#ffd8c1"
+                    BorderBrush="#fa6400"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <TextBox
+                    Width="120"
+                    Margin="0,0,270,180"
+                    Padding="8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    materialDesign:HintAssist.Hint="垂直视角"
+                    Background="#ffd8c1"
+                    BorderBrush="#fa6400"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <TextBox
+                    Width="80"
+                    Margin="0,0,430,20"
+                    Padding="8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    materialDesign:HintAssist.Hint="镜头焦距"
+                    Background="#ffd8c1"
+                    BorderBrush="#fa6400"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="-20,-20,20,0"
+                    Content="导出报告"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+            </Grid>
+
+        </TabItem>
+        <TabItem
+            Header="{materialDesign:PackIcon Kind=Database,
+                                             Size=24}"
+            Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+            ToolTip="浏览相机镜头参数" />
+    </TabControl>
+</Window>
