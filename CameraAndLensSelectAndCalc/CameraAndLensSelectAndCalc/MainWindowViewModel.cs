@@ -1,7 +1,10 @@
-﻿using System;
+﻿using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
@@ -156,6 +159,7 @@ namespace CameraAndLensSelectAndCalc
         private double _chipWidth, _chipHeight, _pixelSize, _fLength, _chipSize, _lenMatchChip;
         private int _workingDis;
         public DelegateCommand RoughCalcCommand { get; }
+        public DelegateCommand ExportReportCommand { get; }
 
         public MainWindowViewModel()
         {
@@ -165,8 +169,100 @@ namespace CameraAndLensSelectAndCalc
             AllCameraData.ForEach((data) => SelectCameraList.Add(data.Model));
 
             RoughCalcCommand = new DelegateCommand { ActionExecute = RoughCalc };
+            ExportReportCommand = new DelegateCommand { ActionExecute = ExportReport };
         }
 
+        private void ExportReport(object obj)
+        {
+            if(_cameraData == null || _lensData == null)
+            {
+                MessageBox.Show("先完成相机镜头的选型计算，再进行导出操作");
+                return;
+            }
+
+            string dir = "D:/ExportReport";
+            string fullFileName = Path.Combine(dir, "report.xlsx");
+
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            IWorkbook workbook = null; //创建一个新的Excel文件
+            ICell cell = null;
+            using (FileStream fs = File.Open("Model.xlsx", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                //把xls文件读入workbook变量里，之后就可以关闭了
+                workbook = new XSSFWorkbook(fs);
+            }
+
+            ISheet sheet = workbook.GetSheetAt(0); //按名称获取工作表
+
+            if (sheet == null)
+            {
+                return;
+            }
+
+            // 相机型号
+            cell = sheet.GetRow(7).GetCell(1);
+            cell.SetCellValue(_cameraData.Model);
+
+            // 相机品牌
+            cell = sheet.GetRow(7).GetCell(4);
+            cell.SetCellValue(_cameraData.Vendors);
+
+            // 镜头型号
+            cell = sheet.GetRow(10).GetCell(1);
+            cell.SetCellValue(_lensData.Model);
+
+            // 镜头品牌
+            cell = sheet.GetRow(10).GetCell(4);
+            cell.SetCellValue(_lensData.Vendors);
+
+            // 镜头焦距
+            cell = sheet.GetRow(20).GetCell(2);
+            cell.SetCellValue(FocalLength);
+
+            // 物距
+            cell = sheet.GetRow(23).GetCell(2);
+            cell.SetCellValue(WorkingDistance);
+
+            // 视野宽高
+            cell = sheet.GetRow(37).GetCell(1);
+            cell.SetCellValue(ViewCalcWidth);
+            cell = sheet.GetRow(37).GetCell(3);
+            cell.SetCellValue(ViewCalcHeight);
+
+            // 分辨率宽高
+            cell = sheet.GetRow(39).GetCell(1);
+            cell.SetCellValue(_cameraData.PixelWidth);
+            cell = sheet.GetRow(39).GetCell(3);
+            cell.SetCellValue(_cameraData.PixelHeight);
+
+            // 芯片尺寸
+            cell = sheet.GetRow(41).GetCell(1);
+            cell.SetCellValue(_chipWidth);
+            cell = sheet.GetRow(41).GetCell(3);
+            cell.SetCellValue(_chipHeight);
+
+            // 像元大小
+            cell = sheet.GetRow(43).GetCell(1);
+            cell.SetCellValue(_pixelSize);
+
+            // 光学放大倍率
+            cell = sheet.GetRow(42).GetCell(5);
+            cell.SetCellValue(ViewCalcTimes);
+
+            sheet.ForceFormulaRecalculation = true;
+            workbook.GetCreationHelper().CreateFormulaEvaluator().EvaluateAll();
+
+            using (FileStream fileStream = File.Open(fullFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                workbook.Write(fileStream);
+            }
+
+            MessageBox.Show($"导出成功！！\n文件保存在{fullFileName}中。");
+        }
         private void RoughCalc(object obj)
         {
             RoughCameraList = new ObservableCollection<CameraShowData>();
