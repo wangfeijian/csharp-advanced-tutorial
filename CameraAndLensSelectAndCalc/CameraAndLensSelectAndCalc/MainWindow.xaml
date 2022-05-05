@@ -159,8 +159,16 @@
                             VerticalAlignment="Bottom"
                             materialDesign:HintAssist.Hint="安全系数"
                             BorderBrush="#aeea00"
+                            IsEnabled="{Binding EnableSafetyFactor}"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                             Text="{Binding SafetyFactor, Mode=TwoWay}" />
+                        <CheckBox
+                            Grid.Row="1"
+                            Margin="130,10,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="启用安全系数"
+                            IsChecked="{Binding EnableSafetyFactor, Mode=TwoWay}" />
                     </Grid>
                 </GroupBox>
                 <GroupBox
@@ -413,8 +421,8 @@
                 <Button
                     Grid.Row="1"
                     Grid.Column="1"
-                    Command="{Binding ExportReportCommand}"
                     Margin="-20,-20,20,0"
+                    Command="{Binding ExportReportCommand}"
                     Content="导出报告"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}" />
             </Grid>

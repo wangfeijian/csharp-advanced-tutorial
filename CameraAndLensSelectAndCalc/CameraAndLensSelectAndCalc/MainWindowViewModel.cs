@@ -49,6 +49,14 @@ namespace CameraAndLensSelectAndCalc
             set { _safetyFactor = value; NotifyPropertyChange(nameof(SafetyFactor)); }
         }
 
+        private bool _enableSafetyFactor = true;
+
+        public bool EnableSafetyFactor
+        {
+            get { return _enableSafetyFactor; }
+            set { _enableSafetyFactor = value; NotifyPropertyChange(nameof(EnableSafetyFactor));}
+        }
+
         private ObservableCollection<CameraShowData>? _roughCameraList;
 
         public ObservableCollection<CameraShowData>? RoughCameraList
@@ -275,10 +283,14 @@ namespace CameraAndLensSelectAndCalc
 
             if (SafetyFactor < 3) SafetyFactor = 3;
 
+            if (!EnableSafetyFactor) SafetyFactor = 1;
+
             // 相机像素 = 安全系数*视场宽*视场高/(设备精度*设备精度)
             int roughResult = (int)Math.Floor(SafetyFactor * ViewHeight * ViewWidth / (Accuracy * Accuracy) / 10000) * 10000;
 
             int minSafeFactor = SafetyFactor - 2 >= 3 ? SafetyFactor - 2 : 3;
+
+            if (!EnableSafetyFactor) minSafeFactor = 1;
             int minRought = roughResult / SafetyFactor * minSafeFactor;
             int maxRought = roughResult / SafetyFactor * (SafetyFactor + 2);
 
