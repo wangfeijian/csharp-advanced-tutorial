@@ -27,28 +27,23 @@ namespace CameraAndLensSelectAndCalc
             DataContext = new MainWindowViewModel();
         }
 
-        private void LensTextLostFocus(object sender, RoutedEventArgs e)
-        {
-            var textObj = sender as TextBox;
-            GetDataForLens(textObj);
-        }
-
-
-        private void LensChanged(object sender, KeyEventArgs e)
-        {
-            var textObj = sender as TextBox;
-
-            if (e.Key == Key.Enter)
-            {
-                GetDataForLens(textObj);
-            }
-        }
-
-        private void GetDataForLens(TextBox textObj)
+        private void GetDataForLens()
         {
             var viewModel = DataContext as MainWindowViewModel;
             if (viewModel != null)
-                viewModel.LensChange(textObj.Text);
+                viewModel.LensChange();
+        }
+
+        private void UpdateSelectLens(string value)
+        {
+            var viewModel = DataContext as MainWindowViewModel;
+            if (viewModel != null)
+                viewModel.LoadSelectLens(value);
+        }
+
+        private void LensChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetDataForLens();
         }
 
         private void CameraModelChanged(object sender, SelectionChangedEventArgs e)
@@ -59,7 +54,7 @@ namespace CameraAndLensSelectAndCalc
                 return;
             }
 
-            LensTextLostFocus(LensTextBox, null);
+            GetDataForLens();
         }
 
         private void FinalCalcKeyDown(object sender, KeyEventArgs e)
@@ -122,6 +117,24 @@ namespace CameraAndLensSelectAndCalc
             var viewModel = DataContext as MainWindowViewModel;
             if (viewModel != null)
                 viewModel.FinalCalcForTimes(textBox.Text);
+        }
+
+        private void LensFocalLengthUpdate(object sender, KeyEventArgs e)
+        {
+            var textBox = sender as TextBox;
+
+            if (e.Key != Key.Enter)
+            {
+                return;
+            }
+
+            UpdateSelectLens(textBox.Text);
+        }
+
+        private void LensFocalLengthLostFocus(object sender, RoutedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            UpdateSelectLens(textBox.Text);
         }
     }
 }

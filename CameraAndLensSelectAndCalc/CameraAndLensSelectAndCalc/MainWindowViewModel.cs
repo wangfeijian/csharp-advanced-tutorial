@@ -54,7 +54,7 @@ namespace CameraAndLensSelectAndCalc
         public bool EnableSafetyFactor
         {
             get { return _enableSafetyFactor; }
-            set { _enableSafetyFactor = value; NotifyPropertyChange(nameof(EnableSafetyFactor));}
+            set { _enableSafetyFactor = value; NotifyPropertyChange(nameof(EnableSafetyFactor)); }
         }
 
         private ObservableCollection<CameraShowData>? _roughCameraList;
@@ -95,6 +95,14 @@ namespace CameraAndLensSelectAndCalc
         {
             get { return _selectCamera; }
             set { _selectCamera = value; NotifyPropertyChange(nameof(SelectCamera)); }
+        }
+
+        private ObservableCollection<string>? _selectLensList;
+
+        public ObservableCollection<string>? SelectLensList
+        {
+            get { return _selectLensList; }
+            set { _selectLensList = value; NotifyPropertyChange(nameof(SelectLensList)); }
         }
 
         private string? _selectLens;
@@ -161,10 +169,53 @@ namespace CameraAndLensSelectAndCalc
             set { _viewCalcTimes = value; NotifyPropertyChange(nameof(ViewCalcTimes)); }
         }
 
+        private string? _chipSizeStr;
 
-        private CameraData? _cameraData;
+        public string? ChipSizeStr
+        {
+            get { return _chipSizeStr; }
+            set { _chipSizeStr = value; NotifyPropertyChange(nameof(ChipSizeStr)); }
+        }
+
+        private string? _chipLensSizeStr;
+
+        public string? ChipLensSizeStr
+        {
+            get { return _chipLensSizeStr; }
+            set { _chipLensSizeStr = value; NotifyPropertyChange(nameof(ChipLensSizeStr)); }
+        }
+
+        private string? _lensDistance;
+
+        public string? LensDistance
+        {
+            get { return _lensDistance; }
+            set { _lensDistance = value; NotifyPropertyChange(nameof(LensDistance));}
+        }
+
+
+        private CameraData? _cameraSelectData;
+        public CameraData? CameraSelectData
+        {
+            get { return _cameraSelectData; }
+            set { _cameraSelectData = value; NotifyPropertyChange(nameof(CameraSelectData)); }
+        }
+
         private LensData? _lensData;
         private double _chipWidth, _chipHeight, _pixelSize, _fLength, _chipSize, _lenMatchChip;
+
+        public double ChipWidth
+        {
+            get { return _chipWidth; }
+            set { _chipWidth = value; NotifyPropertyChange(nameof(ChipWidth)); }
+        }
+
+        public double ChipHeight
+        {
+            get { return _chipHeight; }
+            set { _chipHeight= value; NotifyPropertyChange(nameof(ChipHeight)); }
+        }
+
         private int _workingDis;
         public DelegateCommand RoughCalcCommand { get; }
         public DelegateCommand ExportReportCommand { get; }
@@ -172,6 +223,7 @@ namespace CameraAndLensSelectAndCalc
         public MainWindowViewModel()
         {
             SelectCameraList = new List<string>();
+            SelectLensList = new ObservableCollection<string>();
             AllCameraData = SqlHelper.AsyncQuery<CameraData>("SELECT * FROM camera").Result.ToList();
             AllLensData = SqlHelper.AsyncQuery<LensData>("SELECT * FROM lens").Result.ToList();
             AllCameraData.ForEach((data) => SelectCameraList.Add(data.Model));
@@ -182,7 +234,7 @@ namespace CameraAndLensSelectAndCalc
 
         private void ExportReport(object obj)
         {
-            if(_cameraData == null || _lensData == null)
+            if (CameraSelectData == null || _lensData == null)
             {
                 MessageBox.Show("先完成相机镜头的选型计算，再进行导出操作");
                 return;
@@ -213,11 +265,11 @@ namespace CameraAndLensSelectAndCalc
 
             // 相机型号
             cell = sheet.GetRow(7).GetCell(1);
-            cell.SetCellValue(_cameraData.Model);
+            cell.SetCellValue(CameraSelectData.Model);
 
             // 相机品牌
             cell = sheet.GetRow(7).GetCell(4);
-            cell.SetCellValue(_cameraData.Vendors);
+            cell.SetCellValue(CameraSelectData.Vendors);
 
             // 镜头型号
             cell = sheet.GetRow(10).GetCell(1);
@@ -243,15 +295,15 @@ namespace CameraAndLensSelectAndCalc
 
             // 分辨率宽高
             cell = sheet.GetRow(39).GetCell(1);
-            cell.SetCellValue(_cameraData.PixelWidth);
+            cell.SetCellValue(CameraSelectData.PixelWidth);
             cell = sheet.GetRow(39).GetCell(3);
-            cell.SetCellValue(_cameraData.PixelHeight);
+            cell.SetCellValue(CameraSelectData.PixelHeight);
 
             // 芯片尺寸
             cell = sheet.GetRow(41).GetCell(1);
-            cell.SetCellValue(_chipWidth);
+            cell.SetCellValue(ChipWidth);
             cell = sheet.GetRow(41).GetCell(3);
-            cell.SetCellValue(_chipHeight);
+            cell.SetCellValue(ChipHeight);
 
             // 像元大小
             cell = sheet.GetRow(43).GetCell(1);
@@ -313,7 +365,19 @@ namespace CameraAndLensSelectAndCalc
             MessageBox.Show($"预估相机分辨率完成，请到第二页查看结果。\n根据软件中的相机数据，一共查询到{allDatas.Result.Count}个匹配相机。");
         }
 
-        public void LensChange(string value)
+        public void LoadSelectLens(string value)
+        {
+            FocalLength = value;
+
+            if (string.IsNullOrWhiteSpace(FocalLength))
+                return;
+
+            SelectLensList = new ObservableCollection<string>();
+
+            AllLensData.ForEach(data => { if (data.FocalLength == FocalLength) SelectLensList.Add(data.Model); });
+        }
+
+        public void LensChange()
         {
             if (string.IsNullOrEmpty(SelectCamera))
             {
@@ -323,12 +387,14 @@ namespace CameraAndLensSelectAndCalc
             }
 
             string sql = $"SELECT * FROM camera WHERE Model=\'{SelectCamera}\'";
-            _cameraData = GetSingleData<CameraData>(sql);
-            if (_cameraData == null) return;
+            CameraSelectData = GetSingleData<CameraData>(sql);
+            if (CameraSelectData == null) return;
 
-            if (_cameraData.ChipSize.Contains("\""))
+            ChipSizeStr = CameraSelectData.ChipSize;
+
+            if (CameraSelectData.ChipSize.Contains("\""))
             {
-                GetDoubleForStr(_cameraData.ChipSize, ref _chipSize);
+                GetDoubleForStr(CameraSelectData.ChipSize, ref _chipSize);
                 //string chip = _cameraData.ChipSize.Split('\"')[0];
                 //_chipSize = double.Parse(chip);
             }
@@ -337,8 +403,6 @@ namespace CameraAndLensSelectAndCalc
                 _chipSize = 0;
             }
 
-            SelectLens = value;
-
             if (string.IsNullOrWhiteSpace(SelectLens))
                 return;
 
@@ -346,21 +410,24 @@ namespace CameraAndLensSelectAndCalc
             _lensData = GetSingleData<LensData>(sql);
             if (_lensData == null) return;
 
+            ChipLensSizeStr = _lensData.MatchingChip;
+            LensDistance = _lensData.WorkingDistance;
+
             LensDataGetForStrSplit(_lensData);
 
             FocalLength = _lensData.FocalLength;
 
-            CalcChipSize(_cameraData);
+            CalcChipSize(CameraSelectData);
 
             _fLength = double.Parse(_lensData.FocalLength);
 
             //水平视场角 = 2 * arctan(w / 2f)
             //垂直视场角 = 2 * arctan(h / 2f)
-            double arc = Math.Atan(_chipWidth / (2 * _fLength));
+            double arc = Math.Atan(ChipWidth / (2 * _fLength));
             double angle = arc / Math.PI * 180;
             HAngle = Math.Round(2 * angle, 2).ToString() + "°";
 
-            arc = Math.Atan(_chipHeight / (2 * _fLength));
+            arc = Math.Atan(ChipHeight / (2 * _fLength));
             angle = arc / Math.PI * 180;
             VAngle = Math.Round(2 * angle, 2).ToString() + "°";
 
@@ -419,14 +486,14 @@ namespace CameraAndLensSelectAndCalc
                 int pixelHeight = int.Parse(cameraData.PixelHeight);
                 int pixelWidth = int.Parse(cameraData.PixelWidth);
                 _pixelSize = double.Parse(cameraData.PixelSize);
-                _chipWidth = pixelWidth * _pixelSize / 1000;
-                _chipHeight = pixelHeight * _pixelSize / 1000;
+                ChipWidth = pixelWidth * _pixelSize / 1000;
+                ChipHeight = pixelHeight * _pixelSize / 1000;
             }
             else
             {
                 _pixelSize = double.Parse(cameraData.PixelSize);
-                _chipWidth = double.Parse(cameraData.ChipWidth);
-                _chipHeight = double.Parse(cameraData.ChipHeight);
+                ChipWidth = double.Parse(cameraData.ChipWidth);
+                ChipHeight = double.Parse(cameraData.ChipHeight);
             }
         }
 
@@ -437,8 +504,8 @@ namespace CameraAndLensSelectAndCalc
 
             ViewCalcWidth = value;
             double width = double.Parse(ViewCalcWidth);
-            double times = _chipWidth / width;
-            double height = _chipHeight / times;
+            double times = ChipWidth / width;
+            double height = ChipHeight / times;
             double focalLength = _fLength / times + _fLength;
 
             ViewCalcTimes = Math.Round(times, 6).ToString();
@@ -455,8 +522,8 @@ namespace CameraAndLensSelectAndCalc
 
             ViewCalcHeight = value;
             double height = double.Parse(ViewCalcHeight);
-            double times = _chipHeight / height;
-            double width = _chipWidth / times;
+            double times = ChipHeight / height;
+            double width = ChipWidth / times;
             double focalLength = _fLength / times + _fLength;
 
             ViewCalcTimes = Math.Round(times, 6).ToString();
@@ -473,8 +540,8 @@ namespace CameraAndLensSelectAndCalc
 
             ViewCalcTimes = value;
             double times = double.Parse(ViewCalcTimes);
-            double width = _chipWidth / times;
-            double height = _chipHeight / times;
+            double width = ChipWidth / times;
+            double height = ChipHeight / times;
             double focalLength = _fLength / times + _fLength;
 
             ViewCalcWidth = Math.Round(width, 2).ToString();
@@ -494,13 +561,13 @@ namespace CameraAndLensSelectAndCalc
 
             if (_lenMatchChip < _chipSize)
             {
-                MessageBox.Show("镜头适配的芯片大小不适合此相机，请重新选择相机或者镜头！");
+                MessageBox.Show("镜头适配的芯片大小不适合此相机，请确认相机或镜头型号！");
                 return;
             }
 
             if (_workingDis > WorkingDistance)
             {
-                MessageBox.Show("镜头最小工作距离大于核算出来的工作距离，相机和镜头不匹配，请重新选择相机或镜头！");
+                MessageBox.Show("镜头最小工作距离大于核算出来的工作距离，相机和镜头不匹配，请确认相机或镜头型号！");
                 return;
             }
         }

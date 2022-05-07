@@ -316,18 +316,55 @@
                     SelectionChanged="CameraModelChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                 <TextBox
-                    x:Name="LensTextBox"
+                    Width="100"
+                    Margin="10,100"
+                    Padding="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="相机芯片大小"
+                    Background="Orange"
+                    BorderBrush="DarkBlue"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding ChipSizeStr}" />
+                <TextBox
+                    Width="140"
+                    Margin="120,100"
+                    Padding="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="镜头最小工作距离"
+                    Background="CornflowerBlue"
+                    BorderBrush="DarkBlue"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding LensDistance}" />
+                <ComboBox
                     Width="250"
-                    Margin="10,60"
+                    Margin="10,55"
                     Padding="10"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     materialDesign:HintAssist.Hint="镜头型号"
                     BorderBrush="#fa6400"
-                    KeyDown="LensChanged"
-                    LostFocus="LensTextLostFocus"
+                    IsEditable="True"
+                    ItemsSource="{Binding SelectLensList}"
+                    SelectedIndex="0"
+                    SelectedValue="{Binding SelectLens}"
+                    SelectionChanged="LensChanged"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                <TextBox
+                    Width="250"
+                    Margin="10,145"
+                    Padding="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="镜头适配相机芯片大小"
+                    Background="Orange"
+                    BorderBrush="DarkBlue"
+                    IsEnabled="False"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding SelectLens, Mode=TwoWay}" />
+                    Text="{Binding ChipLensSizeStr}" />
                 <TextBox
                     Width="120"
                     Margin="0,0,180,60"
@@ -415,7 +452,8 @@
                     materialDesign:HintAssist.Hint="镜头焦距"
                     Background="#ffd8c1"
                     BorderBrush="#fa6400"
-                    IsEnabled="False"
+                    KeyDown="LensFocalLengthUpdate"
+                    LostFocus="LensFocalLengthLostFocus"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding FocalLength}" />
                 <Button
@@ -427,6 +465,103 @@
                     Style="{StaticResource MaterialDesignRaisedAccentButton}" />
             </Grid>
 
+        </TabItem>
+        <TabItem
+            Header="{materialDesign:PackIcon Kind=HomeFloor3,
+                                             Size=24}"
+            Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+            ToolTip="显示计算出来的信息">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <materialDesign:Card
+                    Margin="10"
+                    Padding="0"
+                    Background="#03a9f4"
+                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="16,16,16,4"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Text="所选相机计算后的信息" />
+                        <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                        <Grid Grid.Row="2" Margin="16,0,16,8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding CameraSelectData.Vendors, StringFormat=品牌：{0}}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding CameraSelectData.Model, StringFormat=型号：{0}}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="视野(FOV)  Width(mm):{0}   Height(mm):{1}">
+                                        <Binding Path="ViewCalcWidth" />
+                                        <Binding Path="ViewCalcHeight" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Row="3"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="分辨率  Width(pixel):{0}   Height(pixel):{1}">
+                                        <Binding Path="CameraSelectData.PixelWidth" />
+                                        <Binding Path="CameraSelectData.PixelHeight" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Row="4"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="芯片尺寸  Width(mm):{0:f2}   Height(mm):{1:f2}">
+                                        <Binding Path="ChipWidth" />
+                                        <Binding Path="ChipHeight" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Row="5"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="{Binding CameraSelectData.PixelSize, StringFormat=像元大小：{0} um}" />
+                            <TextBlock
+                                Grid.Row="6"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="{Binding CameraSelectData.Model, StringFormat=像素精度：{0} mm/pixel}" />
+                        </Grid>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
         </TabItem>
         <TabItem
             Header="{materialDesign:PackIcon Kind=Database,
