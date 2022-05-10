@@ -469,6 +469,7 @@
         <TabItem
             Header="{materialDesign:PackIcon Kind=HomeFloor3,
                                              Size=24}"
+            IsEnabled="{Binding EnableDetail}"
             Style="{StaticResource MaterialDesignNavigationRailTabItem}"
             ToolTip="显示计算出来的信息">
             <Grid>
@@ -479,7 +480,7 @@
                 <materialDesign:Card
                     Margin="10"
                     Padding="0"
-                    Background="#03a9f4"
+                    Background="#9a67ea"
                     Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -549,15 +550,91 @@
                                 </TextBlock.Text>
                             </TextBlock>
                             <TextBlock
-                                Grid.Row="5"
+                                Grid.Row="6"
                                 Margin="5"
                                 Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                 Text="{Binding CameraSelectData.PixelSize, StringFormat=像元大小：{0} um}" />
                             <TextBlock
-                                Grid.Row="6"
+                                Grid.Row="5"
                                 Margin="5"
                                 Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                Text="{Binding CameraSelectData.Model, StringFormat=像素精度：{0} mm/pixel}" />
+                                Text="{Binding CameraSelectData.ChipSize, StringFormat=芯片大小：{0}}" />
+                            <TextBlock
+                                Grid.Row="7"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="{Binding PixelAccuracy, StringFormat=像素精度：{0} mm/pixel}" />
+                        </Grid>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card
+                    Grid.Column="1"
+                    Margin="10"
+                    Padding="0"
+                    Background="#9a67ea"
+                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="16,16,16,4"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Text="所选镜头的基本信息" />
+                        <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                        <Grid Grid.Row="2" Margin="16,0,16,8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding LensData.Vendors, StringFormat=品牌：{0}}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding LensData.Model, StringFormat=型号：{0}}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding LensData.FocalLength, StringFormat=焦距：{0}}" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding LensData.WorkingDistance, StringFormat=最小物距：{0} mm}" />
+                            <TextBlock
+                                Grid.Row="4"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding LensData.MatchingChip, StringFormat=匹配芯片：{0}}" />
+                            <TextBlock
+                                Grid.Row="5"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding LensData.Aperture, StringFormat=镜头光圈：{0}}" />
+                            <TextBlock
+                                Grid.Row="6"
+                                Margin="5"
+                                FontWeight="Bold"
+                                Foreground="MediumVioletRed"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="注意：请根据左侧的相机芯片尺寸匹配镜头的芯片尺寸，一般建议镜头的尺寸大于等于相机的芯片尺寸。"
+                                TextWrapping="Wrap" />
                         </Grid>
                     </Grid>
                 </materialDesign:Card>

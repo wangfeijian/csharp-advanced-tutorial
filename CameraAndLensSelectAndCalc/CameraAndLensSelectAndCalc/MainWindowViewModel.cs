@@ -190,7 +190,7 @@ namespace CameraAndLensSelectAndCalc
         public string? LensDistance
         {
             get { return _lensDistance; }
-            set { _lensDistance = value; NotifyPropertyChange(nameof(LensDistance));}
+            set { _lensDistance = value; NotifyPropertyChange(nameof(LensDistance)); }
         }
 
 
@@ -202,6 +202,11 @@ namespace CameraAndLensSelectAndCalc
         }
 
         private LensData? _lensData;
+        public LensData? LensData
+        {
+            get { return _lensData; }
+            set { _lensData = value; NotifyPropertyChange(nameof(LensData)); }
+        }
         private double _chipWidth, _chipHeight, _pixelSize, _fLength, _chipSize, _lenMatchChip;
 
         public double ChipWidth
@@ -213,7 +218,23 @@ namespace CameraAndLensSelectAndCalc
         public double ChipHeight
         {
             get { return _chipHeight; }
-            set { _chipHeight= value; NotifyPropertyChange(nameof(ChipHeight)); }
+            set { _chipHeight = value; NotifyPropertyChange(nameof(ChipHeight)); }
+        }
+
+        private double _pixelAccuracy;
+
+        public double PixelAccuracy
+        {
+            get { return _pixelAccuracy; }
+            set { _pixelAccuracy = value; NotifyPropertyChange(nameof(PixelAccuracy)); }
+        }
+
+        private bool _enableDetail;  
+
+        public bool EnableDetail
+        {
+            get { return _enableDetail; }
+            set { _enableDetail = value; NotifyPropertyChange(nameof(EnableDetail)); }
         }
 
         private int _workingDis;
@@ -234,7 +255,7 @@ namespace CameraAndLensSelectAndCalc
 
         private void ExportReport(object obj)
         {
-            if (CameraSelectData == null || _lensData == null)
+            if (CameraSelectData == null || LensData == null)
             {
                 MessageBox.Show("先完成相机镜头的选型计算，再进行导出操作");
                 return;
@@ -273,11 +294,11 @@ namespace CameraAndLensSelectAndCalc
 
             // 镜头型号
             cell = sheet.GetRow(10).GetCell(1);
-            cell.SetCellValue(_lensData.Model);
+            cell.SetCellValue(LensData.Model);
 
             // 镜头品牌
             cell = sheet.GetRow(10).GetCell(4);
-            cell.SetCellValue(_lensData.Vendors);
+            cell.SetCellValue(LensData.Vendors);
 
             // 镜头焦距
             cell = sheet.GetRow(20).GetCell(2);
@@ -407,19 +428,19 @@ namespace CameraAndLensSelectAndCalc
                 return;
 
             sql = $"SELECT * FROM lens WHERE Model=\'{SelectLens}\'";
-            _lensData = GetSingleData<LensData>(sql);
-            if (_lensData == null) return;
+            LensData = GetSingleData<LensData>(sql);
+            if (LensData == null) return;
 
-            ChipLensSizeStr = _lensData.MatchingChip;
-            LensDistance = _lensData.WorkingDistance;
+            ChipLensSizeStr = LensData.MatchingChip;
+            LensDistance = LensData.WorkingDistance;
 
-            LensDataGetForStrSplit(_lensData);
+            LensDataGetForStrSplit(LensData);
 
-            FocalLength = _lensData.FocalLength;
+            FocalLength = LensData.FocalLength;
 
             CalcChipSize(CameraSelectData);
 
-            _fLength = double.Parse(_lensData.FocalLength);
+            _fLength = double.Parse(LensData.FocalLength);
 
             //水平视场角 = 2 * arctan(w / 2f)
             //垂直视场角 = 2 * arctan(h / 2f)
@@ -512,6 +533,8 @@ namespace CameraAndLensSelectAndCalc
             ViewCalcHeight = Math.Round(height, 2).ToString();
             WorkingDistance = (int)Math.Floor(focalLength);
 
+            PixelAccuracy =  Math.Round(_pixelSize/times/1000, 3);
+            EnableDetail = true;
             CheckLensAndCamera();
         }
 
@@ -529,7 +552,8 @@ namespace CameraAndLensSelectAndCalc
             ViewCalcTimes = Math.Round(times, 6).ToString();
             ViewCalcWidth = Math.Round(width, 2).ToString();
             WorkingDistance = (int)Math.Floor(focalLength);
-
+            EnableDetail = true;
+            PixelAccuracy =  Math.Round(_pixelSize/times/1000, 3);
             CheckLensAndCamera();
         }
 
@@ -547,7 +571,8 @@ namespace CameraAndLensSelectAndCalc
             ViewCalcWidth = Math.Round(width, 2).ToString();
             ViewCalcHeight = Math.Round(height, 2).ToString();
             WorkingDistance = (int)Math.Floor(focalLength);
-
+            EnableDetail = true;
+            PixelAccuracy = Math.Round(_pixelSize/times/1000, 3);
             CheckLensAndCamera();
         }
 
