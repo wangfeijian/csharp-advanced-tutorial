@@ -564,6 +564,11 @@
                                 Margin="5"
                                 Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                 Text="{Binding PixelAccuracy, StringFormat=像素精度：{0} mm/pixel}" />
+                            <TextBlock
+                                Grid.Row="8"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="{Binding CameraSelectData.Shutter, StringFormat=快门：{0}}" />
                         </Grid>
                     </Grid>
                 </materialDesign:Card>
