@@ -652,147 +652,178 @@
             ToolTip="浏览相机镜头参数">
             <TabControl FontSize="25" Style="{StaticResource TabControlStyle}">
                 <TabItem Header="相机" Style="{StaticResource TabItemStyle}">
-                    <DataGrid
-                        AutoGenerateColumns="False"
-                        CanUserAddRows="False"
-                        ItemsSource="{Binding AllCameraData}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn
-                                Binding="{Binding Vendors}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="品牌" />
-                            <DataGridTextColumn
-                                Binding="{Binding Model}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="型号" />
-                            <DataGridTextColumn
-                                Binding="{Binding ChipVendors}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="芯片品牌" />
-                            <DataGridTextColumn
-                                Binding="{Binding Chip}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="芯片" />
-                            <DataGridTextColumn
-                                Binding="{Binding Shutter}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="曝光类型" />
-                            <DataGridTextColumn
-                                Binding="{Binding ChipSize}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="芯片大小" />
-                            <DataGridTextColumn
-                                Binding="{Binding ChipType}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="芯片类型" />
-                            <DataGridTextColumn
-                                Binding="{Binding ChipWidth}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="芯片宽度" />
-                            <DataGridTextColumn
-                                Binding="{Binding ChipHeight}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="芯片高度" />
-                            <DataGridTextColumn
-                                Binding="{Binding PixelWidth}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="像素宽度" />
-                            <DataGridTextColumn
-                                Binding="{Binding PixelHeight}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="像素高度" />
-                            <DataGridTextColumn
-                                Binding="{Binding PixelSize}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="像素大小" />
-                            <DataGridTextColumn
-                                Binding="{Binding Frame}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="帧率" />
-                            <DataGridTextColumn
-                                Binding="{Binding Color}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="颜色" />
-                            <DataGridTextColumn
-                                Binding="{Binding Interface}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="接口" />
-                            <DataGridTextColumn
-                                Binding="{Binding Pixels}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="像素" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBox
+                            x:Name="CameraFilterTextBox"
+                            Margin="2,10"
+                            Padding="5"
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="输入任意字符筛选相机"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            TextChanged="CameraFilter" />
+                        <DataGrid
+                            x:Name="CameraDataGrid"
+                            Grid.Row="1"
+                            AutoGenerateColumns="False"
+                            CanUserAddRows="False"
+                            ItemsSource="{Binding AllCameraData}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Binding="{Binding Vendors}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="品牌" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Model}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="型号" />
+                                <DataGridTextColumn
+                                    Binding="{Binding ChipVendors}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="芯片品牌" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Chip}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="芯片" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Shutter}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="曝光类型" />
+                                <DataGridTextColumn
+                                    Binding="{Binding ChipSize}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="芯片大小" />
+                                <DataGridTextColumn
+                                    Binding="{Binding ChipType}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="芯片类型" />
+                                <DataGridTextColumn
+                                    Binding="{Binding ChipWidth}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="芯片宽度" />
+                                <DataGridTextColumn
+                                    Binding="{Binding ChipHeight}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="芯片高度" />
+                                <DataGridTextColumn
+                                    Binding="{Binding PixelWidth}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="像素宽度" />
+                                <DataGridTextColumn
+                                    Binding="{Binding PixelHeight}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="像素高度" />
+                                <DataGridTextColumn
+                                    Binding="{Binding PixelSize}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="像素大小" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Frame}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="帧率" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Color}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="颜色" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Interface}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="接口" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Pixels}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="像素" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="镜头" Style="{StaticResource TabItemStyle}">
-                    <DataGrid
-                        AutoGenerateColumns="False"
-                        CanUserAddRows="False"
-                        ItemsSource="{Binding AllLensData}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn
-                                Binding="{Binding Vendors}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="品牌" />
-                            <DataGridTextColumn
-                                Binding="{Binding Model}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="型号" />
-                            <DataGridTextColumn
-                                Binding="{Binding LensType}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="镜头类型" />
-                            <DataGridTextColumn
-                                Binding="{Binding FocalLength}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="焦距" />
-                            <DataGridTextColumn
-                                Binding="{Binding WorkingDistance}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="工作距离" />
-                            <DataGridTextColumn
-                                Binding="{Binding MatchingChip}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="匹配芯片" />
-                            <DataGridTextColumn
-                                Binding="{Binding Aperture}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="光圈" />
-                            <DataGridTextColumn
-                                Binding="{Binding MaxViewAngle}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="最大视场角度" />
-                            <DataGridTextColumn
-                                Binding="{Binding Interface}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="接口" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBox
+                            x:Name="LensFilterTextBox"
+                            Margin="2,10"
+                            Padding="5"
+                            materialDesign:HintAssist.Hint="输入任意字符筛选镜头"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            TextChanged="LensFilter" />
+                        <DataGrid
+                            x:Name="LensDataGrid"
+                            Grid.Row="1"
+                            AutoGenerateColumns="False"
+                            CanUserAddRows="False"
+                            ItemsSource="{Binding AllLensData}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Binding="{Binding Vendors}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="品牌" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Model}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="型号" />
+                                <DataGridTextColumn
+                                    Binding="{Binding LensType}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="镜头类型" />
+                                <DataGridTextColumn
+                                    Binding="{Binding FocalLength}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="焦距" />
+                                <DataGridTextColumn
+                                    Binding="{Binding WorkingDistance}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="工作距离" />
+                                <DataGridTextColumn
+                                    Binding="{Binding MatchingChip}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="匹配芯片" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Aperture}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="光圈" />
+                                <DataGridTextColumn
+                                    Binding="{Binding MaxViewAngle}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="最大视场角度" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Interface}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    Header="接口" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </TabItem>
             </TabControl>
         </TabItem>

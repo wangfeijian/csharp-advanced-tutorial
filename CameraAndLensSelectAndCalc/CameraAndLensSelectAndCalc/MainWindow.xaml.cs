@@ -136,5 +136,47 @@ namespace CameraAndLensSelectAndCalc
             var textBox = sender as TextBox;
             UpdateSelectLens(textBox.Text);
         }
+
+        private void LensFilter(object sender, TextChangedEventArgs e)
+        {
+            var cvs = CollectionViewSource.GetDefaultView(LensDataGrid.ItemsSource);
+            if (cvs != null && cvs.CanFilter)
+            {
+                cvs.Filter = OnLensFilterApplied;
+            }
+
+        }
+
+        private bool OnLensFilterApplied(object obj)
+        {
+            if (obj is LensData)
+            {
+                var text = LensFilterTextBox.Text.ToLower();
+                return (obj as LensData).Vendors.ToLower().Contains(text)
+                    || (obj as LensData).Model.ToLower().Contains(text);
+            }
+            return false;
+        }
+        private void CameraFilter(object sender, TextChangedEventArgs e)
+        {
+            var cvs = CollectionViewSource.GetDefaultView(CameraDataGrid.ItemsSource);
+            if (cvs != null && cvs.CanFilter)
+            {
+                cvs.Filter = OnCameraFilterApplied;
+            }
+        }
+
+        private bool OnCameraFilterApplied(object obj)
+        {
+            if (obj is CameraData)
+            {
+                var text = CameraFilterTextBox.Text.ToLower();
+                return (obj as CameraData).Vendors.ToLower().Contains(text)
+                    || (obj as CameraData).Model.ToLower().Contains(text)
+                    || (obj as CameraData).Frame.ToLower().Contains(text)
+                    || (obj as CameraData).Pixels.ToString().ToLower().Contains(text);
+            }
+            return false;
+        }
     }
 }
