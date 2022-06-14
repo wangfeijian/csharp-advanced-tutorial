@@ -262,7 +262,7 @@ namespace CameraAndLensSelectAndCalc
             }
 
             string dir = "D:/ExportReport";
-            string fullFileName = Path.Combine(dir, "report.xlsx");
+            string fullFileName = Path.Combine(dir, $"{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}_report.xlsx");
 
             if (!Directory.Exists(dir))
             {
