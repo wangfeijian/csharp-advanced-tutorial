@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraAndLensSelectAndCalc", "CameraAndLensSelectAndCalc\CameraAndLensSelectAndCalc.csproj", "{8DFE3028-A834-4DDB-9F96-D22A06C031E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CameraAndLensSelectAndCalc", "CameraAndLensSelectAndCalc\CameraAndLensSelectAndCalc.csproj", "{8DFE3028-A834-4DDB-9F96-D22A06C031E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

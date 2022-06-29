@@ -827,5 +827,79 @@
                 </TabItem>
             </TabControl>
         </TabItem>
+        <TabItem
+            Header="{materialDesign:PackIcon Kind=About,
+                                             Size=24}"
+            Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+            ToolTip="关于">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:Card Width="250" Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="120" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="SecondaryMid">
+                            <materialDesign:PackIcon
+                                Width="100"
+                                Height="100"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Kind="AccountCircle" />
+                        </materialDesign:ColorZone>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
+                            <TextBlock
+                                Margin="2"
+                                HorizontalAlignment="Left"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="WangFeijian 王飞箭" />
+                            <Separator Style="{StaticResource MaterialDesignDarkSeparator}" />
+                            <TextBlock
+                                Margin="2"
+                                HorizontalAlignment="Left"
+                                LineHeight="22"
+                                Text="此软件为工业相机和镜头选型工具，通过此工具，可以方便的核算相机镜头的相关参数！此软件核算出来的所有参数，都是根据理论值计算所得，只能作为参考使用。如果你想将核算出来的参数用在自己的项目中，请自己慎重核对后再使用。最后，如果你觉得此软件对你有帮助，也可以给我一点打赏哦！！"
+                                TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Margin="2"
+                                    VerticalAlignment="Center"
+                                    Kind="Location" />
+                                <TextBlock VerticalAlignment="Center" Text="shenzhen" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Margin="2"
+                                    VerticalAlignment="Center"
+                                    Kind="Email" />
+                                <Label>
+                                    <Hyperlink Click="SendEmail" Cursor="Hand">
+                                        wangfeijianhao@163.com
+                                    </Hyperlink>
+                                </Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Margin="2"
+                                    VerticalAlignment="Center"
+                                    Kind="Github" />
+                                <Label>
+                                    <Hyperlink Click="OpenMyGithub" Cursor="Hand">
+                                        https://github.com/wangfeijian
+                                    </Hyperlink>
+                                </Label>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Width="275" Margin="0,10">
+                    <Image Source="img/pay_for_me_alipay.jpg" Stretch="Uniform" />
+                </materialDesign:Card>
+                <materialDesign:Card Width="275" Margin="10,10">
+                    <Image Source="img/pay_for_me_wechat.jpg" Stretch="Uniform" />
+                </materialDesign:Card>
+            </StackPanel>
+        </TabItem>
     </TabControl>
 </Window>

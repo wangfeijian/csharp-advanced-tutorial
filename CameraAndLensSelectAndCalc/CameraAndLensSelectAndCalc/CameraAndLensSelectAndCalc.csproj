@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <None Remove="img\main.png" />
+    <None Remove="img\pay_for_me_alipay.jpg" />
+    <None Remove="img\pay_for_me_wechat.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,8 @@
     <Resource Include="img\main.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\pay_for_me_alipay.jpg" />
+    <Resource Include="img\pay_for_me_wechat.jpg" />
   </ItemGroup>
 
   <ItemGroup>

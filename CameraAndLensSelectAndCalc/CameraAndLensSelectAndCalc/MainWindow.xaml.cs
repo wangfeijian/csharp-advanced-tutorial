@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -177,6 +179,29 @@ namespace CameraAndLensSelectAndCalc
                     || (obj as CameraData).Pixels.ToString().ToLower().Contains(text);
             }
             return false;
+        }
+
+        private void SendEmail(object sender, RoutedEventArgs e)
+        {
+            Link.OpenInBrowser("mailto://wangfeijianhao@163.com");
+        }
+
+        private void OpenMyGithub(object sender, RoutedEventArgs e)
+        {
+            Link.OpenInBrowser("https://github.com/wangfeijian");
+        }
+    }
+
+    public static class Link
+    {
+        public static void OpenInBrowser(string url)
+        {
+            //https://github.com/dotnet/corefx/issues/10361
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                url = url.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+            }
         }
     }
 }
