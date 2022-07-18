@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Gemini.Modules.CodeCompiler" Version="0.7.0" />
+    <PackageReference Include="Gemini.Modules.CodeEditor" Version="0.7.0" />
+    <PackageReference Include="Gemini.Modules.ErrorList" Version="0.7.0" />
+    <PackageReference Include="Gemini.Modules.GraphEditor" Version="0.7.0" />
+    <PackageReference Include="Gemini.Modules.Inspector" Version="0.7.0" />
+    <PackageReference Include="Gemini.Modules.Output" Version="0.7.0" />
+    <PackageReference Include="Gemini.Modules.PropertyGrid" Version="0.7.0" />
+    <PackageReference Include="GeminiWpf" Version="0.7.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
+  </ItemGroup>
+
+</Project>
