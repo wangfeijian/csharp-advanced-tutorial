@@ -22,7 +22,7 @@ namespace SingletonTemplateTest
         /// <summary>
         /// 线程取消对象
         /// </summary>
-        protected CancellationTokenSource cts = new CancellationTokenSource();
+        protected CancellationTokenSource cts;
 
         /// <summary>
         /// 实例对像
@@ -32,7 +32,7 @@ namespace SingletonTemplateTest
         /// <summary>
         /// 实例引用
         /// </summary>
-        private static T? _instance;
+        private volatile static T? _instance;
 
         /// <summary>
         /// 获取实例
@@ -60,7 +60,7 @@ namespace SingletonTemplateTest
             {
                 try
                 {
-                    await Task.Delay(100);
+                    await Task.Delay(100, cts.Token);
                 }
                 catch (Exception ex)
                 {
@@ -74,6 +74,8 @@ namespace SingletonTemplateTest
         /// </summary>
         public void StartMonitor()
         {
+            cts = new CancellationTokenSource();
+
             if (_task == null)
                 _task = new Task(ThreadMonitor, cts.Token);
             _task.Start();
@@ -88,6 +90,7 @@ namespace SingletonTemplateTest
                 return;
             cts.Cancel();
             _task = null;
+            cts.Dispose();
         }
     }
 }
