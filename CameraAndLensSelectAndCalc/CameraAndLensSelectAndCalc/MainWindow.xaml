@@ -311,7 +311,6 @@
                     BorderBrush="#fa6400"
                     IsEditable="True"
                     ItemsSource="{Binding SelectCameraList}"
-                    SelectedIndex="0"
                     SelectedValue="{Binding SelectCamera}"
                     SelectionChanged="CameraModelChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />

@@ -246,7 +246,7 @@ namespace CameraAndLensSelectAndCalc
             SelectCameraList = new List<string>();
             SelectLensList = new ObservableCollection<string>();
             AllCameraData = SqlHelper.AsyncQuery<CameraData>("SELECT * FROM camera").Result.ToList();
-            AllLensData = SqlHelper.AsyncQuery<LensData>("SELECT * FROM lens").Result.ToList();
+            AllLensData = SqlHelper.AsyncQuery<LensData>("SELECT * FROM lens").Result.ToList();            
             AllCameraData.ForEach((data) => SelectCameraList.Add(data.Model));
 
             RoughCalcCommand = new DelegateCommand { ActionExecute = RoughCalc };

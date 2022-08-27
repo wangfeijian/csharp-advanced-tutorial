@@ -25,21 +25,35 @@
 //}
 #endregion
 
-try
-{
-    Console.WriteLine("First try catch");
-    throw new Exception("first");
-}
-catch (Exception ex)
-{
-    Console.WriteLine(ex.Message);
-}
+GetIntCount(12340563798);
 
-try
+public void GetIntCount(long number)
 {
-    Console.WriteLine("Second try catch");
-}
-catch (Exception)
-{
+    Dictionary<long, long> result = new Dictionary<long, long>();
 
+    while (number / 10 != 0)
+    {
+        if (result.Keys.Contains(number % 10))
+        {
+            result[number % 10]++;
+            number = number / 10;
+            continue;
+        }
+        result.Add(number % 10, 1);
+        number = number / 10;
+    }
+
+    if (result.Keys.Contains(number))
+    {
+        result[number]++;
+    }
+    else
+    {
+        result.Add(number, 1);
+    }
+
+    foreach (var item in result)
+    {
+        Console.WriteLine($"key:{item.Key}, value:{item.Value}");
+    }
 }

@@ -68,6 +68,15 @@ namespace CameraAndLensSelectAndCalc
                 return;
             }
 
+            double temp;
+            bool b = double.TryParse(textBox.Text, out temp);
+
+            if(!b)
+            {
+                MessageBox.Show("请输入合法的数字！！","错误",MessageBoxButton.OK,MessageBoxImage.Error);
+                return;
+            }
+
             switch (textBox.Tag)
             {
                 case "1":
@@ -85,6 +94,15 @@ namespace CameraAndLensSelectAndCalc
         private void FinalCalcLostFocus(object sender, RoutedEventArgs e)
         {
             var textBox = sender as TextBox;
+
+            double temp;
+            bool b = double.TryParse(textBox.Text, out temp);
+
+            if (!b)
+            {
+                MessageBox.Show("请输入合法的数字！！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                return ;
+            }
 
             switch (textBox.Tag)
             {
@@ -130,12 +148,31 @@ namespace CameraAndLensSelectAndCalc
                 return;
             }
 
+            int temp;
+            bool b = int.TryParse(textBox.Text, out temp);
+
+            if (!b)
+            {
+                MessageBox.Show("请输入合法的数字！！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             UpdateSelectLens(textBox.Text);
         }
 
         private void LensFocalLengthLostFocus(object sender, RoutedEventArgs e)
         {
             var textBox = sender as TextBox;
+
+            int temp;
+            bool b = int.TryParse(textBox.Text, out temp);
+
+            if (!b)
+            {
+                MessageBox.Show("请输入合法的数字！！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                return ;
+            }
+
             UpdateSelectLens(textBox.Text);
         }
 
