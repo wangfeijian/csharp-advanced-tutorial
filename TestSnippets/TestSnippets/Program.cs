@@ -132,6 +132,9 @@ using TestSnippets;
 
 //new ProductAndCostTester();
 
+string strItem = string.Format(@"{{{0}}}", 1);
+Console.WriteLine(strItem);
+
 #region 精确计时器
 //AccurTimer accurTimer = new AccurTimer();
 //accurTimer.SetCount(2000);

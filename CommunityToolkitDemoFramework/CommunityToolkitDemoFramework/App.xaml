@@ -1,0 +1,12 @@
+﻿<Application
+    x:Class="CommunityToolkitDemoFramework.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CommunityToolkitDemoFramework">
+    <Application.Resources>
+        <ResourceDictionary>
+            <vm:ViewModelLocator xmlns:vm="clr-namespace:CommunityToolkitDemoFramework.ViewModels" x:Key="Locator" />
+            <Style TargetType="{x:Type Label}" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
