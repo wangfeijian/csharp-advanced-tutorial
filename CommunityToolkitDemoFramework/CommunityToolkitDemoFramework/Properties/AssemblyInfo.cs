@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
@@ -51,3 +52,9 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+[assembly: XmlnsPrefix("https://github.com/wangfeijian/CommunityToolkitDemoFramework/ViewModels", "CommunityToolkitDemoFramework")]
+[assembly: XmlnsDefinition("https://github.com/wangfeijian/CommunityToolkitDemoFramework", "CommunityToolkitDemoFramework")]
+[assembly: XmlnsDefinition("https://github.com/wangfeijian/CommunityToolkitDemoFramework/View", "CommunityToolkitDemoFramework.View")]
+[assembly: XmlnsDefinition("https://github.com/wangfeijian/CommunityToolkitDemoFramework/ViewModels", "CommunityToolkitDemoFramework.ViewModels")]
+[assembly: XmlnsDefinition("https://github.com/wangfeijian/CommunityToolkitDemoFramework/Services", "CommunityToolkitDemoFramework.Services")]

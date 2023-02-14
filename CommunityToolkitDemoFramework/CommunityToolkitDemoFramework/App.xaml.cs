@@ -9,6 +9,7 @@ using CommunityToolkitDemoFramework.View;
 using CommunityToolkitDemoFramework.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WPFDevelopers.Helpers;
 
 namespace CommunityToolkitDemoFramework
 {
@@ -17,6 +18,8 @@ namespace CommunityToolkitDemoFramework
     /// </summary>
     public partial class App : Application
     {
+         public static ThemeType Theme { get; set; }
+
         public static IServiceProvider ServiceProvider { get; private set; }
 
         // 第二步：在App的构造函数中写入以下代码实现依赖注入

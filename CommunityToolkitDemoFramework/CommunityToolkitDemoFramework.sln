@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33006.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityToolkitDemoFramework", "CommunityToolkitDemoFramework\CommunityToolkitDemoFramework.csproj", "{D75F962E-5B45-4A6B-812A-D889BD70D807}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityToolkitDemoDotnet", "CommunityToolkitDemoDotnet\CommunityToolkitDemoDotnet.csproj", "{D1E117DB-171D-4D16-984E-C684E86992EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D75F962E-5B45-4A6B-812A-D889BD70D807}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D75F962E-5B45-4A6B-812A-D889BD70D807}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D75F962E-5B45-4A6B-812A-D889BD70D807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1E117DB-171D-4D16-984E-C684E86992EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1E117DB-171D-4D16-984E-C684E86992EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1E117DB-171D-4D16-984E-C684E86992EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1E117DB-171D-4D16-984E-C684E86992EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

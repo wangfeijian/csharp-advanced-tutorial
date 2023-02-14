@@ -1,35 +1,16 @@
 ﻿<Window
-    x:Class="CommunityToolkitDemoFramework.View.MainWindow"
+    x:Class="CommunityToolkitDemoDotnet.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="https://github.com/wangfeijian/CommunityToolkitDemoFramework/View"
+    xmlns:local="clr-namespace:CommunityToolkitDemoDotnet"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:wpfdev="https://github.com/WPFDevelopersOrg/WPFDevelopers"
     Title="MainWindow"
     Width="800"
     Height="450"
-    Background="{DynamicResource BackgroundSolidColorBrush}"
     DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"
     mc:Ignorable="d">
-     <Window.Resources>
-        <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource PrimaryTextSolidColorBrush}" />
-            <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-    </Window.Resources>
     <StackPanel>
-        <wpfdev:ThemeControl Margin="0,10" ItemsSource="{Binding ThemesCollection, RelativeSource={RelativeSource AncestorType=local:MainWindow}, Mode=OneWayToSource}" />
-        <WrapPanel Margin="10">
-            <TextBlock Text="Light" />
-            <ToggleButton
-                x:Name="tbLightDark"
-                Margin="10,0"
-                Checked="LightDark_Checked"
-                Unchecked="LightDark_Checked" />
-            <TextBlock Text="Dark" />
-        </WrapPanel>
         <TextBox
             Margin="5"
             FontSize="32"
@@ -44,16 +25,17 @@
             Content="Enable Open Window"
             FontSize="32"
             IsChecked="{Binding EnableClick}" />
-        <Button
-            Margin="5"
-            Command="{Binding ShowOtherWindowCommand}"
-            Style="{DynamicResource PrimaryButton}">
+        <Button Margin="5" Command="{Binding ShowOtherWindowCommand}">
             <TextBlock FontSize="32" Text="ShowOtherWindow" />
         </Button>
         <TextBlock
             Margin="5"
             FontSize="32"
             Text="{Binding ReceiveData}" />
+        <TextBlock
+            Margin="5"
+            FontSize="32"
+            Text="{Binding ReceiveTokenData}" />
         <ListBox
             Margin="5"
             BorderThickness="0"
