@@ -1,0 +1,29 @@
+using System;
+
+namespace {NameSpase};
+public partial class {ClassName}
+{
+    enum Point
+    {
+        {Points}
+    }
+    string[] _in, _out, _cylinder;
+    public {ClassName}()
+    {
+        _in = new string[]
+        {
+            {Ins}
+        };
+        _out = new string[]
+        {
+            {Outs}
+        };
+        _cylinder = new string[]
+        {
+            {Cylinders}
+        };
+
+        ClassCtor();
+    }
+    partial void ClassCtor();
+}

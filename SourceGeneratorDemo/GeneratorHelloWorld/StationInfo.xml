@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Stations>
+    <Station TypeName="UpLoadStation">
+      <IoIn>
+        <IoIn Name="压料顶升气缸升" />
+        <IoIn Name="压料顶升气缸降" />
+        <IoIn Name="压料旋转气缸压" />
+        <IoIn Name="压料旋转气缸松" />
+        <IoIn Name="料仓到位感应" />
+      </IoIn>
+      <IoOut>
+        <IoOut Name="压料顶升气缸升" />
+        <IoOut Name="压料顶升气缸降" />
+        <IoOut Name="压料旋转气缸压" />
+        <IoOut Name="压料旋转气缸松" />
+        <IoOut Name="料仓到位感应" />
+      </IoOut>
+      <Point>
+        <Point Name="安全点"/>
+        <Point Name="拍照点"/>
+        <Point Name="组装点"/>
+      </Point>
+      <Cylinder>
+        <Cylinder Name="压料顶升气缸"/>
+        <Cylinder Name="压料旋转气缸"/>
+      </Cylinder>
+    </Station>
+    <Station TypeName="AssemblyStation">
+     <IoIn>
+        <IoIn Name="压料顶升气缸升" />
+        <IoIn Name="压料顶升气缸降" />
+        <IoIn Name="压料旋转气缸压" />
+        <IoIn Name="压料旋转气缸松" />
+        <IoIn Name="料仓到位感应" />
+      </IoIn>
+      <IoOut>
+        <IoOut Name="压料顶升气缸升" />
+        <IoOut Name="压料顶升气缸降" />
+        <IoOut Name="压料旋转气缸压" />
+        <IoOut Name="压料旋转气缸松" />
+        <IoOut Name="料仓到位感应" />
+      </IoOut>
+      <Point>
+        <Point Name="安全点"/>
+        <Point Name="拍照点"/>
+        <Point Name="组装点"/>
+      </Point>
+      <Cylinder>
+        <Cylinder Name="压料顶升气缸"/>
+        <Cylinder Name="压料旋转气缸"/>
+      </Cylinder>
+    </Station>
+    <Station TypeName="CameraStation">
+     <IoIn>
+        <IoIn Name="压料顶升气缸升" />
+        <IoIn Name="压料顶升气缸降" />
+        <IoIn Name="压料旋转气缸压" />
+        <IoIn Name="压料旋转气缸松" />
+        <IoIn Name="料仓到位感应" />
+      </IoIn>
+      <IoOut>
+        <IoOut Name="压料顶升气缸升" />
+        <IoOut Name="压料顶升气缸降" />
+        <IoOut Name="压料旋转气缸压" />
+        <IoOut Name="压料旋转气缸松" />
+        <IoOut Name="料仓到位感应" />
+      </IoOut>
+      <Point>
+        <Point Name="安全点"/>
+        <Point Name="拍照点"/>
+        <Point Name="组装点"/>
+      </Point>
+      <Cylinder>
+        <Cylinder Name="压料顶升气缸"/>
+        <Cylinder Name="压料旋转气缸"/>
+      </Cylinder>
+    </Station>
+</Stations>
