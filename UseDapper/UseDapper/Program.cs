@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace UseDapper
 {
@@ -17,7 +15,7 @@ namespace UseDapper
 
         static void Main(string[] args)
         {
-            var datas = AsyncQuery("SELECT * FROM Test");
+            var datas = GetListAsnyc<Person>("SELECT * FROM Test");
 
             foreach (var s in datas.Result)
             {
@@ -48,7 +46,7 @@ namespace UseDapper
             var count = AsyncDelete("Wang");
             Console.WriteLine($"删除了{count.Result}行");
 
-            datas = AsyncQuery("SELECT * FROM Test");
+            //datas = AsyncQuery("SELECT * FROM Test");
 
             foreach (var s in datas.Result)
             {
@@ -56,6 +54,23 @@ namespace UseDapper
             }
 
             Console.ReadLine();
+        }
+
+        private static T Execute<T>(Func<SQLiteConnection, T> func)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=Test.db"))
+            {
+                return func(connection);
+            }
+        }
+
+        public static Task<IEnumerable<T>> GetListAsnyc<T>(string sql)
+        {
+            return Execute(async (conn) =>
+            {
+                var datas = await conn.QueryAsync<T>(sql);
+                return datas;
+            });
         }
 
         /// <summary>
@@ -67,7 +82,7 @@ namespace UseDapper
         {
             using (IDbConnection connection = new SQLiteConnection("Data Source=Test.db"))
             {
-                connection.Open();
+                //connection.Open();
                 var datas = await connection.QueryAsync<Person>(sql);
                 return datas.ToList();
             }
