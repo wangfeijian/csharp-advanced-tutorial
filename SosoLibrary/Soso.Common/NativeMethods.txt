@@ -1,0 +1,7 @@
+QueryPerformanceCounter
+QueryPerformanceFrequency
+GetPrivateProfileString
+GetPrivateProfileSection
+GetPrivateProfileSectionNames
+WritePrivateProfileString
+WritePrivateProfileSection

@@ -1,0 +1,1576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>SosoMS.Common</name>
+  </assembly>
+  <members>
+    <member name="T:SosoMS.Common.FileHelp.CsvHelp">
+      <summary>
+            CSV文件帮助类
+            </summary>
+      <remarks>
+            能对CSV文件进行保存数据的操作及将CSV转换成DataTable的操作
+            </remarks>
+      <seealso cref="T:System.IO.File" />
+      <seealso cref="T:System.Data.DataTable" />
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.CsvHelp.SaveToCsvFile(System.String,System.String,System.String,System.String@,System.String)">
+      <summary>
+            保存数据到CSV文件中
+            </summary>
+      <param name="path">文件保存的路径</param>
+      <param name="fileName">文件保存名称，不用带后缀</param>
+      <param name="content">保存的数据：用英文逗号分隔</param>
+      <param name="title">每列数据的标题，如果第一次保存必须输入</param>
+      <param name="errorInfo">错误信息</param>
+      <returns>是否成功，成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+      <seealso cref="M:System.IO.File.AppendAllLines(System.String,System.Collections.Generic.IEnumerable{System.String},System.Text.Encoding)" />
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.CsvHelp.LoadCSVToDataTableAsync(System.String)">
+      <summary>
+            加载CSV文件，并将数据存储到一个<see cref="T:System.Data.DataTable" />中
+            </summary>
+      <remarks>
+            通过加载一个合法的CSV文件，读取文件中的数据，将表头保存到<see cref="T:System.Data.DataTable" />的<see cref="P:System.Data.DataTable.Columns" />中<br />
+            将所有的数据行保存到<see cref="T:System.Data.DataTable" />中的<see cref="P:System.Data.DataTable.Rows" />中，便于绑定数据到相关的UI表格中
+            </remarks>
+      <param name="fileName">文件名</param>
+      <returns>返回一个<see cref="T:System.Data.DataTable" />，如果CSV文件中数据异常反回<see langword="null" /></returns>
+      <exception cref="T:System.ArgumentNullException" />
+      <exception cref="T:System.IO.FileNotFoundException" />
+      <exception cref="T:System.IO.FileLoadException" />
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.CsvHelp.SaveDataTableToCSV(System.Data.DataTable,System.String,System.String,System.String@,System.Boolean)">
+      <summary>
+            将<see cref="T:System.Data.DataTable" />中的数据保存到CSV文件中
+            </summary>
+      <remarks>
+            将<see cref="T:System.Data.DataTable" />中的数据保存到CSV文件中，<see cref="T:System.Data.DataTable" />中的<see cref="P:System.Data.DataTable.Columns" />作为文件的表头<br /><see cref="T:System.Data.DataTable" />中的<see cref="P:System.Data.DataTable.Rows" />作为文件的内容
+            </remarks>
+      <param name="dt">数据源</param>
+      <param name="path">保存路径</param>
+      <param name="fileName">保存文件名</param>
+      <param name="isOverlay">是否覆盖存在文件</param>
+      <param name="errorInfo">错误信息</param>
+      <returns>是否成功，成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="T:SosoMS.Common.FileHelp.FileBaseHelp">
+      <summary>
+            文件基础帮助类
+            </summary>
+      <remarks>
+            文件操作中的一些常用方法进行了封装，避免重复写代码
+            </remarks>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.FileBaseHelp.CreateDirForFullName(System.String)">
+      <summary>
+            根据文件的绝对路径，创建目录
+            </summary>
+      <param name="fullName">文件绝对路径</param>
+      <exception cref="T:System.ArgumentNullException" />
+    </member>
+    <member name="T:SosoMS.Common.FileHelp.IniHelp">
+      <summary>
+            Ini文件帮助类
+            </summary>
+      <remarks>
+            该类下面有静态方法和实例方法<br />
+            在使用读写操作时，一定要使用相对的方法进行读写，否则有可能出现乱码。
+            </remarks>
+    </member>
+    <member name="P:SosoMS.Common.FileHelp.IniHelp.IniFileName">
+      <summary>
+            文件路径
+            </summary>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.#ctor(System.String)">
+      <summary>
+            使用文件名进行构造
+            </summary>
+      <param name="iniFileName">文件全名</param>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.ReadString(System.String,System.String,System.String)">
+      <summary>
+            获取指定的节点下的键值
+            </summary>
+      <remarks>
+            通过提供的节点名称，获取该节点下某个键所对应的值，如果节点或者键不存在就返回默认值
+            </remarks>
+      <example>
+            示例数据
+            <code lang="ini"><![CDATA[
+            [Array]
+            First=第一个
+            Second = 第二个
+            Third=第三个
+            [Base]
+            First = 第一个
+            Second=第二个
+            Third = 第三个
+            ]]></code>
+            使用方法
+            <code><![CDATA[
+            var iniHelp = new IniHelp(fileName);
+            // 返回空字符串
+            var result = iniHelp.ReadString(null, null);
+            
+            // 返回"hello"
+            result = iniHelp.ReadString("", "First", "hello");
+            
+            // 返回"第一个"
+            result = iniHelp.ReadString("Array", "First");
+            ]]></code></example>
+      <param name="section">节点</param>
+      <param name="key">键值</param>
+      <param name="defaultValue">默认值</param>
+      <returns>获取的键值</returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.WriteString(System.String,System.String,System.String)">
+      <summary>
+            往指定节点下写入键值
+            </summary>
+      <remarks>
+            在指定的节点下面指定的键中写入相应的值，如果不存在该节点或者该键就添加<br />
+            如果输入的节点或者键为空，则返回<see langword="false" /></remarks>
+      <example>
+            示例数据
+            <code lang="ini"><![CDATA[
+            [Array]
+            First=第一个
+            Second = 第二个
+            Third=第三个
+            [Base]
+            First = 第一个
+            Second=第二个
+            Third = 第三个
+            ]]></code>
+            使用方法
+            <code><![CDATA[
+            var iniHelp = new IniHelp(fileName);
+            // 下面这句代码将ini文件中Array节点下的First值改为111
+            iniHelp.WriteString("Array", "First", "111");
+            
+            // 下面这句代码将添加一个全新的节点和相关的键值对
+            iniHelp.WriteString("New", "Key", "Value");
+            ]]></code></example>
+      <param name="section">节点</param>
+      <param name="key">键</param>
+      <param name="value">值</param>
+      <returns>返回写入是否成功，成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.AppendString(System.String,System.String,System.String)">
+      <summary>
+            往指定节点追加字符串
+            </summary>
+      <remarks>
+            在指定的节点下面指定的键中追加字符串到值中，如果不存在该节点或者该键就按追加值添加<br />
+            如果输入的节点或者键为空，则返回<see langword="false" /></remarks>
+      <example>
+            示例数据
+            <code lang="ini"><![CDATA[
+            [Array]
+            First=第一个
+            Second = 第二个
+            Third=第三个
+            [Base]
+            First = 第一个
+            Second=第二个
+            Third = 第三个
+            ]]></code>
+            使用方法
+            <code><![CDATA[
+            var iniHelp = new IniHelp(fileName);
+            // 下面的代码使得ini文件中First键变成：First=第一个123
+            iniHelp.AppendString("Array", "First", "123");
+            ]]></code></example>
+      <param name="section">节点</param>
+      <param name="key">键</param>
+      <param name="value">追加值</param>
+      <returns>返回写入是否成功，成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.WriteObject``1(System.String,System.String,``0)">
+      <summary>
+            向指定节点中写入对象实例的json字符串
+            </summary>
+      <remarks>
+            将传入的实例对象，通过<see cref="N:Newtonsoft" />工具，将其序列化为Json字符串，再将Json字符串写入到相应的键中<br />
+            注意：传入的对象避免为<see langword="string" />的对象
+            </remarks>
+      <example>
+            将一个自定义的Person对象写到Ini文件中
+            <code><![CDATA[
+            public record Person(string Name, int age);
+            var person = new Person[] { new Person("wangfeijian", 100), new Person("wang", 300) });
+            var iniHelp = new IniHelp(fileName);
+            iniHelp.WriteObject("Object", "PersonArray", person);
+            
+            // 结果如下：
+            // [Object]
+            // PersonArray=[{"Name":"wangfeijian","age":100},{"Name":"wang","age":300}]
+            ]]></code></example>
+      <typeparam name="T">对象类型</typeparam>
+      <param name="section">节点</param>
+      <param name="key">键</param>
+      <param name="instance">对象实例</param>
+      <returns>返回写入是否成功，成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.ReadObject``1(System.String,System.String)">
+      <summary>
+            从文件中读取一个对象，并实例化
+            </summary>
+      <remarks>
+            如果是通过<seealso cref="M:SosoMS.Common.FileHelp.IniHelp.WriteObject``1(System.String,System.String,``0)" />方法来进行保存的序列化JSON对象<br />
+            则可以通过该方法来进行反序列化，得到一个反序列化对象
+            </remarks>
+      <example>
+            数据源
+            <code lang="ini"><![CDATA[
+            [Object]
+            PersonArray=[{"Name":"wangfeijian","age":100},{"Name":"wang","age":300}]
+            ]]></code>
+            获取一个Person数组对象
+            <code><![CDATA[
+            var iniHelp = new IniHelp(fileName);
+            Person[] persons = iniHelp.ReadObject<Person[]>("Object", "PersonArray");
+            ]]></code></example>
+      <typeparam name="T">对象类型</typeparam>
+      <param name="section">节点</param>
+      <param name="key">键</param>
+      <returns>对象实例</returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.GetAllSectionName">
+      <summary>
+            获取所有的节点名称
+            </summary>
+      <remarks>
+            获取Ini文件里面所有的节点名称，并通过字符串数组的形式返回
+            </remarks>
+      <returns>返回一个<see langword="string" />数组</returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.IsSectionExist(System.String)">
+      <summary>
+            判断节点是否存在
+            </summary>
+      <remarks>
+            判断Ini文件中是否存在输入的节点
+            </remarks>
+      <param name="section">节点名称</param>
+      <returns>返回该节点是否存在，存在返回<see langword="true" />, 不存在返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.GetKeysForSection(System.String)">
+      <summary>
+            获取当前节点下所有的键
+            </summary>
+      <remarks>
+            获取Ini文件里面该节点下所有的键名称，并通过字符串数组的形式返回
+            </remarks>
+      <param name="section">节点名称</param>
+      <returns>返回一个<see langword="string" />数组</returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.IsKeyExist(System.String,System.String)">
+      <summary>
+            判断当前节点下是否存在此键
+            </summary>
+      <param name="section">节点名称</param>
+      <param name="key">键名称</param>
+      <returns>存在返回<see langword="true" />, 不存在返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.DeleteKey(System.String,System.String)">
+      <summary>
+            删除指定节点下的键
+            </summary>
+      <param name="section">节点名称</param>
+      <param name="key">键名称</param>
+      <returns>删除成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.DeleteAllKeys(System.String)">
+      <summary>
+            删除节点下所有的键
+            </summary>
+      <param name="section">节点名称</param>
+      <returns>删除成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.GetAllSectionName(System.String)">
+      <summary>
+            获取ini文件中所有节点的名称，通过文件名
+            </summary>
+      <param name="iniFileName">ini文件全路径</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>返回一个<see langword="string" />数组</returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.GetAllItems(System.String,System.String)">
+      <summary>
+            获取指定节点下所有的键值对组合
+            </summary>
+      <remarks>
+            通过ini文件及提供的节点名称，获取该节点下面所有的键值对组合，并以key=value的形式进行保存
+            </remarks>
+      <example>
+            示例数据
+            <code lang="ini"><![CDATA[
+            [Array]
+            First=第一个
+            Second = 第二个
+            Third=第三个
+            [Base]
+            First = 第一个
+            Second=第二个
+            Third = 第三个
+            ]]></code>
+            使用方法
+            <code><![CDATA[
+            var results = IniHelp.GetAllItems(fileName, "Array");
+            // 返回如下：
+            // ["First=第一个","Second=第二个","Third=第三个"]
+            ]]></code></example>
+      <param name="iniFileName">ini文件路径</param>
+      <param name="section">节点名称</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>返回一个<see langword="string" />数组</returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.SetItems(System.String,System.String,System.String[])">
+      <summary>
+            往指定的节点中写入键值对
+            </summary>
+      <remarks>
+            直接往一个ini文件中的指定节点下，写入一个或多个键值对数据，如果节点不存在就创建该节点。
+            </remarks>
+      <example>
+            示例数据
+            <code lang="ini"><![CDATA[
+            [Array]
+            First=第一个
+            Second = 第二个
+            Third=第三个
+            [Base]
+            First = 第一个
+            Second=第二个
+            Third = 第三个
+            ]]></code>
+            使用方法
+            <code><![CDATA[
+            var result = IniHelp.SetItems(fileName, "Array", "Forth=第四个");
+            // 上面语句执行成功后，ini文件中的数据如下：
+            // [Array]
+            // First=第一个
+            // Second = 第二个
+            // Third=第三个
+            // Forth=第四个
+            // [Base]
+            // First = 第一个
+            // Second=第二个
+            // Third = 第三个
+            ]]></code>
+            写入多个数据
+            <code><![CDATA[
+            var result = IniHelp.SetItems(fileName, "AddData", "Data1=DataOne", "Data2=DataTwo");
+            // 上面语句执行成功后，ini文件中的数据如下：
+            // [Array]
+            // First=第一个
+            // Second = 第二个
+            // Third=第三个
+            // Forth=第四个
+            // [Base]
+            // First = 第一个
+            // Second=第二个
+            // Third = 第三个
+            // [AddData]
+            // Data1=DataOne
+            // Data2=DataTwo
+            ]]></code></example>
+      <param name="iniFileName">文件名</param>
+      <param name="section">节点名称</param>
+      <param name="items">键值对</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>写入成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.GetSectionKeys(System.String,System.String)">
+      <summary>
+            获取当前节点下所有的键
+            </summary>
+      <remarks>
+            获取Ini文件里面该节点下所有的键名称，并通过字符串数组的形式返回
+            </remarks>
+      <param name="iniFileName">文件路径</param>
+      <param name="section">节点名</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>返回一个<see langword="string" />数组</returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.SetValue(System.String,System.String,System.String,System.String)">
+      <summary>
+            设置指定节点下指定键的值
+            </summary>
+      <remarks>
+            在指定的节点下面指定的键中写入相应的值，如果不存在该节点或者该键就添加<br />
+            如果输入的节点或者键为空，则抛出一个<see cref="T:System.ArgumentNullException" /></remarks>
+      <example>
+            示例数据
+            <code lang="ini"><![CDATA[
+            [Array]
+            First=第一个
+            Second = 第二个
+            Third=第三个
+            [Base]
+            First = 第一个
+            Second=第二个
+            Third = 第三个
+            ]]></code>
+            使用方法
+            <code><![CDATA[
+            // 下面这句代码将ini文件中Array节点下的First值改为111
+            var result = IniHelp.SetValue(fileName, "Array", "First", "111");
+            
+            // 下面这句代码将添加一个全新的节点和相关的键值对
+            result = IniHelp.SetValue(fileName, "New", "Key", "Value");
+            ]]></code></example>
+      <param name="iniFileName">文件名</param>
+      <param name="section">节点</param>
+      <param name="key">键</param>
+      <param name="value">值</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>返回写入是否成功，成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.GetValue(System.String,System.String,System.String,System.String)">
+      <summary>
+            获取指定节点下指定键的值
+            </summary>
+      <example>
+            示例数据
+            <code lang="ini"><![CDATA[
+            [Array]
+            First=第一个
+            Second = 第二个
+            Third=第三个
+            [Base]
+            First = 第一个
+            Second=第二个
+            Third = 第三个
+            ]]></code>
+            使用方法
+            <code><![CDATA[
+            // 抛出一个异常
+            var result = IniHelp.GetValue(null, null, null);
+            
+            // 返回"Hello"
+            result = IniHelp.GetValue("", "Array", "First", "Hello");
+            
+            // 返回"第一个"
+            result = IniHelp.GetValue(fileName, "Array", "First");
+            ]]></code></example>
+      <param name="iniFileName">文件名</param>
+      <param name="section">节点</param>
+      <param name="key">键</param>
+      <param name="defautValue">默认值</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>获取的键值</returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.RemoveKey(System.String,System.String,System.String)">
+      <summary>
+            移除指定节点下的键
+            </summary>
+      <param name="iniFileName">文件路径</param>
+      <param name="section">节点</param>
+      <param name="key">键</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>返回移除是否成功，成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.RemoveSection(System.String,System.String)">
+      <summary>
+            移除指定的节点
+            </summary>
+      <remarks>
+            移除当前节点下所有的键值对，并将节点也移除
+            </remarks>
+      <param name="iniFileName">文件名</param>
+      <param name="section">节点名</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>返回移除是否成功，成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.IniHelp.ClearSection(System.String,System.String)">
+      <summary>
+            清空指定节点下的内容
+            </summary>
+      <remarks>
+            清空当前节点下所有的键值对，保留节点
+            </remarks>
+      <param name="iniFileName">文件名</param>
+      <param name="section">节点名</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>返回清空是否成功，成功返回<see langword="true" />, 失败返回<see langword="false" /></returns>
+    </member>
+    <member name="T:SosoMS.Common.FileHelp.XmlHelp">
+      <summary>
+            XML文件帮助类   
+            </summary>
+      <remarks>
+            使用<see cref="T:System.Xml.Linq.XDocument" />对一个存在的XML文件进行读写，并加载到XML文件树中<br />
+            读取出来的所有节点都为<see cref="T:System.Xml.Linq.XElement" />对象<br />
+            使用<see cref="T:System.Xml.Linq.XDocument" />生成一个XML文件，并保存到相应的路径
+            </remarks>
+      <seealso cref="N:System.Xml.Linq" />
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.XmlHelp.#ctor(System.String)">
+      <summary>
+            以文件名构造，加载一个现有的xml文件<br />
+            如果文件不存在，就会抛出一个异常
+            </summary>
+      <param name="fileName">文件名</param>
+      <exception cref="T:System.IO.FileNotFoundException" />
+      <exception cref="T:System.IO.FileLoadException" />
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.XmlHelp.#ctor(System.String,System.String)">
+      <summary>
+            以文件名和根节点名称构造，如果文件存在，会直接加载此文件<br />
+            如果文件不存在，会建立以rootStr为根节点的xml文件
+            </summary>
+      <param name="fileName">文件名</param>
+      <param name="rootStr">根节点名称</param>
+      <exception cref="T:System.IO.FileLoadException" />
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.XmlHelp.Save">
+      <summary>
+            保存到文件
+            </summary>
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.XmlHelp.CreateXElement(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+      <summary>
+            创建一个<see cref="T:System.Xml.Linq.XElement" />对象
+            </summary>
+      <remarks>
+            使用指定的节点名，创建一个<see cref="T:System.Xml.Linq.XElement" />对象，如果指定了attributes字典对象<br />则添加相应的特性到节点中。<br />
+            如果节点名称传入空白或者为空，则抛出一个<see cref="T:System.ArgumentNullException" /></remarks>
+      <example>
+            创建一个没有特性的节点
+            <code><![CDATA[
+            var xmlHelp = new XmlHelp(fileName);
+            var xElementRoot = xmlHelp.GetXElements("root", false).First();
+            var xElementChild = xmlHelp.CreateXElement("Data", null);
+            xElementRoot.Add(xElementChild);
+            xmlHelp.Save();
+            ]]></code>
+            创建一个有特性的节点
+            <code><![CDATA[
+            var xmlHelp = new XmlHelp(fileName);
+            var xElementRoot = xmlHelp.GetXElements("root", false).First();
+            var xElementChild = xmlHelp.CreateXElement("Data", new Dictionary<string, string> { { "First", "one" }, { "Second", "two" } });
+            xElementRoot.Add(xElementChild);
+            xmlHelp.Save();
+            ]]></code></example>
+      <param name="name">XElement名称</param>
+      <param name="attributes">特性字典</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>
+        <see cref="T:System.Xml.Linq.XElement" />对象</returns>
+      <seealso cref="M:System.Xml.Linq.XElement.SetAttributeValue(System.Xml.Linq.XName,System.Object)" />
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.XmlHelp.GetXElements(System.String,System.Boolean,System.String,System.String)">
+      <summary>
+            获取<see cref="T:System.Xml.Linq.XElement" />集合
+            </summary>
+      <remarks>
+            使用指定的节点名获取相应的节点，如果不通过特性筛选，则返回所有指定节点名称的<see cref="T:System.Xml.Linq.XElement" />对象<br />
+            例如：如果一个节点中嵌套了一个同名的节点，则会返回两个<see cref="T:System.Xml.Linq.XElement" />对象<br />
+            如果使用特性筛选，则必须指定相应的特性名称和特性值，不指定就会抛出<see cref="T:System.ArgumentNullException" /><br />
+            如果存在相同的特性名称的值，则返回多个<see cref="T:System.Xml.Linq.XElement" />对象。<br />注意：即使筛选出来为一个对象，也是一个集合。
+            如果想删除获取到的节点，直接调用该<see cref="T:System.Xml.Linq.XElement" />对象中的<see cref="M:System.Xml.Linq.XNode.Remove" />方法即可
+            </remarks>
+      <example>
+            数据源
+            <code lang="XML"><![CDATA[
+            <?xml version="1.0" encoding="utf-8"?>
+            <root>
+              <TcpLink>
+                <TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" />
+                <TcpLink 名称 = "视觉程序" IP="192.168.10.100" Port="10000" 超时时间="3000" />
+                <TcpLink 名称 = "MES系统" IP="127.0.0.1" Port="80" 超时时间="3000" />
+              </TcpLink>
+              <Data>
+                <Data 名称 = "组装精度" 版本="1.0" 权限="2" />
+                <Data 名称 = "组装位置" 版本="1.0" 权限="2" />
+                <Data 名称 = "上传数据" 版本="1.0" 权限="2" />
+              </Data>
+            </root>
+            ]]></code>
+            使用上面的数据源进行没有特性节点的获取
+            <code><![CDATA[
+            var xmlHelp = new XmlHelp(fileName);
+            var xelements = xmlHelp.GetXElements("TcpLink", false);
+            // xelements中有一个嵌套了TcpLink节点的对象集合 结果如下：
+            //   <TcpLink>
+            //     <TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" />
+            //     <TcpLink 名称 = "视觉程序" IP="192.168.10.100" Port="10000" 超时时间="3000" />
+            //     <TcpLink 名称 = "MES系统" IP="127.0.0.1" Port="80" 超时时间="3000" />
+            //   </TcpLink>
+            ]]></code>
+            使用上面的数据源进行有特性节点的获取
+            <code><![CDATA[
+            var element = xmlHelp.GetXElements("TcpLink", true, "名称", "EPSON机器人");
+            // element中有一个TcpLink节点对象集合，结果如下：
+            // <TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" />
+            ]]></code></example>
+      <param name="elementName">节点名称</param>
+      <param name="hasAttribute">是否存在特性</param>
+      <param name="attributeName">特性名称</param>
+      <param name="attributeValue">特性值</param>
+      <exception cref="T:System.ArgumentNullException" />
+      <returns>
+        <see cref="T:System.Collections.Generic.IEnumerable`1" />集合对象</returns>
+      <seealso cref="M:System.Xml.Linq.XContainer.Descendants" />
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.XmlHelp.GetKeyValuesFromXElementAttributes(System.Xml.Linq.XElement)">
+      <summary>
+            获取<see cref="T:System.Xml.Linq.XElement" />节点中所有特性的键和值
+            </summary>
+      <remarks>
+            通过一个<see cref="T:System.Xml.Linq.XElement" />对象，获取对象中所有特性的键值对，如果没有特性就返回空
+            </remarks>
+      <example>
+            数据源
+            <code lang="XML"><![CDATA[
+            <?xml version="1.0" encoding="utf-8"?>
+            <root>
+              <TcpLink>
+                <TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" />
+                <TcpLink 名称 = "视觉程序" IP="192.168.10.100" Port="10000" 超时时间="3000" />
+                <TcpLink 名称 = "MES系统" IP="127.0.0.1" Port="80" 超时时间="3000" />
+              </TcpLink>
+              <Data>
+                <Data 名称 = "组装精度" 版本="1.0" 权限="2" />
+                <Data 名称 = "组装位置" 版本="1.0" 权限="2" />
+                <Data 名称 = "上传数据" 版本="1.0" 权限="2" />
+              </Data>
+            </root>
+            ]]></code>
+            使用上面的数据源进行获取
+            <code><![CDATA[
+            var element = xmlHelp.GetXElements("TcpLink", true, "名称", "EPSON机器人");
+            var keyValues = xmlHelp.GetKeyValuesFromXElementAttributes(element);
+            // 结果如下：
+            // {{名称, EPSON机器人},{IP, 192.168.0.100},{Port, 3000},{超时时间, 3000}}
+            ]]></code></example>
+      <param name="element">节点</param>
+      <returns>特性键值对</returns>
+      <seealso cref="M:System.Xml.Linq.XElement.Attributes" />
+    </member>
+    <member name="M:SosoMS.Common.FileHelp.XmlHelp.UpdateXElementAttribute(System.Xml.Linq.XElement,System.Collections.Generic.Dictionary{System.String,System.String})">
+      <summary>
+            使用特性字典更新<see cref="T:System.Xml.Linq.XElement" />对象中的特性值
+            </summary>
+      <remarks>
+            使用特性字典更新<see cref="T:System.Xml.Linq.XElement" />对象中特性的值，如果对象中存在此字典中的值就更新，否则就增加<br />
+            如果传入的特性字典为空，则将该<see cref="T:System.Xml.Linq.XElement" />对象中的特性清空
+            </remarks>
+      <example>
+            数据源
+            <code lang="XML"><![CDATA[
+            <?xml version="1.0" encoding="utf-8"?>
+            <root>
+              <TcpLink>
+                <TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" />
+                <TcpLink 名称 = "视觉程序" IP="192.168.10.100" Port="10000" 超时时间="3000" />
+                <TcpLink 名称 = "MES系统" IP="127.0.0.1" Port="80" 超时时间="3000" />
+              </TcpLink>
+              <Data>
+                <Data 名称 = "组装精度" 版本="1.0" 权限="2" />
+                <Data 名称 = "组装位置" 版本="1.0" 权限="2" />
+                <Data 名称 = "上传数据" 版本="1.0" 权限="2" />
+              </Data>
+            </root>
+            ]]></code>
+            更新已有特性
+            <code><![CDATA[
+            // 先获取这个XElement对象
+            var element = _help.GetXElements("Data", true, "名称", "组装精度").First();
+            _help.UpdateXElementAttribute(element, new Dictionary<string, string?> { { "版本", "2.0" }, { "权限", "3" } });
+            ]]></code>
+            结果
+            <code lang="XML"><![CDATA[
+            <?xml version="1.0" encoding="utf-8"?>
+            <root>
+              <TcpLink>
+                <TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" />
+                <TcpLink 名称 = "视觉程序" IP="192.168.10.100" Port="10000" 超时时间="3000" />
+                <TcpLink 名称 = "MES系统" IP="127.0.0.1" Port="80" 超时时间="3000" />
+              </TcpLink>
+              <Data>
+                <Data 名称 = "组装精度" 版本="2.0" 权限="3" />
+                <Data 名称 = "组装位置" 版本="1.0" 权限="2" />
+                <Data 名称 = "上传数据" 版本="1.0" 权限="2" />
+              </Data>
+            </root>
+            ]]></code>
+            新增特性
+            <code><![CDATA[
+            var element = _help.GetXElements("Data", true, "名称", "组装精度").First();
+            _help.UpdateXElementAttribute(element, new Dictionary<string, string?> { { "是否显示", "true" } });
+            ]]></code>
+            结果
+            <code lang="XML"><![CDATA[
+            <?xml version="1.0" encoding="utf-8"?>
+            <root>
+              <TcpLink>
+                <TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" />
+                <TcpLink 名称 = "视觉程序" IP="192.168.10.100" Port="10000" 超时时间="3000" />
+                <TcpLink 名称 = "MES系统" IP="127.0.0.1" Port="80" 超时时间="3000" />
+              </TcpLink>
+              <Data>
+                <Data 名称 = "组装精度" 版本="2.0" 权限="3" 是否显示="true"/>
+                <Data 名称 = "组装位置" 版本="1.0" 权限="2" />
+                <Data 名称 = "上传数据" 版本="1.0" 权限="2" />
+              </Data>
+            </root>
+            ]]></code>
+            清空特性
+            <code><![CDATA[
+            var element = _help.GetXElements("Data", true, "名称", "组装精度").First();
+            _help.UpdateXElementAttribute(element, null);
+            ]]></code>
+            结果
+            <code lang="XML"><![CDATA[
+            <?xml version="1.0" encoding="utf-8"?>
+            <root>
+              <TcpLink>
+                <TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" />
+                <TcpLink 名称 = "视觉程序" IP="192.168.10.100" Port="10000" 超时时间="3000" />
+                <TcpLink 名称 = "MES系统" IP="127.0.0.1" Port="80" 超时时间="3000" />
+              </TcpLink>
+              <Data>
+                <Data />
+                <Data 名称 = "组装位置" 版本="1.0" 权限="2" />
+                <Data 名称 = "上传数据" 版本="1.0" 权限="2" />
+              </Data>
+            </root>
+            ]]></code></example>
+      <param name="element">
+        <see cref="T:System.Xml.Linq.XElement" />对象</param>
+      <param name="attributes">特性字典</param>
+      <seealso cref="M:System.Xml.Linq.XElement.SetAttributeValue(System.Xml.Linq.XName,System.Object)" />
+      <seealso cref="M:System.Xml.Linq.XElement.RemoveAll" />
+    </member>
+    <member name="T:SosoMS.Common.SosoObject">
+      <summary>
+            框架自定义通用数据类型
+            </summary>
+      <remarks>
+            自定义的通用数据类型，可实现普通数据类型的获取及转换<br />
+            通过该类可实现直接获取<see langword="int" />、<see langword="bool" />、<see langword="double" />、<see langword="string" />这些常见的数据
+            </remarks>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.#ctor">
+      <summary>
+            无参构造函数，得到的值为空
+            </summary>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.#ctor(System.Int32)">
+      <summary>
+        <see langword="int" />类型构造函数
+            </summary>
+      <param name="value">
+        <see langword="int" />类型的值</param>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.#ctor(System.Double)">
+      <summary>
+        <see langword="double" />类型构造函数
+            </summary>
+      <param name="value">
+        <see langword="double" />类型的值</param>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.#ctor(System.Boolean)">
+      <summary>
+        <see langword="bool" />类型构造函数
+            </summary>
+      <param name="value">
+        <see langword="bool" />类型的值</param>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.#ctor(System.String)">
+      <summary>
+        <see langword="string" />类型构造函数
+            </summary>
+      <param name="value">
+        <see langword="string" />类型的值</param>
+    </member>
+    <member name="P:SosoMS.Common.SosoObject.I">
+      <summary>
+            转换为<see langword="int" />类型
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SosoObject.D">
+      <summary>
+            转换为<see langword="double" />类型
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SosoObject.B">
+      <summary>
+            转换为<see langword="bool" />类型
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SosoObject.S">
+      <summary>
+            转换为<see langword="string" />类型
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SosoObject.IsNumber">
+      <summary>
+            是否为数字
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SosoObject.IsNullOrEmpty">
+      <summary>
+            是否为空或者空白
+            </summary>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.ToString">
+      <inheritdoc />
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.Clone">
+      <inheritdoc />
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.CompareTo(System.Object)">
+      <inheritdoc />
+      <exception cref="T:System.NullReferenceException">This instance is null</exception>
+      <exception cref="T:System.ArgumentNullException">The other is null</exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.CompareTo(SosoMS.Common.SosoObject)">
+      <inheritdoc />
+      <exception cref="T:System.NullReferenceException">This instance is null</exception>
+      <exception cref="T:System.ArgumentNullException">The other is null</exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.Equals(SosoMS.Common.SosoObject)">
+      <inheritdoc />
+      <exception cref="T:System.NullReferenceException">This instance is null</exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.Equals(System.Object)">
+      <inheritdoc />
+      <exception cref="T:System.NullReferenceException">This instance is null</exception>
+      <exception cref="T:System.ArgumentNullException">This instance is null</exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.GetHashCode">
+      <inheritdoc />
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Implicit(System.Int32)~SosoMS.Common.SosoObject">
+      <summary>
+            将<see langword="int" />数据类型隐式转换为<see cref="T:SosoMS.Common.SosoObject" />类型
+            </summary>
+      <param name="value">
+        <see langword="int" />值</param>
+      <returns>新对象</returns>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Int32">
+      <summary>
+            将<see cref="T:SosoMS.Common.SosoObject" />类型隐式转换为<see langword="int" />数据类型
+            </summary>
+      <param name="value">
+        <see cref="T:SosoMS.Common.SosoObject" />对象</param>
+      <returns>
+        <see langword="int" />数据</returns>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Implicit(System.Double)~SosoMS.Common.SosoObject">
+      <summary>
+            将<see langword="double" />数据类型隐式转换为<see cref="T:SosoMS.Common.SosoObject" />类型
+            </summary>
+      <param name="value">
+        <see langword="double" />值</param>
+      <returns>新对象</returns>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Double">
+      <summary>
+            将<see cref="T:SosoMS.Common.SosoObject" />类型隐式转换为<see langword="double" />数据类型
+            </summary>
+      <param name="value">
+        <see cref="T:SosoMS.Common.SosoObject" />对象</param>
+      <returns>
+        <see langword="double" />数据</returns>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Implicit(System.Boolean)~SosoMS.Common.SosoObject">
+      <summary>
+            将<see langword="bool" />数据类型隐式转换为<see cref="T:SosoMS.Common.SosoObject" />类型
+            </summary>
+      <param name="value">
+        <see langword="bool" />值</param>
+      <returns>新对象</returns>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Boolean">
+      <summary>
+            将<see cref="T:SosoMS.Common.SosoObject" />类型隐式转换为<see langword="bool" />数据类型
+            </summary>
+      <param name="value">
+        <see cref="T:SosoMS.Common.SosoObject" />对象</param>
+      <returns>
+        <see langword="bool" />数据</returns>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Implicit(System.String)~SosoMS.Common.SosoObject">
+      <summary>
+            将<see langword="string" />数据类型隐式转换为<see cref="T:SosoMS.Common.SosoObject" />类型
+            </summary>
+      <param name="value">
+        <see langword="string" />值</param>
+      <returns>新对象</returns>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.String">
+      <summary>
+            将<see cref="T:SosoMS.Common.SosoObject" />类型隐式转换为<see langword="string" />数据类型
+            </summary>
+      <param name="value">
+        <see cref="T:SosoMS.Common.SosoObject" />对象</param>
+      <returns>
+        <see langword="string" />数据</returns>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Addition(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象相加
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则将数字相加后，返回以相加结果为值的对象<br />
+            如果有一个对象不是数字，则将两个对象的转换为字符串并连接起来，以连接起来的字符串作为该对象的值<br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>新对象</returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Subtraction(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象相减
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则将数字相减后，返回以相减结果为值的对象<br />
+            如果有一个对象不是数字，则抛出<see cref="T:System.Data.InvalidExpressionException" /><br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>新对象</returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+      <exception cref="T:System.Data.InvalidExpressionException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Multiply(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象相乘
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则将数字相乘后，返回以相乘结果为值的对象<br />
+            如果有一个对象不是数字，则抛出<see cref="T:System.Data.InvalidExpressionException" /><br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>新对象</returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+      <exception cref="T:System.Data.InvalidExpressionException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Division(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象相除
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则将数字相除后，返回以相除结果为值的对象<br />
+            如果有一个对象不是数字，则抛出<see cref="T:System.Data.InvalidExpressionException" /><br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /><br />
+            如果第二个对象为0，则抛出<see cref="T:System.DivideByZeroException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>新对象</returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+      <exception cref="T:System.Data.InvalidExpressionException">
+      </exception>
+      <exception cref="T:System.DivideByZeroException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_GreaterThan(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象进行大于比较
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则比较两个数字的大小<br />
+            如果有一个对象不是数字，则抛出<see cref="T:System.Data.InvalidExpressionException" /><br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>如果第一个对象大于第二个对象就返回<see langword="true" />，否则就返回<see langword="false" /></returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+      <exception cref="T:System.Data.InvalidExpressionException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_LessThan(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象进行小于比较
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则比较两个数字的大小<br />
+            如果有一个对象不是数字，则抛出<see cref="T:System.Data.InvalidExpressionException" /><br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>如果第一个对象小于第二个对象就返回<see langword="true" />，否则就返回<see langword="false" /></returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+      <exception cref="T:System.Data.InvalidExpressionException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_GreaterThanOrEqual(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象进行大于等于比较
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则比较两个数字的大小<br />
+            如果有一个对象不是数字，则抛出<see cref="T:System.Data.InvalidExpressionException" /><br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>如果第一个对象大于等于第二个对象就返回<see langword="true" />，否则就返回<see langword="false" /></returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+      <exception cref="T:System.Data.InvalidExpressionException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_LessThanOrEqual(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象进行小于等于比较
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则比较两个数字的大小<br />
+            如果有一个对象不是数字，则抛出<see cref="T:System.Data.InvalidExpressionException" /><br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>如果第一个对象小于等于第二个对象就返回<see langword="true" />，否则就返回<see langword="false" /></returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+      <exception cref="T:System.Data.InvalidExpressionException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Equality(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象进行等于比较
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则比较两个数字是否相等<br />
+            如果有一个对象不是数字，则比较两个对象的<see cref="P:SosoMS.Common.SosoObject.S" />属性是否相等<br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>如果第一个对象等于第二个对象就返回<see langword="true" />，否则就返回<see langword="false" /></returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SosoObject.op_Inequality(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <summary>
+            两个<see cref="T:SosoMS.Common.SosoObject" />对象进行不等于比较
+            </summary>
+      <remarks>
+            如果两个对象都是数字，则比较两个数字是否不相等<br />
+            如果有一个对象不是数字，则比较两个对象的<see cref="P:SosoMS.Common.SosoObject.S" />属性是否不相等<br />
+            如果任意一个对象为<see langword="null" />，则抛出<see cref="T:System.NullReferenceException" /></remarks>
+      <param name="soso1">第一个对象</param>
+      <param name="soso2">第二个对象</param>
+      <returns>如果第一个对象不等于第二个对象就返回<see langword="true" />，否则就返回<see langword="false" /></returns>
+      <exception cref="T:System.NullReferenceException">
+      </exception>
+    </member>
+    <member name="T:SosoMS.Common.SystemHelp.MathHelp">
+      <summary>
+            数学常用运算帮助类
+            </summary>
+      <remarks>
+            主要收集一些常用的数学运算，便于使用
+            </remarks>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.MathHelp.RadToDeg(System.Double)">
+      <summary>
+            弧度转角度
+            </summary>
+      <param name="rad">弧度</param>
+      <returns>角度</returns>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.MathHelp.DegToRad(System.Double)">
+      <summary>
+            角度转弧度
+            </summary>
+      <param name="deg">角度</param>
+      <returns>弧度</returns>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.MathHelp.DegNormalization(System.Double)">
+      <summary>
+            角度归一化
+            </summary>
+      <remarks>
+            让角度始终保持在-180度到180之间
+            </remarks>
+      <param name="deg">角度</param>
+      <returns>归一化后的角度</returns>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.MathHelp.RadNormalization(System.Double)">
+      <summary>
+            弧度归一化
+            </summary>
+      <remarks>
+            让弧度制永远保持在-PI到PI之间
+            </remarks>
+      <param name="rad">弧度</param>
+      <returns>归一化后的弧度</returns>
+    </member>
+    <member name="T:SosoMS.Common.SystemHelp.PerformanceTimer">
+      <summary>
+            高性能计时器
+            </summary>
+      <remarks>
+            支持记录经过多少时间，总时间<br />
+            可以通过<see cref="T:System.TimeSpan" />查看记录的时间，也可以通过具体的单位查看记录的时间。比如：纳秒、微秒、毫秒、秒。
+            </remarks>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.PerformanceTimer.#ctor">
+      <summary>
+            构造函数
+            </summary>
+      <exception cref="T:System.ComponentModel.Win32Exception">系统不支持</exception>
+    </member>
+    <member name="P:SosoMS.Common.SystemHelp.PerformanceTimer.IsRunning">
+      <summary>
+            计时器是否运行
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SystemHelp.PerformanceTimer.Elapsed">
+      <summary>
+            计时器经过的时间间隔
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedSeconds">
+      <summary>
+            计时器经过时间，以秒为单位
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedMilliseconds">
+      <summary>
+            计时器经过时间，以毫秒为单位
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedMicroseconds">
+      <summary>
+            计时器经过时间，以微秒为单位
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedNanoseconds">
+      <summary>
+            计时器经过时间，以纳秒为单位
+            </summary>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.PerformanceTimer.Start">
+      <summary>
+            计时器开始计时
+            </summary>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.PerformanceTimer.Restart">
+      <summary>
+            计时器重新开始计时
+            </summary>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.PerformanceTimer.Stop">
+      <summary>
+            计时器停止计时
+            </summary>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.PerformanceTimer.StartNew">
+      <summary>
+            获取一个新的计时器，并启动
+            </summary>
+      <returns>返回<see cref="T:SosoMS.Common.SystemHelp.PerformanceTimer" /></returns>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.PerformanceTimer.Execute(System.Action)">
+      <summary>
+            传入一个任务，并计算该任务运行的总时间间隔
+            </summary>
+      <param name="action">任务委托</param>
+      <returns>返回<see cref="T:System.TimeSpan" /></returns>
+    </member>
+    <member name="T:SosoMS.Common.SystemHelp.RegisterHelp">
+      <summary>
+            寄存器帮助类
+            </summary>
+      <remarks>
+            该类定义了四种系统寄存器类型，分别为<see langword="bool" />型、<see langword="int" />型、<see langword="double" />型、<see langword="string" />型
+            </remarks>
+    </member>
+    <member name="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1">
+      <summary>
+            寄存器值改变委托
+            </summary>
+      <remarks>
+            定义一个寄存器值改变的委托，利用这个委托可以监控寄存器的值是否改变
+            </remarks>
+      <typeparam name="T">寄存器类型</typeparam>
+      <param name="index">索引</param>
+      <param name="oldValue">旧值</param>
+      <param name="newValue">新值</param>
+    </member>
+    <member name="E:SosoMS.Common.SystemHelp.RegisterHelp.BoolRegisterChanged">
+      <summary>
+        <see langword="bool" />类型寄存器值改变事件
+            </summary>
+    </member>
+    <member name="E:SosoMS.Common.SystemHelp.RegisterHelp.IntRegisterChanged">
+      <summary>
+        <see langword="int" />类型寄存器值改变事件
+            </summary>
+    </member>
+    <member name="E:SosoMS.Common.SystemHelp.RegisterHelp.DoubleRegisterChanged">
+      <summary>
+        <see langword="double" />类型寄存器值改变事件
+            </summary>
+    </member>
+    <member name="E:SosoMS.Common.SystemHelp.RegisterHelp.StringRegisterChanged">
+      <summary>
+        <see langword="string" />类型寄存器值改变事件
+            </summary>
+    </member>
+    <member name="P:SosoMS.Common.SystemHelp.RegisterHelp.Instance">
+      <summary>
+            寄存器单例实体
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.RegisterHelp.GetBoolRegister(System.Int32)">
+      <summary>
+            通过索引获取<see langword="bool" />型寄存器的值
+            </summary>
+      <remarks>
+            通过给出的索引，获取<see langword="bool" />寄存器的值，如果寄存器不存在就默认设置为<see langword="false" /></remarks>
+      <param name="index">索引</param>
+      <returns>
+        <see langword="bool" />值</returns>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.RegisterHelp.SetBoolRegister(System.Int32,System.Boolean,System.Boolean)">
+      <summary>
+            通过索引更新<see cref="T:System.Boolean" />型寄存器的值
+            </summary>
+      <remarks>
+            通过给出的索引，更新<see cref="T:System.Boolean" />型寄存器的值，如果索引存就更新，不存在就添加<br />
+            可以决定寄存器更新是否利用事件广播，只有在新的值和老的值不一致且开启了事件通知才会触发相应事件
+            </remarks>
+      <param name="index">索引</param>
+      <param name="value">更新值</param>
+      <param name="notify">是否利用事件广播</param>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.RegisterHelp.GetIntRegister(System.Int32)">
+      <summary>
+            通过索引获取<see langword="int" />型寄存器的值
+            </summary>
+      <remarks>
+            通过给出的索引，获取<see langword="int" />寄存器的值，如果寄存器不存在就默认设置为0
+            </remarks>
+      <param name="index">索引</param>
+      <returns>
+        <see langword="int" />值</returns>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.RegisterHelp.SetIntRegister(System.Int32,System.Int32,System.Boolean)">
+      <summary>
+            通过索引更新<see cref="T:System.Int32" />型寄存器的值
+            </summary>
+      <remarks>
+            通过给出的索引，更新<see cref="T:System.Int32" />型寄存器的值，如果索引存就更新，不存在就添加<br />
+            可以决定寄存器更新是否利用事件广播，只有在新的值和老的值不一致且开启了事件通知才会触发相应事件
+            </remarks>
+      <param name="index">索引</param>
+      <param name="value">更新值</param>
+      <param name="notify">是否利用事件广播</param>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.RegisterHelp.GetDoubleRegister(System.Int32)">
+      <summary>
+            通过索引获取<see langword="double" />型寄存器的值
+            </summary>
+      <remarks>
+            通过给出的索引，获取<see langword="double" />寄存器的值，如果寄存器不存在就默认设置为0
+            </remarks>
+      <param name="index">索引</param>
+      <returns>
+        <see langword="double" />值</returns>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.RegisterHelp.SetDoubleRegister(System.Int32,System.Double,System.Boolean)">
+      <summary>
+            通过索引更新<see cref="T:System.Double" />型寄存器的值
+            </summary>
+      <remarks>
+            通过给出的索引，更新<see cref="T:System.Double" />型寄存器的值，如果索引存就更新，不存在就添加<br />
+            可以决定寄存器更新是否利用事件广播，只有在新的值和老的值不一致且开启了事件通知才会触发相应事件
+            </remarks>
+      <param name="index">索引</param>
+      <param name="value">更新值</param>
+      <param name="notify">是否利用事件广播</param>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.RegisterHelp.GetStringRegister(System.Int32)">
+      <summary>
+            通过索引获取<see langword="string" />型寄存器的值
+            </summary>
+      <remarks>
+            通过给出的索引，获取<see langword="string" />寄存器的值，如果寄存器不存在就默认设置为空字符串
+            </remarks>
+      <param name="index">索引</param>
+      <returns>
+        <see langword="string" />值</returns>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.RegisterHelp.SetStringRegister(System.Int32,System.String,System.Boolean)">
+      <summary>
+            通过索引更新<see cref="T:System.String" />型寄存器的值
+            </summary>
+      <remarks>
+            通过给出的索引，更新<see cref="T:System.String" />型寄存器的值，如果索引存就更新，不存在就添加<br />
+            可以决定寄存器更新是否利用事件广播，只有在新的值和老的值不一致且开启了事件通知才会触发相应事件
+            </remarks>
+      <param name="index">索引</param>
+      <param name="value">更新值</param>
+      <param name="notify">是否利用事件广播</param>
+    </member>
+    <member name="T:SosoMS.Common.SystemHelp.SerializationHelp">
+      <summary>
+            序列化帮助类
+            </summary>
+      <remarks>
+            将实体对象进行各种序列化反序列化操作，对实例对象进行深拷贝
+            </remarks>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractSerialize``1(``0,System.String)">
+      <summary>
+            将对象序列化到文件中
+            </summary>
+      <remarks>
+            使用<see cref="T:System.Runtime.Serialization.DataContractSerializer" />将对象实例序列化到文件中，如果文件存在则会删除原来文件
+            </remarks>
+      <typeparam name="T">
+      </typeparam>
+      <param name="instance">
+      </param>
+      <param name="fileName">
+      </param>
+      <exception cref="T:System.ArgumentNullException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractDeserialize``1(System.String)">
+      <summary>
+            将文件反序列化为一个对象
+            </summary>
+      <remarks>
+            使用<see cref="T:System.Runtime.Serialization.DataContractSerializer" />将序列化的文件反序列化成一个对象
+            </remarks>
+      <typeparam name="T">对象类型</typeparam>
+      <param name="fileName">文件路径</param>
+      <returns>成功返回一个<typeparamref name="T" />对象，失败抛出<see cref="T:System.Runtime.Serialization.SerializationException" /></returns>
+      <exception cref="T:System.IO.FileNotFoundException">
+      </exception>
+      <exception cref="T:System.Runtime.Serialization.SerializationException">
+      </exception>
+    </member>
+    <member name="M:SosoMS.Common.SystemHelp.SerializationHelp.DeepCopyByXmlSerializer``1(``0)">
+      <summary>
+            使用<see cref="T:System.Xml.Serialization.XmlSerializer" />将对象深拷贝
+            </summary>
+      <typeparam name="T">对象类型</typeparam>
+      <param name="instance">对象实例</param>
+      <returns>成功返回一个<typeparamref name="T" />对象，失败抛出<see cref="T:System.Runtime.Serialization.SerializationException" /></returns>
+      <exception cref="T:System.Runtime.Serialization.SerializationException">
+      </exception>
+    </member>
+    <member name="T:Windows.Win32.Foundation.PCWSTR">
+      <summary>
+            A pointer to a null-terminated, constant character string.
+            </summary>
+    </member>
+    <member name="F:Windows.Win32.Foundation.PCWSTR.Value">
+      <summary>
+            A pointer to the first character in the string. The content should be considered readonly, as it was typed as constant in the SDK.
+            </summary>
+    </member>
+    <member name="P:Windows.Win32.Foundation.PCWSTR.Length">
+      <summary>
+            Gets the number of characters up to the first null character (exclusive).
+            </summary>
+    </member>
+    <member name="M:Windows.Win32.Foundation.PCWSTR.ToString">
+      <summary>
+            Returns a <see langword="string" /> with a copy of this character array, up to the first null character (exclusive).
+            </summary>
+      <returns>A <see langword="string" />, or <see langword="null" /> if <see cref="F:Windows.Win32.Foundation.PCWSTR.Value" /> is <see langword="null" />.</returns>
+    </member>
+    <member name="M:Windows.Win32.Foundation.PCWSTR.AsSpan">
+      <summary>
+            Returns a span of the characters in this string, up to the first null character (exclusive).
+            </summary>
+    </member>
+    <member name="P:Windows.Win32.Foundation.PWSTR.Length">
+      <inheritdoc cref="P:Windows.Win32.Foundation.PCWSTR.Length" />
+    </member>
+    <member name="M:Windows.Win32.Foundation.PWSTR.ToString">
+      <inheritdoc cref="M:Windows.Win32.Foundation.PCWSTR.ToString" />
+    </member>
+    <member name="M:Windows.Win32.Foundation.PWSTR.AsSpan">
+      <summary>
+            Returns a span of the characters in this string, up to the first null character (exclusive).
+            </summary>
+    </member>
+    <member name="T:Windows.Win32.PInvoke">
+      <content>
+            Contains extern methods from "KERNEL32.dll".
+            </content>
+    </member>
+    <member name="M:Windows.Win32.PInvoke.QueryPerformanceCounter(System.Int64@)">
+      <inheritdoc cref="M:Windows.Win32.PInvoke.QueryPerformanceCounter(System.Int64*)" />
+    </member>
+    <member name="M:Windows.Win32.PInvoke.QueryPerformanceCounter(System.Int64*)">
+      <summary>Retrieves the current value of the performance counter, which is a high resolution (&lt;1us) time stamp that can be used for time-interval measurements.</summary>
+      <param name="lpPerformanceCount">A pointer to a variable that receives the current performance-counter value, in counts.</param>
+      <returns>
+        <para>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.</para>
+      </returns>
+      <remarks>For more info about this function and its usage, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/acquiring-high-resolution-time-stamps">Acquiring high-resolution time stamps</a>.</remarks>
+    </member>
+    <member name="M:Windows.Win32.PInvoke.QueryPerformanceFrequency(System.Int64@)">
+      <inheritdoc cref="M:Windows.Win32.PInvoke.QueryPerformanceFrequency(System.Int64*)" />
+    </member>
+    <member name="M:Windows.Win32.PInvoke.QueryPerformanceFrequency(System.Int64*)">
+      <summary>Retrieves the frequency of the performance counter.</summary>
+      <param name="lpFrequency">A pointer to a variable that receives the current performance-counter frequency, in counts per second. If the installed hardware doesn't support a high-resolution performance counter, this parameter can be zero (this will not occur on systems that run Windows XP or later).</param>
+      <returns>
+        <para>If the installed hardware supports a high-resolution performance counter, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.</para>
+      </returns>
+      <remarks>For more info about this function and its usage, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/acquiring-high-resolution-time-stamps">Acquiring high-resolution time stamps</a>.</remarks>
+    </member>
+    <member name="M:Windows.Win32.PInvoke.GetPrivateProfileString(System.String,System.String,System.String,Windows.Win32.Foundation.PWSTR,System.UInt32,System.String)">
+      <inheritdoc cref="M:Windows.Win32.PInvoke.GetPrivateProfileString(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PWSTR,System.UInt32,Windows.Win32.Foundation.PCWSTR)" />
+    </member>
+    <member name="M:Windows.Win32.PInvoke.GetPrivateProfileString(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PWSTR,System.UInt32,Windows.Win32.Foundation.PCWSTR)">
+      <summary>The GetPrivateProfileStringW (Unicode) function (winbase.h) retrieves a string from the specified section in an initialization file.</summary>
+      <param name="lpAppName">
+        <para>The name of the section containing the key name. If this parameter is <b>NULL</b>, the <b>GetPrivateProfileString</b> function copies all section names in the file to the supplied buffer.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw#parameters">Read more on docs.microsoft.com</see>.</para>
+      </param>
+      <param name="lpKeyName">The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, all key names in the section specified by the <i>lpAppName</i> parameter are copied to the buffer specified by the <i>lpReturnedString</i> parameter.</param>
+      <param name="lpDefault">
+        <para>A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, <b>GetPrivateProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer.</para>
+        <para>If this parameter is <b>NULL</b>, the default is an empty string, "". Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw#parameters">Read more on docs.microsoft.com</see>.</para>
+      </param>
+      <param name="lpReturnedString">A pointer to the buffer that receives the retrieved string.</param>
+      <param name="nSize">The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.</param>
+      <param name="lpFileName">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.</param>
+      <returns>
+        <para>The return value is the number of characters copied to the buffer, not including the terminating <b>null</b> character. If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one. If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two. In the event the initialization file specified by <i>lpFileName</i> is not found, or contains invalid values, this function will set <b>errorno</b> with a value of '0x2' (File Not Found). To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.</para>
+      </returns>
+      <remarks>
+        <para>The <b>GetPrivateProfileString</b> function searches the specified initialization file for a key that matches the name specified by the <i>lpKeyName</i> parameter under the section heading specified by the <i>lpAppName</i> parameter. If it finds the key, the function copies the corresponding string to the buffer. If the key does not exist, the function copies the default character string specified by the <i>lpDefault</i> parameter. A section in the initialization file must have the following form:</para>
+        <para>
+        </para>
+        <para>This doc was truncated.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw#">Read more on docs.microsoft.com</see>.</para>
+      </remarks>
+    </member>
+    <member name="M:Windows.Win32.PInvoke.GetPrivateProfileSection(System.String,Windows.Win32.Foundation.PWSTR,System.UInt32,System.String)">
+      <inheritdoc cref="M:Windows.Win32.PInvoke.GetPrivateProfileSection(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PWSTR,System.UInt32,Windows.Win32.Foundation.PCWSTR)" />
+    </member>
+    <member name="M:Windows.Win32.PInvoke.GetPrivateProfileSection(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PWSTR,System.UInt32,Windows.Win32.Foundation.PCWSTR)">
+      <summary>The GetPrivateProfileSectionW (Unicode) function (winbase.h) retrieves all the keys and values for the specified section of an initialization file.</summary>
+      <param name="lpAppName">The name of the section in the initialization file.</param>
+      <param name="lpReturnedString">A pointer to a buffer that receives the key name and value pairs associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.</param>
+      <param name="nSize">
+        <para>The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.</para>
+        <para>The maximum profile section size is 32,767 characters.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionw#parameters">Read more on docs.microsoft.com</see>.</para>
+      </param>
+      <param name="lpFileName">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.</param>
+      <returns>The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to <i>nSize</i> minus two.</returns>
+      <remarks>
+        <para>The data in the buffer pointed to by the <i>lpReturnedString</i> parameter consists of one or more null-terminated strings, followed by a final null character. Each string has the following format: <i>key</i><b>=</b><i>string</i> The <b>GetPrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters. This operation is atomic; no updates to the specified initialization file are allowed while the key name and value pairs for the section are being copied to the buffer pointed to by the <i>lpReturnedString</i> parameter. The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>\<b>SOFTWARE</b>\<b>Microsoft</b>\<b>Windows NT</b>\<b>CurrentVersion</b>\<b>IniFileMapping</b></para>
+        <para>This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior. The profile functions use the following steps to locate initialization information: </para>
+        <para>This doc was truncated.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionw#">Read more on docs.microsoft.com</see>.</para>
+      </remarks>
+    </member>
+    <member name="M:Windows.Win32.PInvoke.GetPrivateProfileSectionNames(Windows.Win32.Foundation.PWSTR,System.UInt32,System.String)">
+      <inheritdoc cref="M:Windows.Win32.PInvoke.GetPrivateProfileSectionNames(Windows.Win32.Foundation.PWSTR,System.UInt32,Windows.Win32.Foundation.PCWSTR)" />
+    </member>
+    <member name="M:Windows.Win32.PInvoke.GetPrivateProfileSectionNames(Windows.Win32.Foundation.PWSTR,System.UInt32,Windows.Win32.Foundation.PCWSTR)">
+      <summary>The GetPrivateProfileSectionNamesW (Unicode) function (winbase.h) retrieves the names of all sections in an initialization file.</summary>
+      <param name="lpszReturnBuffer">A pointer to a buffer that receives the section names associated with the named file. The buffer is filled with one or more <b>null</b>-terminated strings; the last string is followed by a second <b>null</b> character.</param>
+      <param name="nSize">The size of the buffer pointed to by the <i>lpszReturnBuffer</i> parameter, in characters.</param>
+      <param name="lpFileName">The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.</param>
+      <returns>The return value specifies the number of characters copied to the specified buffer, not including the terminating <b>null</b> character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by <i>nSize</i> minus two.</returns>
+      <remarks>
+        <para>This operation is atomic; no updates to the initialization file are allowed while the section names are being copied to the buffer. The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>\<b>SOFTWARE</b>\<b>Microsoft</b>\<b>Windows NT</b>\<b>CurrentVersion</b>\<b>IniFileMapping</b></para>
+        <para>This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior. The profile functions use the following steps to locate initialization information: </para>
+        <para>This doc was truncated.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionnamesw#">Read more on docs.microsoft.com</see>.</para>
+      </remarks>
+    </member>
+    <member name="M:Windows.Win32.PInvoke.WritePrivateProfileString(System.String,System.String,System.String,System.String)">
+      <inheritdoc cref="M:Windows.Win32.PInvoke.WritePrivateProfileString(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR)" />
+    </member>
+    <member name="M:Windows.Win32.PInvoke.WritePrivateProfileString(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR)">
+      <summary>Copies a string into the specified section of an initialization file. (Unicode)</summary>
+      <param name="lpAppName">The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.</param>
+      <param name="lpKeyName">The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries within the section, is deleted.</param>
+      <param name="lpString">A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.</param>
+      <param name="lpFileName">
+        <para>The name of the initialization file. If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringw#parameters">Read more on docs.microsoft.com</see>.</para>
+      </param>
+      <returns>
+        <para>If the function successfully copies the string to the initialization file, the return value is nonzero. If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.</para>
+      </returns>
+      <remarks>
+        <para>A section in the initialization file must have the following form:</para>
+        <para>
+        </para>
+        <para>This doc was truncated.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringw#">Read more on docs.microsoft.com</see>.</para>
+      </remarks>
+    </member>
+    <member name="M:Windows.Win32.PInvoke.WritePrivateProfileSection(System.String,System.String,System.String)">
+      <inheritdoc cref="M:Windows.Win32.PInvoke.WritePrivateProfileSection(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR)" />
+    </member>
+    <member name="M:Windows.Win32.PInvoke.WritePrivateProfileSection(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Foundation.PCWSTR)">
+      <summary>Replaces the keys and values for the specified section in an initialization file. (Unicode)</summary>
+      <param name="lpAppName">The name of the section in which data is written. This section name is typically the name of the calling application.</param>
+      <param name="lpString">The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.</param>
+      <param name="lpFileName">
+        <para>The name of the initialization file. If this parameter does not contain a full path for the file, the function searches the Windows directory for the file. If the file does not exist and <i>lpFileName</i> does not contain a full path, the function creates the file in the Windows directory. If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilesectionw#parameters">Read more on docs.microsoft.com</see>.</para>
+      </param>
+      <returns>
+        <para>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.</para>
+      </returns>
+      <remarks>
+        <para>The data in the buffer pointed to by the <i>lpString</i> parameter consists of one or more <b>null</b>-terminated strings, followed by a final <b>null</b> character. Each string has the following form: <i>key</i><b>=</b><i>string</i> The <b>WritePrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters. If no section name matches the string pointed to by the <i>lpAppName</i> parameter, <b>WritePrivateProfileSection</b> creates the section at the end of the specified initialization file and initializes the new section with the specified key name and value pairs. <b>WritePrivateProfileSection</b> deletes the existing keys and values for the named section and inserts the key names and values in the buffer pointed to by the <i>lpString</i> parameter. The function does not attempt to correlate old and new key names; if the new names appear in a different order from the old names, any comments associated with preexisting keys and values in the initialization file will probably be associated with incorrect keys and values. This operation is atomic; no operations that read from or write to the specified initialization file are allowed while the information is being written. The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared. The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b><b>SOFTWARE</b><b>Microsoft</b><b>Windows NT</b><b>CurrentVersion</b><b>IniFileMapping</b></pre></para>
+        <para>This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior. The profile functions use the following steps to locate initialization information: </para>
+        <para>This doc was truncated.</para>
+        <para>
+          <see href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilesectionw#">Read more on docs.microsoft.com</see>.</para>
+      </remarks>
+    </member>
+    <member name="R:Project_Documentation">
+      <summary>常用方法</summary>
+    </member>
+    <member name="N:SosoMS.Common">
+      <summary>常用方法</summary>
+    </member>
+    <member name="N:SosoMS.Common.FileHelp">
+      <summary>常用文件帮助类</summary>
+    </member>
+    <member name="N:SosoMS.Common.SystemHelp">
+      <summary>常用系统工具</summary>
+    </member>
+  </members>
+</doc>

@@ -1,0 +1,2683 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<reflection>
+  <assemblies>
+    <assembly name="SosoMS.Common">
+      <assemblydata version="1.0.0.0" culture="" key="" hash="SHA1" />
+      <attributes>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyFileVersionAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>1.0.0.0</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyInformationalVersionAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>1.0.0</value>
+          </argument>
+        </attribute>
+      </attributes>
+    </assembly>
+  </assemblies>
+  <apis>
+    <api id="N:SosoMS.Common">
+      <apidata name="SosoMS.Common" group="namespace" />
+      <elements>
+        <element api="T:SosoMS.Common.SosoObject" />
+      </elements>
+    </api>
+    <api id="T:SosoMS.Common.SosoObject">
+      <apidata name="SosoObject" group="type" subgroup="class" />
+      <typedata visibility="public" serializable="true" defaultConstructor="M:SosoMS.Common.SosoObject.#ctor" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <implements>
+        <type api="T:System.ICloneable" ref="true" />
+        <type api="T:System.IComparable" ref="true" />
+        <type api="T:System.IComparable`1" ref="true">
+          <specialization>
+            <type api="T:SosoMS.Common.SosoObject" ref="true" />
+          </specialization>
+        </type>
+        <type api="T:System.IEquatable`1" ref="true">
+          <specialization>
+            <type api="T:SosoMS.Common.SosoObject" ref="true" />
+          </specialization>
+        </type>
+      </implements>
+      <elements>
+        <element api="M:SosoMS.Common.SosoObject.#ctor" />
+        <element api="M:SosoMS.Common.SosoObject.#ctor(System.Int32)" />
+        <element api="M:SosoMS.Common.SosoObject.#ctor(System.Double)" />
+        <element api="M:SosoMS.Common.SosoObject.#ctor(System.Boolean)" />
+        <element api="M:SosoMS.Common.SosoObject.#ctor(System.String)" />
+        <element api="M:SosoMS.Common.SosoObject.ToString" />
+        <element api="M:SosoMS.Common.SosoObject.Clone" />
+        <element api="M:SosoMS.Common.SosoObject.CompareTo(System.Object)" />
+        <element api="M:SosoMS.Common.SosoObject.CompareTo(SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.Equals(SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.Equals(System.Object)" />
+        <element api="M:SosoMS.Common.SosoObject.GetHashCode" />
+        <element api="M:SosoMS.Common.SosoObject.op_Implicit(System.Int32)~SosoMS.Common.SosoObject" />
+        <element api="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Int32" />
+        <element api="M:SosoMS.Common.SosoObject.op_Implicit(System.Double)~SosoMS.Common.SosoObject" />
+        <element api="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Double" />
+        <element api="M:SosoMS.Common.SosoObject.op_Implicit(System.Boolean)~SosoMS.Common.SosoObject" />
+        <element api="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Boolean" />
+        <element api="M:SosoMS.Common.SosoObject.op_Implicit(System.String)~SosoMS.Common.SosoObject" />
+        <element api="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.String" />
+        <element api="M:SosoMS.Common.SosoObject.op_Addition(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.op_Subtraction(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.op_Multiply(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.op_Division(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.op_GreaterThan(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.op_LessThan(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.op_GreaterThanOrEqual(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.op_LessThanOrEqual(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.op_Equality(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="M:SosoMS.Common.SosoObject.op_Inequality(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" />
+        <element api="P:SosoMS.Common.SosoObject.I" />
+        <element api="P:SosoMS.Common.SosoObject.D" />
+        <element api="P:SosoMS.Common.SosoObject.B" />
+        <element api="P:SosoMS.Common.SosoObject.S" />
+        <element api="P:SosoMS.Common.SosoObject.IsNumber" />
+        <element api="P:SosoMS.Common.SosoObject.IsNullOrEmpty" />
+        <element api="M:System.Object.Finalize">
+          <apidata name="Finalize" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="true" />
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.MemberwiseClone">
+          <apidata name="MemberwiseClone" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Object" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.#ctor">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.#ctor(System.Boolean)">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:System.Boolean" ref="false" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.#ctor(System.Double)">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:System.Double" ref="false" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.#ctor(System.Int32)">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.#ctor(System.String)">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SosoObject.B">
+      <apidata name="B" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_B" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.Clone">
+      <apidata name="Clone" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Object" ref="true" />
+      </returns>
+      <implements>
+        <member api="M:System.ICloneable.Clone">
+          <type api="T:System.ICloneable" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.CompareTo(SosoMS.Common.SosoObject)">
+      <apidata name="CompareTo" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <parameters>
+        <parameter name="other">
+          <type nullable="true" api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:System.IComparable`1.CompareTo(`0)">
+          <type api="T:System.IComparable`1" ref="true">
+            <specialization>
+              <type api="T:SosoMS.Common.SosoObject" ref="true" />
+            </specialization>
+          </type>
+        </member>
+      </implements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.CompareTo(System.Object)">
+      <apidata name="CompareTo" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <parameters>
+        <parameter name="obj">
+          <type nullable="true" api="T:System.Object" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:System.IComparable.CompareTo(System.Object)">
+          <type api="T:System.IComparable" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SosoObject.D">
+      <apidata name="D" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_D" />
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.Equals(SosoMS.Common.SosoObject)">
+      <apidata name="Equals" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <parameters>
+        <parameter name="other">
+          <type nullable="true" api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:System.IEquatable`1.Equals(`0)">
+          <type api="T:System.IEquatable`1" ref="true">
+            <specialization>
+              <type api="T:SosoMS.Common.SosoObject" ref="true" />
+            </specialization>
+          </type>
+        </member>
+      </implements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.Equals(System.Object)">
+      <apidata name="Equals" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" />
+      <overrides>
+        <member api="M:System.Object.Equals(System.Object)">
+          <type api="T:System.Object" ref="true" />
+        </member>
+      </overrides>
+      <parameters>
+        <parameter name="obj">
+          <type nullable="true" api="T:System.Object" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.GetHashCode">
+      <apidata name="GetHashCode" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" />
+      <overrides>
+        <member api="M:System.Object.GetHashCode">
+          <type api="T:System.Object" ref="true" />
+        </member>
+      </overrides>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SosoObject.I">
+      <apidata name="I" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_I" />
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SosoObject.IsNullOrEmpty">
+      <apidata name="IsNullOrEmpty" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_IsNullOrEmpty" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SosoObject.IsNumber">
+      <apidata name="IsNumber" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_IsNumber" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Addition(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="Addition" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Division(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="Division" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Equality(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="Equality" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_GreaterThan(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="GreaterThan" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_GreaterThanOrEqual(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="GreaterThanOrEqual" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Int32">
+      <apidata name="Implicit" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Double">
+      <apidata name="Implicit" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Boolean">
+      <apidata name="Implicit" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.String">
+      <apidata name="Implicit" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Implicit(System.Boolean)~SosoMS.Common.SosoObject">
+      <apidata name="Implicit" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:System.Boolean" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Implicit(System.Double)~SosoMS.Common.SosoObject">
+      <apidata name="Implicit" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:System.Double" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Implicit(System.Int32)~SosoMS.Common.SosoObject">
+      <apidata name="Implicit" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Implicit(System.String)~SosoMS.Common.SosoObject">
+      <apidata name="Implicit" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="value">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Inequality(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="Inequality" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_LessThan(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="LessThan" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_LessThanOrEqual(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="LessThanOrEqual" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Multiply(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="Multiply" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.op_Subtraction(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)">
+      <apidata name="Subtraction" group="member" subgroup="method" subsubgroup="operator" />
+      <memberdata visibility="public" static="true" special="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="soso1">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+        <parameter name="soso2">
+          <type api="T:SosoMS.Common.SosoObject" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SosoObject.S">
+      <apidata name="S" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_S" />
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SosoObject.ToString">
+      <apidata name="ToString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" />
+      <overrides>
+        <member api="M:System.Object.ToString">
+          <type api="T:System.Object" ref="true" />
+        </member>
+      </overrides>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common" />
+        <type api="T:SosoMS.Common.SosoObject" ref="true" />
+      </containers>
+    </api>
+    <api id="N:SosoMS.Common.FileHelp">
+      <apidata name="SosoMS.Common.FileHelp" group="namespace" />
+      <elements>
+        <element api="T:SosoMS.Common.FileHelp.CsvHelp" />
+        <element api="T:SosoMS.Common.FileHelp.FileBaseHelp" />
+        <element api="T:SosoMS.Common.FileHelp.IniHelp" />
+        <element api="T:SosoMS.Common.FileHelp.XmlHelp" />
+      </elements>
+    </api>
+    <api id="T:SosoMS.Common.FileHelp.CsvHelp">
+      <apidata name="CsvHelp" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" defaultConstructor="M:SosoMS.Common.FileHelp.CsvHelp.#ctor" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:SosoMS.Common.FileHelp.CsvHelp.SaveToCsvFile(System.String,System.String,System.String,System.String@,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.CsvHelp.LoadCSVToDataTableAsync(System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.CsvHelp.SaveDataTableToCSV(System.Data.DataTable,System.String,System.String,System.String@,System.Boolean)" />
+        <element api="M:SosoMS.Common.FileHelp.CsvHelp.#ctor" />
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type nullable="true" api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type nullable="true" api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.CsvHelp.#ctor">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.CsvHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.CsvHelp.LoadCSVToDataTableAsync(System.String)">
+      <apidata name="LoadCSVToDataTableAsync" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="fileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Threading.Tasks.Task`1" ref="true">
+          <specialization>
+            <type nullable="true" api="T:System.Data.DataTable" ref="true" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.CsvHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.CsvHelp.SaveDataTableToCSV(System.Data.DataTable,System.String,System.String,System.String@,System.Boolean)">
+      <apidata name="SaveDataTableToCSV" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="dt">
+          <type api="T:System.Data.DataTable" ref="true" />
+        </parameter>
+        <parameter name="path">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="fileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="errorInfo" out="true">
+          <referenceTo>
+            <type api="T:System.String" ref="true" />
+          </referenceTo>
+        </parameter>
+        <parameter name="isOverlay" optional="true">
+          <type api="T:System.Boolean" ref="false" />
+          <argument>
+            <type api="T:System.Boolean" ref="false" />
+            <value>False</value>
+          </argument>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.CsvHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.CsvHelp.SaveToCsvFile(System.String,System.String,System.String,System.String@,System.String)">
+      <apidata name="SaveToCsvFile" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="path">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="fileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="content">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="errorInfo" out="true">
+          <referenceTo>
+            <type api="T:System.String" ref="true" />
+          </referenceTo>
+        </parameter>
+        <parameter name="title" optional="true">
+          <type api="T:System.String" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value />
+          </argument>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.CsvHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="T:SosoMS.Common.FileHelp.FileBaseHelp">
+      <apidata name="FileBaseHelp" group="type" subgroup="class" />
+      <typedata visibility="public" abstract="true" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:SosoMS.Common.FileHelp.FileBaseHelp.CreateDirForFullName(System.String)" />
+      </elements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.FileBaseHelp.CreateDirForFullName(System.String)">
+      <apidata name="CreateDirForFullName" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="fullName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.FileBaseHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="T:SosoMS.Common.FileHelp.IniHelp">
+      <apidata name="IniHelp" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.#ctor(System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.ReadString(System.String,System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.WriteString(System.String,System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.AppendString(System.String,System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.WriteObject``1(System.String,System.String,``0)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.ReadObject``1(System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.GetAllSectionName" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.GetAllSectionName(System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.IsSectionExist(System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.GetKeysForSection(System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.IsKeyExist(System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.DeleteKey(System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.DeleteAllKeys(System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.GetAllItems(System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.SetItems(System.String,System.String,System.String[])" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.GetSectionKeys(System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.SetValue(System.String,System.String,System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.GetValue(System.String,System.String,System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.RemoveKey(System.String,System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.RemoveSection(System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.IniHelp.ClearSection(System.String,System.String)" />
+        <element api="P:SosoMS.Common.FileHelp.IniHelp.IniFileName" />
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type nullable="true" api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type nullable="true" api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.#ctor(System.String)">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.AppendString(System.String,System.String,System.String)">
+      <apidata name="AppendString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="value">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.ClearSection(System.String,System.String)">
+      <apidata name="ClearSection" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.DeleteAllKeys(System.String)">
+      <apidata name="DeleteAllKeys" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.DeleteKey(System.String,System.String)">
+      <apidata name="DeleteKey" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.GetAllItems(System.String,System.String)">
+      <apidata name="GetAllItems" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <arrayOf rank="1">
+          <type api="T:System.String" ref="true" />
+        </arrayOf>
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.GetAllSectionName">
+      <apidata name="GetAllSectionName" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <returns>
+        <arrayOf rank="1">
+          <type api="T:System.String" ref="true" />
+        </arrayOf>
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.GetAllSectionName(System.String)">
+      <apidata name="GetAllSectionName" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <arrayOf rank="1">
+          <type api="T:System.String" ref="true" />
+        </arrayOf>
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.GetKeysForSection(System.String)">
+      <apidata name="GetKeysForSection" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <arrayOf rank="1">
+          <type api="T:System.String" ref="true" />
+        </arrayOf>
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.GetSectionKeys(System.String,System.String)">
+      <apidata name="GetSectionKeys" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <arrayOf rank="1">
+          <type api="T:System.String" ref="true" />
+        </arrayOf>
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.GetValue(System.String,System.String,System.String,System.String)">
+      <apidata name="GetValue" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="defautValue" optional="true">
+          <type api="T:System.String" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value />
+          </argument>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.FileHelp.IniHelp.IniFileName">
+      <apidata name="IniFileName" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" set="true" />
+      <getter name="get_IniFileName" />
+      <setter name="set_IniFileName" />
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.IsKeyExist(System.String,System.String)">
+      <apidata name="IsKeyExist" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.IsSectionExist(System.String)">
+      <apidata name="IsSectionExist" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.ReadObject``1(System.String,System.String)">
+      <apidata name="ReadObject" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <parameters>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <template name="T" index="0" api="M:SosoMS.Common.FileHelp.IniHelp.ReadObject``1(System.String,System.String)" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.ReadString(System.String,System.String,System.String)">
+      <apidata name="ReadString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="section">
+          <type nullable="true" api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type nullable="true" api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="defaultValue" optional="true">
+          <type nullable="true" api="T:System.String" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value />
+          </argument>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.RemoveKey(System.String,System.String,System.String)">
+      <apidata name="RemoveKey" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.RemoveSection(System.String,System.String)">
+      <apidata name="RemoveSection" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.SetItems(System.String,System.String,System.String[])">
+      <apidata name="SetItems" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="items" params="true">
+          <arrayOf rank="1">
+            <type api="T:System.String" ref="true" />
+          </arrayOf>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.SetValue(System.String,System.String,System.String,System.String)">
+      <apidata name="SetValue" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="iniFileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="value">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.WriteObject``1(System.String,System.String,``0)">
+      <apidata name="WriteObject" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <parameters>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="instance">
+          <template name="T" index="0" api="M:SosoMS.Common.FileHelp.IniHelp.WriteObject``1(System.String,System.String,``0)" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.IniHelp.WriteString(System.String,System.String,System.String)">
+      <apidata name="WriteString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="section">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="key">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="value">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.IniHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="T:SosoMS.Common.FileHelp.XmlHelp">
+      <apidata name="XmlHelp" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:SosoMS.Common.FileHelp.XmlHelp.#ctor(System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.XmlHelp.#ctor(System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.XmlHelp.Save" />
+        <element api="M:SosoMS.Common.FileHelp.XmlHelp.CreateXElement(System.String,System.Collections.Generic.Dictionary{System.String,System.String})" />
+        <element api="M:SosoMS.Common.FileHelp.XmlHelp.GetXElements(System.String,System.Boolean,System.String,System.String)" />
+        <element api="M:SosoMS.Common.FileHelp.XmlHelp.GetKeyValuesFromXElementAttributes(System.Xml.Linq.XElement)" />
+        <element api="M:SosoMS.Common.FileHelp.XmlHelp.UpdateXElementAttribute(System.Xml.Linq.XElement,System.Collections.Generic.Dictionary{System.String,System.String})" />
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type nullable="true" api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type nullable="true" api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.XmlHelp.#ctor(System.String)">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <parameters>
+        <parameter name="fileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.XmlHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.XmlHelp.#ctor(System.String,System.String)">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <parameters>
+        <parameter name="fileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="rootStr">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.XmlHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.XmlHelp.CreateXElement(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+      <apidata name="CreateXElement" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="name">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="attributes" optional="true">
+          <type nullable="true" api="T:System.Collections.Generic.Dictionary`2" ref="true">
+            <specialization>
+              <type api="T:System.String" ref="true" />
+              <type api="T:System.String" ref="true" />
+            </specialization>
+          </type>
+          <argument>
+            <type api="T:System.Object" ref="true" />
+            <nullValue />
+          </argument>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Xml.Linq.XElement" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.XmlHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.XmlHelp.GetKeyValuesFromXElementAttributes(System.Xml.Linq.XElement)">
+      <apidata name="GetKeyValuesFromXElementAttributes" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="element">
+          <type api="T:System.Xml.Linq.XElement" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Collections.Generic.Dictionary`2" ref="true">
+          <specialization>
+            <type api="T:System.String" ref="true" />
+            <type api="T:System.String" ref="true" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.XmlHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.XmlHelp.GetXElements(System.String,System.Boolean,System.String,System.String)">
+      <apidata name="GetXElements" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="elementName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="hasAttribute">
+          <type api="T:System.Boolean" ref="false" />
+        </parameter>
+        <parameter name="attributeName" optional="true">
+          <type api="T:System.String" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value />
+          </argument>
+        </parameter>
+        <parameter name="attributeValue" optional="true">
+          <type api="T:System.String" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value />
+          </argument>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Collections.Generic.IEnumerable`1" ref="true">
+          <specialization>
+            <type api="T:System.Xml.Linq.XElement" ref="true" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.XmlHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.XmlHelp.Save">
+      <apidata name="Save" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.XmlHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.FileHelp.XmlHelp.UpdateXElementAttribute(System.Xml.Linq.XElement,System.Collections.Generic.Dictionary{System.String,System.String})">
+      <apidata name="UpdateXElementAttribute" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="element">
+          <type api="T:System.Xml.Linq.XElement" ref="true" />
+        </parameter>
+        <parameter name="attributes">
+          <type nullable="true" api="T:System.Collections.Generic.Dictionary`2" ref="true">
+            <specialization>
+              <type api="T:System.String" ref="true" />
+              <type nullable="true" api="T:System.String" ref="true" />
+            </specialization>
+          </type>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.FileHelp" />
+        <type api="T:SosoMS.Common.FileHelp.XmlHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="N:SosoMS.Common.SystemHelp">
+      <apidata name="SosoMS.Common.SystemHelp" group="namespace" />
+      <elements>
+        <element api="T:SosoMS.Common.SystemHelp.MathHelp" />
+        <element api="T:SosoMS.Common.SystemHelp.PerformanceTimer" />
+        <element api="T:SosoMS.Common.SystemHelp.RegisterHelp" />
+        <element api="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" />
+        <element api="T:SosoMS.Common.SystemHelp.SerializationHelp" />
+      </elements>
+    </api>
+    <api id="T:SosoMS.Common.SystemHelp.MathHelp">
+      <apidata name="MathHelp" group="type" subgroup="class" />
+      <typedata visibility="public" abstract="true" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:SosoMS.Common.SystemHelp.MathHelp.RadToDeg(System.Double)" />
+        <element api="M:SosoMS.Common.SystemHelp.MathHelp.DegToRad(System.Double)" />
+        <element api="M:SosoMS.Common.SystemHelp.MathHelp.DegNormalization(System.Double)" />
+        <element api="M:SosoMS.Common.SystemHelp.MathHelp.RadNormalization(System.Double)" />
+      </elements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.MathHelp.DegNormalization(System.Double)">
+      <apidata name="DegNormalization" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="deg">
+          <type api="T:System.Double" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.MathHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.MathHelp.DegToRad(System.Double)">
+      <apidata name="DegToRad" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="deg">
+          <type api="T:System.Double" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.MathHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.MathHelp.RadNormalization(System.Double)">
+      <apidata name="RadNormalization" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="rad">
+          <type api="T:System.Double" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.MathHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.MathHelp.RadToDeg(System.Double)">
+      <apidata name="RadToDeg" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="rad">
+          <type api="T:System.Double" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.MathHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="T:SosoMS.Common.SystemHelp.PerformanceTimer">
+      <apidata name="PerformanceTimer" group="type" subgroup="class" />
+      <typedata visibility="public" serializable="false" defaultConstructor="M:SosoMS.Common.SystemHelp.PerformanceTimer.#ctor" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:SosoMS.Common.SystemHelp.PerformanceTimer.#ctor" />
+        <element api="M:SosoMS.Common.SystemHelp.PerformanceTimer.Start" />
+        <element api="M:SosoMS.Common.SystemHelp.PerformanceTimer.Restart" />
+        <element api="M:SosoMS.Common.SystemHelp.PerformanceTimer.Stop" />
+        <element api="M:SosoMS.Common.SystemHelp.PerformanceTimer.StartNew" />
+        <element api="M:SosoMS.Common.SystemHelp.PerformanceTimer.Execute(System.Action)" />
+        <element api="P:SosoMS.Common.SystemHelp.PerformanceTimer.IsRunning" />
+        <element api="P:SosoMS.Common.SystemHelp.PerformanceTimer.Elapsed" />
+        <element api="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedSeconds" />
+        <element api="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedMilliseconds" />
+        <element api="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedMicroseconds" />
+        <element api="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedNanoseconds" />
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type nullable="true" api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.Finalize">
+          <apidata name="Finalize" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="true" />
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.MemberwiseClone">
+          <apidata name="MemberwiseClone" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Object" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type nullable="true" api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.PerformanceTimer.#ctor">
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SystemHelp.PerformanceTimer.Elapsed">
+      <apidata name="Elapsed" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_Elapsed" />
+      <returns>
+        <type api="T:System.TimeSpan" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedMicroseconds">
+      <apidata name="ElapsedMicroseconds" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_ElapsedMicroseconds" />
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedMilliseconds">
+      <apidata name="ElapsedMilliseconds" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_ElapsedMilliseconds" />
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedNanoseconds">
+      <apidata name="ElapsedNanoseconds" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_ElapsedNanoseconds" />
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedSeconds">
+      <apidata name="ElapsedSeconds" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_ElapsedSeconds" />
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.PerformanceTimer.Execute(System.Action)">
+      <apidata name="Execute" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="action">
+          <type api="T:System.Action" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.TimeSpan" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SystemHelp.PerformanceTimer.IsRunning">
+      <apidata name="IsRunning" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_IsRunning" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.PerformanceTimer.Restart">
+      <apidata name="Restart" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.PerformanceTimer.Start">
+      <apidata name="Start" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.PerformanceTimer.StartNew">
+      <apidata name="StartNew" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <returns>
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.PerformanceTimer.Stop">
+      <apidata name="Stop" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.PerformanceTimer" ref="true" />
+      </containers>
+    </api>
+    <api id="T:SosoMS.Common.SystemHelp.RegisterHelp">
+      <apidata name="RegisterHelp" group="type" subgroup="class" />
+      <typedata visibility="public" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:SosoMS.Common.SystemHelp.RegisterHelp.GetBoolRegister(System.Int32)" />
+        <element api="M:SosoMS.Common.SystemHelp.RegisterHelp.SetBoolRegister(System.Int32,System.Boolean,System.Boolean)" />
+        <element api="M:SosoMS.Common.SystemHelp.RegisterHelp.GetIntRegister(System.Int32)" />
+        <element api="M:SosoMS.Common.SystemHelp.RegisterHelp.SetIntRegister(System.Int32,System.Int32,System.Boolean)" />
+        <element api="M:SosoMS.Common.SystemHelp.RegisterHelp.GetDoubleRegister(System.Int32)" />
+        <element api="M:SosoMS.Common.SystemHelp.RegisterHelp.SetDoubleRegister(System.Int32,System.Double,System.Boolean)" />
+        <element api="M:SosoMS.Common.SystemHelp.RegisterHelp.GetStringRegister(System.Int32)" />
+        <element api="M:SosoMS.Common.SystemHelp.RegisterHelp.SetStringRegister(System.Int32,System.String,System.Boolean)" />
+        <element api="P:SosoMS.Common.SystemHelp.RegisterHelp.Instance" />
+        <element api="E:SosoMS.Common.SystemHelp.RegisterHelp.BoolRegisterChanged" />
+        <element api="E:SosoMS.Common.SystemHelp.RegisterHelp.IntRegisterChanged" />
+        <element api="E:SosoMS.Common.SystemHelp.RegisterHelp.DoubleRegisterChanged" />
+        <element api="E:SosoMS.Common.SystemHelp.RegisterHelp.StringRegisterChanged" />
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type nullable="true" api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.Finalize">
+          <apidata name="Finalize" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="true" />
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.MemberwiseClone">
+          <apidata name="MemberwiseClone" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Object" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type nullable="true" api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="System.Runtime" module="System.Runtime" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+      </containers>
+    </api>
+    <api id="E:SosoMS.Common.SystemHelp.RegisterHelp.BoolRegisterChanged">
+      <apidata name="BoolRegisterChanged" group="member" subgroup="event" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <eventdata add="true" remove="true" />
+      <adder name="add_BoolRegisterChanged" />
+      <remover name="remove_BoolRegisterChanged" />
+      <eventhandler>
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" ref="true">
+          <specialization>
+            <type api="T:System.Boolean" ref="false" />
+          </specialization>
+          <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+        </type>
+      </eventhandler>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="E:SosoMS.Common.SystemHelp.RegisterHelp.DoubleRegisterChanged">
+      <apidata name="DoubleRegisterChanged" group="member" subgroup="event" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <eventdata add="true" remove="true" />
+      <adder name="add_DoubleRegisterChanged" />
+      <remover name="remove_DoubleRegisterChanged" />
+      <eventhandler>
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" ref="true">
+          <specialization>
+            <type api="T:System.Double" ref="false" />
+          </specialization>
+          <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+        </type>
+      </eventhandler>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.RegisterHelp.GetBoolRegister(System.Int32)">
+      <apidata name="GetBoolRegister" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="index">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.RegisterHelp.GetDoubleRegister(System.Int32)">
+      <apidata name="GetDoubleRegister" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="index">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Double" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.RegisterHelp.GetIntRegister(System.Int32)">
+      <apidata name="GetIntRegister" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="index">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.RegisterHelp.GetStringRegister(System.Int32)">
+      <apidata name="GetStringRegister" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="index">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="P:SosoMS.Common.SystemHelp.RegisterHelp.Instance">
+      <apidata name="Instance" group="member" subgroup="property" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_Instance" />
+      <returns>
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="E:SosoMS.Common.SystemHelp.RegisterHelp.IntRegisterChanged">
+      <apidata name="IntRegisterChanged" group="member" subgroup="event" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <eventdata add="true" remove="true" />
+      <adder name="add_IntRegisterChanged" />
+      <remover name="remove_IntRegisterChanged" />
+      <eventhandler>
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" ref="true">
+          <specialization>
+            <type api="T:System.Int32" ref="false" />
+          </specialization>
+          <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+        </type>
+      </eventhandler>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.RegisterHelp.SetBoolRegister(System.Int32,System.Boolean,System.Boolean)">
+      <apidata name="SetBoolRegister" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="index">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+        <parameter name="value">
+          <type api="T:System.Boolean" ref="false" />
+        </parameter>
+        <parameter name="notify" optional="true">
+          <type api="T:System.Boolean" ref="false" />
+          <argument>
+            <type api="T:System.Boolean" ref="false" />
+            <value>False</value>
+          </argument>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.RegisterHelp.SetDoubleRegister(System.Int32,System.Double,System.Boolean)">
+      <apidata name="SetDoubleRegister" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="index">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+        <parameter name="value">
+          <type api="T:System.Double" ref="false" />
+        </parameter>
+        <parameter name="notify" optional="true">
+          <type api="T:System.Boolean" ref="false" />
+          <argument>
+            <type api="T:System.Boolean" ref="false" />
+            <value>False</value>
+          </argument>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.RegisterHelp.SetIntRegister(System.Int32,System.Int32,System.Boolean)">
+      <apidata name="SetIntRegister" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="index">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+        <parameter name="value">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+        <parameter name="notify" optional="true">
+          <type api="T:System.Boolean" ref="false" />
+          <argument>
+            <type api="T:System.Boolean" ref="false" />
+            <value>False</value>
+          </argument>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.RegisterHelp.SetStringRegister(System.Int32,System.String,System.Boolean)">
+      <apidata name="SetStringRegister" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="index">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+        <parameter name="value">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="notify" optional="true">
+          <type api="T:System.Boolean" ref="false" />
+          <argument>
+            <type api="T:System.Boolean" ref="false" />
+            <value>False</value>
+          </argument>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="E:SosoMS.Common.SystemHelp.RegisterHelp.StringRegisterChanged">
+      <apidata name="StringRegisterChanged" group="member" subgroup="event" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <eventdata add="true" remove="true" />
+      <adder name="add_StringRegisterChanged" />
+      <remover name="remove_StringRegisterChanged" />
+      <eventhandler>
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" ref="true">
+          <specialization>
+            <type api="T:System.String" ref="true" />
+          </specialization>
+          <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+        </type>
+      </eventhandler>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1">
+      <apidata name="RegisterChangedHandle" group="type" subgroup="delegate" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <parameters>
+        <parameter name="index">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+        <parameter name="oldValue">
+          <template name="T" index="0" api="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" />
+        </parameter>
+        <parameter name="newValue">
+          <template name="T" index="0" api="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.RegisterHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="T:SosoMS.Common.SystemHelp.SerializationHelp">
+      <apidata name="SerializationHelp" group="type" subgroup="class" />
+      <typedata visibility="public" abstract="true" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractSerialize``1(``0,System.String)" />
+        <element api="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractDeserialize``1(System.String)" />
+        <element api="M:SosoMS.Common.SystemHelp.SerializationHelp.DeepCopyByXmlSerializer``1(``0)" />
+      </elements>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractDeserialize``1(System.String)">
+      <apidata name="DataContractDeserialize" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <parameters>
+        <parameter name="fileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <template name="T" index="0" api="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractDeserialize``1(System.String)" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.SerializationHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractSerialize``1(``0,System.String)">
+      <apidata name="DataContractSerialize" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <parameters>
+        <parameter name="instance">
+          <template name="T" index="0" api="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractSerialize``1(``0,System.String)" />
+        </parameter>
+        <parameter name="fileName">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.SerializationHelp" ref="true" />
+      </containers>
+    </api>
+    <api id="M:SosoMS.Common.SystemHelp.SerializationHelp.DeepCopyByXmlSerializer``1(``0)">
+      <apidata name="DeepCopyByXmlSerializer" group="member" subgroup="method" />
+      <memberdata visibility="public" static="true" />
+      <proceduredata virtual="false" />
+      <templates>
+        <template name="T">
+          <constrained ctor="true" />
+        </template>
+      </templates>
+      <parameters>
+        <parameter name="instance">
+          <template name="T" index="0" api="M:SosoMS.Common.SystemHelp.SerializationHelp.DeepCopyByXmlSerializer``1(``0)" />
+        </parameter>
+      </parameters>
+      <returns>
+        <template name="T" index="0" api="M:SosoMS.Common.SystemHelp.SerializationHelp.DeepCopyByXmlSerializer``1(``0)" />
+      </returns>
+      <containers>
+        <library assembly="SosoMS.Common" module="SosoMS.Common" kind="DynamicallyLinkedLibrary" />
+        <namespace api="N:SosoMS.Common.SystemHelp" />
+        <type api="T:SosoMS.Common.SystemHelp.SerializationHelp" ref="true" />
+      </containers>
+    </api>
+  </apis>
+</reflection>

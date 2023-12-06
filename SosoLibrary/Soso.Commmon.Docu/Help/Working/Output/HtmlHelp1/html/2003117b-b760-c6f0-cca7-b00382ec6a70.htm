@@ -1,0 +1,75 @@
+﻿<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="en-us" />
+    <meta name="Microsoft.Help.Locale" content="en-us" />
+    <meta name="Microsoft.Help.TopicLocale" content="en-us" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-en-US.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>IniHelp.ReadObject&lt;T&gt; Method</title>
+    <meta name="Title" content="ReadObject&lt;T&gt; Method" />
+    <meta name="Microsoft.Help.Id" content="M:SosoMS.Common.FileHelp.IniHelp.ReadObject``1(System.String,System.String)" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <meta name="System.Keywords" content="IniHelp.ReadObject&lt;T&gt; method" />
+    <meta name="System.Keywords" content="ReadObject&lt;T&gt; method" />
+    <meta name="Microsoft.Help.F1" content="SosoMS.Common.FileHelp.IniHelp.ReadObject" />
+    <meta name="Microsoft.Help.F1" content="IniHelp.ReadObject" />
+    <meta name="Microsoft.Help.F1" content="ReadObject" />
+    <meta name="container" content="SosoMS.Common.FileHelp" />
+    <meta name="file" content="2003117b-b760-c6f0-cca7-b00382ec6a70" />
+    <meta name="guid" content="2003117b-b760-c6f0-cca7-b00382ec6a70" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Microsoft.Help.Category" content="ini" />
+    <meta name="Description" content="从文件中读取一个对象，并实例化" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">嗖嗖常用方法帮助集</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Ini<wbr />Help<span id="LST1D755362_0" data-languageSpecificText="cpp=::|nu=."></span>Read<wbr />Object<span id="LST1D755362_1" data-languageSpecificText="cpp=&lt;|cs=&lt;|fs=&lt;|vb=(Of |nu=("></span><span class="typeparameter">T</span><span id="LST1D755362_2" data-languageSpecificText="cpp=&gt;|cs=&gt;|fs=&gt;|vb=)|nu=)"></span> Method</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="summary">
+            从文件中读取一个对象，并实例化
+            </div>
+        <br />
+        <strong>Namespace:</strong> <a href="4f2fecb0-966c-232d-a819-c35018f8ad72.htm">SosoMS.Common.FileHelp</a><br /><strong>Assembly:</strong> SosoMS.Common (in SosoMS.Common.dll) Version: 1.0.0<div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDB')" onkeypress="SectionExpandCollapse_CheckKey('IDB', event)" tabindex="0"><img id="IDBToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Syntax</span></div><div id="IDBSection" class="collapsibleSection"><div id="IDAB" class="codeSnippetContainer"><div class="codeSnippetContainerTabs"><div id="IDAB_tab1" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','cs','1','4');return false;">C#</a></div><div id="IDAB_tab2" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','vb','2','4');return false;">VB</a></div><div id="IDAB_tab3" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','cpp','3','4');return false;">C++</a></div><div id="IDAB_tab4" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','fs','4','4');return false;">F#</a></div></div><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="IDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAB');return false;" title="Copy">Copy</a></div></div><div id="IDAB_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve"><span class="keyword">public</span> T <span class="identifier">ReadObject</span>&lt;T&gt;(
+	<span class="identifier">string</span> <span class="parameter">section</span>,
+	<span class="identifier">string</span> <span class="parameter">key</span>
+)
+</pre></div><div id="IDAB_code_Div2" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">Public</span> <span class="keyword">Function</span> <span class="identifier">ReadObject</span>(<span class="keyword">Of</span> T) ( 
+	<span class="parameter">section</span> <span class="keyword">As</span> <span class="identifier">String</span>,
+	<span class="parameter">key</span> <span class="keyword">As</span> <span class="identifier">String</span>
+) <span class="keyword">As</span> T</pre></div><div id="IDAB_code_Div3" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">public</span>:
+<span class="keyword">generic</span>&lt;<span class="keyword">typename</span> T&gt;
+T <span class="identifier">ReadObject</span>(
+	<span class="identifier">String</span>^ <span class="parameter">section</span>, 
+	<span class="identifier">String</span>^ <span class="parameter">key</span>
+)</pre></div><div id="IDAB_code_Div4" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">member</span> <span class="identifier">ReadObject</span> : 
+        <span class="parameter">section</span> : <span class="identifier">string</span> * 
+        <span class="parameter">key</span> : <span class="identifier">string</span> <span class="keyword">-&gt;</span> 'T </pre></div></div></div><h4>Parameters</h4><dl><dt class="has-text-weight-normal"><span class="parameter">section</span>  <a href="https://learn.microsoft.com/dotnet/api/system.string" target="_blank" rel="noopener noreferrer">String</a></dt><dd>节点</dd><dt class="has-text-weight-normal"><span class="parameter">key</span>  <a href="https://learn.microsoft.com/dotnet/api/system.string" target="_blank" rel="noopener noreferrer">String</a></dt><dd>键</dd></dl><h4>Type Parameters</h4><dl><dt class="has-text-weight-normal"><span class="parameter">T</span></dt><dd>对象类型</dd></dl><h4>Return Value</h4><span class="selflink"><span class="typeparameter">T</span></span><br />对象实例</div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBC')" onkeypress="SectionExpandCollapse_CheckKey('IDBC', event)" tabindex="0"><img id="IDBCToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Remarks</span></div><div id="IDBCSection" class="collapsibleSection">
+            如果是通过方法来进行保存的序列化JSON对象<br />
+            则可以通过该方法来进行反序列化，得到一个反序列化对象
+            </div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCC')" onkeypress="SectionExpandCollapse_CheckKey('IDCC', event)" tabindex="0"><img id="IDCCToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Example</span></div><div id="IDCCSection" class="collapsibleSection">
+            数据源
+            <div id="IDBCC" class="codeSnippetContainer"><div class="codeSnippetContainerTabs"><div id="IDBCC_tab1" class="codeSnippetContainerTabSingle">ini</div></div><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="IDBCC_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBCC');return false;" title="Copy">Copy</a></div></div><div id="IDBCC_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve">[Object]
+PersonArray=[{"Name":"wangfeijian","age":100},{"Name":"wang","age":300}]</pre></div></div></div>
+            获取一个Person数组对象
+            <div id="IDDCC" class="codeSnippetContainer"><div class="codeSnippetContainerTabs"><div id="IDDCC_tab1" class="codeSnippetContainerTabSingle">C#</div></div><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="IDDCC_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDDCC');return false;" title="Copy">Copy</a></div></div><div id="IDDCC_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve"><span class="highlight-keyword">var</span> iniHelp = <span class="highlight-keyword">new</span> IniHelp(fileName);
+Person[] persons = iniHelp.ReadObject&lt;Person[]&gt;(<span class="highlight-literal">"Object"</span>, <span class="highlight-literal">"PersonArray"</span>);</pre></div></div></div></div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0"><img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />See Also</span></div><div id="seeAlsoSection" class="collapsibleSection"><h4>Reference</h4><div><a href="1904b01d-e79f-ed43-8a41-7298709ef479.htm">IniHelp Class</a></div><div><a href="4f2fecb0-966c-232d-a819-c35018f8ad72.htm">SosoMS.Common.FileHelp Namespace</a></div><div><a href="07134fff-8595-142c-9a7c-076d0141bc0c.htm">WriteObject<span id="LST1D755362_3" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|fs=&lt;'|nu=("></span>T<span id="LST1D755362_4" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|fs=&gt;|nu=)"></span>(String, String, T)</a></div></div></div>
+    </div>
+    <div id="PageFooter" class="pageFooter" />
+  </body>
+</html>

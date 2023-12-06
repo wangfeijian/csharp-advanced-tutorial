@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topics>
+  <topic id="N:SosoMS.Common" file="2a09b3c0-4db5-f6fd-af61-86e07091f341">
+    <topic id="T:SosoMS.Common.SosoObject" file="20e9649d-e4bc-866f-da03-1debaac644b2">
+      <topic id="Overload:SosoMS.Common.SosoObject.#ctor" file="e9a05b91-05c9-f125-6e04-1473ec94a216">
+        <topic id="M:SosoMS.Common.SosoObject.#ctor" file="78c3d39a-509e-6ae6-c50a-94c699aa975d" />
+        <topic id="M:SosoMS.Common.SosoObject.#ctor(System.Boolean)" file="df9314a4-28c0-783c-4ffc-7e47232700c4" />
+        <topic id="M:SosoMS.Common.SosoObject.#ctor(System.Double)" file="90fb2667-cccb-134b-a549-5d6be8639d5f" />
+        <topic id="M:SosoMS.Common.SosoObject.#ctor(System.Int32)" file="2923b0e8-ba44-15f6-8a52-589d1102af22" />
+        <topic id="M:SosoMS.Common.SosoObject.#ctor(System.String)" file="1764c716-9378-ee97-95d7-c0d6cdc3c385" />
+      </topic>
+      <topic id="Properties.T:SosoMS.Common.SosoObject" file="06899d6e-b08b-017d-2ed2-ad37499f7d4c">
+        <topic id="P:SosoMS.Common.SosoObject.B" file="18b4c34d-c449-b1af-600e-e6061e3c2531" />
+        <topic id="P:SosoMS.Common.SosoObject.D" file="d64a5ce4-5671-14c0-3057-b2ab475bcfca" />
+        <topic id="P:SosoMS.Common.SosoObject.I" file="29ddb4b7-ffd2-c9fc-981f-0b7e6e5a897b" />
+        <topic id="P:SosoMS.Common.SosoObject.IsNullOrEmpty" file="ad398965-30a0-aa40-1d23-419510db467f" />
+        <topic id="P:SosoMS.Common.SosoObject.IsNumber" file="cb030274-710f-0889-0917-f422b4b190b2" />
+        <topic id="P:SosoMS.Common.SosoObject.S" file="feb00776-574b-4f67-24a1-a7d93e8ba33a" />
+      </topic>
+      <topic id="Methods.T:SosoMS.Common.SosoObject" file="36d862b6-3ee1-f700-95f1-2d8d3603a7e8">
+        <topic id="M:SosoMS.Common.SosoObject.Clone" file="44280bbe-143f-01bb-4aa6-954bc5d01db9" />
+        <topic id="Overload:SosoMS.Common.SosoObject.CompareTo" file="a62ea7ab-865f-711d-4e5e-6cbc5a950826">
+          <topic id="M:SosoMS.Common.SosoObject.CompareTo(System.Object)" file="3f32c55a-3d6c-f9f6-e197-6da498dd5478" />
+          <topic id="M:SosoMS.Common.SosoObject.CompareTo(SosoMS.Common.SosoObject)" file="69b2a6d9-dc64-c292-795a-1d758fff65cf" />
+        </topic>
+        <topic id="Overload:SosoMS.Common.SosoObject.Equals" file="1baf825e-f66e-dc1e-d2c2-ba5a2c1ba78d">
+          <topic id="M:SosoMS.Common.SosoObject.Equals(System.Object)" file="4921c6f2-91e9-6b8d-de03-9430c6830317" />
+          <topic id="M:SosoMS.Common.SosoObject.Equals(SosoMS.Common.SosoObject)" file="97ad5cee-4595-24ca-1fdb-572133a0ee62" />
+        </topic>
+        <topic id="M:SosoMS.Common.SosoObject.GetHashCode" file="88d8bbe2-b384-588d-a232-4735129896e1" />
+        <topic id="M:SosoMS.Common.SosoObject.ToString" file="f66a5bd7-2d15-c346-60de-79d8599a272d" />
+      </topic>
+      <topic id="Operators.T:SosoMS.Common.SosoObject" file="72a28036-70a3-c8aa-a029-92a000ced64f">
+        <topic id="M:SosoMS.Common.SosoObject.op_Addition(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="0658867a-5d89-882e-0987-761f8448f146" />
+        <topic id="M:SosoMS.Common.SosoObject.op_Division(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="5b47997a-5022-8a25-4fd0-1be7ee13eae8" />
+        <topic id="M:SosoMS.Common.SosoObject.op_Equality(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="2b7300a4-5630-3f0b-1203-517ab0485570" />
+        <topic id="M:SosoMS.Common.SosoObject.op_GreaterThan(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="225193c3-e520-2013-a8e2-58c5089f2177" />
+        <topic id="M:SosoMS.Common.SosoObject.op_GreaterThanOrEqual(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="7cc24f6e-2162-5b16-7b36-82fd839cee44" />
+        <topic id="Overload:SosoMS.Common.SosoObject.op_Implicit" file="d0234ec0-89b7-a281-4798-a17d0ba774cd">
+          <topic id="M:SosoMS.Common.SosoObject.op_Implicit(System.Boolean)~SosoMS.Common.SosoObject" file="e45b68ce-bdf2-c490-780c-29bf3c2dd412" />
+          <topic id="M:SosoMS.Common.SosoObject.op_Implicit(System.Double)~SosoMS.Common.SosoObject" file="4a3d09e9-60e4-95c0-9d8a-06425a15750d" />
+          <topic id="M:SosoMS.Common.SosoObject.op_Implicit(System.Int32)~SosoMS.Common.SosoObject" file="dff9647f-fe30-7b00-cbe3-64e2aead9445" />
+          <topic id="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Boolean" file="928bcace-229c-21ed-2e2f-6aff09796f27" />
+          <topic id="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Double" file="49a3c9ce-a451-49cd-e566-f026b045eb10" />
+          <topic id="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.Int32" file="b67722cf-8c3c-921a-3c3f-9b127d3d5c9e" />
+          <topic id="M:SosoMS.Common.SosoObject.op_Implicit(SosoMS.Common.SosoObject)~System.String" file="6c262673-3271-3a51-b71c-3eea9e0d0243" />
+          <topic id="M:SosoMS.Common.SosoObject.op_Implicit(System.String)~SosoMS.Common.SosoObject" file="464aa813-719e-e1c4-e16c-9ff3ca1e7cb5" />
+        </topic>
+        <topic id="M:SosoMS.Common.SosoObject.op_Inequality(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="116f235d-f178-ae6a-4623-d4bc0be80126" />
+        <topic id="M:SosoMS.Common.SosoObject.op_LessThan(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="9004c578-e989-a4f0-aed6-35dadd785399" />
+        <topic id="M:SosoMS.Common.SosoObject.op_LessThanOrEqual(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="0276639f-0af7-0a77-e159-16fb5c03f448" />
+        <topic id="M:SosoMS.Common.SosoObject.op_Multiply(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="43c43c2b-98ec-7161-3127-f455347195a7" />
+        <topic id="M:SosoMS.Common.SosoObject.op_Subtraction(SosoMS.Common.SosoObject,SosoMS.Common.SosoObject)" file="c7c70517-3d29-5747-24b9-42ef17cceaa3" />
+      </topic>
+    </topic>
+  </topic>
+  <topic id="N:SosoMS.Common.FileHelp" file="4f2fecb0-966c-232d-a819-c35018f8ad72">
+    <topic id="T:SosoMS.Common.FileHelp.CsvHelp" file="096ac194-66bf-6a4a-23f1-c6742e68b116">
+      <topic id="M:SosoMS.Common.FileHelp.CsvHelp.#ctor" file="c67672ae-da24-5c13-2f23-982efe05d633" />
+      <topic id="Methods.T:SosoMS.Common.FileHelp.CsvHelp" file="c44c22d6-c30f-3d57-95fa-43be3698b1e8">
+        <topic id="M:SosoMS.Common.FileHelp.CsvHelp.LoadCSVToDataTableAsync(System.String)" file="f8611522-fc1a-3cb2-feb6-2fecf90c4746" />
+        <topic id="M:SosoMS.Common.FileHelp.CsvHelp.SaveDataTableToCSV(System.Data.DataTable,System.String,System.String,System.String@,System.Boolean)" file="f97adc46-9fe2-5968-bc4c-064a502aa694" />
+        <topic id="M:SosoMS.Common.FileHelp.CsvHelp.SaveToCsvFile(System.String,System.String,System.String,System.String@,System.String)" file="7b08d6b3-32af-2541-c0ec-a3d50853a937" />
+      </topic>
+    </topic>
+    <topic id="T:SosoMS.Common.FileHelp.FileBaseHelp" file="6e72aae5-4b6d-a7a7-addd-042e0e510b5a">
+      <topic id="Methods.T:SosoMS.Common.FileHelp.FileBaseHelp" file="689e8a86-4e8a-5c3e-cf02-98a3d7f05e5b">
+        <topic id="M:SosoMS.Common.FileHelp.FileBaseHelp.CreateDirForFullName(System.String)" file="c4d6edf1-994f-4159-b376-48c7c131bb69" />
+      </topic>
+    </topic>
+    <topic id="T:SosoMS.Common.FileHelp.IniHelp" file="1904b01d-e79f-ed43-8a41-7298709ef479">
+      <topic id="M:SosoMS.Common.FileHelp.IniHelp.#ctor(System.String)" file="534a2141-83fd-34b1-111f-ec8abe455bd8" />
+      <topic id="Properties.T:SosoMS.Common.FileHelp.IniHelp" file="c2e7ba5d-35e7-04f7-35d1-e36615a26cf9">
+        <topic id="P:SosoMS.Common.FileHelp.IniHelp.IniFileName" file="b042e71d-3eb7-3681-9e84-fccfe0194c0a" />
+      </topic>
+      <topic id="Methods.T:SosoMS.Common.FileHelp.IniHelp" file="d2b28d9a-84ab-a52e-ab0d-ce7f61fbc208">
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.AppendString(System.String,System.String,System.String)" file="1a220ef9-185a-e762-ce13-07614ee887ce" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.ClearSection(System.String,System.String)" file="efe2979b-40ad-6bd3-3e31-e94fbd80a672" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.DeleteAllKeys(System.String)" file="a7983220-dd18-70f0-d2d4-c3adce76edce" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.DeleteKey(System.String,System.String)" file="16bb2f7f-96e7-14c6-70eb-8599a87922c5" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.GetAllItems(System.String,System.String)" file="f3cbfaaf-df70-338a-9d96-3be5b9d540dd" />
+        <topic id="Overload:SosoMS.Common.FileHelp.IniHelp.GetAllSectionName" file="e247a31a-6ddb-8b0f-8115-899ae53f564c">
+          <topic id="M:SosoMS.Common.FileHelp.IniHelp.GetAllSectionName" file="8f6a5fcf-a498-7d43-9d7c-e369464c9c86" />
+          <topic id="M:SosoMS.Common.FileHelp.IniHelp.GetAllSectionName(System.String)" file="c2cedf74-62e6-9a87-adc4-157fda49faca" />
+        </topic>
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.GetKeysForSection(System.String)" file="94722171-5d34-8277-cc3b-cbe7e3b73662" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.GetSectionKeys(System.String,System.String)" file="bc61d3d0-2f56-608a-4085-6787c3c5784c" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.GetValue(System.String,System.String,System.String,System.String)" file="266f7935-9642-a247-e55e-75481d60275d" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.IsKeyExist(System.String,System.String)" file="00ce94eb-e654-c6e1-0a58-2357d9cc3f96" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.IsSectionExist(System.String)" file="00eed641-3ff2-cd6d-a084-9b11067f1020" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.ReadObject``1(System.String,System.String)" file="2003117b-b760-c6f0-cca7-b00382ec6a70" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.ReadString(System.String,System.String,System.String)" file="705a520a-7d69-f83f-950a-f7679ba264ea" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.RemoveKey(System.String,System.String,System.String)" file="f7b4c9a7-e767-128a-e419-16e6e11fbb62" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.RemoveSection(System.String,System.String)" file="f7c4248a-c391-6a3a-4d5f-b50ea4db33b8" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.SetItems(System.String,System.String,System.String[])" file="d6d9500d-97b9-e4e5-3f6a-c720af241dce" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.SetValue(System.String,System.String,System.String,System.String)" file="c970911e-fcbc-24ec-c947-489e723ede61" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.WriteObject``1(System.String,System.String,``0)" file="07134fff-8595-142c-9a7c-076d0141bc0c" />
+        <topic id="M:SosoMS.Common.FileHelp.IniHelp.WriteString(System.String,System.String,System.String)" file="0ecbd18d-7a69-6917-d51b-a18415c8fb8e" />
+      </topic>
+    </topic>
+    <topic id="T:SosoMS.Common.FileHelp.XmlHelp" file="931ae64d-1ef1-7c01-4eb4-cf2b5fc39cde">
+      <topic id="Overload:SosoMS.Common.FileHelp.XmlHelp.#ctor" file="dac61d9c-76ad-8e88-066b-a849b339e495">
+        <topic id="M:SosoMS.Common.FileHelp.XmlHelp.#ctor(System.String)" file="d448dbd5-c595-ca00-8d4f-deb79af66630" />
+        <topic id="M:SosoMS.Common.FileHelp.XmlHelp.#ctor(System.String,System.String)" file="01e03980-3421-3b16-35b8-0d729fc59486" />
+      </topic>
+      <topic id="Methods.T:SosoMS.Common.FileHelp.XmlHelp" file="be72f46d-1a0d-9d6e-47cf-034015fdcfd6">
+        <topic id="M:SosoMS.Common.FileHelp.XmlHelp.CreateXElement(System.String,System.Collections.Generic.Dictionary{System.String,System.String})" file="ba0fc6ac-5f28-ea3d-6596-96aa0ecb47b3" />
+        <topic id="M:SosoMS.Common.FileHelp.XmlHelp.GetKeyValuesFromXElementAttributes(System.Xml.Linq.XElement)" file="8af02d10-10f2-930f-d68e-4b08e661fa4b" />
+        <topic id="M:SosoMS.Common.FileHelp.XmlHelp.GetXElements(System.String,System.Boolean,System.String,System.String)" file="b0e1a739-a629-1ae0-e383-838f3505b62a" />
+        <topic id="M:SosoMS.Common.FileHelp.XmlHelp.Save" file="deb88f38-b742-a0de-378a-48e53a33e48e" />
+        <topic id="M:SosoMS.Common.FileHelp.XmlHelp.UpdateXElementAttribute(System.Xml.Linq.XElement,System.Collections.Generic.Dictionary{System.String,System.String})" file="107e7fcc-143a-fed5-fe7f-7d515e3665d9" />
+      </topic>
+    </topic>
+  </topic>
+  <topic id="N:SosoMS.Common.SystemHelp" file="026ce1e1-007c-0e37-04b4-2e196fe75f90">
+    <topic id="T:SosoMS.Common.SystemHelp.MathHelp" file="dc65f531-4b76-5cc6-b788-66c03c58f7ea">
+      <topic id="Methods.T:SosoMS.Common.SystemHelp.MathHelp" file="36e9d961-81cc-c8f8-345d-5363036fb2db">
+        <topic id="M:SosoMS.Common.SystemHelp.MathHelp.DegNormalization(System.Double)" file="0f50f29c-6269-9590-157a-ef8be5c57c78" />
+        <topic id="M:SosoMS.Common.SystemHelp.MathHelp.DegToRad(System.Double)" file="cd690c1c-a71d-dd63-6749-937bebe8ccfc" />
+        <topic id="M:SosoMS.Common.SystemHelp.MathHelp.RadNormalization(System.Double)" file="51f8e799-ecc8-e885-0085-144684f41979" />
+        <topic id="M:SosoMS.Common.SystemHelp.MathHelp.RadToDeg(System.Double)" file="d4ffbd8c-4f24-c9f3-36bd-9fdbba5b2705" />
+      </topic>
+    </topic>
+    <topic id="T:SosoMS.Common.SystemHelp.PerformanceTimer" file="dcbffa21-5512-1002-84d6-ff3dd8d87998">
+      <topic id="M:SosoMS.Common.SystemHelp.PerformanceTimer.#ctor" file="9f054a14-8a31-33cb-7b3a-4be0bb9d1d1b" />
+      <topic id="Properties.T:SosoMS.Common.SystemHelp.PerformanceTimer" file="af910bb2-aa65-32be-5e79-0ad8834cd05c">
+        <topic id="P:SosoMS.Common.SystemHelp.PerformanceTimer.Elapsed" file="7c613226-b0b7-5889-5a99-90a2ca38c98e" />
+        <topic id="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedMicroseconds" file="d09956d9-f43d-d10c-2125-80499fcdac0c" />
+        <topic id="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedMilliseconds" file="d3b53171-2597-ef6d-11ae-4bcecf54ec03" />
+        <topic id="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedNanoseconds" file="c0c7b9f6-e7a6-e152-d24a-27b63fc36a6c" />
+        <topic id="P:SosoMS.Common.SystemHelp.PerformanceTimer.ElapsedSeconds" file="8e934bd9-e1b8-523b-5612-0cd6366a9847" />
+        <topic id="P:SosoMS.Common.SystemHelp.PerformanceTimer.IsRunning" file="a86157e5-5967-5a8b-d93e-8ad44c527964" />
+      </topic>
+      <topic id="Methods.T:SosoMS.Common.SystemHelp.PerformanceTimer" file="c27ef077-cebd-7f58-9cf3-09a2ae504755">
+        <topic id="M:SosoMS.Common.SystemHelp.PerformanceTimer.Execute(System.Action)" file="d02d4ea4-69e6-0c42-fd58-9e72cf6beec6" />
+        <topic id="M:SosoMS.Common.SystemHelp.PerformanceTimer.Restart" file="a9dee475-347c-984c-0cd3-6195b90d969e" />
+        <topic id="M:SosoMS.Common.SystemHelp.PerformanceTimer.Start" file="4462f64e-b267-0ef8-ef6a-2465c5b269d6" />
+        <topic id="M:SosoMS.Common.SystemHelp.PerformanceTimer.StartNew" file="ff47d62c-91ba-1bcb-fc3c-997a8b2c28f4" />
+        <topic id="M:SosoMS.Common.SystemHelp.PerformanceTimer.Stop" file="4c4da100-194c-6e7f-30e2-c46a3310f4c2" />
+      </topic>
+    </topic>
+    <topic id="T:SosoMS.Common.SystemHelp.RegisterHelp" file="f72bdb94-269f-8543-e235-b813c577c6b4">
+      <topic id="Properties.T:SosoMS.Common.SystemHelp.RegisterHelp" file="7f65127f-4121-1b17-9eb4-1c12302a8793">
+        <topic id="P:SosoMS.Common.SystemHelp.RegisterHelp.Instance" file="1dad839b-6e07-3c32-3460-ff20cd8e53a5" />
+      </topic>
+      <topic id="Methods.T:SosoMS.Common.SystemHelp.RegisterHelp" file="9d281c91-6c6d-8872-8cd6-9c8e1659a01d">
+        <topic id="M:SosoMS.Common.SystemHelp.RegisterHelp.GetBoolRegister(System.Int32)" file="0c11a019-ad1d-5d37-4c68-2ad59a6e422e" />
+        <topic id="M:SosoMS.Common.SystemHelp.RegisterHelp.GetDoubleRegister(System.Int32)" file="090967f9-e7b4-0eee-2d64-1213e6137a68" />
+        <topic id="M:SosoMS.Common.SystemHelp.RegisterHelp.GetIntRegister(System.Int32)" file="b526ca31-80d7-3bf4-44ba-e9df081ac7f8" />
+        <topic id="M:SosoMS.Common.SystemHelp.RegisterHelp.GetStringRegister(System.Int32)" file="5f573bb3-6fc3-8b8d-512c-2485d41a9056" />
+        <topic id="M:SosoMS.Common.SystemHelp.RegisterHelp.SetBoolRegister(System.Int32,System.Boolean,System.Boolean)" file="2da3fe28-ea7a-3c8a-baaa-2520767629f2" />
+        <topic id="M:SosoMS.Common.SystemHelp.RegisterHelp.SetDoubleRegister(System.Int32,System.Double,System.Boolean)" file="5ebcd071-6f8e-f33f-d15d-19c583f38625" />
+        <topic id="M:SosoMS.Common.SystemHelp.RegisterHelp.SetIntRegister(System.Int32,System.Int32,System.Boolean)" file="1966f501-d9fe-7700-f38b-8a6ea937b0f1" />
+        <topic id="M:SosoMS.Common.SystemHelp.RegisterHelp.SetStringRegister(System.Int32,System.String,System.Boolean)" file="f29f3a57-00c1-76aa-b205-d5cb7c8f69be" />
+      </topic>
+      <topic id="Events.T:SosoMS.Common.SystemHelp.RegisterHelp" file="98c5649c-03c5-63be-cc2c-4c29b1e63204">
+        <topic id="E:SosoMS.Common.SystemHelp.RegisterHelp.BoolRegisterChanged" file="520b0962-8da5-5ef5-d73d-b70425915664" />
+        <topic id="E:SosoMS.Common.SystemHelp.RegisterHelp.DoubleRegisterChanged" file="f0142c9b-9d3d-c0e5-0055-9bcc326ac179" />
+        <topic id="E:SosoMS.Common.SystemHelp.RegisterHelp.IntRegisterChanged" file="4713b148-020f-0f23-fbde-ec93c22ef441" />
+        <topic id="E:SosoMS.Common.SystemHelp.RegisterHelp.StringRegisterChanged" file="c67af688-a267-10df-b4bd-2de5cea9ea13" />
+      </topic>
+    </topic>
+    <topic id="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" file="708960c3-9de6-2cc2-f9dd-9444061855e4" />
+    <topic id="T:SosoMS.Common.SystemHelp.SerializationHelp" file="2f5029e1-b648-e421-cbb2-b46f11ee13f2">
+      <topic id="Methods.T:SosoMS.Common.SystemHelp.SerializationHelp" file="e3e526e6-731e-e75c-828b-778659ca5645">
+        <topic id="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractDeserialize``1(System.String)" file="d36d4154-07d3-7a05-a3a0-03d0937e1a1c" />
+        <topic id="M:SosoMS.Common.SystemHelp.SerializationHelp.DataContractSerialize``1(``0,System.String)" file="f7fbddbe-7af2-3bb2-793b-014faa22be1e" />
+        <topic id="M:SosoMS.Common.SystemHelp.SerializationHelp.DeepCopyByXmlSerializer``1(``0)" file="0ca41180-d220-c9c1-0040-f2e6391b4806" />
+      </topic>
+    </topic>
+  </topic>
+</topics>

@@ -1,0 +1,24 @@
+﻿<Window
+    x:Class="WpfForVisionpro.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:toolGroup="clr-namespace:Cognex.VisionPro.ToolGroup;assembly=Cognex.VisionPro.ToolGroup.Controls"
+    xmlns:toolblock="clr-namespace:Cognex.VisionPro.ToolBlock;assembly=Cognex.VisionPro.ToolGroup"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfForVisionpro"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Grid>
+        <WindowsFormsHost>
+            <toolGroup:CogToolGroupEditV2>
+                <toolGroup:CogToolGroupEditV2.Subject>
+                    <toolblock:CogToolBlock/>
+                </toolGroup:CogToolGroupEditV2.Subject>
+            </toolGroup:CogToolGroupEditV2>
+
+        </WindowsFormsHost>
+    </Grid>
+</Window>

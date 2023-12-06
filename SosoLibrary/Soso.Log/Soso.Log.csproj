@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>9.0</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="Log4Net.config" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Log4Net.config">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="log4net" Version="2.0.15" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Soso.Contract\Soso.Contract.csproj" />
+    </ItemGroup>
+</Project>

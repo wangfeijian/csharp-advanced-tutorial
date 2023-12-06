@@ -1,0 +1,67 @@
+﻿<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="en-us" />
+    <meta name="Microsoft.Help.Locale" content="en-us" />
+    <meta name="Microsoft.Help.TopicLocale" content="en-us" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-en-US.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>RegisterHelp.RegisterChangedHandle&lt;T&gt; Delegate</title>
+    <meta name="Title" content="RegisterHelp.RegisterChangedHandle&lt;T&gt; Delegate" />
+    <meta name="Microsoft.Help.Id" content="T:SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <meta name="System.Keywords" content="SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle&lt;T&gt; delegate" />
+    <meta name="System.Keywords" content="RegisterHelp.RegisterChangedHandle&lt;T&gt; delegate" />
+    <meta name="Microsoft.Help.F1" content="SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle`1" />
+    <meta name="Microsoft.Help.F1" content="RegisterHelp.RegisterChangedHandle`1" />
+    <meta name="container" content="SosoMS.Common.SystemHelp" />
+    <meta name="file" content="708960c3-9de6-2cc2-f9dd-9444061855e4" />
+    <meta name="guid" content="708960c3-9de6-2cc2-f9dd-9444061855e4" />
+    <meta name="Description" content="寄存器值改变委托" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">嗖嗖常用方法帮助集</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Register<wbr />Help<span id="LST69832E33_0" data-languageSpecificText="cpp=::|nu=."></span>Register<wbr />Changed<wbr />Handle<span id="LST69832E33_1" data-languageSpecificText="cpp=&lt;|cs=&lt;|fs=&lt;|vb=(Of |nu=("></span><span class="typeparameter">T</span><span id="LST69832E33_2" data-languageSpecificText="cpp=&gt;|cs=&gt;|fs=&gt;|vb=)|nu=)"></span> Delegate</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="summary">
+            寄存器值改变委托
+            </div>
+        <br />
+        <strong>Namespace:</strong> <a href="026ce1e1-007c-0e37-04b4-2e196fe75f90.htm">SosoMS.Common.SystemHelp</a><br /><strong>Assembly:</strong> SosoMS.Common (in SosoMS.Common.dll) Version: 1.0.0<div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDB')" onkeypress="SectionExpandCollapse_CheckKey('IDB', event)" tabindex="0"><img id="IDBToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Syntax</span></div><div id="IDBSection" class="collapsibleSection"><div id="IDAB" class="codeSnippetContainer"><div class="codeSnippetContainerTabs"><div id="IDAB_tab1" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','cs','1','4');return false;">C#</a></div><div id="IDAB_tab2" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','vb','2','4');return false;">VB</a></div><div id="IDAB_tab3" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','cpp','3','4');return false;">C++</a></div><div id="IDAB_tab4" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','fs','4','4');return false;">F#</a></div></div><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="IDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAB');return false;" title="Copy">Copy</a></div></div><div id="IDAB_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="identifier">RegisterChangedHandle</span>&lt;T&gt;(
+	<span class="identifier">int</span> <span class="parameter">index</span>,
+	T <span class="parameter">oldValue</span>,
+	T <span class="parameter">newValue</span>
+)
+</pre></div><div id="IDAB_code_Div2" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">Public</span> <span class="keyword">Delegate</span> <span class="keyword">Sub</span> <span class="identifier">RegisterChangedHandle</span>(<span class="keyword">Of</span> T) ( 
+	<span class="parameter">index</span> <span class="keyword">As</span> <span class="identifier">Integer</span>,
+	<span class="parameter">oldValue</span> <span class="keyword">As</span> T,
+	<span class="parameter">newValue</span> <span class="keyword">As</span> T
+)</pre></div><div id="IDAB_code_Div3" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">generic</span>&lt;<span class="keyword">typename</span> T&gt;
+<span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="identifier">RegisterChangedHandle</span>(
+	<span class="identifier">int</span> <span class="parameter">index</span>, 
+	T <span class="parameter">oldValue</span>, 
+	T <span class="parameter">newValue</span>
+)</pre></div><div id="IDAB_code_Div4" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">type</span> <span class="identifier">RegisterChangedHandle</span> = 
+    <span class="keyword">delegate</span> <span class="keyword">of</span> 
+        <span class="parameter">index</span> : <span class="identifier">int</span> * 
+        <span class="parameter">oldValue</span> : 'T * 
+        <span class="parameter">newValue</span> : 'T <span class="keyword">-&gt;</span> <span class="keyword">unit</span></pre></div></div></div><h4>Parameters</h4><dl><dt class="has-text-weight-normal"><span class="parameter">index</span>  <a href="https://learn.microsoft.com/dotnet/api/system.int32" target="_blank" rel="noopener noreferrer">Int32</a></dt><dd>索引</dd><dt class="has-text-weight-normal"><span class="parameter">oldValue</span>  <span class="selflink"><span class="typeparameter">T</span></span></dt><dd>旧值</dd><dt class="has-text-weight-normal"><span class="parameter">newValue</span>  <span class="selflink"><span class="typeparameter">T</span></span></dt><dd>新值</dd></dl><h4>Type Parameters</h4><dl><dt class="has-text-weight-normal"><span class="parameter">T</span></dt><dd>寄存器类型</dd></dl></div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBC')" onkeypress="SectionExpandCollapse_CheckKey('IDBC', event)" tabindex="0"><img id="IDBCToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Remarks</span></div><div id="IDBCSection" class="collapsibleSection">
+            定义一个寄存器值改变的委托，利用这个委托可以监控寄存器的值是否改变
+            </div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0"><img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />See Also</span></div><div id="seeAlsoSection" class="collapsibleSection"><h4>Reference</h4><div><a href="026ce1e1-007c-0e37-04b4-2e196fe75f90.htm">SosoMS.Common.SystemHelp Namespace</a></div></div></div>
+    </div>
+    <div id="PageFooter" class="pageFooter" />
+  </body>
+</html>

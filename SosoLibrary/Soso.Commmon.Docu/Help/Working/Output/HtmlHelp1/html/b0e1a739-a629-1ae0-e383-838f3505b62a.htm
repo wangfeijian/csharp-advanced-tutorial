@@ -1,0 +1,110 @@
+﻿<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="en-us" />
+    <meta name="Microsoft.Help.Locale" content="en-us" />
+    <meta name="Microsoft.Help.TopicLocale" content="en-us" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-en-US.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>XmlHelp.GetXElements Method</title>
+    <meta name="Title" content="GetXElements Method" />
+    <meta name="Microsoft.Help.Id" content="M:SosoMS.Common.FileHelp.XmlHelp.GetXElements(System.String,System.Boolean,System.String,System.String)" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <meta name="System.Keywords" content="XmlHelp.GetXElements method" />
+    <meta name="System.Keywords" content="GetXElements method" />
+    <meta name="Microsoft.Help.F1" content="SosoMS.Common.FileHelp.XmlHelp.GetXElements" />
+    <meta name="Microsoft.Help.F1" content="XmlHelp.GetXElements" />
+    <meta name="Microsoft.Help.F1" content="GetXElements" />
+    <meta name="container" content="SosoMS.Common.FileHelp" />
+    <meta name="file" content="b0e1a739-a629-1ae0-e383-838f3505b62a" />
+    <meta name="guid" content="b0e1a739-a629-1ae0-e383-838f3505b62a" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Microsoft.Help.Category" content="XML" />
+    <meta name="Description" content="获取集合" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">嗖嗖常用方法帮助集</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Xml<wbr />Help<span id="LSTE8E24153_0" data-languageSpecificText="cpp=::|nu=."></span>Get<wbr />XElements Method</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="summary">
+            获取<a href="https://learn.microsoft.com/dotnet/api/system.xml.linq.xelement" target="_blank" rel="noopener noreferrer">XElement</a>集合
+            </div>
+        <br />
+        <strong>Namespace:</strong> <a href="4f2fecb0-966c-232d-a819-c35018f8ad72.htm">SosoMS.Common.FileHelp</a><br /><strong>Assembly:</strong> SosoMS.Common (in SosoMS.Common.dll) Version: 1.0.0<div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDB')" onkeypress="SectionExpandCollapse_CheckKey('IDB', event)" tabindex="0"><img id="IDBToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Syntax</span></div><div id="IDBSection" class="collapsibleSection"><div id="IDAB" class="codeSnippetContainer"><div class="codeSnippetContainerTabs"><div id="IDAB_tab1" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','cs','1','4');return false;">C#</a></div><div id="IDAB_tab2" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','vb','2','4');return false;">VB</a></div><div id="IDAB_tab3" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','cpp','3','4');return false;">C++</a></div><div id="IDAB_tab4" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','fs','4','4');return false;">F#</a></div></div><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="IDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAB');return false;" title="Copy">Copy</a></div></div><div id="IDAB_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve"><span class="keyword">public</span> <span class="identifier">IEnumerable</span>&lt;<span class="identifier">XElement</span>&gt; <span class="identifier">GetXElements</span>(
+	<span class="identifier">string</span> <span class="parameter">elementName</span>,
+	<span class="identifier">bool</span> <span class="parameter">hasAttribute</span>,
+	<span class="identifier">string</span> <span class="parameter">attributeName</span> = "",
+	<span class="identifier">string</span> <span class="parameter">attributeValue</span> = ""
+)</pre></div><div id="IDAB_code_Div2" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">Public</span> <span class="keyword">Function</span> <span class="identifier">GetXElements</span> ( 
+	<span class="parameter">elementName</span> <span class="keyword">As</span> <span class="identifier">String</span>,
+	<span class="parameter">hasAttribute</span> <span class="keyword">As</span> <span class="identifier">Boolean</span>,
+	Optional <span class="parameter">attributeName</span> <span class="keyword">As</span> <span class="identifier">String</span> = "",
+	Optional <span class="parameter">attributeValue</span> <span class="keyword">As</span> <span class="identifier">String</span> = ""
+) <span class="keyword">As</span> <span class="identifier">IEnumerable</span>(<span class="keyword">Of</span> <span class="identifier">XElement</span>)</pre></div><div id="IDAB_code_Div3" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">public</span>:
+<span class="identifier">IEnumerable</span>&lt;<span class="identifier">XElement</span>^&gt;^ <span class="identifier">GetXElements</span>(
+	<span class="identifier">String</span>^ <span class="parameter">elementName</span>, 
+	<span class="identifier">bool</span> <span class="parameter">hasAttribute</span>, 
+	<span class="identifier">String</span>^ <span class="parameter">attributeName</span> = L"", 
+	<span class="identifier">String</span>^ <span class="parameter">attributeValue</span> = L""
+)</pre></div><div id="IDAB_code_Div4" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">member</span> <span class="identifier">GetXElements</span> : 
+        <span class="parameter">elementName</span> : <span class="identifier">string</span> * 
+        <span class="parameter">hasAttribute</span> : <span class="identifier">bool</span> * 
+        ?<span class="parameter">attributeName</span> : <span class="identifier">string</span> * 
+        ?<span class="parameter">attributeValue</span> : <span class="identifier">string</span> 
+(* Defaults:
+        <span class="keyword">let </span><span class="identifier">_</span><span class="identifier">attributeName</span> = defaultArg <span class="identifier">attributeName</span> ""
+        <span class="keyword">let </span><span class="identifier">_</span><span class="identifier">attributeValue</span> = defaultArg <span class="identifier">attributeValue</span> ""
+*)
+<span class="keyword">-&gt;</span> <span class="identifier">IEnumerable</span>&lt;<span class="identifier">XElement</span>&gt; </pre></div></div></div><h4>Parameters</h4><dl><dt class="has-text-weight-normal"><span class="parameter">elementName</span>  <a href="https://learn.microsoft.com/dotnet/api/system.string" target="_blank" rel="noopener noreferrer">String</a></dt><dd>节点名称</dd><dt class="has-text-weight-normal"><span class="parameter">hasAttribute</span>  <a href="https://learn.microsoft.com/dotnet/api/system.boolean" target="_blank" rel="noopener noreferrer">Boolean</a></dt><dd>是否存在特性</dd><dt class="has-text-weight-normal"><span class="parameter">attributeName</span>  <a href="https://learn.microsoft.com/dotnet/api/system.string" target="_blank" rel="noopener noreferrer">String</a>  (Optional)</dt><dd>特性名称</dd><dt class="has-text-weight-normal"><span class="parameter">attributeValue</span>  <a href="https://learn.microsoft.com/dotnet/api/system.string" target="_blank" rel="noopener noreferrer">String</a>  (Optional)</dt><dd>特性值</dd></dl><h4>Return Value</h4><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" target="_blank" rel="noopener noreferrer">IEnumerable</a><span id="LSTE8E24153_1" data-languageSpecificText="cpp=&lt;|cs=&lt;|fs=&lt;|vb=(Of |nu=("></span><a href="https://learn.microsoft.com/dotnet/api/system.xml.linq.xelement" target="_blank" rel="noopener noreferrer">XElement</a><span id="LSTE8E24153_2" data-languageSpecificText="cpp=&gt;|cs=&gt;|fs=&gt;|vb=)|nu=)"></span><br /><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" target="_blank" rel="noopener noreferrer">IEnumerable<span id="LSTE8E24153_3" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LSTE8E24153_4" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a>集合对象</div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDHC')" onkeypress="SectionExpandCollapse_CheckKey('IDHC', event)" tabindex="0"><img id="IDHCToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Exceptions</span></div><div id="IDHCSection" class="collapsibleSection"><table><tr><th>Exception</th><th>Condition</th></tr><tr><td><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" target="_blank" rel="noopener noreferrer">ArgumentNullException</a></td><td /></tr></table></div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBC')" onkeypress="SectionExpandCollapse_CheckKey('IDBC', event)" tabindex="0"><img id="IDBCToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Remarks</span></div><div id="IDBCSection" class="collapsibleSection">
+            使用指定的节点名获取相应的节点，如果不通过特性筛选，则返回所有指定节点名称的<a href="https://learn.microsoft.com/dotnet/api/system.xml.linq.xelement" target="_blank" rel="noopener noreferrer">XElement</a>对象<br />
+            例如：如果一个节点中嵌套了一个同名的节点，则会返回两个<a href="https://learn.microsoft.com/dotnet/api/system.xml.linq.xelement" target="_blank" rel="noopener noreferrer">XElement</a>对象<br />
+            如果使用特性筛选，则必须指定相应的特性名称和特性值，不指定就会抛出<a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" target="_blank" rel="noopener noreferrer">ArgumentNullException</a><br />
+            如果存在相同的特性名称的值，则返回多个<a href="https://learn.microsoft.com/dotnet/api/system.xml.linq.xelement" target="_blank" rel="noopener noreferrer">XElement</a>对象。<br />注意：即使筛选出来为一个对象，也是一个集合。
+            如果想删除获取到的节点，直接调用该<a href="https://learn.microsoft.com/dotnet/api/system.xml.linq.xelement" target="_blank" rel="noopener noreferrer">XElement</a>对象中的<a href="https://learn.microsoft.com/dotnet/api/system.xml.linq.xnode.remove#system-xml-linq-xnode-remove" target="_blank" rel="noopener noreferrer">Remove<span id="LSTE8E24153_5" data-languageSpecificText="cs=()|vb=|cpp=()|nu=()|fs=()"></span></a>方法即可
+            </div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCC')" onkeypress="SectionExpandCollapse_CheckKey('IDCC', event)" tabindex="0"><img id="IDCCToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Example</span></div><div id="IDCCSection" class="collapsibleSection">
+            数据源
+            <div id="IDBCC" class="codeSnippetContainer"><div class="codeSnippetContainerTabs"><div id="IDBCC_tab1" class="codeSnippetContainerTabSingle">XML</div></div><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="IDBCC_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBCC');return false;" title="Copy">Copy</a></div></div><div id="IDBCC_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve"><span class="highlight-xml-bracket">&lt;?</span><span class="highlight-xml-tag">xml</span> <span class="highlight-xml-attribute-name">version</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"1.0"</span> <span class="highlight-xml-attribute-name">encoding</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"utf-8"</span><span class="highlight-xml-bracket">?&gt;</span>
+<span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">root</span><span class="highlight-xml-bracket">&gt;</span>
+  <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">TcpLink</span><span class="highlight-xml-bracket">&gt;</span>
+    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">TcpLink</span> <span class="highlight-xml-attribute-name">名称</span> <span class="highlight-xml-attribute-equal">=</span> <span class="highlight-xml-attribute-value">"EPSON机器人"</span> <span class="highlight-xml-attribute-name">IP</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"192.168.0.100"</span> <span class="highlight-xml-attribute-name">Port</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"3000"</span> <span class="highlight-xml-attribute-name">超时时间</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"3000"</span> <span class="highlight-xml-bracket">/&gt;</span>
+    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">TcpLink</span> <span class="highlight-xml-attribute-name">名称</span> <span class="highlight-xml-attribute-equal">=</span> <span class="highlight-xml-attribute-value">"视觉程序"</span> <span class="highlight-xml-attribute-name">IP</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"192.168.10.100"</span> <span class="highlight-xml-attribute-name">Port</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"10000"</span> <span class="highlight-xml-attribute-name">超时时间</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"3000"</span> <span class="highlight-xml-bracket">/&gt;</span>
+    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">TcpLink</span> <span class="highlight-xml-attribute-name">名称</span> <span class="highlight-xml-attribute-equal">=</span> <span class="highlight-xml-attribute-value">"MES系统"</span> <span class="highlight-xml-attribute-name">IP</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"127.0.0.1"</span> <span class="highlight-xml-attribute-name">Port</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"80"</span> <span class="highlight-xml-attribute-name">超时时间</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"3000"</span> <span class="highlight-xml-bracket">/&gt;</span>
+  <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">TcpLink</span><span class="highlight-xml-bracket">&gt;</span>
+  <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">Data</span><span class="highlight-xml-bracket">&gt;</span>
+    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">Data</span> <span class="highlight-xml-attribute-name">名称</span> <span class="highlight-xml-attribute-equal">=</span> <span class="highlight-xml-attribute-value">"组装精度"</span> <span class="highlight-xml-attribute-name">版本</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"1.0"</span> <span class="highlight-xml-attribute-name">权限</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"2"</span> <span class="highlight-xml-bracket">/&gt;</span>
+    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">Data</span> <span class="highlight-xml-attribute-name">名称</span> <span class="highlight-xml-attribute-equal">=</span> <span class="highlight-xml-attribute-value">"组装位置"</span> <span class="highlight-xml-attribute-name">版本</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"1.0"</span> <span class="highlight-xml-attribute-name">权限</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"2"</span> <span class="highlight-xml-bracket">/&gt;</span>
+    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">Data</span> <span class="highlight-xml-attribute-name">名称</span> <span class="highlight-xml-attribute-equal">=</span> <span class="highlight-xml-attribute-value">"上传数据"</span> <span class="highlight-xml-attribute-name">版本</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"1.0"</span> <span class="highlight-xml-attribute-name">权限</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"2"</span> <span class="highlight-xml-bracket">/&gt;</span>
+  <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">Data</span><span class="highlight-xml-bracket">&gt;</span>
+<span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">root</span><span class="highlight-xml-bracket">&gt;</span></pre></div></div></div>
+            使用上面的数据源进行没有特性节点的获取
+            <div id="IDDCC" class="codeSnippetContainer"><div class="codeSnippetContainerTabs"><div id="IDDCC_tab1" class="codeSnippetContainerTabSingle">C#</div></div><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="IDDCC_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDDCC');return false;" title="Copy">Copy</a></div></div><div id="IDDCC_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve"><span class="highlight-keyword">var</span> xmlHelp = <span class="highlight-keyword">new</span> XmlHelp(fileName);
+<span class="highlight-keyword">var</span> xelements = xmlHelp.GetXElements(<span class="highlight-literal">"TcpLink"</span>, <span class="highlight-keyword">false</span>);
+<span class="highlight-comment">// xelements中有一个嵌套了TcpLink节点的对象集合 结果如下：</span>
+<span class="highlight-comment">//   &lt;TcpLink&gt;</span>
+<span class="highlight-comment">//     &lt;TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" /&gt;</span>
+<span class="highlight-comment">//     &lt;TcpLink 名称 = "视觉程序" IP="192.168.10.100" Port="10000" 超时时间="3000" /&gt;</span>
+<span class="highlight-comment">//     &lt;TcpLink 名称 = "MES系统" IP="127.0.0.1" Port="80" 超时时间="3000" /&gt;</span>
+<span class="highlight-comment">//   &lt;/TcpLink&gt;</span></pre></div></div></div>
+            使用上面的数据源进行有特性节点的获取
+            <div id="IDFCC" class="codeSnippetContainer"><div class="codeSnippetContainerTabs"><div id="IDFCC_tab1" class="codeSnippetContainerTabSingle">C#</div></div><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="IDFCC_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDFCC');return false;" title="Copy">Copy</a></div></div><div id="IDFCC_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve"><span class="highlight-keyword">var</span> element = xmlHelp.GetXElements(<span class="highlight-literal">"TcpLink"</span>, <span class="highlight-keyword">true</span>, <span class="highlight-literal">"名称"</span>, <span class="highlight-literal">"EPSON机器人"</span>);
+<span class="highlight-comment">// element中有一个TcpLink节点对象集合，结果如下：</span>
+<span class="highlight-comment">// &lt;TcpLink 名称 = "EPSON机器人" IP="192.168.0.100" Port="3000" 超时时间="3000" /&gt;</span></pre></div></div></div></div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0"><img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />See Also</span></div><div id="seeAlsoSection" class="collapsibleSection"><h4>Reference</h4><div><a href="931ae64d-1ef1-7c01-4eb4-cf2b5fc39cde.htm">XmlHelp Class</a></div><div><a href="4f2fecb0-966c-232d-a819-c35018f8ad72.htm">SosoMS.Common.FileHelp Namespace</a></div><div><a href="https://learn.microsoft.com/dotnet/api/system.xml.linq.xcontainer.descendants#system-xml-linq-xcontainer-descendants" target="_blank" rel="noopener noreferrer">Descendants<span id="LSTE8E24153_6" data-languageSpecificText="cs=()|vb=|cpp=()|nu=()|fs=()"></span></a></div></div></div>
+    </div>
+    <div id="PageFooter" class="pageFooter" />
+  </body>
+</html>

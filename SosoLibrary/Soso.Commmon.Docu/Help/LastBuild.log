@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2023.3.4.0" projectFile="D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\SosoMS.Common.Docu.shfbproj" started="2023/7/14 14:10:21">
+<buildStep step="Initializing">
+The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder&#39;
+Locating components in the following folder(s):
+    D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu
+    C:\ProgramData\EWSoftware\Sandcastle Help File Builder\Components and Plug-Ins
+    C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components
+Using framework reflection data for &#39;.NET Core/.NET Standard/.NET 5.0+&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Data\.NET&#39;
+Using presentation style &#39;VS2013&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013&#39;
+Found HTML Help 1 compiler in &#39;D:\SoftWare\电脑软件\HTMLHelp_V4.74.8702_XiTongZhiJia\&#39;
+Loading and initializing plug-ins...
+Lightweight Website Style Version 2023.3.4.0
+Copyright &#169; 2006-2023, Eric Woodruff, All Rights Reserved
+Portions Copyright &#169; 2014, Sam Harwell, All Rights Reserved
+</buildStep>
+<buildStep step="ClearWorkFolder">
+Clearing working folder...
+</buildStep>
+<buildStep step="ValidatingDocumentationSources">
+Validating and copying documentation source information
+Source: D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Common\bin\Debug\net6.0-windows\SosoMS.Common.dll
+    Found assembly &#39;D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Common\bin\Debug\net6.0-windows\SosoMS.Common.dll&#39;
+Source: D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Common\bin\Debug\net6.0-windows\SosoMS.Common.xml
+
+References to include:
+    D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS\..\APP\net6.0-windows\SosoMS.dll
+
+Copying XML comments files
+    D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Common\bin\Debug\net6.0-windows\SosoMS.Common.xml -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\SosoMS.Common.xml
+</buildStep>
+<buildStep step="GenerateSharedContent">
+Generating shared content files (en-US, English (United States))...
+<plugIn name="Lightweight Website Style" behavior="After" priority="1000">
+</plugIn>    Last step completed in 00:00:00.0642
+</buildStep>
+<buildStep step="GenerateApiFilter">
+Generating API filter for MRefBuilder...
+    Last step completed in 00:00:00.0219
+</buildStep>
+<buildStep step="GenerateReflectionInfo">
+Generating reflection information...
+[C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.exe - GenerateRefInfo-b3f4e13e-92a7-482e-a116-33739e8a2b3e.proj]
+Build started 2023/7/14 14:10:24.
+
+Project &quot;D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\GenerateRefInfo-b3f4e13e-92a7-482e-a116-33739e8a2b3e.proj&quot; on node 1 (default targets).
+PrepareForBuild:
+  Creating directory &quot;obj\Debug\&quot;.
+GenerateBindingRedirects:
+  No suggested binding redirects from ResolveAssemblyReferences.
+GenerateRefInfo:
+  Microsoft.Build (v17.6.3+07e2947214f1a9f28a3517762c939d5bebb5f525)
+  ? Microsoft Corporation. All rights reserved.
+  No source code context base path specified.  Source context information is unavailable.
+  Loaded 1 assemblies for reflection and 104 dependency assemblies.
+  Wrote information on 3 namespaces, 10 types, and 102 members
+  Merging duplicate type and member information
+  Merged 0 duplicate type(s) and 0 duplicate member(s)
+Done Building Project &quot;D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\GenerateRefInfo-b3f4e13e-92a7-482e-a116-33739e8a2b3e.proj&quot; (default targets).
+    Last step completed in 00:00:01.0967
+</buildStep>
+<buildStep step="ApplyDocumentModel">
+Applying document model to reflection output...
+    Last step completed in 00:00:00.0962
+</buildStep>
+<buildStep step="AddApiTopicFilenames">
+Adding topic filenames to API members...
+    Last step completed in 00:00:00.0380
+</buildStep>
+<buildStep step="GenerateApiTopicManifest">
+Generating API topic manifest...
+    Last step completed in 00:00:00.0300
+</buildStep>
+<buildStep step="GenerateNamespaceSummaries">
+Generating namespace summary information...
+    Last step completed in 00:00:00.0160
+</buildStep>
+<buildStep step="GenerateInheritedDocumentation">
+Generating inherited documentation...
+[C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.exe - GenerateInheritedDocs.proj]
+
+    Last step completed in 00:00:01.1365
+</buildStep>
+<buildStep step="CopyAdditionalContent">
+Copying additional content files...
+No additional content to copy
+    Last step completed in 00:00:00.0020
+</buildStep>
+<buildStep step="MergeTablesOfContents">
+Merging conceptual and additional tables of contents...
+    Last step completed in 00:00:00.0000
+</buildStep>
+<buildStep step="GenerateIntermediateTableOfContents">
+Generating intermediate table of contents file for API content...
+Generating conceptual content intermediate TOC file...
+    Last step completed in 00:00:00.0219
+</buildStep>
+<buildStep step="CreateBuildAssemblerConfigs">
+Creating Sandcastle configuration files...
+    Last step completed in 00:00:00.5761
+</buildStep>
+<buildStep step="CombiningIntermediateTocFiles">
+Combining conceptual and API intermediate TOC files...
+    Last step completed in 00:00:00.0140
+</buildStep>
+<buildStep step="MergeCustomConfigs">
+Merging custom build component configurations
+D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\BuildAssembler.config
+  Updating reference topic configurations.
+  No conceptual content.  Removing conceptual content components.
+    Last step completed in 00:00:00.0481
+</buildStep>
+<buildStep step="BuildTopics">
+Building help topics...
+Loading configuration...
+Processing topics...
+SHFB: Warning BE0066: ResolveReferenceLinksComponent: [M:SosoMS.Common.FileHelp.IniHelp.WriteObject``1(System.String,System.String,``0)] Unknown reference link target &#39;N:Newtonsoft&#39;.
+Processed 136 topic(s)
+1 warning(s)
+CopyFromIndexComponent: &quot;reflection&quot; in-memory cache entries used: 6 of 15.
+CopyFromIndexComponent: &quot;comments&quot; in-memory cache entries used: 3 of 30.
+ResolveReferenceLinksComponent: 1 entries added to the member ID URL cache.  New cache size: 57 entries
+    Last step completed in 00:00:10.5695
+</buildStep>
+<buildStep step="ExtractingHtmlInfo">
+Extracting HTML info for HTML Help 1 and/or website...
+Using LCID &#39;1033&#39;, code page &#39;65001&#39;, encoding charset &#39;UTF-8&#39;.
+Processing Help 1 files in D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1
+Processed 136 HTML files.  Sorting keywords and generating See Also indices.
+Saving HTML Help 1 keyword index to D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\Documentation.hhk
+Saving HTML Help 1 table of contents to D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\Documentation.hhc
+    Last step completed in 00:00:00.0607
+</buildStep>
+<buildStep step="CopyStandardHelpContent">
+Copying standard help content...
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\AlertCaution.png -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\AlertCaution.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\AlertNote.png -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\AlertNote.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\AlertSecurity.png -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\AlertSecurity.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\CodeExample.png -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\CodeExample.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\favicon.ico -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\favicon.ico
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privClass.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privClass.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privDelegate.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privDelegate.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privEnumeration.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privEnumeration.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privEvent.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privEvent.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privExtension.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privExtension.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privField.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privField.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privInterface.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privInterface.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privMethod.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privMethod.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privProperty.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privProperty.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\privStructure.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\privStructure.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protClass.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protClass.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protDelegate.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protDelegate.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protEnumeration.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protEnumeration.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protEvent.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protEvent.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protExtension.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protExtension.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protField.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protField.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protInterface.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protInterface.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protMethod.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protMethod.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protOperator.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protOperator.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protProperty.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protProperty.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\protStructure.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\protStructure.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubClass.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubClass.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubDelegate.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubDelegate.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubEnumeration.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubEnumeration.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubEvent.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubEvent.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubExtension.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubExtension.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubField.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubField.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubInterface.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubInterface.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubMethod.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubMethod.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubOperator.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubOperator.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubProperty.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubProperty.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\pubStructure.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\pubStructure.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\SectionCollapsed.png -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\SectionCollapsed.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\SectionExpanded.png -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\SectionExpanded.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\icons\Static.gif -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\icons\Static.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\scripts\branding.js -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\scripts\branding.js
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-cs-CZ.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-cs-CZ.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-de-DE.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-de-DE.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-en-US.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-en-US.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-es-ES.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-es-ES.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-fr-FR.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-fr-FR.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-Help1.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-Help1.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-HelpViewer.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-HelpViewer.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-it-IT.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-it-IT.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-ja-JP.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-ja-JP.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-ko-KR.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-ko-KR.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-pl-PL.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-pl-PL.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-pt-BR.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-pt-BR.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-ru-RU.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-ru-RU.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-tr-TR.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-tr-TR.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-Website.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-Website.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-zh-CN.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-zh-CN.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding-zh-TW.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding-zh-TW.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\VS2013\styles\branding.css -&gt; D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\styles\branding.css
+    Last step completed in 00:00:00.0715
+</buildStep>
+<buildStep step="GenerateHelpProject">
+Generating HTML Help 1 project file...
+    Last step completed in 00:00:00.0100
+</buildStep>
+<buildStep step="CompilingHelpFile">
+Compiling HTML Help 1 file...
+[C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.exe - Build1xHelpFile.proj]
+
+  HHC6003: 错误: 文件 Itircl.dll 没有被正确注册。
+  
+  Microsoft HTML Help Compiler 4.74.8702
+  
+  
+  
+  正在编译 d:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Output\HtmlHelp1\Documentation.chm
+  
+  
+  
+  
+  
+  
+  
+  下列文件未被编译:
+  
+D:\Study\dotNet\PersonalFramework\SosoMS\src\SosoMS.Commmon.Docu\Help\Working\Build1xHelpFile.proj(35,3): error MSB6006: &quot;HHC.EXE&quot; exited with code 0.
+    Last step completed in 00:00:01.9165
+</buildStep>
+<buildStep step="Failed">
+
+SHFB: Error BE0043: Unexpected error detected in last build step.  See build log for details.
+   at SandcastleBuilder.Utils.BuildEngine.TaskRunner.Run(String processFilename, String targetFile, String arguments)
+   at SandcastleBuilder.Utils.BuildEngine.BuildProcess.Build()
+
+</buildStep>
+</shfbBuild>

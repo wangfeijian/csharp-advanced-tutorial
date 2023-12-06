@@ -1,0 +1,53 @@
+﻿<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="en-us" />
+    <meta name="Microsoft.Help.Locale" content="en-us" />
+    <meta name="Microsoft.Help.TopicLocale" content="en-us" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-en-US.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>RegisterHelp.BoolRegisterChanged Event</title>
+    <meta name="Title" content="BoolRegisterChanged Event" />
+    <meta name="Microsoft.Help.Id" content="E:SosoMS.Common.SystemHelp.RegisterHelp.BoolRegisterChanged" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <meta name="System.Keywords" content="RegisterHelp.BoolRegisterChanged event" />
+    <meta name="System.Keywords" content="BoolRegisterChanged event" />
+    <meta name="Microsoft.Help.F1" content="SosoMS.Common.SystemHelp.RegisterHelp.BoolRegisterChanged" />
+    <meta name="Microsoft.Help.F1" content="RegisterHelp.BoolRegisterChanged" />
+    <meta name="Microsoft.Help.F1" content="BoolRegisterChanged" />
+    <meta name="container" content="SosoMS.Common.SystemHelp" />
+    <meta name="file" content="520b0962-8da5-5ef5-d73d-b70425915664" />
+    <meta name="guid" content="520b0962-8da5-5ef5-d73d-b70425915664" />
+    <meta name="Description" content="类型寄存器值改变事件" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">嗖嗖常用方法帮助集</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Register<wbr />Help<span id="LSTFDBDDB2B_0" data-languageSpecificText="cpp=::|nu=."></span>Bool<wbr />Register<wbr />Changed Event</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="summary">
+          <span class="keyword">bool</span>类型寄存器值改变事件
+            </div>
+        <br />
+        <strong>Namespace:</strong> <a href="026ce1e1-007c-0e37-04b4-2e196fe75f90.htm">SosoMS.Common.SystemHelp</a><br /><strong>Assembly:</strong> SosoMS.Common (in SosoMS.Common.dll) Version: 1.0.0<div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDB')" onkeypress="SectionExpandCollapse_CheckKey('IDB', event)" tabindex="0"><img id="IDBToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Syntax</span></div><div id="IDBSection" class="collapsibleSection"><div id="IDAB" class="codeSnippetContainer"><div class="codeSnippetContainerTabs"><div id="IDAB_tab1" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','cs','1','4');return false;">C#</a></div><div id="IDAB_tab2" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','vb','2','4');return false;">VB</a></div><div id="IDAB_tab3" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','cpp','3','4');return false;">C++</a></div><div id="IDAB_tab4" class="codeSnippetContainerTab"><a href="#" onclick="ChangeTab('IDAB','fs','4','4');return false;">F#</a></div></div><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="IDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAB');return false;" title="Copy">Copy</a></div></div><div id="IDAB_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve"><span class="keyword">public</span> event <span class="identifier">RegisterHelp<span id="LSTFDBDDB2B_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RegisterChangedHandle</span>&lt;<span class="identifier">bool</span>&gt; <span class="identifier">BoolRegisterChanged</span></pre></div><div id="IDAB_code_Div2" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">Public</span> Event <span class="identifier">BoolRegisterChanged</span> <span class="keyword">As</span> <span class="identifier">RegisterHelp<span id="LSTFDBDDB2B_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RegisterChangedHandle</span>(<span class="keyword">Of</span> <span class="identifier">Boolean</span>)</pre></div><div id="IDAB_code_Div3" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">public</span>:
+ <span class="keyword">event</span> <span class="identifier">RegisterHelp<span id="LSTFDBDDB2B_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RegisterChangedHandle</span>&lt;<span class="identifier">bool</span>&gt;^ <span class="identifier">BoolRegisterChanged</span> {
+	<span class="keyword">void</span> <span class="keyword">add</span> (<span class="identifier">RegisterHelp<span id="LSTFDBDDB2B_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RegisterChangedHandle</span>&lt;<span class="identifier">bool</span>&gt;^ <span class="parameter">value</span>);
+	<span class="keyword">void</span> <span class="keyword">remove</span> (<span class="identifier">RegisterHelp<span id="LSTFDBDDB2B_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RegisterChangedHandle</span>&lt;<span class="identifier">bool</span>&gt;^ <span class="parameter">value</span>);
+}</pre></div><div id="IDAB_code_Div4" class="codeSnippetContainerCode" style="display: none"><pre xml:space="preserve"><span class="keyword">member</span> <span class="identifier">BoolRegisterChanged</span> : <span class="identifier">IEvent</span>&lt;<span class="identifier">RegisterHelp<span id="LSTFDBDDB2B_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RegisterChangedHandle</span>&lt;<span class="identifier">bool</span>&gt;,
+    <span class="identifier">EventArgs</span>&gt;</pre></div></div></div><h4>Value</h4><a href="708960c3-9de6-2cc2-f9dd-9444061855e4.htm">RegisterHelp<span id="LSTFDBDDB2B_7" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RegisterChangedHandle</a><span id="LSTFDBDDB2B_8" data-languageSpecificText="cpp=&lt;|cs=&lt;|fs=&lt;|vb=(Of |nu=("></span><a href="https://learn.microsoft.com/dotnet/api/system.boolean" target="_blank" rel="noopener noreferrer">Boolean</a><span id="LSTFDBDDB2B_9" data-languageSpecificText="cpp=&gt;|cs=&gt;|fs=&gt;|vb=)|nu=)"></span></div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0"><img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />See Also</span></div><div id="seeAlsoSection" class="collapsibleSection"><h4>Reference</h4><div><a href="f72bdb94-269f-8543-e235-b813c577c6b4.htm">RegisterHelp Class</a></div><div><a href="026ce1e1-007c-0e37-04b4-2e196fe75f90.htm">SosoMS.Common.SystemHelp Namespace</a></div></div></div>
+    </div>
+    <div id="PageFooter" class="pageFooter" />
+  </body>
+</html>

@@ -1,0 +1,941 @@
+﻿<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+  <BODY>
+    <UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Addition operator">
+        <param name="Local" value="html/0658867a-5d89-882e-0987-761f8448f146.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="AppendString method">
+        <param name="Local" value="html/1a220ef9-185a-e762-ce13-07614ee887ce.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="B property">
+        <param name="Local" value="html/18b4c34d-c449-b1af-600e-e6061e3c2531.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Boolean to SosoObject conversion">
+        <param name="Local" value="html/e45b68ce-bdf2-c490-780c-29bf3c2dd412.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="BoolRegisterChanged event">
+        <param name="Local" value="html/520b0962-8da5-5ef5-d73d-b70425915664.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="ClearSection method">
+        <param name="Local" value="html/efe2979b-40ad-6bd3-3e31-e94fbd80a672.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Clone method">
+        <param name="Local" value="html/44280bbe-143f-01bb-4aa6-954bc5d01db9.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="CompareTo method">
+        <param name="Local" value="html/a62ea7ab-865f-711d-4e5e-6cbc5a950826.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="CreateDirForFullName method">
+        <param name="Local" value="html/c4d6edf1-994f-4159-b376-48c7c131bb69.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="CreateXElement method">
+        <param name="Local" value="html/ba0fc6ac-5f28-ea3d-6596-96aa0ecb47b3.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="CsvHelp class">
+        <param name="See Also" value="CsvHelp class">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="CsvHelp Class">
+          <param name="Local" value="html/096ac194-66bf-6a4a-23f1-c6742e68b116.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="constructor">
+          <param name="Local" value="html/c67672ae-da24-5c13-2f23-982efe05d633.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="methods">
+          <param name="Local" value="html/c44c22d6-c30f-3d57-95fa-43be3698b1e8.htm">
+        </OBJECT></LI>
+      </UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="CsvHelp.CsvHelp constructor">
+        <param name="Local" value="html/c67672ae-da24-5c13-2f23-982efe05d633.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="CsvHelp.LoadCSVToDataTableAsync method">
+        <param name="Local" value="html/f8611522-fc1a-3cb2-feb6-2fecf90c4746.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="CsvHelp.SaveDataTableToCSV method">
+        <param name="Local" value="html/f97adc46-9fe2-5968-bc4c-064a502aa694.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="CsvHelp.SaveToCsvFile method">
+        <param name="Local" value="html/7b08d6b3-32af-2541-c0ec-a3d50853a937.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="D property">
+        <param name="Local" value="html/d64a5ce4-5671-14c0-3057-b2ab475bcfca.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="DataContractDeserialize&lt;T&gt; method">
+        <param name="Local" value="html/d36d4154-07d3-7a05-a3a0-03d0937e1a1c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="DataContractSerialize&lt;T&gt; method">
+        <param name="Local" value="html/f7fbddbe-7af2-3bb2-793b-014faa22be1e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="DeepCopyByXmlSerializer&lt;T&gt; method">
+        <param name="Local" value="html/0ca41180-d220-c9c1-0040-f2e6391b4806.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="DegNormalization method">
+        <param name="Local" value="html/0f50f29c-6269-9590-157a-ef8be5c57c78.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="DegToRad method">
+        <param name="Local" value="html/cd690c1c-a71d-dd63-6749-937bebe8ccfc.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="DeleteAllKeys method">
+        <param name="Local" value="html/a7983220-dd18-70f0-d2d4-c3adce76edce.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="DeleteKey method">
+        <param name="Local" value="html/16bb2f7f-96e7-14c6-70eb-8599a87922c5.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Division operator">
+        <param name="Local" value="html/5b47997a-5022-8a25-4fd0-1be7ee13eae8.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Double to SosoObject conversion">
+        <param name="Local" value="html/4a3d09e9-60e4-95c0-9d8a-06425a15750d.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="DoubleRegisterChanged event">
+        <param name="Local" value="html/f0142c9b-9d3d-c0e5-0055-9bcc326ac179.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Elapsed property">
+        <param name="Local" value="html/7c613226-b0b7-5889-5a99-90a2ca38c98e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="ElapsedMicroseconds property">
+        <param name="Local" value="html/d09956d9-f43d-d10c-2125-80499fcdac0c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="ElapsedMilliseconds property">
+        <param name="Local" value="html/d3b53171-2597-ef6d-11ae-4bcecf54ec03.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="ElapsedNanoseconds property">
+        <param name="Local" value="html/c0c7b9f6-e7a6-e152-d24a-27b63fc36a6c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="ElapsedSeconds property">
+        <param name="Local" value="html/8e934bd9-e1b8-523b-5612-0cd6366a9847.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Equality operator">
+        <param name="Local" value="html/2b7300a4-5630-3f0b-1203-517ab0485570.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Equals method">
+        <param name="Local" value="html/1baf825e-f66e-dc1e-d2c2-ba5a2c1ba78d.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Execute method">
+        <param name="Local" value="html/d02d4ea4-69e6-0c42-fd58-9e72cf6beec6.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="FileBaseHelp class">
+        <param name="See Also" value="FileBaseHelp class">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="FileBaseHelp Class">
+          <param name="Local" value="html/6e72aae5-4b6d-a7a7-addd-042e0e510b5a.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="methods">
+          <param name="Local" value="html/689e8a86-4e8a-5c3e-cf02-98a3d7f05e5b.htm">
+        </OBJECT></LI>
+      </UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="FileBaseHelp.CreateDirForFullName method">
+        <param name="Local" value="html/c4d6edf1-994f-4159-b376-48c7c131bb69.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetAllItems method">
+        <param name="Local" value="html/f3cbfaaf-df70-338a-9d96-3be5b9d540dd.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetAllSectionName method">
+        <param name="Local" value="html/e247a31a-6ddb-8b0f-8115-899ae53f564c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetBoolRegister method">
+        <param name="Local" value="html/0c11a019-ad1d-5d37-4c68-2ad59a6e422e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetDoubleRegister method">
+        <param name="Local" value="html/090967f9-e7b4-0eee-2d64-1213e6137a68.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetHashCode method">
+        <param name="Local" value="html/88d8bbe2-b384-588d-a232-4735129896e1.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetIntRegister method">
+        <param name="Local" value="html/b526ca31-80d7-3bf4-44ba-e9df081ac7f8.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetKeysForSection method">
+        <param name="Local" value="html/94722171-5d34-8277-cc3b-cbe7e3b73662.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetKeyValuesFromXElementAttributes method">
+        <param name="Local" value="html/8af02d10-10f2-930f-d68e-4b08e661fa4b.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetSectionKeys method">
+        <param name="Local" value="html/bc61d3d0-2f56-608a-4085-6787c3c5784c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetStringRegister method">
+        <param name="Local" value="html/5f573bb3-6fc3-8b8d-512c-2485d41a9056.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetValue method">
+        <param name="Local" value="html/266f7935-9642-a247-e55e-75481d60275d.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GetXElements method">
+        <param name="Local" value="html/b0e1a739-a629-1ae0-e383-838f3505b62a.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GreaterThan operator">
+        <param name="Local" value="html/225193c3-e520-2013-a8e2-58c5089f2177.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="GreaterThanOrEqual operator">
+        <param name="Local" value="html/7cc24f6e-2162-5b16-7b36-82fd839cee44.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="I property">
+        <param name="Local" value="html/29ddb4b7-ffd2-c9fc-981f-0b7e6e5a897b.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Implicit operator">
+        <param name="Local" value="html/d0234ec0-89b7-a281-4798-a17d0ba774cd.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Inequality operator">
+        <param name="Local" value="html/116f235d-f178-ae6a-4623-d4bc0be80126.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniFileName property">
+        <param name="Local" value="html/b042e71d-3eb7-3681-9e84-fccfe0194c0a.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp class">
+        <param name="See Also" value="IniHelp class">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="IniHelp Class">
+          <param name="Local" value="html/1904b01d-e79f-ed43-8a41-7298709ef479.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="constructor">
+          <param name="Local" value="html/534a2141-83fd-34b1-111f-ec8abe455bd8.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="methods">
+          <param name="Local" value="html/d2b28d9a-84ab-a52e-ab0d-ce7f61fbc208.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="properties">
+          <param name="Local" value="html/c2e7ba5d-35e7-04f7-35d1-e36615a26cf9.htm">
+        </OBJECT></LI>
+      </UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.AppendString method">
+        <param name="Local" value="html/1a220ef9-185a-e762-ce13-07614ee887ce.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.ClearSection method">
+        <param name="Local" value="html/efe2979b-40ad-6bd3-3e31-e94fbd80a672.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.DeleteAllKeys method">
+        <param name="Local" value="html/a7983220-dd18-70f0-d2d4-c3adce76edce.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.DeleteKey method">
+        <param name="Local" value="html/16bb2f7f-96e7-14c6-70eb-8599a87922c5.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.GetAllItems method">
+        <param name="Local" value="html/f3cbfaaf-df70-338a-9d96-3be5b9d540dd.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.GetAllSectionName method">
+        <param name="Local" value="html/e247a31a-6ddb-8b0f-8115-899ae53f564c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.GetKeysForSection method">
+        <param name="Local" value="html/94722171-5d34-8277-cc3b-cbe7e3b73662.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.GetSectionKeys method">
+        <param name="Local" value="html/bc61d3d0-2f56-608a-4085-6787c3c5784c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.GetValue method">
+        <param name="Local" value="html/266f7935-9642-a247-e55e-75481d60275d.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.IniFileName property">
+        <param name="Local" value="html/b042e71d-3eb7-3681-9e84-fccfe0194c0a.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.IniHelp constructor">
+        <param name="Local" value="html/534a2141-83fd-34b1-111f-ec8abe455bd8.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.IsKeyExist method">
+        <param name="Local" value="html/00ce94eb-e654-c6e1-0a58-2357d9cc3f96.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.IsSectionExist method">
+        <param name="Local" value="html/00eed641-3ff2-cd6d-a084-9b11067f1020.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.ReadObject&lt;T&gt; method">
+        <param name="Local" value="html/2003117b-b760-c6f0-cca7-b00382ec6a70.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.ReadString method">
+        <param name="Local" value="html/705a520a-7d69-f83f-950a-f7679ba264ea.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.RemoveKey method">
+        <param name="Local" value="html/f7b4c9a7-e767-128a-e419-16e6e11fbb62.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.RemoveSection method">
+        <param name="Local" value="html/f7c4248a-c391-6a3a-4d5f-b50ea4db33b8.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.SetItems method">
+        <param name="Local" value="html/d6d9500d-97b9-e4e5-3f6a-c720af241dce.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.SetValue method">
+        <param name="Local" value="html/c970911e-fcbc-24ec-c947-489e723ede61.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.WriteObject&lt;T&gt; method">
+        <param name="Local" value="html/07134fff-8595-142c-9a7c-076d0141bc0c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IniHelp.WriteString method">
+        <param name="Local" value="html/0ecbd18d-7a69-6917-d51b-a18415c8fb8e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Instance property">
+        <param name="Local" value="html/1dad839b-6e07-3c32-3460-ff20cd8e53a5.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Int32 to SosoObject conversion">
+        <param name="Local" value="html/dff9647f-fe30-7b00-cbe3-64e2aead9445.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IntRegisterChanged event">
+        <param name="Local" value="html/4713b148-020f-0f23-fbde-ec93c22ef441.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IsKeyExist method">
+        <param name="Local" value="html/00ce94eb-e654-c6e1-0a58-2357d9cc3f96.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IsNullOrEmpty property">
+        <param name="Local" value="html/ad398965-30a0-aa40-1d23-419510db467f.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IsNumber property">
+        <param name="Local" value="html/cb030274-710f-0889-0917-f422b4b190b2.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IsRunning property">
+        <param name="Local" value="html/a86157e5-5967-5a8b-d93e-8ad44c527964.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="IsSectionExist method">
+        <param name="Local" value="html/00eed641-3ff2-cd6d-a084-9b11067f1020.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="LessThan operator">
+        <param name="Local" value="html/9004c578-e989-a4f0-aed6-35dadd785399.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="LessThanOrEqual operator">
+        <param name="Local" value="html/0276639f-0af7-0a77-e159-16fb5c03f448.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="LoadCSVToDataTableAsync method">
+        <param name="Local" value="html/f8611522-fc1a-3cb2-feb6-2fecf90c4746.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="MathHelp class">
+        <param name="See Also" value="MathHelp class">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="MathHelp Class">
+          <param name="Local" value="html/dc65f531-4b76-5cc6-b788-66c03c58f7ea.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="methods">
+          <param name="Local" value="html/36e9d961-81cc-c8f8-345d-5363036fb2db.htm">
+        </OBJECT></LI>
+      </UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="MathHelp.DegNormalization method">
+        <param name="Local" value="html/0f50f29c-6269-9590-157a-ef8be5c57c78.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="MathHelp.DegToRad method">
+        <param name="Local" value="html/cd690c1c-a71d-dd63-6749-937bebe8ccfc.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="MathHelp.RadNormalization method">
+        <param name="Local" value="html/51f8e799-ecc8-e885-0085-144684f41979.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="MathHelp.RadToDeg method">
+        <param name="Local" value="html/d4ffbd8c-4f24-c9f3-36bd-9fdbba5b2705.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Multiply operator">
+        <param name="Local" value="html/43c43c2b-98ec-7161-3127-f455347195a7.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer class">
+        <param name="See Also" value="PerformanceTimer class">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="PerformanceTimer Class">
+          <param name="Local" value="html/dcbffa21-5512-1002-84d6-ff3dd8d87998.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="constructor">
+          <param name="Local" value="html/9f054a14-8a31-33cb-7b3a-4be0bb9d1d1b.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="methods">
+          <param name="Local" value="html/c27ef077-cebd-7f58-9cf3-09a2ae504755.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="properties">
+          <param name="Local" value="html/af910bb2-aa65-32be-5e79-0ad8834cd05c.htm">
+        </OBJECT></LI>
+      </UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.Elapsed property">
+        <param name="Local" value="html/7c613226-b0b7-5889-5a99-90a2ca38c98e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.ElapsedMicroseconds property">
+        <param name="Local" value="html/d09956d9-f43d-d10c-2125-80499fcdac0c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.ElapsedMilliseconds property">
+        <param name="Local" value="html/d3b53171-2597-ef6d-11ae-4bcecf54ec03.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.ElapsedNanoseconds property">
+        <param name="Local" value="html/c0c7b9f6-e7a6-e152-d24a-27b63fc36a6c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.ElapsedSeconds property">
+        <param name="Local" value="html/8e934bd9-e1b8-523b-5612-0cd6366a9847.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.Execute method">
+        <param name="Local" value="html/d02d4ea4-69e6-0c42-fd58-9e72cf6beec6.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.IsRunning property">
+        <param name="Local" value="html/a86157e5-5967-5a8b-d93e-8ad44c527964.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.PerformanceTimer constructor">
+        <param name="Local" value="html/9f054a14-8a31-33cb-7b3a-4be0bb9d1d1b.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.Restart method">
+        <param name="Local" value="html/a9dee475-347c-984c-0cd3-6195b90d969e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.Start method">
+        <param name="Local" value="html/4462f64e-b267-0ef8-ef6a-2465c5b269d6.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.StartNew method">
+        <param name="Local" value="html/ff47d62c-91ba-1bcb-fc3c-997a8b2c28f4.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="PerformanceTimer.Stop method">
+        <param name="Local" value="html/4c4da100-194c-6e7f-30e2-c46a3310f4c2.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RadNormalization method">
+        <param name="Local" value="html/51f8e799-ecc8-e885-0085-144684f41979.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RadToDeg method">
+        <param name="Local" value="html/d4ffbd8c-4f24-c9f3-36bd-9fdbba5b2705.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="ReadObject&lt;T&gt; method">
+        <param name="Local" value="html/2003117b-b760-c6f0-cca7-b00382ec6a70.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="ReadString method">
+        <param name="Local" value="html/705a520a-7d69-f83f-950a-f7679ba264ea.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp class">
+        <param name="See Also" value="RegisterHelp class">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="RegisterHelp Class">
+          <param name="Local" value="html/f72bdb94-269f-8543-e235-b813c577c6b4.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="events">
+          <param name="Local" value="html/98c5649c-03c5-63be-cc2c-4c29b1e63204.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="methods">
+          <param name="Local" value="html/9d281c91-6c6d-8872-8cd6-9c8e1659a01d.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="properties">
+          <param name="Local" value="html/7f65127f-4121-1b17-9eb4-1c12302a8793.htm">
+        </OBJECT></LI>
+      </UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.BoolRegisterChanged event">
+        <param name="Local" value="html/520b0962-8da5-5ef5-d73d-b70425915664.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.DoubleRegisterChanged event">
+        <param name="Local" value="html/f0142c9b-9d3d-c0e5-0055-9bcc326ac179.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.GetBoolRegister method">
+        <param name="Local" value="html/0c11a019-ad1d-5d37-4c68-2ad59a6e422e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.GetDoubleRegister method">
+        <param name="Local" value="html/090967f9-e7b4-0eee-2d64-1213e6137a68.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.GetIntRegister method">
+        <param name="Local" value="html/b526ca31-80d7-3bf4-44ba-e9df081ac7f8.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.GetStringRegister method">
+        <param name="Local" value="html/5f573bb3-6fc3-8b8d-512c-2485d41a9056.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.Instance property">
+        <param name="Local" value="html/1dad839b-6e07-3c32-3460-ff20cd8e53a5.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.IntRegisterChanged event">
+        <param name="Local" value="html/4713b148-020f-0f23-fbde-ec93c22ef441.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.RegisterChangedHandle&lt;T&gt; delegate">
+        <param name="Local" value="html/708960c3-9de6-2cc2-f9dd-9444061855e4.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.SetBoolRegister method">
+        <param name="Local" value="html/2da3fe28-ea7a-3c8a-baaa-2520767629f2.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.SetDoubleRegister method">
+        <param name="Local" value="html/5ebcd071-6f8e-f33f-d15d-19c583f38625.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.SetIntRegister method">
+        <param name="Local" value="html/1966f501-d9fe-7700-f38b-8a6ea937b0f1.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.SetStringRegister method">
+        <param name="Local" value="html/f29f3a57-00c1-76aa-b205-d5cb7c8f69be.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RegisterHelp.StringRegisterChanged event">
+        <param name="Local" value="html/c67af688-a267-10df-b4bd-2de5cea9ea13.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RemoveKey method">
+        <param name="Local" value="html/f7b4c9a7-e767-128a-e419-16e6e11fbb62.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="RemoveSection method">
+        <param name="Local" value="html/f7c4248a-c391-6a3a-4d5f-b50ea4db33b8.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Restart method">
+        <param name="Local" value="html/a9dee475-347c-984c-0cd3-6195b90d969e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="S property">
+        <param name="Local" value="html/feb00776-574b-4f67-24a1-a7d93e8ba33a.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Save method">
+        <param name="Local" value="html/deb88f38-b742-a0de-378a-48e53a33e48e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SaveDataTableToCSV method">
+        <param name="Local" value="html/f97adc46-9fe2-5968-bc4c-064a502aa694.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SaveToCsvFile method">
+        <param name="Local" value="html/7b08d6b3-32af-2541-c0ec-a3d50853a937.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SerializationHelp class">
+        <param name="See Also" value="SerializationHelp class">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="SerializationHelp Class">
+          <param name="Local" value="html/2f5029e1-b648-e421-cbb2-b46f11ee13f2.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="methods">
+          <param name="Local" value="html/e3e526e6-731e-e75c-828b-778659ca5645.htm">
+        </OBJECT></LI>
+      </UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SerializationHelp.DataContractDeserialize&lt;T&gt; method">
+        <param name="Local" value="html/d36d4154-07d3-7a05-a3a0-03d0937e1a1c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SerializationHelp.DataContractSerialize&lt;T&gt; method">
+        <param name="Local" value="html/f7fbddbe-7af2-3bb2-793b-014faa22be1e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SerializationHelp.DeepCopyByXmlSerializer&lt;T&gt; method">
+        <param name="Local" value="html/0ca41180-d220-c9c1-0040-f2e6391b4806.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SetBoolRegister method">
+        <param name="Local" value="html/2da3fe28-ea7a-3c8a-baaa-2520767629f2.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SetDoubleRegister method">
+        <param name="Local" value="html/5ebcd071-6f8e-f33f-d15d-19c583f38625.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SetIntRegister method">
+        <param name="Local" value="html/1966f501-d9fe-7700-f38b-8a6ea937b0f1.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SetItems method">
+        <param name="Local" value="html/d6d9500d-97b9-e4e5-3f6a-c720af241dce.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SetStringRegister method">
+        <param name="Local" value="html/f29f3a57-00c1-76aa-b205-d5cb7c8f69be.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SetValue method">
+        <param name="Local" value="html/c970911e-fcbc-24ec-c947-489e723ede61.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common namespace">
+        <param name="Local" value="html/2a09b3c0-4db5-f6fd-af61-86e07091f341.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.FileHelp namespace">
+        <param name="Local" value="html/4f2fecb0-966c-232d-a819-c35018f8ad72.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.FileHelp.CsvHelp class">
+        <param name="Local" value="html/096ac194-66bf-6a4a-23f1-c6742e68b116.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.FileHelp.FileBaseHelp class">
+        <param name="Local" value="html/6e72aae5-4b6d-a7a7-addd-042e0e510b5a.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.FileHelp.IniHelp class">
+        <param name="Local" value="html/1904b01d-e79f-ed43-8a41-7298709ef479.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.FileHelp.XmlHelp class">
+        <param name="Local" value="html/931ae64d-1ef1-7c01-4eb4-cf2b5fc39cde.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.SosoObject class">
+        <param name="Local" value="html/20e9649d-e4bc-866f-da03-1debaac644b2.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.SystemHelp namespace">
+        <param name="Local" value="html/026ce1e1-007c-0e37-04b4-2e196fe75f90.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.SystemHelp.MathHelp class">
+        <param name="Local" value="html/dc65f531-4b76-5cc6-b788-66c03c58f7ea.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.SystemHelp.PerformanceTimer class">
+        <param name="Local" value="html/dcbffa21-5512-1002-84d6-ff3dd8d87998.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.SystemHelp.RegisterHelp class">
+        <param name="Local" value="html/f72bdb94-269f-8543-e235-b813c577c6b4.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.SystemHelp.RegisterHelp.RegisterChangedHandle&lt;T&gt; delegate">
+        <param name="Local" value="html/708960c3-9de6-2cc2-f9dd-9444061855e4.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoMS.Common.SystemHelp.SerializationHelp class">
+        <param name="Local" value="html/2f5029e1-b648-e421-cbb2-b46f11ee13f2.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject class">
+        <param name="See Also" value="SosoObject class">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="SosoObject Class">
+          <param name="Local" value="html/20e9649d-e4bc-866f-da03-1debaac644b2.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="constructor">
+          <param name="Local" value="html/e9a05b91-05c9-f125-6e04-1473ec94a216.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="methods">
+          <param name="Local" value="html/36d862b6-3ee1-f700-95f1-2d8d3603a7e8.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="operators and type conversions">
+          <param name="Local" value="html/72a28036-70a3-c8aa-a029-92a000ced64f.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="properties">
+          <param name="Local" value="html/06899d6e-b08b-017d-2ed2-ad37499f7d4c.htm">
+        </OBJECT></LI>
+      </UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject to Boolean conversion">
+        <param name="Local" value="html/928bcace-229c-21ed-2e2f-6aff09796f27.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject to Double conversion">
+        <param name="Local" value="html/49a3c9ce-a451-49cd-e566-f026b045eb10.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject to Int32 conversion">
+        <param name="Local" value="html/b67722cf-8c3c-921a-3c3f-9b127d3d5c9e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject to String conversion">
+        <param name="Local" value="html/6c262673-3271-3a51-b71c-3eea9e0d0243.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.Addition operator">
+        <param name="Local" value="html/0658867a-5d89-882e-0987-761f8448f146.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.B property">
+        <param name="Local" value="html/18b4c34d-c449-b1af-600e-e6061e3c2531.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.Clone method">
+        <param name="Local" value="html/44280bbe-143f-01bb-4aa6-954bc5d01db9.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.CompareTo method">
+        <param name="Local" value="html/a62ea7ab-865f-711d-4e5e-6cbc5a950826.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.D property">
+        <param name="Local" value="html/d64a5ce4-5671-14c0-3057-b2ab475bcfca.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.Division operator">
+        <param name="Local" value="html/5b47997a-5022-8a25-4fd0-1be7ee13eae8.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.Equality operator">
+        <param name="Local" value="html/2b7300a4-5630-3f0b-1203-517ab0485570.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.Equals method">
+        <param name="Local" value="html/1baf825e-f66e-dc1e-d2c2-ba5a2c1ba78d.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.GetHashCode method">
+        <param name="Local" value="html/88d8bbe2-b384-588d-a232-4735129896e1.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.GreaterThan operator">
+        <param name="Local" value="html/225193c3-e520-2013-a8e2-58c5089f2177.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.GreaterThanOrEqual operator">
+        <param name="Local" value="html/7cc24f6e-2162-5b16-7b36-82fd839cee44.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.I property">
+        <param name="Local" value="html/29ddb4b7-ffd2-c9fc-981f-0b7e6e5a897b.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.Implicit operator">
+        <param name="Local" value="html/d0234ec0-89b7-a281-4798-a17d0ba774cd.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.Inequality operator">
+        <param name="Local" value="html/116f235d-f178-ae6a-4623-d4bc0be80126.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.IsNullOrEmpty property">
+        <param name="Local" value="html/ad398965-30a0-aa40-1d23-419510db467f.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.IsNumber property">
+        <param name="Local" value="html/cb030274-710f-0889-0917-f422b4b190b2.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.LessThan operator">
+        <param name="Local" value="html/9004c578-e989-a4f0-aed6-35dadd785399.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.LessThanOrEqual operator">
+        <param name="Local" value="html/0276639f-0af7-0a77-e159-16fb5c03f448.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.Multiply operator">
+        <param name="Local" value="html/43c43c2b-98ec-7161-3127-f455347195a7.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.S property">
+        <param name="Local" value="html/feb00776-574b-4f67-24a1-a7d93e8ba33a.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.SosoObject constructor">
+        <param name="Local" value="html/e9a05b91-05c9-f125-6e04-1473ec94a216.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.Subtraction operator">
+        <param name="Local" value="html/c7c70517-3d29-5747-24b9-42ef17cceaa3.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="SosoObject.ToString method">
+        <param name="Local" value="html/f66a5bd7-2d15-c346-60de-79d8599a272d.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Start method">
+        <param name="Local" value="html/4462f64e-b267-0ef8-ef6a-2465c5b269d6.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="StartNew method">
+        <param name="Local" value="html/ff47d62c-91ba-1bcb-fc3c-997a8b2c28f4.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Stop method">
+        <param name="Local" value="html/4c4da100-194c-6e7f-30e2-c46a3310f4c2.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="String to SosoObject conversion">
+        <param name="Local" value="html/464aa813-719e-e1c4-e16c-9ff3ca1e7cb5.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="StringRegisterChanged event">
+        <param name="Local" value="html/c67af688-a267-10df-b4bd-2de5cea9ea13.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Subtraction operator">
+        <param name="Local" value="html/c7c70517-3d29-5747-24b9-42ef17cceaa3.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="ToString method">
+        <param name="Local" value="html/f66a5bd7-2d15-c346-60de-79d8599a272d.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="UpdateXElementAttribute method">
+        <param name="Local" value="html/107e7fcc-143a-fed5-fe7f-7d515e3665d9.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="WriteObject&lt;T&gt; method">
+        <param name="Local" value="html/07134fff-8595-142c-9a7c-076d0141bc0c.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="WriteString method">
+        <param name="Local" value="html/0ecbd18d-7a69-6917-d51b-a18415c8fb8e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="XmlHelp class">
+        <param name="See Also" value="XmlHelp class">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="XmlHelp Class">
+          <param name="Local" value="html/931ae64d-1ef1-7c01-4eb4-cf2b5fc39cde.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="constructor">
+          <param name="Local" value="html/dac61d9c-76ad-8e88-066b-a849b339e495.htm">
+        </OBJECT></LI>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="methods">
+          <param name="Local" value="html/be72f46d-1a0d-9d6e-47cf-034015fdcfd6.htm">
+        </OBJECT></LI>
+      </UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="XmlHelp.CreateXElement method">
+        <param name="Local" value="html/ba0fc6ac-5f28-ea3d-6596-96aa0ecb47b3.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="XmlHelp.GetKeyValuesFromXElementAttributes method">
+        <param name="Local" value="html/8af02d10-10f2-930f-d68e-4b08e661fa4b.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="XmlHelp.GetXElements method">
+        <param name="Local" value="html/b0e1a739-a629-1ae0-e383-838f3505b62a.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="XmlHelp.Save method">
+        <param name="Local" value="html/deb88f38-b742-a0de-378a-48e53a33e48e.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="XmlHelp.UpdateXElementAttribute method">
+        <param name="Local" value="html/107e7fcc-143a-fed5-fe7f-7d515e3665d9.htm">
+      </OBJECT></LI>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="XmlHelp.XmlHelp constructor">
+        <param name="Local" value="html/dac61d9c-76ad-8e88-066b-a849b339e495.htm">
+      </OBJECT></LI>
+    </UL>
+  </BODY>
+</HTML>
