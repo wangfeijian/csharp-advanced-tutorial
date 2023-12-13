@@ -24,26 +24,30 @@
  *----------------------------------------------------------------*/
 #endregion << 版 本 注 释 >>
 
-using Microsoft.Extensions.DependencyInjection;
+using Autofac;
 using System;
 
 namespace Soso.Contract
 {
     public class DIServices : SingletonInstance<DIServices>
     {
-        public ServiceCollection ServiceCollection = new ServiceCollection();
+        public ContainerBuilder ContainerBuilder = new ContainerBuilder();
 
-        public IServiceProvider Services { get; private set; }
+        public IContainer Container { get; private set; }
 
         public void AddPrivateCtorInstance<TService, TImplementation>() where TService : class
                                                                          where TImplementation : class, TService
         {
-            ServiceCollection.AddSingleton<TService, TImplementation>(s => (TImplementation)Activator.CreateInstance(typeof(TImplementation), true));
+            ContainerBuilder.Register(o => Activator.CreateInstance(typeof(TImplementation), true)).As<TService>().SingleInstance();
         }
 
+        public void AddPrivateCtorInstance<TImplementation>() where TImplementation : class
+        {
+            ContainerBuilder.Register(o => Activator.CreateInstance(typeof(TImplementation), true)).As<TImplementation>().SingleInstance();
+        }
         public void ServicesBuilder()
         {
-            Services = ServiceCollection.BuildServiceProvider();
+            Container = ContainerBuilder.Build();
         }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

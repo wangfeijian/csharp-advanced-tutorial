@@ -24,7 +24,7 @@
  *----------------------------------------------------------------*/
 #endregion << 版 本 注 释 >>
 
-using Microsoft.Extensions.DependencyInjection;
+using Autofac;
 using Soso.Contract;
 using System;
 using System.Collections.Generic;
@@ -71,7 +71,7 @@ namespace Soso.Services
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private ConfigServices()
         {
-            _logServices = DIServices.Instance.Services.GetRequiredService<ILogServices>();
+            _logServices = DIServices.Instance.Container.Resolve<ILogServices>();
         }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     }
