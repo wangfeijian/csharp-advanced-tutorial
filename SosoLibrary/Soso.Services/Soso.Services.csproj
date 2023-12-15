@@ -3,13 +3,18 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>9.0</LangVersion>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     </PropertyGroup>
 
     <ItemGroup>
+        <None Remove="Config\Default\CommunicateParameters.xml" />
         <None Remove="Config\system.json" />
     </ItemGroup>
 
     <ItemGroup>
+        <Content Include="Config\Default\CommunicateParameters.xml">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
         <Content Include="Config\system.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
@@ -20,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Soso.Common\Soso.Common.csproj" />
         <ProjectReference Include="..\Soso.Contract\Soso.Contract.csproj" />
     </ItemGroup>
 

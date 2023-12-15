@@ -24,19 +24,22 @@
  *----------------------------------------------------------------*/
 #endregion << 版 本 注 释 >>
 
-using Autofac;
+using Newtonsoft.Json;
+using Soso.Common.FileHelp;
 using Soso.Contract;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Soso.Services
 {
     public sealed class ConfigServices : SingletonInstance<ConfigServices>
     {
-        private readonly ILogServices _logServices;
         private static readonly string _configPath = AppContext.BaseDirectory + $"Config\\system.json";
         private Dictionary<string, string> _configs;
 
+        public List<SocketServerParameter> SocketServerParameters { get; private set; }
         public string[] AllProjects
         {
             get
@@ -71,8 +74,95 @@ namespace Soso.Services
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private ConfigServices()
         {
-            _logServices = DIServices.Instance.Container.Resolve<ILogServices>();
+            try
+            {
+                _configs = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(_configPath));
+                InitAllParameters();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"File {CommunicateParameterPath} Load Error!!", ex);
+            }
         }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+        private void InitAllParameters()
+        {
+            InitSocketParameters();
+        }
+
+        private void InitSocketParameters()
+        {
+            InitSocketServer();
+        }
+
+        private void InitSocketServer()
+        {
+            SocketServerParameters = new List<SocketServerParameter>();
+
+            XmlHelp xmlHelp = new XmlHelp(CommunicateParameterPath);
+            var xelements = xmlHelp.GetXElements("Server", true);
+
+            if (xelements.Count() <= 0)
+            {
+
+                throw new Exception($"File {CommunicateParameterPath}, Not Exist Server Node!");
+            }
+
+            foreach (var xElement in xelements)
+            {
+                var result = xmlHelp.GetKeyValuesFromXElementAttributes(xElement);
+                var param = new SocketServerParameter();
+                if (ConvertDataToT(result, "Server", out param))
+                {
+                    SocketServerParameters.Add(param);
+                }
+            }
+        }
+
+        private bool ConvertDataToT<T>(Dictionary<string, string> data, string node, out T instance) where T : class
+        {
+            bool result = false;
+            instance = (T)Activator.CreateInstance(typeof(T));
+
+            foreach (var item in typeof(T).GetProperties())
+            {
+                string value;
+                if (!data.TryGetValue(item.Name, out value))
+                {
+                    result = false;
+                    throw new Exception($"File {CommunicateParameterPath} {node} Node Not Exist {item.Name} Attribute!");
+                }
+
+                Type t = item.PropertyType;
+                if (t == typeof(int))
+                {
+                    int intValue;
+                    if (!int.TryParse(value, out intValue))
+                    {
+                        result = false;
+                        throw new Exception($"File {CommunicateParameterPath} {node} Node {item.Name} Attribute's Value Error!");
+                    }
+                    item.SetValue(instance, intValue);
+                }
+                else if (t == typeof(bool))
+                {
+                    bool boolValue;
+                    if (!bool.TryParse(value, out boolValue))
+                    {
+                        result = false;
+                        throw new Exception($"File {CommunicateParameterPath} {node} Node {item.Name} Attribute's Value Error!");
+                    }
+                    item.SetValue(instance, boolValue);
+                }
+                else
+                {
+                    item.SetValue(instance, value);
+                }
+            }
+            result = true;
+
+            return result;
+        }
     }
 }

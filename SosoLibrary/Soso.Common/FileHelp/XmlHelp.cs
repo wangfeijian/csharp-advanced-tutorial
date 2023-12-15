@@ -247,7 +247,11 @@ namespace Soso.Common.FileHelp
                 return _document.Descendants(elementName).Where(item => !item.HasAttributes);
             }
 
-            CheckParamIsNotNullOrWhiteSpace(attributeName);
+            if (string.IsNullOrWhiteSpace(attributeName))
+            {
+                return _document.Descendants(elementName).Where(item => item.HasAttributes);
+            }
+
             CheckParamIsNotNullOrWhiteSpace(attributeValue);
 
             return from element in _document.Descendants(elementName)

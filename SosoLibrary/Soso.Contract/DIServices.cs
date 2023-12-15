@@ -41,10 +41,6 @@ namespace Soso.Contract
             ContainerBuilder.Register(o => Activator.CreateInstance(typeof(TImplementation), true)).As<TService>().SingleInstance();
         }
 
-        public void AddPrivateCtorInstance<TImplementation>() where TImplementation : class
-        {
-            ContainerBuilder.Register(o => Activator.CreateInstance(typeof(TImplementation), true)).As<TImplementation>().SingleInstance();
-        }
         public void ServicesBuilder()
         {
             Container = ContainerBuilder.Build();

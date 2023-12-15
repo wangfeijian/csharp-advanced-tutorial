@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Socket>
+    <Servers>
+        <Server Index="1" IPAddress="127.0.0.1" Port="10000" Enable="True" BeginMark="$" EndMark="\r\n" CommandSpliter="," ParameterSpliter=","/>
+        <Server Index="2" IPAddress="127.0.0.1" Port="10001" Enable="True" BeginMark="" EndMark="\r\n" CommandSpliter=":" ParameterSpliter=","/>
+    </Servers>
+</Socket>
