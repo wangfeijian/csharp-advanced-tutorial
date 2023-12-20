@@ -46,8 +46,9 @@ namespace UserSuperSocketClient
             //body = body.Substring(BeginMark.Length, body.Length - EndMark.Length - BeginMark.Length);
 
             //Skip(int count):从数据源跳过指定的字节个数。直接获取过滤后的数据
-            string body = bufferStream.Skip(BeginMark.Length).ReadString((int)bufferStream.Length - BeginMark.Length - EndMark.Length, Encoding.Default);
-            return new StringPackageInfo("", body, new string[] { });
+            string key = bufferStream.ReadString(BeginMark.Length, Encoding.Default);
+            string body = bufferStream.ReadString((int)bufferStream.Length - BeginMark.Length - EndMark.Length, Encoding.Default);
+            return new StringPackageInfo(key, body, new string[] { });
         }
     }
 
@@ -59,18 +60,36 @@ namespace UserSuperSocketClient
         {
 
             _client = new EasyClient<StringPackageInfo>();
-            _client.Initialize(new EndMarkFilter(Encoding.Default.GetBytes("\r\n")));
+            _client.Initialize(new ReceiveFilter());
             _client.ConnectAsync(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9000));
             _client.NewPackageReceived += _client_NewPackageReceived;
+            _client.Closed += _client_Closed;
+            _client.Connected += _client_Connected;
+            _client.Error += _client_Error;
             //_client.DataReceived += _client_DataReceived;
             Console.ReadLine();
+        }
+
+        private static void _client_Error(object sender, ErrorEventArgs e)
+        {
+
+        }
+
+        private static void _client_Connected(object sender, EventArgs e)
+        {
+
+        }
+
+        private static void _client_Closed(object sender, EventArgs e)
+        {
+
         }
 
         private static void _client_NewPackageReceived(object sender, PackageEventArgs<StringPackageInfo> e)
         {
             _index++;
             Console.WriteLine(_index);
-            Console.WriteLine(e.Package.Body);
+            Console.WriteLine(e.Package.Key + e.Package.Body);
         }
 
         private static void _client_DataReceived(object sender, DataEventArgs e)

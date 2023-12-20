@@ -1,18 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <UserSecretsId>ee6be712-b537-41cb-8f0b-f2213a27676c</UserSecretsId>
-      <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <UserSecretsId>ee6be712-b537-41cb-8f0b-f2213a27676c</UserSecretsId>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <PackageOutputPath>C:\Users\wangf\LocalNuget</PackageOutputPath>
+        <Authors>wangfeijian</Authors>
+        <Company>Soso</Company>
+        <AssemblyVersion>1.0.0.1</AssemblyVersion>
+        <FileVersion>1.0.0.1</FileVersion>
+        <Version>1.0.1</Version>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="SuperSocket" Version="1.6.6.1" />
-    <PackageReference Include="SuperSocket.Engine" Version="1.6.6.1" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="SuperSocket" Version="1.6.6.1" />
+        <PackageReference Include="SuperSocket.ClientEngine" Version="0.10.0" />
+        <PackageReference Include="SuperSocket.Engine" Version="1.6.6.1" />
+        <PackageReference Include="SuperSocket.ProtoBase" Version="1.7.0.17" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Soso.Contract\Soso.Contract.csproj" />
-  </ItemGroup>
-
+    <ItemGroup>
+        <ProjectReference Include="..\Soso.Contract\Soso.Contract.csproj" />
+    </ItemGroup>
 </Project>

@@ -38,8 +38,10 @@ namespace Soso.Services
     {
         private static readonly string _configPath = AppContext.BaseDirectory + $"Config\\system.json";
         private Dictionary<string, string> _configs;
-
-        public List<SocketServerParameter> SocketServerParameters { get; private set; }
+        private List<SocketServerParameter> _socketServerParameters;
+        private List<SocketClientParameter> _socketClientParameters;
+        public List<SocketServerParameter> SocketServerParameters => _socketServerParameters;
+        public List<SocketClientParameter> SocketClientParameters => _socketClientParameters;
         public string[] AllProjects
         {
             get
@@ -77,7 +79,6 @@ namespace Soso.Services
             try
             {
                 _configs = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(_configPath));
-                InitAllParameters();
             }
             catch (Exception ex)
             {
@@ -86,41 +87,42 @@ namespace Soso.Services
         }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-        private void InitAllParameters()
+        public void InitAllParameters()
         {
             InitSocketParameters();
         }
 
-        private void InitSocketParameters()
+        public void InitSocketParameters()
         {
-            InitSocketServer();
+            InitObjectFromXml(ref _socketServerParameters, CommunicateParameterPath, "Server");
+            InitObjectFromXml(ref _socketClientParameters, CommunicateParameterPath, "Client");
         }
 
-        private void InitSocketServer()
+        private void InitObjectFromXml<T>(ref List<T> socketList, string filePath, string elementName) where T : new()
         {
-            SocketServerParameters = new List<SocketServerParameter>();
+            socketList = new List<T>();
 
-            XmlHelp xmlHelp = new XmlHelp(CommunicateParameterPath);
-            var xelements = xmlHelp.GetXElements("Server", true);
+            XmlHelp xmlHelp = new XmlHelp(filePath);
+            var xelements = xmlHelp.GetXElements(elementName, true);
 
             if (xelements.Count() <= 0)
             {
 
-                throw new Exception($"File {CommunicateParameterPath}, Not Exist Server Node!");
+                throw new Exception($"File {filePath}, Not Exist Server Node!");
             }
 
             foreach (var xElement in xelements)
             {
                 var result = xmlHelp.GetKeyValuesFromXElementAttributes(xElement);
-                var param = new SocketServerParameter();
-                if (ConvertDataToT(result, "Server", out param))
+                var param = new T();
+                if (ConvertDataToT(result, elementName, out param))
                 {
-                    SocketServerParameters.Add(param);
+                    socketList.Add(param);
                 }
             }
         }
 
-        private bool ConvertDataToT<T>(Dictionary<string, string> data, string node, out T instance) where T : class
+        private bool ConvertDataToT<T>(Dictionary<string, string> data, string node, out T instance) where T : new()
         {
             bool result = false;
             instance = (T)Activator.CreateInstance(typeof(T));

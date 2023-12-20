@@ -12,6 +12,8 @@ namespace Soso.Communicate
     {
         private AppServer _appServer;
         private bool _enable;
+        private string _name;
+        public string Name => _name;
 
         public event SessionHandler<AppSession, CloseReason> ClientDisconnected;
         public event SessionHandler<AppSession> ClientConnected;
@@ -19,7 +21,9 @@ namespace Soso.Communicate
         public SocketServer(SocketServerParameter parameter)
         {
             _enable = parameter.Enable;
-            if (parameter.EndMark.Contains("\\"))
+            _name = parameter.Name;
+
+            if (parameter.EndMark.Contains("\\") || string.IsNullOrWhiteSpace(parameter.EndMark))
             {
                 parameter.EndMark = "\r\n";
             }

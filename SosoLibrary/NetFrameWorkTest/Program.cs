@@ -13,6 +13,61 @@ namespace NetFrameWorkTest
         static void Main(string[] args)
         {
             DIServices.Instance.AddPrivateCtorInstance<ILogServices, LogServices>();
+            SocketClientTest();
+            Console.ReadLine();
+        }
+
+        static void SocketClientTest()
+        {
+            ConfigServices.Instance.InitSocketParameters();
+
+            foreach (var client in ConfigServices.Instance.SocketClientParameters)
+            {
+                DIServices.Instance.ContainerBuilder.Register(o => new SocketClient(client)).Named<SocketClient>(client.Index);
+            }
+            DIServices.Instance.ServicesBuilder();
+
+            var client1 = DIServices.Instance.Container.ResolveNamed<SocketClient>("1");
+            var client2 = DIServices.Instance.Container.ResolveNamed<SocketClient>("2");
+
+            InitClient(client1, "client1");
+            InitClient(client2, "client2");
+            client1.Close();
+            client2.Close();
+        }
+
+        static void InitClient(SocketClient client, string name)
+        {
+            client.Open();
+            client.ServersClosed += Client_ServersClosed;
+
+            client.Error += Client_Error;
+            client.Write($"Hello {name}");
+
+            string result;
+            if (client.ReadString(out result) == -1)
+            {
+                Console.WriteLine($"{name} timeout!");
+            }
+            else
+            {
+                Console.WriteLine(result);
+            }
+        }
+
+        private static void Client_ServersClosed(object sender, string msg)
+        {
+            Console.WriteLine(msg);
+        }
+
+        private static void Client_Error(object sender, string msg)
+        {
+            Console.WriteLine(msg);
+        }
+
+        static void SocketServerTest()
+        {
+            ConfigServices.Instance.InitSocketParameters();
 
             foreach (var service in ConfigServices.Instance.SocketServerParameters)
             {
@@ -31,7 +86,6 @@ namespace NetFrameWorkTest
             server2.Stop();
             Console.ReadLine();
         }
-
         static void InitServer(SocketServer server)
         {
             server.ClientConnected += (session) => { Console.WriteLine($"{session.RemoteEndPoint.Address}:{session.RemoteEndPoint.Port} connected!"); };
