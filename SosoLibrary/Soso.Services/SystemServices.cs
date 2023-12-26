@@ -26,30 +26,35 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using Soso.Contract;
+using Soso.Contract.Model;
 using System.Collections.ObjectModel;
 
 namespace Soso.Services
 {
-    public class SystemParameter
-    {
-        public string Name { get; set; } = string.Empty;
-        public string Value { get; set; } = string.Empty;
-        public string LangKey { get; set; } = string.Empty;
-        public string MaxValue { get; set; } = string.Empty;
-        public string MinValue { get; set; } = string.Empty;
-        public string Unit { get; set; } = string.Empty;
-        public int AuthorityLevel { get; set; }
-    }
     public sealed partial class SystemServices : SingletonInstance<SystemServices>
     {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private SystemServices()
         {
+            ConfigServices.Instance.InitSystemParameters();
+            systemParameters = new ObservableCollection<SystemParameter>(ConfigServices.Instance.SystemParameters);
         }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
 
         [ObservableProperty]
         private ObservableCollection<SystemParameter> systemParameters;
 
+        /// <summary>
+        /// 更改系统参数描述语言，目前只支持中文和英文
+        /// </summary>
+        /// <param name="langType">0-中文；1-英文；</param>
+        public void ChangeLanguage(int langType)
+        {
+            foreach (var parameter in SystemParameters)
+            {
+                parameter.LangType = langType;
+            }
+        }
     }
 }

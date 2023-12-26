@@ -1,6 +1,7 @@
 ﻿using Autofac;
-using Soso.Communicate;
+using Soso.Communicate.Socket;
 using Soso.Contract;
+using Soso.Contract.Interface;
 using Soso.Log;
 using Soso.Services;
 using System;
@@ -10,11 +11,23 @@ namespace NetFrameWorkTest
 {
     internal class Program
     {
+        private static SocketClient _client;
         static void Main(string[] args)
         {
             DIServices.Instance.AddPrivateCtorInstance<ILogServices, LogServices>();
-            SocketClientTest();
+            //SocketClientTest();
+            SystemParamTest();
+            Console.WriteLine(SystemServices.Instance.SystemParameters.First().ShowDescription);
+            SystemServices.Instance.SystemParameters.First().LangType = 1;
+            Console.WriteLine(SystemServices.Instance.SystemParameters.First().ShowDescription);
             Console.ReadLine();
+        }
+
+        static void SystemParamTest()
+        {
+            ConfigServices.Instance.InitSystemParameters();
+            DIServices.Instance.ServicesBuilder();
+            _ = SystemServices.Instance;
         }
 
         static void SocketClientTest()
@@ -27,13 +40,30 @@ namespace NetFrameWorkTest
             }
             DIServices.Instance.ServicesBuilder();
 
-            var client1 = DIServices.Instance.Container.ResolveNamed<SocketClient>("1");
-            var client2 = DIServices.Instance.Container.ResolveNamed<SocketClient>("2");
+            _client = DIServices.Instance.Container.ResolveNamed<SocketClient>("1");
 
-            InitClient(client1, "client1");
-            InitClient(client2, "client2");
-            client1.Close();
-            client2.Close();
+            InitClient(_client, "client1");
+
+            for (int i = 0; i < 5000; i++)
+            {
+                _client.ClearBuffer();
+                _client.Write("T3,SN");
+                string str;
+                if (_client.ReadString(out str) < 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"接收第{i}个数据超时！！");
+                    break;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"收到第{i}个数据：{str}");
+                }
+
+            }
+
+            _client.Close();
         }
 
         static void InitClient(SocketClient client, string name)
@@ -42,17 +72,6 @@ namespace NetFrameWorkTest
             client.ServersClosed += Client_ServersClosed;
 
             client.Error += Client_Error;
-            client.Write($"Hello {name}");
-
-            string result;
-            if (client.ReadString(out result) == -1)
-            {
-                Console.WriteLine($"{name} timeout!");
-            }
-            else
-            {
-                Console.WriteLine(result);
-            }
         }
 
         private static void Client_ServersClosed(object sender, string msg)

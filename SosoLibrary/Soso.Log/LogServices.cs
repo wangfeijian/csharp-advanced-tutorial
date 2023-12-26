@@ -26,6 +26,7 @@
 
 using log4net;
 using Soso.Contract;
+using Soso.Contract.Interface;
 using System;
 using System.IO;
 

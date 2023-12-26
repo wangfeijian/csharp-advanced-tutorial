@@ -5,3 +5,6 @@ GetPrivateProfileSection
 GetPrivateProfileSectionNames
 WritePrivateProfileString
 WritePrivateProfileSection
+GetLastInputInfo
+GlobalMemoryStatusEx
+SetProcessWorkingSetSize

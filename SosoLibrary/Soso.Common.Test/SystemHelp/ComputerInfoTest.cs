@@ -11,13 +11,13 @@ namespace Soso.Common.Test.SystemHelp
             double value = 16 * 1024 * 1024 * 1024d;
             Assert.AreEqual(value, ComputerInfo.GetSystemMemorySize());
             string unit = "B";
-            ComputerInfo.ByteConvert(ref value, ref unit);
+            CommonHelp.ByteConvert(ref value, ref unit);
             Assert.AreEqual(unit, "GB");
             Assert.AreEqual(16, value);
 
             value = 2048;
             unit = "B";
-            ComputerInfo.ByteConvert(ref value, ref unit);
+            CommonHelp.ByteConvert(ref value, ref unit);
             Assert.AreEqual(unit, "KB");
             Assert.AreEqual(2, value);
 
@@ -25,7 +25,7 @@ namespace Soso.Common.Test.SystemHelp
             Assert.AreEqual(result.Count(), 1);
             value = result.First().Value;
             unit = "B";
-            ComputerInfo.ByteConvert(ref value, ref unit);
+            CommonHelp.ByteConvert(ref value, ref unit);
             value = Math.Round(value, 2);
             Assert.AreEqual(value, 931.51);
 

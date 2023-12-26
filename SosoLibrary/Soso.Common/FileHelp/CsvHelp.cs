@@ -32,6 +32,7 @@
 #endregion << 版 本 注 释 >>
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;

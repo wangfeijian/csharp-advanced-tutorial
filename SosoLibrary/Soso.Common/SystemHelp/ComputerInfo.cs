@@ -1,4 +1,29 @@
-﻿using System;
+﻿#region << 版 本 注 释 >>
+/*----------------------------------------------------------------
+ * 版权所有 (c) 2023 wangfeijian 保留所有权利。
+ * CLR版本：4.0.30319.42000
+ * 机器名称：WANGFEIJIAN
+ * 公司名称：wangfeijian
+ * 命名空间：Soso.Common.SystemHelp
+ * 唯一标识：182b41a0-8183-429b-bf7f-03a4b690bfd5
+ * 文件名：ComputerInfo
+ * 当前用户域：WANGFEIJIAN
+ * 
+ * 创建者：王飞箭 wangfeijian
+ * 电子邮箱：wangfeijianhao@163.com
+ * 创建时间：11/12/2023 11:09:29 AM
+ * 版本：V1.0.0
+ * 描述：
+ *
+ * ----------------------------------------------------------------
+ * 修改人：
+ * 时间：
+ * 修改说明：
+ * 
+ * 版本：V1.0.0
+ *----------------------------------------------------------------*/
+#endregion << 版 本 注 释 >>
+using System;
 using System.Collections.Generic;
 using System.Management;
 
@@ -117,44 +142,6 @@ namespace Soso.Common.SystemHelp
                 }
             }
             return size;
-        }
-
-        /// <summary>
-        /// 字节转换，默认转换成最大单位
-        /// </summary>
-        /// <param name="v">大小</param>
-        /// <param name="level">单位</param>
-        public static void ByteConvert(ref double v, ref string level)
-        {
-            switch (level)
-            {
-                case "B":
-                    if (v / 1024 > 1)
-                    {
-                        level = "KB";
-                        v /= 1024;
-                        ByteConvert(ref v, ref level);
-                    }
-                    break;
-
-                case "KB":
-                    if (v / 1024 > 1)
-                    {
-                        level = "MB";
-                        v /= 1024;
-                        ByteConvert(ref v, ref level);
-                    }
-                    break;
-
-                case "MB":
-                    if (v / 1024 > 1)
-                    {
-                        level = "GB";
-                        v /= 1024;
-                        ByteConvert(ref v, ref level);
-                    }
-                    break;
-            }
         }
 
         /// <summary>

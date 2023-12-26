@@ -7,23 +7,19 @@
         <PackageOutputPath>C:\Users\wangf\LocalNuget</PackageOutputPath>
         <Authors>wangfeijian</Authors>
         <Company>Soso</Company>
-        <AssemblyVersion>1.0.0.1</AssemblyVersion>
-        <FileVersion>1.0.0.1</FileVersion>
-        <Version>1.0.1</Version>
+        <AssemblyVersion>1.0.0.2</AssemblyVersion>
+        <FileVersion>1.0.0.2</FileVersion>
+        <Version>1.0.2</Version>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="Config\Default\CommunicateParameters.xml" />
-        <None Remove="Config\system.json" />
+        <None Remove="Config\Default\SystemParameters.xml" />
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="Config\Default\CommunicateParameters.xml">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-        <Content Include="Config\system.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
+        <XamlAppDef Include="Config\Default\SystemParameters.xml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </XamlAppDef>
     </ItemGroup>
 
     <ItemGroup>
@@ -33,5 +29,14 @@
     <ItemGroup>
         <ProjectReference Include="..\Soso.Common\Soso.Common.csproj" />
         <ProjectReference Include="..\Soso.Contract\Soso.Contract.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Config\Default\CommunicateParameters.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Config\system.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>

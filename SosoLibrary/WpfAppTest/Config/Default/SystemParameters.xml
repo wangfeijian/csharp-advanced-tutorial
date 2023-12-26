@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <SystemParam>
+        <Param>
+            <Param Key="IdleTime" Value="10" Units="min" Description="无操作自动转为OP模式时间" EnglishDescription="Idle switch to OP mode time" MinValue="1" MaxValue="60" AuthorityLevel="3" LangType="0"/>
+        </Param>
+    </SystemParam>
+</root>

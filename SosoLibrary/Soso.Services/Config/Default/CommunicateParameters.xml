@@ -1,11 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Socket>
-    <Servers>
-        <Server Index="1" Name="开始结束符测试服务器" IPAddress="127.0.0.1" Port="10000" Enable="True" BeginMark="$" EndMark="\r\n" CommandSpliter="," ParameterSpliter=","/>
-        <Server Index="2" Name="分割符测试服务器" IPAddress="127.0.0.1" Port="10001" Enable="True" BeginMark="" EndMark="\r\n" CommandSpliter=":" ParameterSpliter=","/>
-    </Servers>
-    <Client>
-        <Client Index="1" Name="测试客户端" ServerIPAddress="127.0.0.1" Port="10000" TimeOut="30000" BeginMark="$" EndMark="\r\n" CommandSpliter="," ParameterSpliter=","/>
-        <Client Index="2" Name="测试客户端" ServerIPAddress="127.0.0.1" Port="9000" TimeOut="30000" BeginMark="" EndMark="\r\n" CommandSpliter=":" ParameterSpliter=","/>
-    </Client>
-</Socket>
+<root>
+    <Socket>
+        <Servers>
+            <Server Index="1" Name="开始结束符测试服务器" IPAddress="127.0.0.1" Port="10000" Enable="True" BeginMark="$" EndMark="CRLF" CommandSpliter="," ParameterSpliter=","/>
+            <Server Index="2" Name="分割符测试服务器" IPAddress="127.0.0.1" Port="10001" Enable="True" BeginMark="" EndMark="CRLF" CommandSpliter=":" ParameterSpliter=","/>
+        </Servers>
+        <Client>
+            <Client Index="1" Name="测试客户端" ServerIPAddress="127.0.0.1" Port="10000" TimeOut="30000" BeginMark="$" EndMark="CRLF" CommandSpliter="," ParameterSpliter=","/>
+            <Client Index="2" Name="测试客户端" ServerIPAddress="127.0.0.1" Port="9000" TimeOut="30000" BeginMark="" EndMark="CRLF" CommandSpliter=":" ParameterSpliter=","/>
+        </Client>
+    </Socket>
+    <SerialPort>
+        <SerialPort Index="1" Name="Com1" Description="光源控制器" BaudRate="19200" DataBit="8" ParityBit="None" StopBit="1" FlowControl="None" TimeOut="3000" BufferSize="4096" EndMark="CR"/>
+        <SerialPort Index="2" Name="Com2" Description="光源控制器" BaudRate="9600" DataBit="7" ParityBit="ODD" StopBit="1" FlowControl="None" TimeOut="3000" BufferSize="4096" EndMark="CR"/>
+        <SerialPort Index="3" Name="Com3" Description="光源控制器" BaudRate="25600" DataBit="6" ParityBit="EVEN" StopBit="1" FlowControl="None" TimeOut="3000" BufferSize="4096" EndMark="CR"/>
+    </SerialPort>
+</root>

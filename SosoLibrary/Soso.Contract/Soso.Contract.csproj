@@ -2,13 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>9.0</LangVersion>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <PackageOutputPath>C:\Users\wangf\LocalNuget</PackageOutputPath>
         <Authors>wangfeijian</Authors>
         <Company>Soso</Company>
-        <AssemblyVersion>1.0.0.1</AssemblyVersion>
-        <FileVersion>1.0.0.1</FileVersion>
-        <Version>1.0.1</Version>
+        <AssemblyVersion>1.0.0.2</AssemblyVersion>
+        <FileVersion>1.0.0.2</FileVersion>
+        <Version>1.0.2</Version>
     </PropertyGroup>
 
     <ItemGroup>

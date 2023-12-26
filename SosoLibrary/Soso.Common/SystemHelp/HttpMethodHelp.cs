@@ -1,4 +1,29 @@
-﻿using System;
+﻿#region << 版 本 注 释 >>
+/*----------------------------------------------------------------
+ * 版权所有 (c) 2023 wangfeijian 保留所有权利。
+ * CLR版本：4.0.30319.42000
+ * 机器名称：WANGFEIJIAN
+ * 公司名称：wangfeijian
+ * 命名空间：Soso.Common.SystemHelp
+ * 唯一标识：182b41a0-8183-429b-bf7f-03a4b690bfd5
+ * 文件名：HttpMethodHelp
+ * 当前用户域：WANGFEIJIAN
+ * 
+ * 创建者：王飞箭 wangfeijian
+ * 电子邮箱：wangfeijianhao@163.com
+ * 创建时间：11/14/2023 11:09:29 AM
+ * 版本：V1.0.0
+ * 描述：
+ *
+ * ----------------------------------------------------------------
+ * 修改人：
+ * 时间：
+ * 修改说明：
+ * 
+ * 版本：V1.0.0
+ *----------------------------------------------------------------*/
+#endregion << 版 本 注 释 >>
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;

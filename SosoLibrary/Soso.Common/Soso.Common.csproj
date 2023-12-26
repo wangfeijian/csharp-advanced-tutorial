@@ -8,17 +8,18 @@
         <PackageOutputPath>C:\Users\wangf\LocalNuget</PackageOutputPath>
         <Authors>wangfeijian</Authors>
         <Company>Soso</Company>
-        <AssemblyVersion>1.0.0.1</AssemblyVersion>
-        <FileVersion>1.0.0.1</FileVersion>
-        <Version>1.0.1</Version>
+        <AssemblyVersion>1.0.0.2</AssemblyVersion>
+        <FileVersion>1.0.0.2</FileVersion>
+        <Version>1.0.2</Version>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.18-beta">
+        <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.49-beta">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
         <PackageReference Include="System.Management" Version="8.0.0" />
     </ItemGroup>
 

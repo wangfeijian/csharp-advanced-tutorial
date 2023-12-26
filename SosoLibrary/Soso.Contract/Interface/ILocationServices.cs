@@ -4,7 +4,7 @@
  * CLR版本：4.0.30319.42000
  * 机器名称：WANGFEIJIAN
  * 公司名称：wangfeijian
- * 命名空间：Soso.Contract
+ * 命名空间：Soso.Contract.Interface
  * 唯一标识：f259ac0e-0542-4523-9d23-733ac6a9efae
  * 文件名：ILanguageMgt
  * 当前用户域：WANGFEIJIAN
@@ -14,7 +14,7 @@
  * 创建时间：6/26/2023 11:05:01 AM
  * 版本：V1.0.0
  * 描述：
- *
+ * 1、重新将文件移动到Interface文件夹下
  * ----------------------------------------------------------------
  * 修改人：
  * 时间：
@@ -27,8 +27,9 @@
 using System;
 using System.Globalization;
 
-namespace Soso.Contract
+namespace Soso.Contract.Interface
 {
+    public delegate void LocationChangedHandler(LocationChangedEventArgs eventArgs);
     public class LocationChangedEventArgs : EventArgs
     {
         private CultureInfo _lang;
@@ -47,6 +48,7 @@ namespace Soso.Contract
 
     public interface ILocationServices
     {
+        event LocationChangedHandler LocationChangedEvent;
         CultureInfo CurrentCultrueInfo { get; }
 
         void ChangeLang(CultureInfo cultureInfo);

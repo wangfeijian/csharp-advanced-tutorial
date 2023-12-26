@@ -4,7 +4,7 @@
  * CLR版本：4.0.30319.42000
  * 机器名称：WANGFEIJIAN
  * 公司名称：wangfeijian
- * 命名空间：SosoMS.SingletonServices
+ * 命名空间：Soso.Services
  * 唯一标识：776cc141-264b-47d3-80d1-5ac8695e58f2
  * 文件名：ConfigServices
  * 当前用户域：WANGFEIJIAN
@@ -16,17 +16,20 @@
  * 描述：
  *
  * ----------------------------------------------------------------
- * 修改人：
- * 时间：
+ * 修改人：王飞箭
+ * 时间：2023/12/25
  * 修改说明：
- *
- * 版本：V1.0.1
+ * 1、增加参数集合来转换配置文件中的内容
+ * 2、添加从xml文件加载参数到程序的方法
+ * 3、添加通用方法，使用反射来初始化对象，避免出现冗余代码
+ * 版本：V1.0.2
  *----------------------------------------------------------------*/
 #endregion << 版 本 注 释 >>
 
 using Newtonsoft.Json;
 using Soso.Common.FileHelp;
 using Soso.Contract;
+using Soso.Contract.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,11 +40,15 @@ namespace Soso.Services
     public sealed class ConfigServices : SingletonInstance<ConfigServices>
     {
         private static readonly string _configPath = AppContext.BaseDirectory + $"Config\\system.json";
-        private Dictionary<string, string> _configs;
+        private Dictionary<string, string> _configs = new Dictionary<string, string>();
         private List<SocketServerParameter> _socketServerParameters;
         private List<SocketClientParameter> _socketClientParameters;
+        private List<SerialPortParameter> _serialPortParameters;
+        private List<SystemParameter> _systemParameters;
         public List<SocketServerParameter> SocketServerParameters => _socketServerParameters;
         public List<SocketClientParameter> SocketClientParameters => _socketClientParameters;
+        public List<SerialPortParameter> SerialPortParameters => _serialPortParameters;
+        public List<SystemParameter> SystemParameters => _systemParameters;
         public string[] AllProjects
         {
             get
@@ -89,7 +96,14 @@ namespace Soso.Services
 
         public void InitAllParameters()
         {
+            InitSystemParameters();
             InitSocketParameters();
+            InitSerialPortParameters();
+        }
+
+        public void InitSystemParameters()
+        {
+            InitObjectFromXml(ref _systemParameters, SystemParameterPath, "Param");
         }
 
         public void InitSocketParameters()
@@ -98,10 +112,13 @@ namespace Soso.Services
             InitObjectFromXml(ref _socketClientParameters, CommunicateParameterPath, "Client");
         }
 
-        private void InitObjectFromXml<T>(ref List<T> socketList, string filePath, string elementName) where T : new()
+        public void InitSerialPortParameters()
         {
-            socketList = new List<T>();
+            InitObjectFromXml(ref _serialPortParameters, CommunicateParameterPath, "SerialPort");
+        }
 
+        private void InitObjectFromXml<T>(ref List<T> paramList, string filePath, string elementName) where T : new()
+        {
             XmlHelp xmlHelp = new XmlHelp(filePath);
             var xelements = xmlHelp.GetXElements(elementName, true);
 
@@ -111,28 +128,40 @@ namespace Soso.Services
                 throw new Exception($"File {filePath}, Not Exist Server Node!");
             }
 
+            if (paramList != null && paramList.Count() != xelements.Count())
+            {
+                return;
+            }
+            else
+            {
+                paramList = new List<T>();
+            }
+
             foreach (var xElement in xelements)
             {
                 var result = xmlHelp.GetKeyValuesFromXElementAttributes(xElement);
-                var param = new T();
+                T param;// = new T();
                 if (ConvertDataToT(result, elementName, out param))
                 {
-                    socketList.Add(param);
+                    paramList.Add(param);
                 }
             }
         }
 
         private bool ConvertDataToT<T>(Dictionary<string, string> data, string node, out T instance) where T : new()
         {
-            bool result = false;
-            instance = (T)Activator.CreateInstance(typeof(T));
+            instance = new T();// (T)Activator.CreateInstance(typeof(T));
 
             foreach (var item in typeof(T).GetProperties())
             {
+                if (!item.CanWrite)
+                {
+                    continue;
+                }
+
                 string value;
                 if (!data.TryGetValue(item.Name, out value))
                 {
-                    result = false;
                     throw new Exception($"File {CommunicateParameterPath} {node} Node Not Exist {item.Name} Attribute!");
                 }
 
@@ -142,7 +171,6 @@ namespace Soso.Services
                     int intValue;
                     if (!int.TryParse(value, out intValue))
                     {
-                        result = false;
                         throw new Exception($"File {CommunicateParameterPath} {node} Node {item.Name} Attribute's Value Error!");
                     }
                     item.SetValue(instance, intValue);
@@ -152,7 +180,6 @@ namespace Soso.Services
                     bool boolValue;
                     if (!bool.TryParse(value, out boolValue))
                     {
-                        result = false;
                         throw new Exception($"File {CommunicateParameterPath} {node} Node {item.Name} Attribute's Value Error!");
                     }
                     item.SetValue(instance, boolValue);
@@ -162,9 +189,8 @@ namespace Soso.Services
                     item.SetValue(instance, value);
                 }
             }
-            result = true;
 
-            return result;
+            return true;
         }
     }
 }
