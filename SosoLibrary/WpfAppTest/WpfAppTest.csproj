@@ -55,20 +55,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Soso.Common, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Soso.Common.1.0.1\lib\netstandard2.0\Soso.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Soso.Communicate, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Soso.Communicate.1.0.2\lib\netstandard2.0\Soso.Communicate.dll</HintPath>
-    </Reference>
-    <Reference Include="Soso.Contract, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Soso.Contract.1.0.2\lib\netstandard2.0\Soso.Contract.dll</HintPath>
-    </Reference>
     <Reference Include="Soso.Log, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Soso.Log.1.0.2\lib\netstandard2.0\Soso.Log.dll</HintPath>
-    </Reference>
-    <Reference Include="Soso.Services, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Soso.Services.1.0.2\lib\netstandard2.0\Soso.Services.dll</HintPath>
     </Reference>
     <Reference Include="SuperSocket.ClientEngine, Version=0.10.0.0, Culture=neutral, PublicKeyToken=ee9af13f57f00acc, processorArchitecture=MSIL">
       <HintPath>..\packages\SuperSocket.ClientEngine.0.10.0\lib\net45\SuperSocket.ClientEngine.dll</HintPath>
@@ -112,6 +100,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.PerformanceCounter, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.PerformanceCounter.8.0.0\lib\net462\System.Diagnostics.PerformanceCounter.dll</HintPath>
     </Reference>
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
@@ -273,6 +264,20 @@
     <None Include="Config\Default\CommunicateParameters.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Soso.Common\Soso.Common.csproj">
+      <Project>{f66db471-2d87-434e-b327-d2d699236d58}</Project>
+      <Name>Soso.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soso.Contract\Soso.Contract.csproj">
+      <Project>{7df52602-e373-448a-81e5-ec5ea860d4ab}</Project>
+      <Name>Soso.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soso.Services\Soso.Services.csproj">
+      <Project>{386fe6d5-daed-4a24-a3ff-90b72ae63ab4}</Project>
+      <Name>Soso.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\CommunityToolkit.Mvvm.8.2.2\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('..\packages\CommunityToolkit.Mvvm.8.2.2\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />

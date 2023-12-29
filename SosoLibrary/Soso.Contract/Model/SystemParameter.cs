@@ -16,22 +16,95 @@
  * 描述：
  *
  * ----------------------------------------------------------------
- * 修改人：
- * 时间：
+ * 修改人：王飞箭 wangfeijian
+ * 时间：2023/12/29
  * 修改说明：
+ * 1、增加验证类GreaterThan和LessThan
+ * 2、增加Value值在赋值时的验证
  *
  * 版本：V1.0.1
  *----------------------------------------------------------------*/
 #endregion << 版 本 注 释 >>
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Soso.Contract.Model
 {
-    public partial class SystemParameter : ObservableObject
+    public sealed class GreaterThanAttribute : ValidationAttribute
     {
+        public GreaterThanAttribute(string propertyName)
+        {
+            PropertyName = propertyName;
+        }
+
+        public string PropertyName { get; }
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            object instance = validationContext.ObjectInstance,
+                otherValue = instance.GetType().GetProperty(PropertyName).GetValue(instance);
+
+            double min, doubleValue;
+
+            if (double.TryParse(value.ToString(), out doubleValue))
+            {
+                if (double.TryParse(otherValue.ToString(), out min))
+                {
+                    if (doubleValue >= min)
+                    {
+                        return ValidationResult.Success;
+                    }
+
+                    return new($"The current value:{doubleValue} is smaller than the min value{min}");
+                }
+            }
+            return ValidationResult.Success;
+
+        }
+    }
+
+    public sealed class LessThanAttribute : ValidationAttribute
+    {
+        public LessThanAttribute(string propertyName)
+        {
+            PropertyName = propertyName;
+        }
+
+        public string PropertyName { get; }
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            object instance = validationContext.ObjectInstance,
+                otherValue = instance.GetType().GetProperty(PropertyName).GetValue(instance);
+
+            double max, doubleValue;
+
+            if (double.TryParse(value.ToString(), out doubleValue))
+            {
+                if (double.TryParse(otherValue.ToString(), out max))
+                {
+                    if (doubleValue <= max)
+                    {
+                        return ValidationResult.Success;
+                    }
+
+                    return new($"The current value:{doubleValue} is bigger than the max value:{max}");
+                }
+            }
+            return ValidationResult.Success;
+
+        }
+    }
+
+    public delegate void ValueChangedHandler(string key, string oldValue, string newValue);
+
+    public partial class SystemParameter : ObservableValidator
+    {
+        public event ValueChangedHandler ValueChanged;
         public string Key { get; private set; }
-        public string Value { get; set; }
+
         public string Description { get; private set; }
         public string EnglishDescription { get; private set; }
         public string MaxValue { get; private set; }
@@ -48,6 +121,40 @@ namespace Soso.Contract.Model
             {
                 return LangType == 0 ? Description : EnglishDescription;
             }
+        }
+
+        private IReadOnlyCollection<ValidationResult> _validationResults;
+        private string _value;
+        [GreaterThan(nameof(MinValue))]
+        [LessThan(nameof(MaxValue))]
+        public string Value
+        {
+            get => _value;
+            set
+            {
+                string oldValue = _value;
+                if (_value != value)
+                {
+                    if (TrySetProperty(ref _value, value, out _validationResults))
+                    {
+                        ValueChanged?.Invoke(Key, oldValue, value);
+                    }
+                }
+            }
+        }
+
+        public bool ValueSetSucess(out List<string> msg)
+        {
+            msg = new List<string>();
+            if (_validationResults != null && _validationResults.Count > 0)
+            {
+                foreach (ValidationResult validationResult in _validationResults)
+                {
+                    msg.Add(validationResult.ErrorMessage);
+                }
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -3,6 +3,9 @@
     <SystemParam>
         <Param>
             <Param Key="IdleTime" Value="10" Units="min" Description="无操作自动转为OP模式时间" EnglishDescription="Idle switch to OP mode time" MinValue="1" MaxValue="60" AuthorityLevel="3" LangType="0"/>
+            <Param Key="EnablePLC" Value="1" Units="/" Description="是否启用PLC 1-启用 0-不启用" EnglishDescription="Enable PLC 1-enable 2-disable" MinValue="0" MaxValue="1" AuthorityLevel="3" LangType="0"/>
+            <Param Key="AxisSpeedPercent" Value="50" Units="%" Description="轴速度百分比" EnglishDescription="Axis speed percent" MinValue="1" MaxValue="100" AuthorityLevel="3" LangType="0"/>
+            <Param Key="Version" Value="1.0.0.1" Units="/" Description="软件版本" EnglishDescription="SoftWare version" MinValue="" MaxValue="" AuthorityLevel="3" LangType="0"/>
         </Param>
     </SystemParam>
 </root>

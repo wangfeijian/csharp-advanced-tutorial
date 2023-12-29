@@ -192,5 +192,15 @@ namespace Soso.Services
 
             return true;
         }
+
+        public void SaveSystemParameterXml(string key, string value)
+        {
+            XmlHelp xmlHelp = new XmlHelp(SystemParameterPath);
+            var element = xmlHelp.GetXElements("Param", true, "Key", key).First();
+            var keyValue = xmlHelp.GetKeyValuesFromXElementAttributes(element);
+            keyValue["Value"] = value;
+
+            xmlHelp.UpdateXElementAttribute(element, keyValue);
+        }
     }
 }

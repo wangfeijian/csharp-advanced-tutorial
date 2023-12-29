@@ -13,10 +13,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="Config\Default\SystemParameters.xml" />
-    </ItemGroup>
-
-    <ItemGroup>
         <XamlAppDef Include="Config\Default\SystemParameters.xml">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </XamlAppDef>

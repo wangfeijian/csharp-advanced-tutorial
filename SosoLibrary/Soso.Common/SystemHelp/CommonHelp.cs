@@ -324,6 +324,7 @@ namespace Soso.Common.SystemHelp
         /// <returns></returns>
         public static float GetCpuUsedPercent()
         {
+            _cpuPerformance.NextValue();
             return _cpuPerformance.NextValue();
         }
 
@@ -334,6 +335,7 @@ namespace Soso.Common.SystemHelp
         /// <returns>单位</returns>
         public static string GetRamUsed(ref double size)
         {
+            _ramPerformance.NextValue();
             size = _ramPerformance.NextValue();
             string units = "B";
             ByteConvert(ref size, ref units);
