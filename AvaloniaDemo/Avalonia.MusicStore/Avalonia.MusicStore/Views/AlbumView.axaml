@@ -2,7 +2,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Avalonia.MusicStore.ViewModels"
+             x:DataType="vm:AlbumViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Width="200"
              x:Class="Avalonia.MusicStore.Views.AlbumView">
-    Welcome to Avalonia!
+    <StackPanel Spacing="5" Width="200">
+        <Border CornerRadius="10" ClipToBounds="True">
+            <Panel Background="#7fff22dd">
+                <Image Source="{Binding Cover}" Width="200" Stretch="Uniform"
+                       IsVisible="{Binding Cover, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                <Panel Height="200">
+                    <PathIcon Height="75" Width="75" Data="{StaticResource music_regular}"/>
+                </Panel>
+            </Panel>
+        </Border>
+        <TextBlock HorizontalAlignment="Center" Text="{Binding Title}"/>
+        <TextBlock HorizontalAlignment="Center" Text="{Binding Artist}"/>
+    </StackPanel>
+    
 </UserControl>

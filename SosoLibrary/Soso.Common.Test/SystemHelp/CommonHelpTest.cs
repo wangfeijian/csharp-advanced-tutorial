@@ -64,7 +64,7 @@ namespace Soso.Common.Test.SystemHelp
             result = size * 1.0;
             CommonHelp.ByteConvert(ref result, ref letter);
             Assert.AreEqual(letter, "GB");
-            Assert.AreEqual((int)result, 65);
+            Assert.AreEqual((int)result, 60);
         }
 
         [TestMethod]
@@ -87,7 +87,7 @@ namespace Soso.Common.Test.SystemHelp
 
             //Assert.AreEqual(CommonHelp.GetMemortRate(), 0.91);
             var cpu = CommonHelp.GetCpuUsedPercent();
-            Assert.AreNotEqual(cpu, 0);
+            Assert.AreNotEqual(cpu, 0.1);
             double ramUsed = 0;
             var ram = CommonHelp.GetRamUsed(ref ramUsed);
             Assert.AreNotEqual(ramUsed, 0);

@@ -16,9 +16,10 @@
  * 描述：
  * 
  * ----------------------------------------------------------------
- * 修改人：
- * 时间：
+ * 修改人：王飞箭
+ * 时间：2024/01/05
  * 修改说明：
+ * 1、修改ClearMemory中-1的输入方式为unchecked((nuint)(-1))
  *
  * 版本：V1.0.1
  *----------------------------------------------------------------*/
@@ -292,7 +293,7 @@ namespace Soso.Common.SystemHelp
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
 
-                    PInvoke.SetProcessWorkingSetSize((Windows.Win32.Foundation.HANDLE)Process.GetCurrentProcess().Handle, -1, -1);
+                    PInvoke.SetProcessWorkingSetSize((Windows.Win32.Foundation.HANDLE)Process.GetCurrentProcess().Handle, unchecked((nuint)(-1)), unchecked((nuint)(-1)));
                 }
 
             }
@@ -312,7 +313,7 @@ namespace Soso.Common.SystemHelp
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
 
-                    PInvoke.SetProcessWorkingSetSize((Windows.Win32.Foundation.HANDLE)Process.GetCurrentProcess().Handle, -1, -1);
+                    PInvoke.SetProcessWorkingSetSize((Windows.Win32.Foundation.HANDLE)Process.GetCurrentProcess().Handle, unchecked((nuint)(-1)), unchecked((nuint)(-1)));
                 }
 
             }

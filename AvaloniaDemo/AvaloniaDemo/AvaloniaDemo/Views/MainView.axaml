@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaDemo.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+             x:Class="AvaloniaDemo.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+    <UserControl.Styles>
+        <Style Selector="TextBlock.h1">
+            <Setter Property="FontSize" Value="24"/>
+        </Style>
+    </UserControl.Styles>
+    <StackPanel>
+        <Border Margin="5" CornerRadius="5" Background="LightBlue">            
+        <TextBlock Classes="h1" Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <Grid ShowGridLines="True" Margin="5" ColumnDefinitions="120,100" RowDefinitions="Auto,Auto,Auto">
+            <Label>Celsius</Label>
+            <TextBox Grid.Column="1" Text="{Binding Celsius, Mode=TwoWay}"/>
+            <Label Grid.Row="1">Fahrenheit</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Fahrenheit, Mode=OneWay}"/>
+            <Button Command="{Binding CalcCommand}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Calculate" />
+        </Grid>
+    </StackPanel>    
+</UserControl>

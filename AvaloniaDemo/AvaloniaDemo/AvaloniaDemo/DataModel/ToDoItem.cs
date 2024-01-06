@@ -1,17 +1,17 @@
 ﻿#region << 版 本 注 释 >>
 /*----------------------------------------------------------------
- * 版权所有 (c) 2023 wangfeijian 保留所有权利。
+ * 版权所有 (c) 2024 wangfeijian 保留所有权利。
  * CLR版本：4.0.30319.42000
  * 机器名称：WANGFEIJIAN
  * 公司名称：wangfeijian
- * 命名空间：Soso.Log
- * 唯一标识：f274ab35-adab-4504-b435-86ae44e1a092
- * 文件名：LogStruct
+ * 命名空间：AvaloniaDemo.DataModel
+ * 唯一标识：a33c49fb-f8e9-4b1f-b56d-ef4bb0378828
+ * 文件名：ToDoItem
  * 当前用户域：WANGFEIJIAN
  * 
  * 创建者：王飞箭 wangfeijian
  * 电子邮箱：wangfeijianhao@163.com
- * 创建时间：6/21/2023 1:24:01 PM
+ * 创建时间：1/3/2024 12:59:11 PM
  * 版本：V1.0.0
  * 描述：
  *
@@ -24,14 +24,11 @@
  *----------------------------------------------------------------*/
 #endregion << 版 本 注 释 >>
 
-#nullable enable
-using Soso.Contract;
-
-namespace Soso.Log
+namespace AvaloniaDemo.DataModel
 {
-    public class LogStruct
+    public class ToDoItem
     {
-        public string? Message { get; set; }
-        public LogLevel Level { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public bool IsChecked { get; set; }
     }
 }
