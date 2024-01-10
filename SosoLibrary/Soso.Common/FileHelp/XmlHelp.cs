@@ -24,6 +24,7 @@
  *----------------------------------------------------------------*/
 #endregion << 版 本 注 释 >>
 
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,7 +47,7 @@ namespace Soso.Common.FileHelp
         #region Field
         private readonly string _fileName;
         private readonly XDocument _document;
-        private readonly bool _isCreateNew = false;
+        private readonly bool _isCreateNew;
         #endregion
 
         #region Ctor
@@ -415,7 +416,7 @@ namespace Soso.Common.FileHelp
             {
                 element.RemoveAll();
             }
-            else if (attributes!.Count > 0)
+            else if (attributes.Count > 0)
             {
                 foreach (var attr in attributes)
                 {

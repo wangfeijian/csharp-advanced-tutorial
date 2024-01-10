@@ -31,6 +31,7 @@
  *----------------------------------------------------------------*/
 #endregion << 版 本 注 释 >>
 
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -83,11 +84,11 @@ namespace Soso.Common.FileHelp
                     }
                     else
                     {
-                        File.AppendAllLines(fileFullName, new string[] { title }, Encoding.UTF8);
+                        File.AppendAllLines(fileFullName, new[] { title }, Encoding.UTF8);
                     }
                 }
 
-                File.AppendAllLines(fileFullName, new string[] { content }, Encoding.UTF8);
+                File.AppendAllLines(fileFullName, new[] { content }, Encoding.UTF8);
 
             }
             catch (Exception ex)
@@ -111,11 +112,11 @@ namespace Soso.Common.FileHelp
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FileNotFoundException"/>
         /// <exception cref="FileLoadException"/>
-        public static async Task<DataTable?> LoadCSVToDataTableAsync(string fileName)
+        public static async Task<DataTable?> LoadCsvToDataTableAsync(string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
             {
-                throw new ArgumentNullException("The file name cannot be empty or null!");
+                throw new ArgumentNullException($"The file {fileName} cannot be empty or null!");
             }
 
             if (!File.Exists(fileName))
@@ -138,8 +139,7 @@ namespace Soso.Common.FileHelp
                         string? headers = await read.ReadLineAsync();
                         AddHeaderToDataTable(dt, headers);
 
-                        string? line = null;
-                        while ((line = await read.ReadLineAsync()) != null)
+                        while (await read.ReadLineAsync() is { } line)
                         {
                             AddRowDataToDataTable(dt, line);
                         }
@@ -151,7 +151,6 @@ namespace Soso.Common.FileHelp
             catch (Exception)
             {
                 return null;
-                throw;
             }
         }
 
@@ -168,7 +167,7 @@ namespace Soso.Common.FileHelp
         /// <param name="isOverlay">是否覆盖存在文件</param>
         /// <param name="errorInfo">错误信息</param>
         /// <returns>是否成功，成功返回<see langword="true"/>, 失败返回<see langword="false"/></returns>
-        public static bool SaveDataTableToCSV(DataTable dt, string path, string fileName, out string errorInfo, bool isOverlay = false)
+        public static bool SaveDataTableToCsv(DataTable dt, string path, string fileName, out string errorInfo, bool isOverlay = false)
         {
             errorInfo = string.Empty;
 
@@ -203,17 +202,17 @@ namespace Soso.Common.FileHelp
                 // 将DataTable中的Columns表头转为string数组
                 var columns = dt.Columns.Cast<object>().ToList().Select(item => item.ToString());
 
-                File.AppendAllLines(fileFullName, new string[] { string.Join(",", columns) }, Encoding.UTF8);
+                File.AppendAllLines(fileFullName, new[] { string.Join(",", columns) }, Encoding.UTF8);
 
                 foreach (var item in dt.Rows)
                 {
                     // 将DataTable中的Rows数据转为string数组
                     var dataRow = item as DataRow;
-                    var rows = dataRow?.ItemArray.Select(item => item?.ToString());
+                    var rows = dataRow?.ItemArray.Select(data => data?.ToString());
 
                     if (rows != null)
                     {
-                        File.AppendAllLines(fileFullName, new string[] { string.Join(",", rows) }, Encoding.UTF8);
+                        File.AppendAllLines(fileFullName, new[] { string.Join(",", rows) }, Encoding.UTF8);
                     }
                 }
             }
@@ -231,15 +230,17 @@ namespace Soso.Common.FileHelp
         {
             if (string.IsNullOrEmpty(headerStr))
             {
-                throw new ArgumentNullException("The datatable's headers cannot be empty or null!");
+                throw new ArgumentNullException($"The datatable's headers cannot be empty or null!");
             }
 
-            var headers = headerStr.Split(',');
-            foreach (var header in headers)
+            var headers = headerStr?.Split(',');
+            if (headers != null)
             {
-                dt.Columns.Add(header);
+                foreach (var header in headers)
+                {
+                    dt.Columns.Add(header);
+                }
             }
-
         }
 
         private static void AddRowDataToDataTable(DataTable dt, string rowStr)

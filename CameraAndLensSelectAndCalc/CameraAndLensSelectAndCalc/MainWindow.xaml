@@ -611,11 +611,21 @@
                                 Margin="5"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="{Binding LensData.Model, StringFormat=型号：{0}}" />
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
                             <TextBlock
-                                Grid.Row="2"
                                 Margin="5"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="{Binding LensData.FocalLength, StringFormat=焦距：{0}}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="5"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding RingLength, StringFormat=接圈长度：{0} mm}" />
+                            </Grid>
                             <TextBlock
                                 Grid.Row="3"
                                 Margin="5"

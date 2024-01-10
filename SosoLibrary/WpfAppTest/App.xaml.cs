@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Soso.Contract;
 using Soso.Contract.Interface;
 using Soso.Log;
@@ -37,5 +38,4 @@ namespace WpfAppTest
             base.OnStartup(e);
         }
     }
-
 }

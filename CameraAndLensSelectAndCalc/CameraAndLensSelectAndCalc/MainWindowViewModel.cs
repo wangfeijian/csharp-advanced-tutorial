@@ -221,6 +221,13 @@ namespace CameraAndLensSelectAndCalc
             set { _chipHeight = value; NotifyPropertyChange(nameof(ChipHeight)); }
         }
 
+        private int _ringLength;
+
+        public int RingLength
+        {
+            get => _ringLength;
+            set { _ringLength = value; NotifyPropertyChange(nameof(RingLength)); }
+        }
         private double _pixelAccuracy;
 
         public double PixelAccuracy
@@ -303,10 +310,14 @@ namespace CameraAndLensSelectAndCalc
             // 镜头焦距
             cell = sheet.GetRow(20).GetCell(2);
             cell.SetCellValue(FocalLength);
-
+            
             // 物距
             cell = sheet.GetRow(23).GetCell(2);
             cell.SetCellValue(WorkingDistance);
+
+            // 接圈长度
+            cell = sheet.GetRow(24).GetCell(2);
+            cell.SetCellValue(RingLength);
 
             // 视野宽高
             cell = sheet.GetRow(37).GetCell(1);
@@ -527,7 +538,7 @@ namespace CameraAndLensSelectAndCalc
             double width = double.Parse(ViewCalcWidth);
             double times = ChipWidth / width;
             double height = ChipHeight / times;
-            double focalLength = _fLength / times + _fLength;
+            double focalLength = _fLength / times;
 
             ViewCalcTimes = Math.Round(times, 6).ToString();
             ViewCalcHeight = Math.Round(height, 2).ToString();
@@ -547,7 +558,7 @@ namespace CameraAndLensSelectAndCalc
             double height = double.Parse(ViewCalcHeight);
             double times = ChipHeight / height;
             double width = ChipWidth / times;
-            double focalLength = _fLength / times + _fLength;
+            double focalLength = _fLength / times;
 
             ViewCalcTimes = Math.Round(times, 6).ToString();
             ViewCalcWidth = Math.Round(width, 2).ToString();
@@ -566,7 +577,7 @@ namespace CameraAndLensSelectAndCalc
             double times = double.Parse(ViewCalcTimes);
             double width = ChipWidth / times;
             double height = ChipHeight / times;
-            double focalLength = _fLength / times + _fLength;
+            double focalLength = _fLength / times;
 
             ViewCalcWidth = Math.Round(width, 2).ToString();
             ViewCalcHeight = Math.Round(height, 2).ToString();
@@ -592,8 +603,15 @@ namespace CameraAndLensSelectAndCalc
 
             if (_workingDis > WorkingDistance)
             {
-                MessageBox.Show("镜头最小工作距离大于核算出来的工作距离，相机和镜头不匹配，请确认相机或镜头型号！");
-                return;
+                MessageBox.Show("镜头最小工作距离大于核算出来的工作距离，相机和镜头不匹配，请确认相机或镜头型号或者添加接圈！");
+                double actualTimes = double.Parse(ViewCalcTimes);
+                double minTimes = double.Parse(LensData.FocalLength) / double.Parse(LensData.WorkingDistance);
+                double changeTime = actualTimes - minTimes;
+                RingLength = (int)Math.Round(changeTime * double.Parse(LensData.FocalLength));
+            }
+            else
+            {
+                RingLength = 0;
             }
         }
 

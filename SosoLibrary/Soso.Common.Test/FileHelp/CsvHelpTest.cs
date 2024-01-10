@@ -57,15 +57,15 @@ namespace Soso.Common.Test.FileHelp
             _ = CsvHelp.SaveToCsvFile(_path, _fileName, "1,2,3,4", out string error, "First,Second,Third,Forth");
             _ = CsvHelp.SaveToCsvFile(_path, _fileName, "5,6,7,8", out error);
 
-            var result = CsvHelp.LoadCSVToDataTableAsync(Path.Combine(_path, _fileName) + ".csv").Result;
+            var result = CsvHelp.LoadCsvToDataTableAsync(Path.Combine(_path, _fileName) + ".csv").Result;
 
-            Assert.IsFalse(CsvHelp.SaveDataTableToCSV(result, _path, _fileName, out error));
+            Assert.IsFalse(CsvHelp.SaveDataTableToCsv(result, _path, _fileName, out error));
             Assert.AreEqual("File exists, please confirm is overlay!", error);
 
-            Assert.IsTrue(CsvHelp.SaveDataTableToCSV(result, _path, _fileName, out error, true));
+            Assert.IsTrue(CsvHelp.SaveDataTableToCsv(result, _path, _fileName, out error, true));
             Assert.AreEqual("Data saved successfully!", error);
 
-            var dataResult = CsvHelp.LoadCSVToDataTableAsync(Path.Combine(_path, _fileName) + ".csv").Result;
+            var dataResult = CsvHelp.LoadCsvToDataTableAsync(Path.Combine(_path, _fileName) + ".csv").Result;
             string[] headers = { "First", "Second", "Third", "Forth" };
 
             Assert.AreEqual(4, dataResult.Columns.Count);
@@ -87,14 +87,14 @@ namespace Soso.Common.Test.FileHelp
         [TestMethod]
         public void LoadCSVToDataTableAsyncTest()
         {
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => CsvHelp.LoadCSVToDataTableAsync(""));
-            Assert.ThrowsExceptionAsync<FileNotFoundException>(() => CsvHelp.LoadCSVToDataTableAsync(Path.Combine(_path, _fileName)));
-            Assert.ThrowsExceptionAsync<FileLoadException>(() => CsvHelp.LoadCSVToDataTableAsync(@"D:\stpd.dll"));
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => CsvHelp.LoadCsvToDataTableAsync(""));
+            Assert.ThrowsExceptionAsync<FileNotFoundException>(() => CsvHelp.LoadCsvToDataTableAsync(Path.Combine(_path, _fileName)));
+            Assert.ThrowsExceptionAsync<FileLoadException>(() => CsvHelp.LoadCsvToDataTableAsync(@"D:\stpd.dll"));
 
             _ = CsvHelp.SaveToCsvFile(_path, _fileName, "1,2,3,4", out string error, "First,Second,Third,Forth");
             _ = CsvHelp.SaveToCsvFile(_path, _fileName, "5,6,7,8", out error);
 
-            var result = CsvHelp.LoadCSVToDataTableAsync(Path.Combine(_path, _fileName) + ".csv").Result;
+            var result = CsvHelp.LoadCsvToDataTableAsync(Path.Combine(_path, _fileName) + ".csv").Result;
             string[] headers = { "First", "Second", "Third", "Forth" };
 
             Assert.AreEqual(4, result.Columns.Count);

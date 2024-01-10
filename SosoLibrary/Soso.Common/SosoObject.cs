@@ -25,6 +25,7 @@
 #endregion << 版 本 注 释 >>
 
 
+#nullable enable
 using System;
 using System.Data;
 
@@ -41,7 +42,7 @@ namespace Soso.Common
     public class SosoObject : ICloneable, IComparable, IComparable<SosoObject>, IEquatable<SosoObject>
     {
         private object _value;
-
+        const double Tolerance = 0.00000001;
         #region Ctor
 
         /// <summary>
@@ -159,13 +160,7 @@ namespace Soso.Common
         /// <summary>
         /// 是否为空或者空白
         /// </summary>
-        public bool IsNullOrEmpty
-        {
-            get
-            {
-                return _value == null ? true : string.IsNullOrEmpty(S);
-            }
-        }
+        public bool IsNullOrEmpty => string.IsNullOrEmpty(S);
 
         #endregion
 
@@ -192,7 +187,7 @@ namespace Soso.Common
 
             if (obj == null)
             {
-                throw new ArgumentNullException("Parameter is not SosoObject!!");
+                throw new ArgumentNullException($"Parameter is not SosoObject!!");
             }
 
             if (double.TryParse(obj.ToString(), out double value) && IsNumber)
@@ -200,7 +195,7 @@ namespace Soso.Common
                 return D.CompareTo(value);
             }
 
-            return S.CompareTo(obj.ToString());
+            return String.Compare(S, obj.ToString(), StringComparison.CurrentCulture);
         }
 
         /// <inheritdoc/>
@@ -224,7 +219,7 @@ namespace Soso.Common
             }
             else
             {
-                return S.CompareTo(other.S);
+                return String.Compare(S, other.S, StringComparison.CurrentCulture);
             }
         }
 
@@ -265,7 +260,7 @@ namespace Soso.Common
 
             if (obj == null)
             {
-                throw new ArgumentNullException("Parameter is not SosoObject!!");
+                throw new ArgumentNullException($"Parameter is not SosoObject!!");
             }
 
             if (double.TryParse(obj.ToString(), out double value) && IsNumber)
@@ -652,7 +647,8 @@ namespace Soso.Common
             }
             else
             {
-                return soso1.D == soso2.D;
+                
+                return Math.Abs(soso1.D - soso2.D) < Tolerance;
             }
         }
 
@@ -681,7 +677,7 @@ namespace Soso.Common
             }
             else
             {
-                return soso1.D != soso2.D;
+                return Math.Abs(soso1.D - soso2.D) > Tolerance;
             }
         }
 

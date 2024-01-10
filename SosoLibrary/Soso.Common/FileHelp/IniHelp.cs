@@ -32,6 +32,7 @@
  *----------------------------------------------------------------*/
 #endregion << 版 本 注 释 >>
 
+#nullable enable
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace Soso.Common.FileHelp
         #region Field And Properties
 
         private string _iniFileName;
-        private const uint BUFFER_LENGTH = (uint)short.MaxValue;
+        private const uint BufferLength = (uint)short.MaxValue;
 
         /// <summary>
         /// 文件路径
@@ -127,7 +128,7 @@ namespace Soso.Common.FileHelp
         /// <param name="key">键值</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns>获取的键值</returns>
-        public string ReadString(string? section, string? key, string? defaultValue = "")
+        public string? ReadString(string? section, string? key, string? defaultValue = "")
         {
             if (string.IsNullOrWhiteSpace(section) || string.IsNullOrWhiteSpace(key))
             {
@@ -138,9 +139,9 @@ namespace Soso.Common.FileHelp
 
             unsafe
             {
-                fixed (char* tempStr = new char[BUFFER_LENGTH])
+                fixed (char* tempStr = new char[BufferLength])
                 {
-                    var byteReturn = PInvoke.GetPrivateProfileString(section, key, defaultValue, tempStr, BUFFER_LENGTH, _iniFileName);
+                    var byteReturn = PInvoke.GetPrivateProfileString(section, key, defaultValue, tempStr, BufferLength, _iniFileName);
 
                     if (byteReturn != 0)
                     {
@@ -301,7 +302,7 @@ namespace Soso.Common.FileHelp
         /// <returns>对象实例</returns>
         public T? ReadObject<T>(string section, string key)
         {
-            string str = ReadString(section, key);
+            string str = ReadString(section, key)!;
             if (typeof(string) == typeof(T))
             {
                 str = "\"" + str + "\"";
@@ -323,9 +324,9 @@ namespace Soso.Common.FileHelp
 
             unsafe
             {
-                fixed (char* tempStr = new char[BUFFER_LENGTH])
+                fixed (char* tempStr = new char[BufferLength])
                 {
-                    var byteReturn = PInvoke.GetPrivateProfileSectionNames(tempStr, BUFFER_LENGTH, _iniFileName);
+                    var byteReturn = PInvoke.GetPrivateProfileSectionNames(tempStr, BufferLength, _iniFileName);
 
                     if (byteReturn != 0)
                     {
@@ -366,9 +367,9 @@ namespace Soso.Common.FileHelp
 
             unsafe
             {
-                fixed (char* tempStr = new char[BUFFER_LENGTH])
+                fixed (char* tempStr = new char[BufferLength])
                 {
-                    var byteReturn = PInvoke.GetPrivateProfileSection(section, tempStr, BUFFER_LENGTH, _iniFileName);
+                    var byteReturn = PInvoke.GetPrivateProfileSection(section, tempStr, BufferLength, _iniFileName);
 
                     if (byteReturn != 0)
                     {
@@ -441,9 +442,9 @@ namespace Soso.Common.FileHelp
 
             unsafe
             {
-                fixed (char* tempStr = new char[BUFFER_LENGTH])
+                fixed (char* tempStr = new char[BufferLength])
                 {
-                    var byteReturn = PInvoke.GetPrivateProfileSectionNames(tempStr, BUFFER_LENGTH, iniFileName);
+                    var byteReturn = PInvoke.GetPrivateProfileSectionNames(tempStr, BufferLength, iniFileName);
 
                     if (byteReturn != 0)
                     {
@@ -452,7 +453,7 @@ namespace Soso.Common.FileHelp
                 }
             }
 
-            return value.Split(new char[] { '\0' }, StringSplitOptions.RemoveEmptyEntries); ;
+            return value.Split(new[] { '\0' }, StringSplitOptions.RemoveEmptyEntries); 
         }
 
         /// <summary>
@@ -497,9 +498,9 @@ namespace Soso.Common.FileHelp
 
             unsafe
             {
-                fixed (char* tempStr = new char[BUFFER_LENGTH])
+                fixed (char* tempStr = new char[BufferLength])
                 {
-                    var byteReturn = PInvoke.GetPrivateProfileSection(section, tempStr, BUFFER_LENGTH, iniFileName);
+                    var byteReturn = PInvoke.GetPrivateProfileSection(section, tempStr, BufferLength, iniFileName);
 
                     if (byteReturn != 0)
                     {
@@ -604,9 +605,9 @@ namespace Soso.Common.FileHelp
 
             unsafe
             {
-                fixed (char* tempStr = new char[BUFFER_LENGTH])
+                fixed (char* tempStr = new char[BufferLength])
                 {
-                    var byteReturn = PInvoke.GetPrivateProfileString(section, null, null, tempStr, BUFFER_LENGTH, iniFileName);
+                    var byteReturn = PInvoke.GetPrivateProfileString(section, null, null, tempStr, BufferLength, iniFileName);
 
                     if (byteReturn != 0)
                     {
@@ -714,9 +715,9 @@ namespace Soso.Common.FileHelp
 
             unsafe
             {
-                fixed (char* tempStr = new char[BUFFER_LENGTH])
+                fixed (char* tempStr = new char[BufferLength])
                 {
-                    var byteReturn = PInvoke.GetPrivateProfileString(section, key, defautValue, tempStr, BUFFER_LENGTH, iniFileName);
+                    var byteReturn = PInvoke.GetPrivateProfileString(section, key, defautValue, tempStr, BufferLength, iniFileName);
 
                     if (byteReturn != 0)
                     {

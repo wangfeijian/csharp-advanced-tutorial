@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Globalization;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Soso.Services;
 using System.Threading.Tasks;
@@ -6,9 +7,9 @@ using System.Windows;
 
 namespace WpfAppTest.ViewModel
 {
-    public partial class MainWindowViewModel : ObservableObject
+    public class MainWindowViewModel : ObservableObject
     {
-        private int _lang = 0;
+        private int _lang;
 
         private string _paramName;
         public string ParamName
@@ -21,49 +22,48 @@ namespace WpfAppTest.ViewModel
 
         public string ParamValue
         {
-            get { return _paramValue; }
-            set { SetProperty(ref _paramValue, value); }
+            get => _paramValue;
+            set => SetProperty(ref _paramValue, value);
         }
 
         public SystemServices Services { get; set; }
         public AsyncRelayCommand ChangeLanguage { get; }
-        public AsyncRelayCommand<object> GetSystemParameCommand { get; }
-        public AsyncRelayCommand<object> SetSystemParameCommand { get; }
+        public AsyncRelayCommand<object> GetSystemParamCommand { get; }
+        public AsyncRelayCommand<object> SetSystemParamCommand { get; }
         public MainWindowViewModel()
         {
             Services = SystemServices.Instance;
 
-            ChangeLanguage = new AsyncRelayCommand(async () => { _lang = _lang == 0 ? 1 : 0; SystemServices.Instance.ChangeLanguage(_lang); });
+            ChangeLanguage = new AsyncRelayCommand(() => { _lang = _lang == 0 ? 1 : 0; SystemServices.Instance.ChangeLanguage(_lang);
+                return Task.CompletedTask;
+            });
 
-            GetSystemParameCommand = new AsyncRelayCommand<object>(GetSystemParam);
-            SetSystemParameCommand = new AsyncRelayCommand<object>(SetSystemParam);
+            GetSystemParamCommand = new AsyncRelayCommand<object>(GetSystemParam);
+            SetSystemParamCommand = new AsyncRelayCommand<object>(SetSystemParam);
         }
 
-        private async Task SetSystemParam(object index)
+        private Task SetSystemParam(object index)
         {
             try
             {
                 switch (index.ToString())
                 {
                     case "0":
-                        bool b;
-                        if (!bool.TryParse(ParamValue, out b))
+                        if (!bool.TryParse(ParamValue, out var b))
                         {
                             b = false;
                         }
                         SystemServices.Instance.SetBoolSystemParam(ParamName, b);
                         break;
                     case "1":
-                        int i;
-                        if (!int.TryParse(ParamValue, out i))
+                        if (!int.TryParse(ParamValue, out var i))
                         {
                             i = 0;
                         }
                         SystemServices.Instance.SetIntSystemParam(ParamName, i);
                         break;
                     case "2":
-                        double d;
-                        if (!double.TryParse(ParamValue, out d))
+                        if (!double.TryParse(ParamValue, out var d))
                         {
                             d = 0;
                         }
@@ -78,8 +78,10 @@ namespace WpfAppTest.ViewModel
             {
                 MessageBox.Show(ex.Message);
             }
+
+            return Task.CompletedTask;
         }
-        private async Task GetSystemParam(object index)
+        private Task GetSystemParam(object index)
         {
             try
             {
@@ -93,7 +95,7 @@ namespace WpfAppTest.ViewModel
                         result = SystemServices.Instance.GetIntSystemParam(ParamName).ToString();
                         break;
                     case "2":
-                        result = SystemServices.Instance.GetDoubleSystemParam(ParamName).ToString();
+                        result = SystemServices.Instance.GetDoubleSystemParam(ParamName).ToString(CultureInfo.InvariantCulture);
                         break;
                     default:
                         result = SystemServices.Instance.GetStringSystemParam(ParamName);
@@ -105,6 +107,8 @@ namespace WpfAppTest.ViewModel
             {
                 MessageBox.Show(ex.Message);
             }
+
+            return Task.CompletedTask;
         }
     }
 }
